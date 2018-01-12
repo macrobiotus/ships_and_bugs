@@ -2,8 +2,7 @@
 
 # 12.01.2018 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
-# Wrapper for Qiime2 import script, manifest file must be available.
-# More info at https://docs.qiime2.org/2017.10/tutorials/importing/
+# Wrapper for Qiime2 import script
 
 # For debugging only
 # ------------------ 
@@ -15,23 +14,20 @@
 # ----------------------------------------
 if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on remote...\n"
-    # trpth="/data/..."
+    # trpth="/data/CU_inter_intra"
     echo "Parent directory not yet defined"
     exit
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     printf "Setting qiime alias, execution on local...\n"
     trpth="$(dirname "$PWD")"
-    qiime2cli() { qiime "$@"; }
-    inpth='Zenodo/Manifest/05_manifest_local.txt'
+    qiime2cli() { qiime "$@"; }    
 fi
 
-otpth='Zenodo/Qiime/040_18S_paired-end-import.qza'
+inpth='Zenodo/Qiime/042_18S_paired-end-trimmed.qza'
+otpth='Zenodo/Qiime/045_18S_demux-check.qzv'
 
-# Run import script
-# -----------------------------
-qiime2cli tools import \
-  --type 'SampleData[PairedEndSequencesWithQuality]' \
-  --input-path  "$trpth"/"$inpth" \
-  --output-path "$trpth"/"$otpth" \
-  --source-format PairedEndFastqManifestPhred33
-
+# Run script
+# ----------
+qiime2cli demux summarize \
+  --i-data "$trpth"/"$inpth" \
+  --o-visualization "$trpth"/"$otpth"
