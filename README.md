@@ -19,9 +19,10 @@ with the old sequence data. This folder was created 11.01.2018 and last updated
    *  completed `042_cut_adapt.sh` - tried 1,2,3 adapter orientations, checked `.fastq`. R1 reads are primer-free, since primers are in sequencing primers (?). 
    Thus checking for remnants of primers instead, as documented in script itself. 
    *  adjusted transport scripts and committed
-   * started `042_cut_adapt.sh` and logging output in `/Zenodo/Qiime/042_log.txt`
+   * started `042_cut_adapt.sh` and logging output in `/Zenodo/Qiime/042_log.txt`. Re-run may be necessary later.
    
 ## Todo
+* rerun `044_chk_demux.sh`
 * check which files are necessary in the `Manifest` folder.
 * is file `050_chk_metad.sh` necessary?
 

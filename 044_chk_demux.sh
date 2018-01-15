@@ -24,7 +24,7 @@ elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
 fi
 
 inpth='Zenodo/Qiime/042_18S_paired-end-trimmed.qza'
-otpth='Zenodo/Qiime/045_18S_demux-check.qzv'
+otpth='Zenodo/Qiime/044_18S_demux-check.qzv'
 
 # Run script
 # ----------
