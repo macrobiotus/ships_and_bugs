@@ -3,7 +3,7 @@
 First look at sequence data arriving 11.01.2018. Needed to see if approach is successful.
 If so, 18S data can be generated on large scale. This data also needs to be combined
 with the old sequence data. This folder was created 11.01.2018 and last updated
-11.01.2018. The GitHub folder is version tracked.
+16.01.2018 (last edits on cluster scratch). The GitHub folder is version tracked.
 
 ## Progress notes
 
@@ -20,12 +20,21 @@ with the old sequence data. This folder was created 11.01.2018 and last updated
    Thus checking for remnants of primers instead, as documented in script itself. 
    *  adjusted transport scripts and committed
    * started `042_cut_adapt.sh` and logging output in `/Zenodo/Qiime/042_log.txt`. Re-run may be necessary later.
+* **15.01.2017**
+   * ran `demux summarize` of script `044_[...]`  - mean 1177340 sequences / sample, total 20014787 sequences
+   * `050_show_metadata.sh` only converts metadata file to Qiime visualisation
+* **16.01.2017**
+   * copied and adjusted `060_dns_paired_dada2.sh`
+   * copied all files to cluster and then to workdir
+   * running `060_dns_paired_dada2` on cluster (now Qiime version 17.12)
+* **18.01.2017**
+  * demultiplxing done
+  * created, adjusted and run `070_smr_features_and_table` (on cluster)
+
    
 ## Todo
-* rerun `044_chk_demux.sh`
+* rerun `050_show_metadata.sh` with tabulated metadata file (not yet run)
 * check which files are necessary in the `Manifest` folder.
-* is file `050_chk_metad.sh` necessary?
-
 
 ## Relevant Repository contents:
 
@@ -33,6 +42,7 @@ with the old sequence data. This folder was created 11.01.2018 and last updated
 *  `040_imp_qiime.sh` - import demultiplexed `fastq` files
 *  `042_cut_adapt.sh` - read trimming (by trimming everything before the linkers
 *  `044_chk_demux.sh` - read counts and quality check of demultiplexed reads
+*  [incomplete]
 
 ### Folders
 * `CU_Pearl_Harbour/Github` - analysis scripts
