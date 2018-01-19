@@ -29,7 +29,7 @@ inpth_rep='Zenodo/Qiime/060_18S_represe_seqs.qza'
 otpth_tab='Zenodo/Qiime/070_18S_sum_feature_table.qzv'
 otpth_rep='Zenodo/Qiime/070_18S_sum_represe_seqs.qzv'
 
-inpth_map='Zenodo/Manifest/05_metadata.txt'
+inpth_map='Zenodo/Manifest/05_metadata.tsv'
 
 # run script
 # ----------

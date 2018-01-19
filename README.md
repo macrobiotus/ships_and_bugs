@@ -3,7 +3,7 @@
 First look at sequence data arriving 11.01.2018. Needed to see if approach is successful.
 If so, 18S data can be generated on large scale. This data also needs to be combined
 with the old sequence data. This folder was created 11.01.2018 and last updated
-16.01.2018 (last edits on cluster scratch). The GitHub folder is version tracked.
+19.01.2018 (on local after 1st roundtrip) The GitHub folder is version tracked.
 
 ## Progress notes
 
@@ -30,11 +30,11 @@ with the old sequence data. This folder was created 11.01.2018 and last updated
 * **18.01.2017**
   * demultiplxing done
   * created, adjusted and run `070_smr_features_and_table` (on cluster)
-
+* **19.01.2017**
+  * completed Pearl Harbour analysis until basic metrics and annotation - committed Github
    
 ## Todo
-* rerun `050_show_metadata.sh` with tabulated metadata file (not yet run)
-* check which files are necessary in the `Manifest` folder.
+* filter sequences for metazoans
 
 ## Relevant Repository contents:
 
