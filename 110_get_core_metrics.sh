@@ -13,7 +13,7 @@
 # ----------------------------------------------
 if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on remote...\n"
-    trpth="/data/CU_Pearl_Harbour"
+    trpth="/data/CU_combined"
     useConfirm=false
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     qiime2cli() { qiime "$@"; }

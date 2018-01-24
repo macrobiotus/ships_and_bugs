@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# 12.01.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 22.01.2018 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Wrapper for Qiime2 import script, manifest file must be available.
 # More info at https://docs.qiime2.org/2017.10/tutorials/importing/
 
 # For debugging only
 # ------------------ 
-# set -x
+set -x
 
 # Paths needs to change for remote execution, and executable paths have to be
 # ---------------------------------------------------------------------------
@@ -20,7 +20,7 @@ if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     exit
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     printf "Setting qiime alias, execution on local...\n"
-    trpth="$(dirname "$PWD")"
+    trpth="/Users/paul/Documents/CU_combined"
     qiime2cli() { qiime "$@"; }
     inpth='Zenodo/Manifest/05_manifest_local.txt'
 fi
@@ -34,4 +34,3 @@ qiime2cli tools import \
   --input-path  "$trpth"/"$inpth" \
   --output-path "$trpth"/"$otpth" \
   --source-format PairedEndFastqManifestPhred33
-

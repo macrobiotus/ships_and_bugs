@@ -1,11 +1,39 @@
-# Analysing 18S data from Pearl Harbour 
+# Analysing combined 18S data from Pearl Harbour, Singapore, Chicago
 
-First look at sequence data arriving 11.01.2018. Needed to see if approach is successful.
-If so, 18S data can be generated on large scale. This data also needs to be combined
-with the old sequence data. This folder was created 11.01.2018 and last updated
-19.01.2018 (on local after 1st roundtrip) The GitHub folder is version tracked.
+This folder was created 24.01.2018 by copying folder `/Users/paul/Documents/CU_Pearl_Harbour`.
+Folder was and last updated 24.01.2018. The GitHub and Transport folders are 
+version tracked, since they are copies from earlier repositories.
+
+## Background
+
+This folder will be used to combine all project data from individual runs. To 
+set this up samples sites included are Singapore Woodlands (SP) and Chicago (CH;both
+from Notre Dame sequencing efforts), and Pearl Harbour (PH) samples (first run
+conducted at Cornell). Adding samples will likely need trimming of primers, 
+denoising and re-classifying the RDP classifier each time, since species may be
+shared among locations.
 
 ## Progress notes
+*  **24.01.2018** - creating and adjusting folder structure and contents
+   * removed unneeded files from previous analysis
+   * adjusted pathnames in work scripts: `find /Users/paul/Documents/CU_combined/Github -name '*.sh' -exec sed -i 's|CU_Pearl_Harbour|CU_combined|g' {} \;`
+   * adjusted pathnames in transport scripts: `find /Users/paul/Documents/CU_combined/Transport -name '*.sh' -exec sed -i 's|CU_Pearl_Harbour|CU_combined|g' {} \;`
+   * copy manifest files from Adelaide, Singapore data `cp ~/Documents/CU_inter_intra/Zenodo/Manifest/05_manifest_local.txt ~/Documents/CU_combined/Zenodo/Manifest/05_manifest_ADL_SNG_CHC.txt`
+   * adjusting manifest files
+      * `05_manifest_local.txt` includes paths to all `fastq` files (PH, CG, SH)
+      * `05_metadata.tsv` is draft version only (PH, CG, SH)
+      * `05_barcode.tsv` contains PH info only, likely not needed soon.
+   * getting files to local:
+       * creating dir `mkdir -p /Users/paul/Sequences/Raw/180111_CU_Lodge_lab/`
+       * copy files from remote `rsync -avzuin pc683@cbsulogin2.tc.cornell.edu:/home/pc683/Sequences/180109_M01032_0565_000000000-BHB4G/demultiplexed/ /Users/paul/Sequences/Raw/180111_CU_Lodge_lab`
+   * adjusting and running import script `/Users/paul/Documents/CU_combined/Github/040_imp_qiime.sh`
+
+   
+## Todo
+  * erase files (which are duplicated on remote): `/Users/paul/Sequences/Raw/180111_CU_Lodge_lab`
+
+
+## Old Progress notes
 
 *  **11.01.2018** - starting data analysis
    *  created Qiime2 manifest file (which also point to location of raw data).
@@ -33,7 +61,7 @@ with the old sequence data. This folder was created 11.01.2018 and last updated
 * **19.01.2017**
   * completed Pearl Harbour analysis until basic metrics and annotation - committed Github
    
-## Todo
+## Old Todo
 * filter sequences for metazoans
 
 ## Relevant Repository contents:

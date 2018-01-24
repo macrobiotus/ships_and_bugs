@@ -13,7 +13,7 @@
 # ----------------------------------------------
 if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on remote...\n"
-    trpth="/data/CU_Pearl_Harbour"
+    trpth="/data/CU_combined"
     qiime() { qiime2cli "$@"; }
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on local...\n"

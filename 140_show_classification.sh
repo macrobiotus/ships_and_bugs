@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 13.12.2017 - Paul Czechowski - paul.czechowski@gmail.com 
+# 19.01.2017 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # https://docs.qiime2.org/2017.11/tutorials/moving-pictures/
 
@@ -12,7 +12,7 @@
 # ----------------------------------------------
 if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     printf "This script needs at least qiime2-2017.11. Execution on remote...\n"
-    trpth="/data/CU_Pearl_Harbour"
+    trpth="/data/CU_combined"
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     qiime2cli() { qiime "$@"; }
     printf "This script needs at least qiime2-2017.11. Execution on local...\n"
