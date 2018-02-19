@@ -14,14 +14,16 @@ set -x
 # adjusted depending on machine location.
 # ----------------------------------------
 if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
-    printf "Execution on remote...\n"
-    trpth="/workdir/pc683/CU_combined"
+    printf "Execution on remote not implemented, exiting ...\n"
+    exit
     
-    # input file array
-    inpth[1]='Zenodo/Manifest/05_manifest_PH_remote.txt'
-    inpth[2]='Zenodo/Manifest/05_manifest_SPW_remote.txt'
-    inpth[3]='Zenodo/Manifest/05_manifest_SPY_remote.txt'
-    inpth[4]='Zenodo/Manifest/05_manifest_CH_remote.txt'
+    # trpth="/data/CU_combined"
+    
+    # input file array - these do not exist 
+    # inpth[1]='Zenodo/Manifest/05_manifest_PH_remote.txt'
+    # inpth[2]='Zenodo/Manifest/05_manifest_SPW_remote.txt'
+    # inpth[3]='Zenodo/Manifest/05_manifest_SPY_remote.txt'
+    # inpth[4]='Zenodo/Manifest/05_manifest_CH_remote.txt'
     
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     printf "Setting qiime alias, execution on local...\n"
@@ -43,7 +45,7 @@ otpth[4]='Zenodo/Qiime/040_18S_CH_paired-end-import.qza'
 
 # Run import script
 # -----------------------------
-for ((i=1;i<=3;i++)); do
+for ((i=1;i<=4;i++)); do
     qiime2cli tools import \
         --type 'SampleData[PairedEndSequencesWithQuality]' \
         --input-path  "$trpth"/"${inpth[$i]}" \

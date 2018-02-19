@@ -1,6 +1,8 @@
 # Wrapper for Qiime2 import script, manifest file must be available.
 # More info at https://docs.qiime2.org/2017.10/tutorials/importing/
 
+printf "Running this script may not be necessary, check README \n"
+
 # For debugging only
 # ------------------ 
 set -x
@@ -12,29 +14,29 @@ set -x
 if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on remote...\n"
     cores='40'
-    trpth="/workdir/pc683/CU_combined"
+    trpth="/data/CU_combined"
     
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     printf "Setting qiime alias, execution on local...\n"
-    cores='1'
+    cores='2'
     trpth="$(dirname "$PWD")"
     qiime2cli() { qiime "$@"; }
 fi
 
 # Defining paths
 # --------------
-# input file array
-inpth[1]='Zenodo/Qiime/040_18S_PH_paired-end-import.qza'
-inpth[2]='Zenodo/Qiime/040_18S_SPW_paired-end-import.qza'
-inpth[3]='Zenodo/Qiime/040_18S_SPY_paired-end-import.qza'
-inpth[4]='Zenodo/Qiime/040_18S_CH_paired-end-import.qza'
+# input file array - ordered ascending by size of input files - check README
+#  inpth[1]='Zenodo/Qiime/040_18S_CH_paired-end-import.qza' - cutadapt failing
+#  inpth[2]='Zenodo/Qiime/040_18S_SPW_paired-end-import.qza' - cutadapt failing
+#  inpth[3]='Zenodo/Qiime/040_18S_PH_paired-end-import.qza'  - cutadapt already done in single project folder
+#  inpth[4]='Zenodo/Qiime/040_18S_SPY_paired-end-import.qza' - no data 
 
-# output file array
-otpth[1]='Zenodo/Qiime/042_18S_PH_paired-end-trimmed.qza'
-otpth[2]='Zenodo/Qiime/042_18S_SPW_paired-end-trimmed.qza'
-otpth[3]='Zenodo/Qiime/042_18S_SPY_paired-end-import.qza'
-otpth[4]='Zenodo/Qiime/042_18S_CH_paired-end-trimmed.qza'
+# output file array -- ordered ascending by size of input files - check README
+#  otpth[1]='Zenodo/Qiime/045_18S_CH_paired-end-trimmed.qza'  - cutadapt failing
+#  otpth[2]='Zenodo/Qiime/045_18S_SPW_paired-end-trimmed.qza' - cutadapt failing
+#  otpth[3]='Zenodo/Qiime/045_18S_PH_paired-end-trimmed.qza'  - cutadapt already done in single project folder
 
+#  otpth[3]='Zenodo/Qiime/045_18S_SPY_paired-end-import.qza' - no data
 
 # Defining sequences to be cut out:
 # ---------------------------------

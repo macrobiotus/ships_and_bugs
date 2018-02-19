@@ -56,6 +56,26 @@ shared among locations.
    * this is done on machine `cbsumm22`, check README.md of other project folder!
 * **18.02.2018**
    * primer trimming completed successfully for `CU_inter_intra`
+* **19.02.2018**
+   * updated manifests, scripts 40 and 42, reset execution bits to run-ready scripts
+   * import has to be done locally, PH data is difficult to move over to cluster
+   * running `040_imp_qiime.sh` - merging is done after demultiplexing
+   * FMT tutorial workflow (`https://docs.qiime2.org/2018.2/tutorials/fmt/`) is:
+      * `qiime demux summarize`
+      * `qiime dada2 denoise-single` (used PE option instead)
+      * `qiime feature-table merge`
+      * `qiime feature-table merge-seqs`
+    * running `040_imp_qiime.sh`
+        * Singapore Yacht Club with (almost) no data -- excluding these
+        * Chicago only with very few data  -- including these
+    * running `045_cut_adapt.sh` - **may not be necessary for combining but keeping dummy file**
+        * still failing for Chicago - excluding in next run
+        * still failing for Singapore - excluding in next run
+        * still working for Pearl Harbour - using and copying file from `/Users/paul/Documents/CU_Pearl_Harbour/Zenodo/Qiime/040_18S_paired-end-import.qza`
+    * checking demultiplexed quality scores via `050_chk_demux.sh`
+        * all visualisations going through ok (`CH`, `SPW`, `PH` )
+        * `PH` data poor quality compared to `SPW` and `CH` - need better filtering in earlier steps 
+        
    
 ## Todo
    * integrate newly trimmed data from `CU_inter_intra`
@@ -69,15 +89,17 @@ shared among locations.
        * move to cluster
    * erase files (which are duplicated on remote): `/Users/paul/Sequences/Raw/180111_CU_Lodge_lab`
    * add manifest files and metadata files for Adelaide
-   * include Adelaide - needs raw data pull 
-   * include other locations into the analysis
+   * old data inclusion
+      * include Adelaide - needs raw data pull 
+      * include Singapore Yacht Club - 18S raw data not available or wrongly processed in `CU_inter_intra`
+      * include Chicago - only very few 18S data or wrongly processed in `CU_inter_intra`
 
 ## Relevant Repository contents:
 
 ### Scripts
 *  `040_imp_qiime.sh` - import demultiplexed `fastq` files
-*  `042_cut_adapt.sh` - read trimming (by trimming everything before the linkers
-*  `044_chk_demux.sh` - read counts and quality check of demultiplexed reads
+*  `045_cut_adapt.sh` - read trimming (by trimming everything before the linkers)
+*  `050_chk_demux.sh` - read counts and quality check of demultiplexed reads
 *  [incomplete]
 
 ### Folders
