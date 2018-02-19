@@ -11,21 +11,30 @@ set -x
 # ----------------------------------------
 if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on remote...\n"
-    cores='8'
-    # trpth="/data/..."
-    echo "Parent directory not yet defined"
-    exit
+    cores='40'
+    trpth="/workdir/pc683/CU_combined"
+    
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     printf "Setting qiime alias, execution on local...\n"
-    cores='2'
+    cores='1'
     trpth="$(dirname "$PWD")"
     qiime2cli() { qiime "$@"; }
 fi
 
 # Defining paths
 # --------------
-inpth='Zenodo/Qiime/040_18S_paired-end-import.qza'
-otpth='Zenodo/Qiime/042_18S_paired-end-trimmed.qza'
+# input file array
+inpth[1]='Zenodo/Qiime/040_18S_PH_paired-end-import.qza'
+inpth[2]='Zenodo/Qiime/040_18S_SPW_paired-end-import.qza'
+inpth[3]='Zenodo/Qiime/040_18S_SPY_paired-end-import.qza'
+inpth[4]='Zenodo/Qiime/040_18S_CH_paired-end-import.qza'
+
+# output file array
+otpth[1]='Zenodo/Qiime/042_18S_PH_paired-end-trimmed.qza'
+otpth[2]='Zenodo/Qiime/042_18S_SPW_paired-end-trimmed.qza'
+otpth[3]='Zenodo/Qiime/042_18S_SPY_paired-end-import.qza'
+otpth[4]='Zenodo/Qiime/042_18S_CH_paired-end-trimmed.qza'
+
 
 # Defining sequences to be cut out:
 # ---------------------------------
@@ -55,18 +64,19 @@ otpth='Zenodo/Qiime/042_18S_paired-end-trimmed.qza'
 # checking FASTQs:
 # R1 reads: primers already trimmed reads start after forward primer  GCGGTAATTCCAGCTCCAA
 # R2 reads should start after reverse primer TTGGCAAATGCTTTCGC 
-# searching fro primers:
+# searching for primers:
 fwdcut='GCGGTAATTCCAGCTCCAA'
 revcut='TTGGCAAATGCTTTCGC'
 
-
-# Run import script
+# run trimming script
 # -----------------------------
-qiime cutadapt trim-paired \
-  --i-demultiplexed-sequences "$trpth"/"$inpth" \
-  --p-cores "$cores" \
-  --p-front-f "$fwdcut" \
-  --p-front-r "$revcut" \
-  --p-error-rate 0.2 \
-  --o-trimmed-sequences "$trpth"/"$otpth" \
-  --verbose
+for ((i=1;i<=3;i++)); do
+    qiime cutadapt trim-paired \
+        --i-demultiplexed-sequences "$trpth"/"${inpth[$i]}" \
+        --p-cores "$cores" \
+        --p-front-f "$fwdcut" \
+        --p-front-r "$revcut" \
+        --p-error-rate 0.1 \
+        --o-trimmed-sequences "$trpth"/"${otpth[$i]}" \
+        --verbose
+done

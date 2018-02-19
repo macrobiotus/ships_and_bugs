@@ -1,7 +1,7 @@
 # Analysing combined 18S data from Pearl Harbour, Singapore, Chicago
 
 This folder was created 24.01.2018 by copying folder `/Users/paul/Documents/CU_Pearl_Harbour`.
-Folder was and last updated 24.01.2018. The GitHub and Transport folders are 
+Folder was and last updated 26.01.2018. The GitHub and Transport folders are 
 version tracked, since they are copies from earlier repositories.
 
 ## Background
@@ -27,42 +27,50 @@ shared among locations.
        * creating dir `mkdir -p /Users/paul/Sequences/Raw/180111_CU_Lodge_lab/`
        * copy files from remote `rsync -avzuin pc683@cbsulogin2.tc.cornell.edu:/home/pc683/Sequences/180109_M01032_0565_000000000-BHB4G/demultiplexed/ /Users/paul/Sequences/Raw/180111_CU_Lodge_lab`
    * adjusting and running import script `/Users/paul/Documents/CU_combined/Github/040_imp_qiime.sh`
-
+   * tried adapter trimming on local 
+       * `/042_cut_adapt.sh > ../Zenodo/Qiime/042_cutlog.txt`
+       * throws error - move all to cluster - hopefully only low RAM error
+    * copying files to cluster: `/Users/paul/Documents/CU_combined/Transport/250_update_remote_push.sh`
+    * Chicago reads are "improperly paired" on cluster - deleted files on workdir
+* **25.01.2018**
+   * altered manifest file to pint to unmerged data, sorted for 18S primer
+       * merged data pointed to: `/Users/paul/Documents/CU_inter_intra/Zenodo/Fastq/030_trimmed_18S/`
+       * unmerged data now referenced: `/Users/paul/Documents/CU_inter_intra/Zenodo/Fastq/010_sorted/sorted_18S/`
+       * re-ran `~/Documents/CU_combined/Github/040_imp_qiime.sh`
+       * re-ran `~/Documents/CU_combined/Github/042_cut_adapt.sh`
+       * `CH00-0301_62_L001_R1_001.fastq.gz` throws error again. Creating backup copy (`.bak`) and re-run 2 scripts from above, without incorporating Chicago reads.
+       * `cutadapt` running successfully when Chicago data is excluded for the time being.
+* **26.01.2018**
+   * split `05_manifest_local` in three to allow importing and denoising on a per-run basis as recommended.
+   * doing the same for `05_metadata_??.tsv`
+   * renaming `05_barcode.tsv` to `05_barcode_PH.tsv`, others don't have barcode file
+   * adjusting and running `040_imp_qiime.sh` to process individual _runs_.
+   * adjusting and running `042_cut_adapt.sh` to process individual _runs_.
+* **15.02.2018**
+   * erased files created by `042_cut_adapt.sh`, as this is failing
+   * creating manifest and `.tsv` metadata file for Singapore Yacht Club
+   * `CH`, `SPW`, `SPY` manifest files point to trimmed 18S data at `/Users/paul/Documents/CU_inter_intra/Zenodo/Fastq/030_trimmed_18S`
+   * re-trimming input data of `/Users/paul/Documents/CU_inter_intra/`, primers need to be removed
+* **16.02.2018**
+   * still re-trimming input data of `/Users/paul/Documents/CU_inter_intra/`, primers need to be removed
+   * this is done on machine `cbsumm22`, check README.md of other project folder!
+* **18.02.2018**
+   * primer trimming completed successfully for `CU_inter_intra`
    
 ## Todo
-  * erase files (which are duplicated on remote): `/Users/paul/Sequences/Raw/180111_CU_Lodge_lab`
-
-
-## Old Progress notes
-
-*  **11.01.2018** - starting data analysis
-   *  created Qiime2 manifest file (which also point to location of raw data).
-   *  working with Qiime2 2017.12 for `cutadapt` functionality.
-   *  starting with script `040_imp_qiime.sh`
-   *  creating `.git` repository in script folder
-* **12.01.2017**
-   *  forward read(5'-3'): - 5' adapter , pad and linker: `AATGATACGGCGACCACCGAGATCTACAC GACTGCACTGA CG`
-   *  reverse read(5'-3'): - 3' adapter, barcode, pad and linker: `CAAGCAGAAGACGGCATACGAGAT	NNNNNNNNNNNN GTCTGCTCGCTCAGT CA`
-   *  completed `/Zenodo/Manifest/05_metadata.txt` in case it is needed, `/Manifest/05_barcode.tsv` is ok to use as well if needed
-   *  completed `042_cut_adapt.sh` - tried 1,2,3 adapter orientations, checked `.fastq`. R1 reads are primer-free, since primers are in sequencing primers (?). 
-   Thus checking for remnants of primers instead, as documented in script itself. 
-   *  adjusted transport scripts and committed
-   * started `042_cut_adapt.sh` and logging output in `/Zenodo/Qiime/042_log.txt`. Re-run may be necessary later.
-* **15.01.2017**
-   * ran `demux summarize` of script `044_[...]`  - mean 1177340 sequences / sample, total 20014787 sequences
-   * `050_show_metadata.sh` only converts metadata file to Qiime visualisation
-* **16.01.2017**
-   * copied and adjusted `060_dns_paired_dada2.sh`
-   * copied all files to cluster and then to workdir
-   * running `060_dns_paired_dada2` on cluster (now Qiime version 17.12)
-* **18.01.2017**
-  * demultiplxing done
-  * created, adjusted and run `070_smr_features_and_table` (on cluster)
-* **19.01.2017**
-  * completed Pearl Harbour analysis until basic metrics and annotation - committed Github
-   
-## Old Todo
-* filter sequences for metazoans
+   * integrate newly trimmed data from `CU_inter_intra`
+      * **keep in mind that both repositories need to be on the same machine and in the correct state to pull data from the other project to this one**
+      * update manifest file paths and check import paths
+      * demultiplexing to be done on a per-run basis
+   * find out why reads are improperly paired (filenames? in manifest etc?)
+   * if successful
+       * collate and adjust subsequent scripts
+       * git-commit
+       * move to cluster
+   * erase files (which are duplicated on remote): `/Users/paul/Sequences/Raw/180111_CU_Lodge_lab`
+   * add manifest files and metadata files for Adelaide
+   * include Adelaide - needs raw data pull 
+   * include other locations into the analysis
 
 ## Relevant Repository contents:
 
@@ -73,7 +81,7 @@ shared among locations.
 *  [incomplete]
 
 ### Folders
-* `CU_Pearl_Harbour/Github` - analysis scripts
-* `CU_Pearl_Harbour/Transport` - cluster transport scripts
-* `CU_Pearl_Harbour/Zenodo` -  data and metadata
-* `CU_Pearl_Harbour/Zenodo` - scratch files (e.g. for checking read orientation)
+* `CU_combined/Github` - analysis scripts
+* `CU_combined/Transport` - cluster transport scripts
+* `CU_combined/Zenodo` -  data and metadata
+* `CU_combined/Zenodo` - scratch files (e.g. for checking read orientation)
