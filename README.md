@@ -1,17 +1,16 @@
-# Analysing combined 18S data from Pearl Harbour, Singapore, Chicago
+# Analysing combined 18S data from Pearl Harbour, Singapore, Chicago and Adelaide
 
 This folder was created 24.01.2018 by copying folder `/Users/paul/Documents/CU_Pearl_Harbour`.
-Folder was and last updated 26.01.2018. The GitHub and Transport folders are 
-version tracked, since they are copies from earlier repositories.
+Folder was and last updated 26.02.2018. The GitHub and Transport folders are 
+version tracked, since they are copies from earlier repositories. The first interation of this
+sub-project has been overwritten with the second iteration
 
 ## Background
 
-This folder will be used to combine all project data from individual runs. To 
-set this up samples sites included are Singapore Woodlands (SP) and Chicago (CH;both
-from Notre Dame sequencing efforts), and Pearl Harbour (PH) samples (first run
-conducted at Cornell). Adding samples will likely need trimming of primers, 
-denoising and re-classifying the RDP classifier each time, since species may be
-shared among locations.
+This folder will be used to combine all project data from individual runs. Sequence runs are processed (at least) until the denoising step and then merged here. Current samples include
+   * data of Singapore, Adelaide, Chicago, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
+   * data of Pearl Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
+Data will be included via manifest files and metadate files linkedin at `065_merge_data.sh`. The following progress notes document the history of the whole repository. The latest reprocessing was started on the 26.02.2018.
 
 ## Progress notes
 *  **24.01.2018** - creating and adjusting folder structure and contents
@@ -75,35 +74,44 @@ shared among locations.
     * checking demultiplexed quality scores via `050_chk_demux.sh`
         * all visualisations going through ok (`CH`, `SPW`, `PH` )
         * `PH` data poor quality compared to `SPW` and `CH` - need better filtering in earlier steps 
-        
-   
+    * pushing to cluster via script `200` (Overwrite remote)
+    * running denoising script `60...` on clsuter for `CH`, `PH`, `SPW`
+    * files generated on cluster belong to root?
+    * CH files are very small - processing error?
+* **20.02.2018**
+    * denoising finished - next time de-noise only for the necessary data, don't unnecessarily redo
+    * pulled files to local - created and run `065_merge_data.sh`
+    * created and ran `070_merge_metdata.sh`
+    * created and ran `075_smr_features_and_table.sh`
+        * in current repset there are still 145 forward primers and 345 reverse primers, these need to get cleaned out in next iteration
+    * created `080_re_cut_adapt_and_filter.sh` to clean primer remnants from set of representative sequences. This can also be used to clean repset by blast using Qiime 1 features as per `https://forum.qiime2.org/t/removing-non-target-dna-from-representative-sequences/772/3`.
+    * there are still 3' adapter in there, which could be removed? I am setting `-n 2` in cutadapt for a second pass. I don't think the matches are random, is is improbable. Makes few (20?) sequences very short (~50 bp)
+    * created and ran `085_smr_features_and_table.sh` (copy for filtered data)
+    * adjusting and running `090_align_repseqs.sh`
+    * adjusting and running `100_build_tree.sh`
+    * script `110` complains because underscores of sample names needed to be removed for script `65`
+       * putting underscores back in `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata.tsv` as per error dump
+       * re-run `/Users/paul/Documents/CU_combined/Github/070_merge_metdata.sh` to undo this
+       * to include more sequences sampling frequency is set from median `6,964` to 1st quartile `847` (PH way more data)
+       * metadate a bit dodgy unsurprisingly
+    * training classifier with script `120`, running script `130`.
+* **26.02.2018** - re-running combination with reprocessed data.
+   * current samples include:
+      * data of Singapore, Adelaide, Chicago, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
+      * data of Pearl Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
+      * data will be included via manifest files and metadate files linkedin at `065_merge_data.sh`.
+   * ran `065_merge_data.sh`, `070_merge_metdata.sh`, `075_smr_features_and_table.sh`.
+   * running `080_re_cut_adapt_and_filter.sh` with one iteration of `cutadapt` - 3.8% adapter remnants was not too bad
+   * running `085_smr_features_and_table.sh`,`090_align_repseqs.sh`, and all others until script `140_show_classification`.
+
 ## Todo
-   * integrate newly trimmed data from `CU_inter_intra`
-      * **keep in mind that both repositories need to be on the same machine and in the correct state to pull data from the other project to this one**
-      * update manifest file paths and check import paths
-      * demultiplexing to be done on a per-run basis
-   * find out why reads are improperly paired (filenames? in manifest etc?)
-   * if successful
-       * collate and adjust subsequent scripts
-       * git-commit
-       * move to cluster
-   * erase files (which are duplicated on remote): `/Users/paul/Sequences/Raw/180111_CU_Lodge_lab`
-   * add manifest files and metadata files for Adelaide
-   * old data inclusion
-      * include Adelaide - needs raw data pull 
-      * include Singapore Yacht Club - 18S raw data not available or wrongly processed in `CU_inter_intra`
-      * include Chicago - only very few 18S data or wrongly processed in `CU_inter_intra`
+   * finish data combinations
+   * Blast away unwanted stuff from repset using Qiime 1 as documented in the Qiime 2 forum 
 
 ## Relevant Repository contents:
-
-### Scripts
-*  `040_imp_qiime.sh` - import demultiplexed `fastq` files
-*  `045_cut_adapt.sh` - read trimming (by trimming everything before the linkers)
-*  `050_chk_demux.sh` - read counts and quality check of demultiplexed reads
-*  [incomplete]
 
 ### Folders
 * `CU_combined/Github` - analysis scripts
 * `CU_combined/Transport` - cluster transport scripts
-* `CU_combined/Zenodo` -  data and metadata
-* `CU_combined/Zenodo` - scratch files (e.g. for checking read orientation)
+* `CU_combined/Zenodo` -  data and metadata for upload
+* `CU_combined/Zenodo` - useful scripts from previous analysis iterations and draft analyses

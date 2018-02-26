@@ -68,4 +68,4 @@ printf "Training classifier...\n"
 qiime feature-classifier fit-classifier-naive-bayes \
   --i-reference-reads "$trpth"/"$wdir"/"$refseq" \
   --i-reference-taxonomy "$trpth"/"$wdir"/"$taxf" \
-  --o-classifier "$trpth"/"$wdir"/"$clssf.qza"
+  --o-classifier "$trpth"/"$wdir"/"$clssf"

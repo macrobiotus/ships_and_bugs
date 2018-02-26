@@ -27,7 +27,7 @@ qdir="Zenodo/Qiime"
 # input files
 # ------------
 clssf="120_18S_classifier.qza"
-repset="060_18S_represe_seqs.qza"
+repset="080_18S_merged_seq.qza"
 
 # output files
 # ------------
@@ -37,11 +37,10 @@ taxv="130_18S_taxonomy.qzv"
 # Run scripts
 # ------------
 qiime feature-classifier classify-sklearn \
-  --i-classifier "$trpth"/"$wdir"/"$clssf.qza" \
+  --i-classifier "$trpth"/"$wdir"/"$clssf" \
   --i-reads "$trpth"/"$qdir"/"$repset" \
   --o-classification "$trpth"/"$qdir"/"$tax"
 
 qiime metadata tabulate \
   --m-input-file "$trpth"/"$qdir"/"$tax" \
   --o-visualization "$trpth"/"$qdir"/"$taxv"
-

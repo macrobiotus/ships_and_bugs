@@ -25,14 +25,14 @@ qdir="Zenodo/Qiime"
 
 # input files
 # ------------
-ftable="060_18S_feature_table.qza"
-mdata='Zenodo/Manifest/05_metadata.tsv'
-tax="130_18S_taxonomy.qza"
+ftable='080_18S_merged_tab.qza'
+mdata='Zenodo/Manifest/05_18S_merged_metadata.tsv'
+tax='130_18S_taxonomy.qza'
 
 
 # output files
 # ------------
-plotd="140_18S_taxvis"
+plotd="140_18S_taxvis_merged"
 
 # Run scripts
 # ------------

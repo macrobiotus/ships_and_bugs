@@ -25,10 +25,10 @@ fi
 # Define input and output locations
 # ---------------------------------
 mptpth='Zenodo/Qiime/100_18S_tree_mdp_root.qza'
-ftable='Zenodo/Qiime/060_18S_feature_table.qza'
-mdata='/Zenodo/Manifest/05_metadata.tsv'
-crdir='/Zenodo/Qiime/110_18S_core_metrics'
-depth='249872' 
+ftable='Zenodo/Qiime/080_18S_merged_tab.qza'
+mdata='Zenodo/Manifest/05_18S_merged_metadata.tsv'
+crdir='Zenodo/Qiime/110_18S_core_metrics'
+depth='847' # using median frequency of 085_18S_sum_feat_tab.qzv 
 
 # Run scripts
 # ------------

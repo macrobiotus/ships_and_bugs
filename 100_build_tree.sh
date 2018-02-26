@@ -22,7 +22,7 @@ fi
 
 # Define input and output locations
 # ---------------------------------
-inpth='Zenodo/Qiime/090_18S_mskd_alignment.qza'
+inpth='Zenodo/Qiime/095_18S_mskd_alignment.qza'
 urtpth='Zenodo/Qiime/100_18S_tree_no_root.qza'
 mptpth='Zenodo/Qiime/100_18S_tree_mdp_root.qza'
 
