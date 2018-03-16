@@ -2,8 +2,8 @@
 
 This folder was created 24.01.2018 by copying folder `/Users/paul/Documents/CU_Pearl_Harbour`.
 Folder was and last updated 26.02.2018. The GitHub and Transport folders are 
-version tracked, since they are copies from earlier repositories. The first interation of this
-sub-project has been overwritten with the second iteration
+version tracked, since they are copies from earlier repositories. The first iteration of this
+sub-project has been overwritten with the second iteration.
 
 ## Background
 
@@ -103,8 +103,24 @@ Data will be included via manifest files and metadate files linkedin at `065_mer
    * ran `065_merge_data.sh`, `070_merge_metdata.sh`, `075_smr_features_and_table.sh`.
    * running `080_re_cut_adapt_and_filter.sh` with one iteration of `cutadapt` - 3.8% adapter remnants was not too bad
    * running `085_smr_features_and_table.sh`,`090_align_repseqs.sh`, and all others until script `140_show_classification`.
+   * metadata file merge was buggy
+      * added line breaks to all isolated manifest files
+      * add rearranged order of input array in script `65`
+      * re-ran `./110_get_core_metrics.sh && ./130_classify_reads.sh && ./140_show_classification.sh` 
+* **16.03.2018** - getting rid of COI data and re-running
+      * according to YY COI reads can be removed using COI primers:
+          * mlCOI (Leray et al. 2013): `GGWACWGGWTGAACWGTWTAYCCYCC`
+          * jgHCOI (Geller et al. 2013)`TAIACYTCIGGRTGICCRAARAAYCA`
+      * adjusting `/Users/paul/Documents/CU_combined/Github/080_re_cut_adapt_and_filter.sh`
+          * now filtering (in the correct orientation - checked) - 18S and COI reads  
+          * erasing all old output past this acript in folder `Qiime`
+      * re-running scripts starting from script `085...`, using 11626 sequences at cut-off (CH-34-23)
+          * ran script `90..`(alignment), `95...` (alignment masking), `100...` (tree building), `110...` (core metrics)
+          * re-training classifier after removal of COI reads (in script `120...`)
+      * exporting unifrac distance matrix `qiime tools export /Users/paul/Documents/CU_combined/Zenodo/Qiime/110_18S_core_metrics/unweighted_unifrac_distance_matrix.qza --output-dir /Users/paul/Documents/CU_combined/Scratch`
 
 ## Todo
+   * sort out COI data from Singapore in repset by trimming sequences with COI primers, also recheck trimming OR do this in the original pre-combined data `CU_SP_AD_CH` 
    * finish data combinations
    * Blast away unwanted stuff from repset using Qiime 1 as documented in the Qiime 2 forum 
 
