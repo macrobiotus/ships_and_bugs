@@ -64,32 +64,32 @@ Data will be included via manifest files and metadate files linkedin at `065_mer
       * `qiime dada2 denoise-single` (used PE option instead)
       * `qiime feature-table merge`
       * `qiime feature-table merge-seqs`
-    * running `040_imp_qiime.sh`
-        * Singapore Yacht Club with (almost) no data -- excluding these
-        * Chicago only with very few data  -- including these
-    * running `045_cut_adapt.sh` - **may not be necessary for combining but keeping dummy file**
-        * still failing for Chicago - excluding in next run
-        * still failing for Singapore - excluding in next run
-        * still working for Pearl Harbour - using and copying file from `/Users/paul/Documents/CU_Pearl_Harbour/Zenodo/Qiime/040_18S_paired-end-import.qza`
-    * checking demultiplexed quality scores via `050_chk_demux.sh`
-        * all visualisations going through ok (`CH`, `SPW`, `PH` )
-        * `PH` data poor quality compared to `SPW` and `CH` - need better filtering in earlier steps 
-    * pushing to cluster via script `200` (Overwrite remote)
-    * running denoising script `60...` on clsuter for `CH`, `PH`, `SPW`
-    * files generated on cluster belong to root?
-    * CH files are very small - processing error?
+   * running `040_imp_qiime.sh`
+       * Singapore Yacht Club with (almost) no data -- excluding these
+       * Chicago only with very few data  -- including these
+   * running `045_cut_adapt.sh` - **may not be necessary for combining but keeping dummy file**
+       * still failing for Chicago - excluding in next run
+       * still failing for Singapore - excluding in next run
+       * still working for Pearl Harbour - using and copying file from `/Users/paul/Documents/CU_Pearl_Harbour/Zenodo/Qiime/040_18S_paired-end-import.qza`
+   * checking demultiplexed quality scores via `050_chk_demux.sh`
+       * all visualisations going through ok (`CH`, `SPW`, `PH` )
+       * `PH` data poor quality compared to `SPW` and `CH` - need better filtering in earlier steps 
+   * pushing to cluster via script `200` (Overwrite remote)
+   * running denoising script `60...` on clsuter for `CH`, `PH`, `SPW`
+   * files generated on cluster belong to root?
+   * CH files are very small - processing error?
 * **20.02.2018**
-    * denoising finished - next time de-noise only for the necessary data, don't unnecessarily redo
-    * pulled files to local - created and run `065_merge_data.sh`
-    * created and ran `070_merge_metdata.sh`
-    * created and ran `075_smr_features_and_table.sh`
+   * denoising finished - next time de-noise only for the necessary data, don't unnecessarily redo
+   * pulled files to local - created and run `065_merge_data.sh`
+   * created and ran `070_merge_metdata.sh`
+   * created and ran `075_smr_features_and_table.sh`
         * in current repset there are still 145 forward primers and 345 reverse primers, these need to get cleaned out in next iteration
-    * created `080_re_cut_adapt_and_filter.sh` to clean primer remnants from set of representative sequences. This can also be used to clean repset by blast using Qiime 1 features as per `https://forum.qiime2.org/t/removing-non-target-dna-from-representative-sequences/772/3`.
-    * there are still 3' adapter in there, which could be removed? I am setting `-n 2` in cutadapt for a second pass. I don't think the matches are random, is is improbable. Makes few (20?) sequences very short (~50 bp)
-    * created and ran `085_smr_features_and_table.sh` (copy for filtered data)
-    * adjusting and running `090_align_repseqs.sh`
-    * adjusting and running `100_build_tree.sh`
-    * script `110` complains because underscores of sample names needed to be removed for script `65`
+   * created `080_re_cut_adapt_and_filter.sh` to clean primer remnants from set of representative sequences. This can also be used to clean repset by blast using Qiime 1 features as per `https://forum.qiime2.org/t/removing-non-target-dna-from-representative-sequences/772/3`.
+   * there are still 3' adapter in there, which could be removed? I am setting `-n 2` in cutadapt for a second pass. I don't think the matches are random, is is improbable. Makes few (20?) sequences very short (~50 bp)
+   * created and ran `085_smr_features_and_table.sh` (copy for filtered data)
+   * adjusting and running `090_align_repseqs.sh`
+   * adjusting and running `100_build_tree.sh`
+   * script `110` complains because underscores of sample names needed to be removed for script `65`
        * putting underscores back in `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata.tsv` as per error dump
        * re-run `/Users/paul/Documents/CU_combined/Github/070_merge_metdata.sh` to undo this
        * to include more sequences sampling frequency is set from median `6,964` to 1st quartile `847` (PH way more data)
@@ -108,25 +108,29 @@ Data will be included via manifest files and metadate files linkedin at `065_mer
       * add rearranged order of input array in script `65`
       * re-ran `./110_get_core_metrics.sh && ./130_classify_reads.sh && ./140_show_classification.sh` 
 * **16.03.2018** - getting rid of COI data and re-running
-      * according to YY COI reads can be removed using COI primers:
-          * mlCOI (Leray et al. 2013): `GGWACWGGWTGAACWGTWTAYCCYCC`
-          * jgHCOI (Geller et al. 2013)`TAIACYTCIGGRTGICCRAARAAYCA`
-      * adjusting `/Users/paul/Documents/CU_combined/Github/080_re_cut_adapt_and_filter.sh`
-          * now filtering (in the correct orientation - checked) - 18S and COI reads  
-          * erasing all old output past this acript in folder `Qiime`
-      * re-running scripts starting from script `085...`, using 11626 sequences at cut-off (CH-34-23)
-          * ran script `90..`(alignment), `95...` (alignment masking), `100...` (tree building), `110...` (core metrics)
-          * re-training classifier after removal of COI reads (in script `120...`) 
-          * classify reads using script `130...`
-          * showing classification using script `140...`
-* **19.03.2018** - adjustments and analysis
-     * filtering alignment and feature table, expanding and re-running script `./100_` and thereafter (`./110...`,`./140...`) - do I need to re-filter the rep-sets after masking alignment? I could not solve this. Posted on Qiime forum.
-     * Clustering at different thresholds in script `/Users/paul/Documents/CU_combined/Github/500_cluster_sequences.sh`
-     * Created and ran cluster classification script `/Users/paul/Documents/CU_combined/Github/510_classify_clusters.sh`
-     * Started `/Users/paul/Documents/CU_combined/Github/520_convert_clusters.sh` (for Cytoscape import and Qiime 1)
+   * according to YY COI reads can be removed using COI primers:
+      * mlCOI (Leray et al. 2013): `GGWACWGGWTGAACWGTWTAYCCYCC`
+      * jgHCOI (Geller et al. 2013)`TAIACYTCIGGRTGICCRAARAAYCA`
+   * adjusting `/Users/paul/Documents/CU_combined/Github/080_re_cut_adapt_and_filter.sh`
+      * now filtering (in the correct orientation - checked) - 18S and COI reads  
+      * erasing all old output past this acript in folder `Qiime`
+   * re-running scripts starting from script `085...`, using 11626 sequences at cut-off (CH-34-23)
+      * ran script `90..`(alignment), `95...` (alignment masking), `100...` (tree building), `110...` (core metrics)
+      * re-training classifier after removal of COI reads (in script `120...`) 
+      * classify reads using script `130...`
+      * showing classification using script `140...`
+* **19.03.2018** - some tweaks and analysis start after meeting 
+   * filtering alignment and feature table, expanding and re-running script `./100_` and thereafter (`./110...`,`./140...`) - do I need to re-filter the rep-sets after masking alignment? I could not solve this. Posted on Qiime forum.
+   * Clustering at different thresholds in script `/Users/paul/Documents/CU_combined/Github/500_cluster_sequences.sh`
+   * Created and ran cluster classification script `/Users/paul/Documents/CU_combined/Github/510_classify_clusters.sh`
+   * Started `/Users/paul/Documents/CU_combined/Github/520_convert_clusters.sh` (for Cytoscape import and Qiime 1)
           
-     * analysis of OTU overlap preparation
-         * cluster sequences (done 19.03.2018) 
+
+## Todo
+   * (Necessary to remove features from feature  table and sequence set based on masked alignments and tree?)
+   * (Blast away unwanted stuff from repset using Qiime 1 as documented in the Qiime 2 forum)
+      * analysis of OTU overlap preparation
+      * cluster sequences (done 19.03.2018) 
       
       * analysis of covariance preparation
           * exporting Unifrac distance matrix `qiime tools export /Users/paul/Documents/CU_combined/Zenodo/Qiime/110_18S_core_metrics/unweighted_unifrac_distance_matrix.qza --output-dir /Users/paul/Documents/CU_combined/Scratch`
@@ -135,9 +139,6 @@ Data will be included via manifest files and metadate files linkedin at `065_mer
           * continue here... 
               * ... normalize by location 
 
-## Todo
-   * (Necessary to remove features from feature  table and sequence set based on masked alignments and tree?)
-   * (Blast away unwanted stuff from repset using Qiime 1 as documented in the Qiime 2 forum)
 
 ## Relevant Repository contents:
 
