@@ -25,7 +25,7 @@ qdir="Zenodo/Qiime"
 
 # input files
 # ------------
-ftable='080_18S_merged_tab.qza'
+ftable='100_18S_merged_tab.qza'
 mdata='Zenodo/Manifest/05_18S_merged_metadata.tsv'
 tax='130_18S_taxonomy.qza'
 

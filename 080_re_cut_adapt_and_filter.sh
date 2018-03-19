@@ -17,7 +17,7 @@ set -x
 # ----------------------------------------
 if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on remote...\n"
-    cores='40'
+    cores="$(nproc --all)"
     trpth="/data/CU_combined"
     
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then

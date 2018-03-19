@@ -39,7 +39,9 @@ taxv="130_18S_taxonomy.qzv"
 qiime feature-classifier classify-sklearn \
   --i-classifier "$trpth"/"$wdir"/"$clssf" \
   --i-reads "$trpth"/"$qdir"/"$repset" \
-  --o-classification "$trpth"/"$qdir"/"$tax"
+  --o-classification "$trpth"/"$qdir"/"$tax" \
+  --p-n-jobs -2 \
+  --verbose
 
 qiime metadata tabulate \
   --m-input-file "$trpth"/"$qdir"/"$tax" \

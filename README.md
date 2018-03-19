@@ -116,13 +116,28 @@ Data will be included via manifest files and metadate files linkedin at `065_mer
           * erasing all old output past this acript in folder `Qiime`
       * re-running scripts starting from script `085...`, using 11626 sequences at cut-off (CH-34-23)
           * ran script `90..`(alignment), `95...` (alignment masking), `100...` (tree building), `110...` (core metrics)
-          * re-training classifier after removal of COI reads (in script `120...`)
-      * exporting unifrac distance matrix `qiime tools export /Users/paul/Documents/CU_combined/Zenodo/Qiime/110_18S_core_metrics/unweighted_unifrac_distance_matrix.qza --output-dir /Users/paul/Documents/CU_combined/Scratch`
+          * re-training classifier after removal of COI reads (in script `120...`) 
+          * classify reads using script `130...`
+          * showing classification using script `140...`
+* **19.03.2018** - adjustments and analysis
+     * filtering alignment and feature table, expanding and re-running script `./100_` and thereafter (`./110...`,`./140...`) - do I need to re-filter the rep-sets after masking alignment? I could not solve this. Posted on Qiime forum.
+     * Clustering at different thresholds in script `/Users/paul/Documents/CU_combined/Github/500_cluster_sequences.sh`
+     * Created and ran cluster classification script `/Users/paul/Documents/CU_combined/Github/510_classify_clusters.sh`
+     * Started `/Users/paul/Documents/CU_combined/Github/520_convert_clusters.sh` (for Cytoscape import and Qiime 1)
+          
+     * analysis of OTU overlap preparation
+         * cluster sequences (done 19.03.2018) 
+      
+      * analysis of covariance preparation
+          * exporting Unifrac distance matrix `qiime tools export /Users/paul/Documents/CU_combined/Zenodo/Qiime/110_18S_core_metrics/unweighted_unifrac_distance_matrix.qza --output-dir /Users/paul/Documents/CU_combined/Scratch`
+          * renaming Unifrac distance matrix `mv /Users/paul/Documents/CU_combined/Scratch/distance-matrix.tsv /Users/paul/Documents/CU_combined/Scratch/180316_18S_uf_dm.tsv`
+          * check `/Users/paul/Box Sync/CU_NIS-WRAPS/170912_code_r/180116_30_select_samples.R` to get invasion risk distance matrix between worldwide ports
+          * continue here... 
+              * ... normalize by location 
 
 ## Todo
-   * sort out COI data from Singapore in repset by trimming sequences with COI primers, also recheck trimming OR do this in the original pre-combined data `CU_SP_AD_CH` 
-   * finish data combinations
-   * Blast away unwanted stuff from repset using Qiime 1 as documented in the Qiime 2 forum 
+   * (Necessary to remove features from feature  table and sequence set based on masked alignments and tree?)
+   * (Blast away unwanted stuff from repset using Qiime 1 as documented in the Qiime 2 forum)
 
 ## Relevant Repository contents:
 
@@ -131,3 +146,4 @@ Data will be included via manifest files and metadate files linkedin at `065_mer
 * `CU_combined/Transport` - cluster transport scripts
 * `CU_combined/Zenodo` -  data and metadata for upload
 * `CU_combined/Zenodo` - useful scripts from previous analysis iterations and draft analyses
+*
