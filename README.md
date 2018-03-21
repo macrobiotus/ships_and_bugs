@@ -125,23 +125,40 @@ Data will be included via manifest files and metadate files linkedin at `065_mer
    * Created and ran cluster classification script `/Users/paul/Documents/CU_combined/Github/510_classify_clusters.sh`
    * Started and ran `520_convert_clusters.sh` (for Cytoscape import and Qiime 1)
 * **20.03.2018** - _Clustering and Network trials_ - network file generation
-   * implemented `530_get_networks.sh` and `540_get_bi_networks.sh` but output files won't load in Cytoscape (different version)
+   * implemented `530_get_networks.sh` and `540_get_bi_networks.sh`
+   * loading files into Cytoscape 3.6.
+      * filtering for OTUs more then one degree (6 max for 6 ports): ca. 10 discovered via network filter and collapsing ports
+      * see `/Users/paul/Documents/CU_combined/Zenodo/Cytoscape/180320_540_18S_097_cl_q1bnetw_shared_nodes.csv`, filtered `TRUE`
+      * via `grep "true"` see `/Users/paul/Documents/CU_combined/Zenodo/Cytoscape/180320_540_18S_097_cl_q1bnetw_shared_nodes_isolated.csv`
+      * samples still contain control samples which will need to be filtered out
+  * updated `/Users/paul/Box Sync/CU_NIS-WRAPS/170724_internal_meetings/180326_cu_group_meeting/180326_results.md`
+* **21.03.2018**
+  * expanded `Scratch` folder structure to hold scripts `500...` to `540...` at a later stage
+  * copied `500_cluster_sequences.sh` to `200_cluster_sequences.sh` in order to start filtering (also copied output files and changed names)
+  * started script `220...`: filtering should run (untested so far!), but grouping is not yet implemented (changed execution flags of scripts and committed)
+
 
 ## Todo
-* next data addition:
-   *  accomodate: alignment masking does not remove sequences, so filtering the repset is not necessary - see scripts
 * analysis of OTU overlap preparation
   * [x] cluster sequences (done 19.03.2018)
   * [x] get `.biom` files (done 20.03.2018)
-  * [ ] filter files in Qiime 1 or R - that are in more then 1 port - using `qiime feature-table group` and then `qiime feature-table filter-features` 
+  * [ ] filter files in Qiime 1 or R - that are in more then 1 port
+     * using `qiime feature-table group` and then `qiime feature-table filter-features`
+     * filter out blank samples beforehand
 * analysis of covariance preparation
   * exporting Unifrac distance matrix `qiime tools export /Users/paul/Documents/CU_combined/Zenodo/Qiime/110_18S_core_metrics/unweighted_unifrac_distance_matrix.qza --output-dir /Users/paul/Documents/CU_combined/Scratch`
   * renaming Unifrac distance matrix `mv /Users/paul/Documents/CU_combined/Scratch/distance-matrix.tsv /Users/paul/Documents/CU_combined/Scratch/180316_18S_uf_dm.tsv`
   * check `/Users/paul/Box Sync/CU_NIS-WRAPS/170912_code_r/180116_30_select_samples.R` to get invasion risk distance matrix between worldwide ports
   * continue here... 
   * ... normalize by location ?
+* next data addition:
+  * include `decontam` close to script `220...` or bolt in R package `https://github.com/benjjneb/decontam`
+  * include `evaluate-composition` close to script `220..` to check mock samples 
 * (Blast away unwanted stuff from repset using Qiime 1 as documented in the Qiime 2 forum)
 
+## Notes
+  * alignment masking does not remove sequences, so filtering the repset in `script 100` is not necessary
+  * but also calling `qiime phylogeny filter-table` in `script 100` doesn't change the data, so can be left in 
 
 ## Relevant Repository contents:
 

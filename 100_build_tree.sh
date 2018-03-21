@@ -29,11 +29,6 @@ mptpth='Zenodo/Qiime/100_18S_tree_mdp_root.qza'
 intab='Zenodo/Qiime/080_18S_merged_tab.qza'
 ottab='Zenodo/Qiime/100_18S_merged_tab.qza'
 
-# inseq='Zenodo/Qiime/080_18S_merged_seq.qza'
-# otseq='Zenodo/Qiime/100_18S_merged_seq.qza'
-
-tempdir='Zenodo/Qiime/100_filter_temp'
-
 # Run scripts
 # ------------
 printf "Calculating tree...\n"
@@ -52,18 +47,3 @@ qiime phylogeny filter-table \
   --i-tree "$trpth"/"$mptpth" \
   --o-filtered-table "$trpth"/"$ottab" \
   --verbose 
-
-printf "Re-filtering repset...\n"
-printf " ... doesn't work so far - see script file - not yet (properly implemented)?\n"
- 
-# Exporting table
-# qiime tools export "$trpth"/"$ottab" --output-dir "$trpth"/"$tempdir"
-# 
-# getting .tsv table
-# biom convert -i "$trpth"/"$tempdir"/feature-table.biom -o "$trpth"/"$tempdir"/feature-table.txt --to-tsv
-# 
-# qiime feature-table filter-seqs \
-#   --i-data "$trpth"/"$inseq" \
-#   --m-metadata-file "$trpth"/"$tempdir"/feature-table.txt \
-#   --o-filtered-data "$trpth"/"$otseq" \
-#   --verbose || { echo 'filter failed' ; exit 1; }
