@@ -156,6 +156,11 @@ Data will be included via manifest files and metadate files linkedin at `065_mer
        * blasting and (contamination inspection) - Display Item 4 (and 5)
   * adjusted and ran successfully `210_filter_samples.sh`
   * set x bits and committed
+* **22.03.2018**
+  * wrote and running classification script `220...`. Not pretty,  but hopefully working. 
+      * Doesn't set script number in file name.
+      * Variable renaming is only works with bash 3.2, possibly not with 4.
+
  
 
 
