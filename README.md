@@ -136,24 +136,42 @@ Data will be included via manifest files and metadate files linkedin at `065_mer
   * expanded `Scratch` folder structure to hold scripts `500...` to `540...` at a later stage
   * copied `500_cluster_sequences.sh` to `200_cluster_sequences.sh` in order to start filtering (also copied output files and changed names)
   * started script `220...`: filtering should run (untested so far!), but grouping is not yet implemented (changed execution flags of scripts and committed)
+  * pipeline idea
+     * moving superflous scripts to `Scratch`: `mv  5??_* ../Scratch/Shell/`
+     * new workflow:
+        * `200_cluster_sequences.sh` - get clusters of different similarities
+        * `210_filter_samples.sh` - separate eDNA and control samples 
+        * `220_classify_clusters.sh` - get a preliminary taxonomic ID via SILVA database - sample inspection to be bolted in here
+        * `230_convert_clusters.sh` - get eDNA tables for R and Qiime 1 (`.biom` format):
+        * `240_get_bi_networks.sh` (Qiime 1) - create Cytoscape network files (in which ports can be collapsed)   
+        * `250_collapse_clusters.sh` (Qiime 1) - collapse clusters for blasting, alternatively collapse using R or network output   
+        * `260_blast_clusters.sh` (Qiime 1) - get Blast IDs for eDNA tables (from `.biom` format)
+    * analysis and Display items
+        * in Cytoscape (Display Item 1)
+           * overlap analysis
+           * feature visualisation (must and should match R Euler diagrams)
+        * in R (Display Item 2 and 3):
+          * overlap analysis in Euler diagrams
+          * testing of Overlap Matrix versus Risk Matrix
+       * blasting and (contamination inspection) - Display Item 4 (and 5)
+  * adjusted and ran successfully `210_filter_samples.sh`
+  * set x bits and committed
+ 
 
 
 ## Todo
-* analysis of OTU overlap preparation
-  * [x] cluster sequences (done 19.03.2018)
-  * [x] get `.biom` files (done 20.03.2018)
-  * [ ] filter files in Qiime 1 or R - that are in more then 1 port
-     * using `qiime feature-table group` and then `qiime feature-table filter-features`
-     * filter out blank samples beforehand
-* analysis of covariance preparation
-  * exporting Unifrac distance matrix `qiime tools export /Users/paul/Documents/CU_combined/Zenodo/Qiime/110_18S_core_metrics/unweighted_unifrac_distance_matrix.qza --output-dir /Users/paul/Documents/CU_combined/Scratch`
-  * renaming Unifrac distance matrix `mv /Users/paul/Documents/CU_combined/Scratch/distance-matrix.tsv /Users/paul/Documents/CU_combined/Scratch/180316_18S_uf_dm.tsv`
-  * check `/Users/paul/Box Sync/CU_NIS-WRAPS/170912_code_r/180116_30_select_samples.R` to get invasion risk distance matrix between worldwide ports
-  * continue here... 
-  * ... normalize by location ?
+
+* work on scripts after `210...`
+   * analysis of covariance preparation
+     * exporting Unifrac distance matrix `qiime tools export /Users/paul/Documents/CU_combined/Zenodo/Qiime/110_18S_core_metrics/unweighted_unifrac_distance_matrix.qza --output-dir /Users/paul/Documents/CU_combined/Scratch`
+     * renaming Unifrac distance matrix `mv /Users/paul/Documents/CU_combined/Scratch/distance-matrix.tsv /Users/paul/Documents/CU_combined/Scratch/180316_18S_uf_dm.tsv`
+     * check `/Users/paul/Box Sync/CU_NIS-WRAPS/170912_code_r/180116_30_select_samples.R` to get invasion risk distance matrix between worldwide ports
+     * continue here... 
+     * ... normalize by location ?
+
 * next data addition:
   * include `decontam` close to script `220...` or bolt in R package `https://github.com/benjjneb/decontam`
-  * include `evaluate-composition` close to script `220..` to check mock samples 
+  * include `evaluate-composition` close to script `220..`(?) to check mock samples 
 * (Blast away unwanted stuff from repset using Qiime 1 as documented in the Qiime 2 forum)
 
 ## Notes
