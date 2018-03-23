@@ -157,11 +157,11 @@ Data will be included via manifest files and metadate files linkedin at `065_mer
   * adjusted and ran successfully `210_filter_samples.sh`
   * set x bits and committed
 * **22.03.2018**
-  * wrote and running classification script `220...`. Not pretty,  but hopefully working. 
-      * Doesn't set script number in file name.
-      * Variable renaming is only works with bash 3.2, possibly not with 4.
-
- 
+  * wrote and running classification script `220...`. 
+* **23.03.2018**
+  * improved classification script `220...`, filenames set correctly now.
+  * started to work on scrip `225...` and ran it.
+  * script `225...` needs to be ran after collapsing samples(?) - or re-run after collapsing (?) - scripts have to be sorted (!)  
 
 
 ## Todo
@@ -173,6 +173,8 @@ Data will be included via manifest files and metadate files linkedin at `065_mer
      * check `/Users/paul/Box Sync/CU_NIS-WRAPS/170912_code_r/180116_30_select_samples.R` to get invasion risk distance matrix between worldwide ports
      * continue here... 
      * ... normalize by location ?
+* data anlysis in R
+    * devide data in two and use 1st half as training data and 2nd half to test the model
 
 * next data addition:
   * include `decontam` close to script `220...` or bolt in R package `https://github.com/benjjneb/decontam`
