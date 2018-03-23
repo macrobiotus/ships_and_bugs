@@ -1,18 +1,19 @@
 # Analysing combined 18S data from Pearl Harbour, Singapore, Chicago and Adelaide
 
 This folder was created 24.01.2018 by copying folder `/Users/paul/Documents/CU_Pearl_Harbour`.
-Folder was and last updated 26.02.2018. The GitHub and Transport folders are 
-version tracked, since they are copies from earlier repositories. The first iteration of this
-sub-project has been overwritten with the second iteration.
+Folder was and last updated 23.03.2018. The `GitHub` and `Transport` folders are 
+version tracked, and they are copies from earlier repositories. 
 
-## Background
+This folder will be used to combine all project data from individual runs. Sequence
+runs are processed individually until the denoising step and then merged here.
 
-This folder will be used to combine all project data from individual runs. Sequence runs are processed (at least) until the denoising step and then merged here. Current samples include
+Data will be included via manifest files and metadate files linked in at 
+`065_merge_data.sh`. Current samples include:
    * data of Singapore, Adelaide, Chicago, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
    * data of Pearl Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
-Data will be included via manifest files and metadate files linkedin at `065_merge_data.sh`. The following progress notes document the history of the whole repository. The latest reprocessing was started on the 26.02.2018.
 
-## Progress notes
+
+## History and progress notes
 *  **24.01.2018** - creating and adjusting folder structure and contents
    * removed unneeded files from previous analysis
    * adjusted pathnames in work scripts: `find /Users/paul/Documents/CU_combined/Github -name '*.sh' -exec sed -i 's|CU_Pearl_Harbour|CU_combined|g' {} \;`
@@ -160,30 +161,28 @@ Data will be included via manifest files and metadate files linkedin at `065_mer
   * wrote and running classification script `220...`. 
 * **23.03.2018**
   * improved classification script `220...`, filenames set correctly now.
-  * started to work on scrip `225...` and ran it.
-  * script `225...` needs to be ran after collapsing samples(?) - or re-run after collapsing (?) - scripts have to be sorted (!)  
-
+  * started to work on scrip `230...` and ran it.
+  * updated script list
 
 ## Todo
 
-* work on scripts after `210...`
-   * analysis of covariance preparation
-     * exporting Unifrac distance matrix `qiime tools export /Users/paul/Documents/CU_combined/Zenodo/Qiime/110_18S_core_metrics/unweighted_unifrac_distance_matrix.qza --output-dir /Users/paul/Documents/CU_combined/Scratch`
-     * renaming Unifrac distance matrix `mv /Users/paul/Documents/CU_combined/Scratch/distance-matrix.tsv /Users/paul/Documents/CU_combined/Scratch/180316_18S_uf_dm.tsv`
-     * check `/Users/paul/Box Sync/CU_NIS-WRAPS/170912_code_r/180116_30_select_samples.R` to get invasion risk distance matrix between worldwide ports
-     * continue here... 
-     * ... normalize by location ?
-* data anlysis in R
-    * devide data in two and use 1st half as training data and 2nd half to test the model
+### next data addition:
+* include `decontam` close to script `220...` or bolt in R package `https://github.com/benjjneb/decontam`
+* include `evaluate-composition` close to script `220..`(?) to check mock samples 
 
-* next data addition:
-  * include `decontam` close to script `220...` or bolt in R package `https://github.com/benjjneb/decontam`
-  * include `evaluate-composition` close to script `220..`(?) to check mock samples 
-* (Blast away unwanted stuff from repset using Qiime 1 as documented in the Qiime 2 forum)
+### R analysis of covariance matrices between invasion risk and shared species)
+* exporting Unifrac distance matrix `qiime tools export /Users/paul/Documents/CU_combined/Zenodo/Qiime/110_18S_core_metrics/unweighted_unifrac_distance_matrix.qza --output-dir /Users/paul/Documents/CU_combined/Scratch`
+* renaming Unifrac distance matrix `mv /Users/paul/Documents/CU_combined/Scratch/distance-matrix.tsv /Users/paul/Documents/CU_combined/Scratch/180316_18S_uf_dm.tsv`
+* check `/Users/paul/Box Sync/CU_NIS-WRAPS/170912_code_r/180116_30_select_samples.R` to get invasion risk distance matrix between worldwide ports
+* collapse samples
+* devide data in two and use 1st half as training data and 2nd half to test the model
 
-## Notes
-  * alignment masking does not remove sequences, so filtering the repset in `script 100` is not necessary
-  * but also calling `qiime phylogeny filter-table` in `script 100` doesn't change the data, so can be left in 
+### Network analysis:
+* collapse samples
+
+## Miscellaneous Notes
+* alignment masking does not remove sequences, so filtering the repset in `script 100` is not necessary
+* but also calling `qiime phylogeny filter-table` in `script 100` doesn't change the data, so can be left in 
 
 ## Relevant Repository contents:
 
@@ -192,4 +191,24 @@ Data will be included via manifest files and metadate files linkedin at `065_mer
 * `CU_combined/Transport` - cluster transport scripts
 * `CU_combined/Zenodo` -  data and metadata for upload
 * `CU_combined/Zenodo` - useful scripts from previous analysis iterations and draft analyses
-*
+
+###
+`065_merge_data.sh` -  merging sequences and rep.-sequence sets from multiple runs
+`070_merge_metdata.sh` - merging of metadata files
+`075_smr_features_and_table.sh` - get feature table summaries of merged data created above
+`080_re_cut_adapt_and_filter.sh` - removing adapter remnants and COI data that uses the same barcodes as 18S data
+`085_smr_features_and_table.sh` - get feature table summaries of merged and cleaned data created above
+`090_align_repseqs.sh` - self explanatory 
+`095_mask_alignment.sh` - self explanatory
+`100_build_tree.sh` - self explanatory
+`110_get_core_metrics.sh` - creates varies distance measures describing the diversity of the samples
+`120_train_classifier.sh` - discard unnecessary reference data by feeding primers to the reference database
+`130_classify_reads.sh` - get SILVA identifications for the unclustered Amplicon Variants
+`140_show_classification.sh` - show SILVA identifications for the unclustred Amplicon Variants
+`200_cluster_sequences.sh` - analysis of overlap across samples needs clustering, here done for several treshholds
+`210_filter_samples.sh` - among clusters seperate controls from actual data
+`220_classify_clusters.sh` - compare clusters again to reference database, since cluster ID could have changed, create taxonomy visualisations
+`230_summarize_clusters.sh` - get visualisations (in table form) for sequences in clusters and sequences in each samples
+`240_convert_clusters.sh` - **incomplete** - get `.biom` files for R import and Cytoscape (can be collapsed in R)
+`250_get_bi_networks.sh` - **incomplete** - (via Qiime 1) - get bipartite network files for Cytoscape (can be collapsed in Cytoscape)
+`260_blast_clusters.sh` - **incomplete**  - (via Qiime 1) - get blast IDs for clusters, in case SILVA is not good enough
