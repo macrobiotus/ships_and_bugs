@@ -163,12 +163,22 @@ Data will be included via manifest files and metadate files linked in at
   * improved classification script `220...`, filenames set correctly now.
   * started to work on scrip `230...` and ran it.
   * updated script list
+* **02.04.2018**
+  * started to work on scripts `240...`, `250..` and `270...` and ran and ran them.
+  * Blasting script 270 could be implemented in Python or employ parallel to be faster.
+* **03.04.2018**
+  * Blasting failed on local - not enough memory?
+  * Extending Blast script to work on cluster
+  * Commit and move to cluster
+
+
 
 ## Todo
 
 ### next data addition:
 * include `decontam` close to script `220...` or bolt in R package `https://github.com/benjjneb/decontam`
-* include `evaluate-composition` close to script `220..`(?) to check mock samples 
+* include `evaluate-composition` close to script `220..`(?) to check mock samples
+* improve logging during clustering script (see AAD data 26.03.2018 - clustering script usage of `tee`)
 
 ### R analysis of covariance matrices between invasion risk and shared species)
 * exporting Unifrac distance matrix `qiime tools export /Users/paul/Documents/CU_combined/Zenodo/Qiime/110_18S_core_metrics/unweighted_unifrac_distance_matrix.qza --output-dir /Users/paul/Documents/CU_combined/Scratch`
@@ -183,6 +193,7 @@ Data will be included via manifest files and metadate files linked in at
 ## Miscellaneous Notes
 * alignment masking does not remove sequences, so filtering the repset in `script 100` is not necessary
 * but also calling `qiime phylogeny filter-table` in `script 100` doesn't change the data, so can be left in 
+* clustering-free analysis after cluster-based analysis
 
 ## Relevant Repository contents:
 
@@ -190,25 +201,25 @@ Data will be included via manifest files and metadate files linked in at
 * `CU_combined/Github` - analysis scripts
 * `CU_combined/Transport` - cluster transport scripts
 * `CU_combined/Zenodo` -  data and metadata for upload
-* `CU_combined/Zenodo` - useful scripts from previous analysis iterations and draft analyses
+* `CU_combined/Zenodo/Scratch` - useful scripts from previous analysis iterations and draft analyses
 
-###
-`065_merge_data.sh` -  merging sequences and rep.-sequence sets from multiple runs
-`070_merge_metdata.sh` - merging of metadata files
-`075_smr_features_and_table.sh` - get feature table summaries of merged data created above
-`080_re_cut_adapt_and_filter.sh` - removing adapter remnants and COI data that uses the same barcodes as 18S data
-`085_smr_features_and_table.sh` - get feature table summaries of merged and cleaned data created above
-`090_align_repseqs.sh` - self explanatory 
-`095_mask_alignment.sh` - self explanatory
-`100_build_tree.sh` - self explanatory
-`110_get_core_metrics.sh` - creates varies distance measures describing the diversity of the samples
-`120_train_classifier.sh` - discard unnecessary reference data by feeding primers to the reference database
-`130_classify_reads.sh` - get SILVA identifications for the unclustered Amplicon Variants
-`140_show_classification.sh` - show SILVA identifications for the unclustred Amplicon Variants
-`200_cluster_sequences.sh` - analysis of overlap across samples needs clustering, here done for several treshholds
-`210_filter_samples.sh` - among clusters seperate controls from actual data
-`220_classify_clusters.sh` - compare clusters again to reference database, since cluster ID could have changed, create taxonomy visualisations
-`230_summarize_clusters.sh` - get visualisations (in table form) for sequences in clusters and sequences in each samples
-`240_convert_clusters.sh` - **incomplete** - get `.biom` files for R import and Cytoscape (can be collapsed in R)
-`250_get_bi_networks.sh` - **incomplete** - (via Qiime 1) - get bipartite network files for Cytoscape (can be collapsed in Cytoscape)
-`260_blast_clusters.sh` - **incomplete**  - (via Qiime 1) - get blast IDs for clusters, in case SILVA is not good enough
+### Scripts
+* `065_merge_data.sh` -  merging sequences and rep.-sequence sets from multiple runs
+* `070_merge_metdata.sh` - merging of metadata files
+* `075_smr_features_and_table.sh` - get feature table summaries of merged data created above
+* `080_re_cut_adapt_and_filter.sh` - removing adapter remnants and COI data that uses the same barcodes as 18S data
+* `085_smr_features_and_table.sh` - get feature table summaries of merged and cleaned data created above
+* `090_align_repseqs.sh` - self explanatory 
+* `095_mask_alignment.sh` - self explanatory
+* `100_build_tree.sh` - self explanatory
+* `110_get_core_metrics.sh` - creates varies distance measures describing the diversity of the samples
+* `120_train_classifier.sh` - discard unnecessary reference data by feeding primers to the reference database
+* `130_classify_reads.sh` - get SILVA identifications for the unclustered Amplicon Variants
+* `140_show_classification.sh` - show SILVA identifications for the unclustred Amplicon Variants
+* `200_cluster_sequences.sh` - analysis of overlap across samples needs clustering, here done for several treshholds
+* `210_filter_samples.sh` - among clusters seperate controls from actual data
+* `220_classify_clusters.sh` - compare clusters again to reference database, since cluster ID could have changed, create taxonomy visualisations
+* `230_summarize_clusters.sh` - get visualisations (in table form) for sequences in clusters and sequences in each samples
+* `240_convert_clusters.sh` - **incomplete** - get `.biom` files for R import and Cytoscape (can be collapsed in R)
+* `250_get_bi_networks.sh` - **incomplete** - (via Qiime 1) - get bipartite network files for Cytoscape (can be collapsed in Cytoscape)
+* `260_blast_clusters.sh` - **incomplete**  - (via Qiime 1) - get blast IDs for clusters, in case SILVA is not good enough

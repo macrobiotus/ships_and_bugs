@@ -2,7 +2,7 @@
 
 # 22.03.2018 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
-# Classification of reads, needs trained classifier.
+# Classification of reads, needs trained classifier. May not be necessary.
 
 # For debugging only
 # ------------------ 
@@ -39,10 +39,6 @@ for seqqza in $trpth/Zenodo/Qiime/210_18S_???_*_seq.qza ; do
   prefix="220${prefix:3}"
   trgttax="/Zenodo/Qiime/${prefix::${#prefix}-4}_tax.$suffix" # Bash 4: ${foo::-4}
   trgtvis="/Zenodo/Qiime/${prefix::${#prefix}-4}_tax.qzv" # Bash 4: ${foo::-4}
-  
-  
-  # printf "$trgttax\n"
-  # printf "$trgtvis\n"
   
   # run classifier
   printf "Classifying \"$seqqza\" at $(date +"%T")  ... \n"
