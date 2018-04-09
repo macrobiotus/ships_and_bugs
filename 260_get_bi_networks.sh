@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# 19.03.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 09.04.2018 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
-# Converting clustering results to biom files for Qiime 1 and
-# network graphics.
+# Using Qiime 1 biom files to create network graphics table for input to
+#  Cytoscape.
 
 # For debugging only
 # ------------------ 
@@ -22,40 +22,39 @@ elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     cores='2'
 fi
 
-# Define input files
-# ------------------
-biom[1]='Zenodo/Qiime/520_18S_100_cl_q1exp/features-tax-meta.biom'
-biom[2]='Zenodo/Qiime/520_18S_099_cl_q1exp/features-tax-meta.biom'
-biom[3]='Zenodo/Qiime/520_18S_098_cl_q1exp/features-tax-meta.biom'
-biom[4]='Zenodo/Qiime/520_18S_097_cl_q1exp/features-tax-meta.biom'
-biom[5]='Zenodo/Qiime/520_18S_096_cl_q1exp/features-tax-meta.biom'
-biom[6]='Zenodo/Qiime/520_18S_095_cl_q1exp/features-tax-meta.biom'
-biom[7]='Zenodo/Qiime/520_18S_090_cl_q1exp/features-tax-meta.biom'
+# Define input paths and parameters for Qiime script 
+# ----------------------------------------------
+# find all .biom files incl. their paths and put them into an array
+#   see https://stackoverflow.com/questions/23356779/how-can-i-store-find-command-result-as-arrays-in-bash
+biom_files=()
+while IFS=  read -r -d $'\0'; do
+    biom_files+=("$REPLY")
+done < <(find "$trpth"/"Zenodo/Qiime" -type f \( -iname "features-tax-meta.biom" \) -print0)
 
-mappng[1]='Zenodo/Manifest/05_18S_merged_metadata.tsv'
+# mapping file (Qiime 1 compatible) 
+map_file='Zenodo/Manifest/05_18S_merged_metadata.tsv'
 
-# Define output files
-# -------------------
-netw[1]='Zenodo/Qiime/540_18S_100_cl_q1bnetw'
-netw[2]='Zenodo/Qiime/540_18S_099_cl_q1bnetw'
-netw[3]='Zenodo/Qiime/540_18S_098_cl_q1bnetw'
-netw[4]='Zenodo/Qiime/540_18S_097_cl_q1bnetw'
-netw[5]='Zenodo/Qiime/540_18S_096_cl_q1bnetw'
-netw[6]='Zenodo/Qiime/540_18S_095_cl_q1bnetw'
-netw[7]='Zenodo/Qiime/540_18S_090_cl_q1bnetw'
+# loop over array of fasta files, create result directory, call blast
+# ----------------------------------------------------------------
+for biom_file in "${biom_files[@]}";do
+  
+  # for debugging only
+  # printf "$biom_file\n"
+  
+  # create result folders names
+  filename=$(dirname "$biom_file")
+  src_dir=$(basename "$filename")
+  tgt_dir="260${src_dir:3}_network"
+  
+  # for debugging only 
+  # printf "$trpth"/Zenodo/Qiime/"$tgt_dir\n"
+  
+  # get networks
+  make_bipartite_network.py \
+    -i "$biom_file" \
+    -m "$trpth"/"$map_file" \
+    -o "$trpth"/Zenodo/Qiime/"$tgt_dir" \
+    -k taxonomy --md_fields 'k,p,c,o,f' \
+    || { echo 'command failed' ; exit 1; }
 
-
-# Run Qiime one script 
-# --------------------
-
-for ((i=1;i<=7;i++)); do
-   # get networks
-   make_bipartite_network.py \
-     -i "$trpth"/"${biom[$i]}" \
-     -m "$trpth"/"${mappng[1]}" \
-     -o "$trpth"/"${netw[$i]}" \
-     -k taxonomy --md_fields 'k,p,c,o,f' \
-   || { echo 'command failed' ; exit 1; }
-   # tidy up
-   mv "$trpth"/"${netw[$i]}"/otu_network/* "$trpth"/"${netw[$i]}"
 done

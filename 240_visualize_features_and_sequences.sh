@@ -68,7 +68,6 @@ for tab_file in $trpth/Zenodo/Qiime/210_18S_???_cl_*_tab.qza ; do
   # dependent input files
   # printf "$trpth"/"$tax_file\n"
   
-  
   # output directory
   # printf "$trpth"/"$viz_dir\n"
 
