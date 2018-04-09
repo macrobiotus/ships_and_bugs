@@ -170,6 +170,14 @@ Data will be included via manifest files and metadate files linked in at
   * Blasting failed on local - not enough memory?
   * Extending Blast script to work on cluster
   * Commit and move to cluster
+  * on cluster - overwrite was needed - old data was still on cluster
+  * copied over nt db to scratch
+  * checked script `270...` and trying - blasting script working - addeing taxlookup to script
+  * adding download of taxonomy database to ncbi install script (in `Transport` folder)
+  * taxdb looup doesn't work properly - email Qi? - changing wierd characters for proper "" and testing again - working now
+  * blasting on cluster correctly, including taxonomy ID
+* **05.03.2017**
+  * blasting done 1:48 in the morning on 16 cores - copying out - chacelling reservation 88900 after 47 hours
 
 
 
@@ -203,7 +211,7 @@ Data will be included via manifest files and metadate files linked in at
 * `CU_combined/Zenodo` -  data and metadata for upload
 * `CU_combined/Zenodo/Scratch` - useful scripts from previous analysis iterations and draft analyses
 
-### Scripts
+### Scripts (likley not up to date)
 * `065_merge_data.sh` -  merging sequences and rep.-sequence sets from multiple runs
 * `070_merge_metdata.sh` - merging of metadata files
 * `075_smr_features_and_table.sh` - get feature table summaries of merged data created above
