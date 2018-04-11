@@ -176,8 +176,42 @@ Data will be included via manifest files and metadate files linked in at
   * adding download of taxonomy database to ncbi install script (in `Transport` folder)
   * taxdb looup doesn't work properly - email Qi? - changing wierd characters for proper "" and testing again - working now
   * blasting on cluster correctly, including taxonomy ID
-* **05.03.2017**
+* **05.03.2018**
   * blasting done 1:48 in the morning on 16 cores - copying out - chacelling reservation 88900 after 47 hours
+* **09.03.2018**
+  * wrote and ran script `260...`
+  * started preliminary Cytoscape network
+     * Cytoscape 3.6
+     * importing Edge Table files as _network_ files
+     * importing Node and other files as attribute _tables_
+     * running Compound Spring Embedder (COSE) layout
+* **10.03.2018** - Cytoscape network testing
+  * collapsing ports, starting with Pearl Harbour
+  * edit Node Type for collapsed groups and set colours
+  * save style `180410_18S` and `180410_18S_0` in style file `180410_18S_style.xml`
+  * map node size to OTU abundance, save style file again
+  * set zoom to 200% (2117 x 1133 px)
+  * set Abundance size mapping approximately 8.7 to 30
+  * defining filter `180410_18S_overlap_filter`, saving as same file, here selecting 666 higher degree nodes
+  * saving group of selected OTUS with name `higher_degree`
+  * colouring `higher_degree` notes red via bypassing fill colour in Node options - image exported
+  * trying Edge weighted force directed Layout
+* **11.03.2018** - Cytoscape
+  * Cytoscape 
+     * saving new layout as `180411_270_18S_97.cys`
+     * inverting filter on network, erasing 1-degree nodes and saving as `180411_270_18S_97_subnet.cys`
+     * exporting image as `180409_18S_97_eDNA.png`
+  * Analysis design as per talk
+    * **Display Item 1** in Cytoscape 
+      * feature visualisation (must and should match R Euler diagrams)
+      * number of one-degree nodes and higher degree nodes (e.g. 675) - via table export and count
+   * **Display Item 2 and 3** via R:
+      * overlap analysis in Euler diagrams
+      * testing of Overlap Matrix versus Risk Matrix
+   * **Display Item 4 (and 5)** via Qiime 1 (and Qiime 2)
+     * blasting (and contamination inspection)
+   * **Display Item 6 (and 7)** (for talk only
+     * maps of all routes and analysed routes
 
 
 
@@ -228,6 +262,6 @@ Data will be included via manifest files and metadate files linked in at
 * `210_filter_samples.sh` - among clusters seperate controls from actual data
 * `220_classify_clusters.sh` - compare clusters again to reference database, since cluster ID could have changed, create taxonomy visualisations
 * `230_summarize_clusters.sh` - get visualisations (in table form) for sequences in clusters and sequences in each samples
-* `240_convert_clusters.sh` - **incomplete** - get `.biom` files for R import and Cytoscape (can be collapsed in R)
-* `250_get_bi_networks.sh` - **incomplete** - (via Qiime 1) - get bipartite network files for Cytoscape (can be collapsed in Cytoscape)
-* `260_blast_clusters.sh` - **incomplete**  - (via Qiime 1) - get blast IDs for clusters, in case SILVA is not good enough
+* `240_convert_clusters.sh` - get `.biom` files for R import and Cytoscape (can be collapsed in R)
+* `250_get_bi_networks.sh` - (via Qiime 1) - get bipartite network files for Cytoscape (can be collapsed in Cytoscape)
+* `260_blast_clusters.sh` - (via Qiime 1) - get blast IDs for clusters, in case SILVA is not good enough
