@@ -212,7 +212,8 @@ Data will be included via manifest files and metadate files linked in at
      * blasting (and contamination inspection)
    * **Display Item 6 (and 7)** (for talk only
      * maps of all routes and analysed routes
-
+* **12.04.2018** - Blast output to dedicated directory 
+     * moving results of script `270...` there (`Blast` instead of `Qiime`)
 
 
 ## Todo

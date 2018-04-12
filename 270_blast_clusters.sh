@@ -4,8 +4,8 @@
 # ========================================================
 # Blast fasta file against locally installed copy of NCBI nt database. Modified
 # from https://stackoverflow.com/questions/45014279/running-locally-blastn-against-nt-db-thru-python-script.
-#  If excuted on cluster install reference db via script in Transport folder.
-
+# If excuted on cluster install reference db via script in Transport folder.
+# 12.04.2018 - output to dedicated directory - moving results there
 
 # For debugging only
 # ------------------ 
@@ -50,7 +50,7 @@ for fasta in "${fasta_files[@]}";do
   tgt_dir="270${src_dir:3}_fasta_blast"
   
   # for debugging only 
-  # printf "$trpth"/Zenodo/Qiime/"$tgt_dir\n"
+  # printf "$trpth"/Zenodo/Blast/"$tgt_dir\n"
   
   # don't know if blast will throw an error if directory in output path doesn't exist
   # blast locally - or else adjust -db flag and set -remote flag
@@ -58,7 +58,7 @@ for fasta in "${fasta_files[@]}";do
   # or blast help
   
   printf "Blastn started at $(date +"%T") ...\n" && \
-  mkdir -p "$trpth"/Zenodo/Qiime/"$tgt_dir" && \
+  mkdir -p "$trpth"/Zenodo/Blast/"$tgt_dir" && \
   blastn -query "$fasta" -task blastn -evalue 1e-5  \
     -max_target_seqs 5 -max_hsps 5 -db "$dbpath" \
     -outfmt "6 qseqid sseqid pident qlen length mismatch gapope evalue bitscore sscinames scomnames" \
