@@ -212,23 +212,34 @@ Data will be included via manifest files and metadate files linked in at
      * blasting (and contamination inspection)
    * **Display Item 6 (and 7)** (for talk only
      * maps of all routes and analysed routes
-* **12.04.2018** - Blast output to dedicated directory 
+* **12.04.2018** - Blast output to dedicated directory - R scripting
      * moving results of script `270...` there (`Blast` instead of `Qiime`)
+     * starting R scripting:
+       * Euler graphs, creating `/Users/paul/Documents/CU_combined/Github/500_functions.R`
+       * to contain function, creating `/Users/paul/Documents/CU_combined/Github/550_euler.R`
+       * Eulerr script is working - overlap numbers not showing yet. 
 
 
 ## Todo
+
+### R analysis of covariance matrices between invasion risk and shared species)
+#### now
+* [x] - collapse samples
+* [ ] - stats test
+
+#### later
+* exporting Unifrac distance matrix `qiime tools export /Users/paul/Documents/CU_combined/Zenodo/Qiime/110_18S_core_metrics/unweighted_unifrac_distance_matrix.qza --output-dir /Users/paul/Documents/CU_combined/Scratch`
+* renaming Unifrac distance matrix `mv /Users/paul/Documents/CU_combined/Scratch/distance-matrix.tsv /Users/paul/Documents/CU_combined/Scratch/180316_18S_uf_dm.tsv`
+* check `/Users/paul/Box Sync/CU_NIS-WRAPS/170912_code_r/180116_30_select_samples.R` to get invasion risk distance matrix between worldwide ports
+* devide data in two and use 1st half as training data and 2nd half to test the model
+
+
 
 ### next data addition:
 * include `decontam` close to script `220...` or bolt in R package `https://github.com/benjjneb/decontam`
 * include `evaluate-composition` close to script `220..`(?) to check mock samples
 * improve logging during clustering script (see AAD data 26.03.2018 - clustering script usage of `tee`)
 
-### R analysis of covariance matrices between invasion risk and shared species)
-* exporting Unifrac distance matrix `qiime tools export /Users/paul/Documents/CU_combined/Zenodo/Qiime/110_18S_core_metrics/unweighted_unifrac_distance_matrix.qza --output-dir /Users/paul/Documents/CU_combined/Scratch`
-* renaming Unifrac distance matrix `mv /Users/paul/Documents/CU_combined/Scratch/distance-matrix.tsv /Users/paul/Documents/CU_combined/Scratch/180316_18S_uf_dm.tsv`
-* check `/Users/paul/Box Sync/CU_NIS-WRAPS/170912_code_r/180116_30_select_samples.R` to get invasion risk distance matrix between worldwide ports
-* collapse samples
-* devide data in two and use 1st half as training data and 2nd half to test the model
 
 ### Network analysis:
 * collapse samples
