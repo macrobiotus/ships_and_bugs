@@ -202,32 +202,47 @@ Data will be included via manifest files and metadate files linked in at
      * inverting filter on network, erasing 1-degree nodes and saving as `180411_270_18S_97_subnet.cys`
      * exporting image as `180409_18S_97_eDNA.png`
   * Analysis design as per talk
-    * **Display Item 1** in Cytoscape 
+    * **Display Item 1** in Cytoscape **functional**
       * feature visualisation (must and should match R Euler diagrams)
       * number of one-degree nodes and higher degree nodes (e.g. 675) - via table export and count
    * **Display Item 2 and 3** via R:
-      * overlap analysis in Euler diagrams
-      * testing of Overlap Matrix versus Risk Matrix
+      * overlap analysis in Euler diagrams ***functional**
+      * testing of Overlap Matrix versus Risk Matrix  **PENDING**
    * **Display Item 4 (and 5)** via Qiime 1 (and Qiime 2)
-     * blasting (and contamination inspection)
+     * blasting **functional**
+     * and contamination inspection) **PENDING**
    * **Display Item 6 (and 7)** (for talk only
-     * maps of all routes and analysed routes
+     * maps of all routes and analysed routes **PENDING**
 * **12.04.2018** - Blast output to dedicated directory - R scripting
-     * moving results of script `270...` there (`Blast` instead of `Qiime`)
-     * starting R scripting:
-       * Euler graphs, creating `/Users/paul/Documents/CU_combined/Github/500_functions.R`
-       * to contain function, creating `/Users/paul/Documents/CU_combined/Github/550_euler.R`
-       * Eulerr script is working - overlap numbers not showing yet. 
+  * moving results of script `270...` there (`Blast` instead of `Qiime`)
+  * starting R scripting:
+    * Euler graphs, creating `/Users/paul/Documents/CU_combined/Github/500_functions.R`
+    * to contain function, creating `/Users/paul/Documents/CU_combined/Github/550_euler.R`
+    * Eulerr script is working - overlap numbers showing ok.
+      * needs prettying up, possibly
+* **16.04.2018** - R scripting
+  * copied over sample selection script to use with data feed in
+* **17.04 2018** - R srcipting
+  * finished permutation test design `/Users/paul/Documents/CU_combined/Github/500_permutation_test_design.R`
+    * need to be evaluated by Giles Hooker
+    * can be sped up
+    * committed repository
+    * needs data feed in 
+    
+ 
 
 
 ## Todo
 
 ### R analysis of covariance matrices between invasion risk and shared species)
 #### now
-* [x] - collapse samples
-* [ ] - stats test
+* [ ] - code stats test - get Unifrac matrices from data - don’t remove “endemics” - vectorize symmetric matrix R - afterwards appointment with Giles Hooker - effect of clustering
+* [ ] - code maps
 
 #### later
+* test eulerr with unclustered data (?)
+* correct OTU numbers (?) - use 97% for now - address both issues though
+* stats test - pull quantities from eulerr (?)
 * exporting Unifrac distance matrix `qiime tools export /Users/paul/Documents/CU_combined/Zenodo/Qiime/110_18S_core_metrics/unweighted_unifrac_distance_matrix.qza --output-dir /Users/paul/Documents/CU_combined/Scratch`
 * renaming Unifrac distance matrix `mv /Users/paul/Documents/CU_combined/Scratch/distance-matrix.tsv /Users/paul/Documents/CU_combined/Scratch/180316_18S_uf_dm.tsv`
 * check `/Users/paul/Box Sync/CU_NIS-WRAPS/170912_code_r/180116_30_select_samples.R` to get invasion risk distance matrix between worldwide ports

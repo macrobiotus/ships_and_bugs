@@ -111,7 +111,7 @@ kulczynski(mat)
 par (fig = c(0.3,1, 0,0.5), new=TRUE) 
 
 ## plot for Euler diagram
-plot (fit2, main = "OTU counts and overlap between ports", counts = TRUE)
+plot (fit2, main = "OTU counts and overlap between ports", quantities = TRUE)
 
 #' <!-- #################################################################### -->
 #'
