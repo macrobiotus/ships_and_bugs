@@ -73,8 +73,8 @@ rm(list=ls())     # for safety only
 #' 
 #' Data is imported using basic R functionality, generated from these scripts: 
 #'
-#'  *  `/Users/paul/Box Sync/CU_NIS-WRAPS/170720_code/170830_10_cleanup_tables.R`
-#'  *  `/Users/paul/Box Sync/CU_NIS-WRAPS/170720_code/170901_20_calculate_distances.R`
+#'  *  `/Users/paul/Box Sync/CU_NIS-WRAPS/170912_code_r/170830_10_cleanup_tables.R`
+#'  *  `/Users/paul/Box Sync/CU_NIS-WRAPS/170912_code_r/170901_20_calculate_distances.R`
 
 # getting list of Tibbles
 load (file = 

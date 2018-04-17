@@ -1,3 +1,4 @@
+#!/usr/local/bin/R
 #' ---
 #' title: "Helper functions for R scripts"
 #' author: "Paul Czechowski"

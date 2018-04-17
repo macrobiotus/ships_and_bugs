@@ -222,12 +222,23 @@ Data will be included via manifest files and metadate files linked in at
       * needs prettying up, possibly
 * **16.04.2018** - R scripting
   * copied over sample selection script to use with data feed in
-* **17.04 2018** - R srcipting
+* **17.04 2018** - R scripting - Shell scripting 
   * finished permutation test design `/Users/paul/Documents/CU_combined/Github/500_permutation_test_design.R`
     * need to be evaluated by Giles Hooker
     * can be sped up
     * committed repository
-    * needs data feed in 
+    * needs data feed in
+  * started on `/Users/paul/Documents/CU_combined/Github/600_matrix_comparison.R`
+    * imports and format Unifrac matrix fine
+    * needs properly formatted Risk matrix
+      * risk matrix needs to be expanded 
+      * would benefit from (some) possible script-backtracking (also for maps later) 
+  * worked on data feed-in
+    * `./245_get_cluster_core_metrics.sh` (writing to folders `245....`
+      * calls `diversity core-metrics-phylogenetic` of Qiime 2
+      * produces all plots and **importantly** Unifrac matrices
+      * for data-feed-in to R Unifrac matrices are quick-and-dirty exported to script target directory
+      * control diles are process as well, but there are likely no usable results in those folders
     
  
 

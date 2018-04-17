@@ -59,10 +59,12 @@ tree_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/100_18S_tree_mdp_ro
 #  functionality 
 phsq_ob <- get_phsq_ob(biom_path, sequ_path, tree_path)
 
+
 # data clean
 # ==========
 
 phsq_ob <- remove_empty(phsq_ob) # NO EFFECT, AS EXPECTED
+
 
 # data formatting
 # ================
@@ -91,6 +93,9 @@ colnames(mat) <- colnames(df_ports)
 rownames(mat) <- rownames(df_ports)
 
 
+# data analysis
+# =============
+
 # generate colour palette
 pal <- qualpal(n = ncol(df_ports), colorspace = "pretty", cvd = "deutan", cvd_severity = 0.8)
 # plot(pal) # one can check the colors here
@@ -112,6 +117,9 @@ par (fig = c(0.3,1, 0,0.5), new=TRUE)
 
 ## plot for Euler diagram
 plot (fit2, main = "OTU counts and overlap between ports", quantities = TRUE)
+
+#'
+#' <!-- #################################################################### -->
 
 #' <!-- #################################################################### -->
 #'

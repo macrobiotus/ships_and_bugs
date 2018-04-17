@@ -58,8 +58,8 @@ rmat <- add_noise(rmat_orig, mini = -0.01, maxi = 0.01)
 rmat_orig
 rmat
 
-#' Create matrix to simulate species dissimilarity matrix, based on invasion risk
-#' scaling between 0 - 1 to simulate dissimilarity. Then adding some noise to data.
+#' Create matrix to simulate species similarity matrix, based on invasion risk
+#' scaling between 0 - 1 to simulate similarity. Then adding some noise to data.
 dmat_orig <- apply (rmat_orig, 2, get_normal)
 dmat <- add_noise(dmat_orig, mini = 0.000, maxi = 0.01) 
 
