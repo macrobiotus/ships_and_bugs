@@ -234,22 +234,28 @@ Data will be included via manifest files and metadate files linked in at
       * risk matrix needs to be expanded 
       * would benefit from (some) possible script-backtracking (also for maps later) 
   * worked on data feed-in
-    * `./245_get_cluster_core_metrics.sh` (writing to folders `245....`
+    * `./245_get_cluster_core_metrics.sh` (writing to folders `245....`)
       * calls `diversity core-metrics-phylogenetic` of Qiime 2
       * produces all plots and **importantly** Unifrac matrices
       * for data-feed-in to R Unifrac matrices are quick-and-dirty exported to script target directory
-      * control diles are process as well, but there are likely no usable results in those folders
-    
- 
-
+      * control files are processed as well, but there are likely no usable results in those folders
+  * copied `/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R` from `/Users/paul/Box Sync/CU_NIS-WRAPS/170912_code_r/170830_10_cleanup_tables.R`
+    * input and output locations adjusted as well as `.Rdata files in `Zenodo/R_Objects`   
 
 ## Todo
 
 ### R analysis of covariance matrices between invasion risk and shared species)
 #### now
-* [ ] - code stats test - get Unifrac matrices from data - don’t remove “endemics” - vectorize symmetric matrix R - afterwards appointment with Giles Hooker - effect of clustering
+* [x] - code stats test - vectorize symmetric matrix R 
+* [x] - get response (Unifrac) matrices from data - don’t remove “endemics” - 
+* [ ] - get predictor matrices
+  * [ ] - adjust script and input/output `/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R`
+  * [ ] - adjust script and input/output `/Users/paul/Documents/CU_combined/Github/500_20_get_environmental_distances.R`
+  * [ ] - adjust script and input/output (upper half) `/Users/paul/Documents/CU_combined/Github/500_select_samples_SCRATCH.R`
 * [ ] - code maps
-
+  * [ ] - adjust script and input/output (lower half)  `/Users/paul/Documents/CU_combined/Github/500_select_samples_SCRATCH.R`
+* [ ] - appointment with Giles Hooker
+   
 #### later
 * test eulerr with unclustered data (?)
 * correct OTU numbers (?) - use 97% for now - address both issues though
