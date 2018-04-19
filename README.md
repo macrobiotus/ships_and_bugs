@@ -222,7 +222,7 @@ Data will be included via manifest files and metadate files linked in at
       * needs prettying up, possibly
 * **16.04.2018** - R scripting
   * copied over sample selection script to use with data feed in
-* **17.04 2018** - R scripting - Shell scripting 
+* **17.04.2018** - R scripting - Shell scripting 
   * finished permutation test design `/Users/paul/Documents/CU_combined/Github/500_permutation_test_design.R`
     * need to be evaluated by Giles Hooker
     * can be sped up
@@ -240,38 +240,46 @@ Data will be included via manifest files and metadate files linked in at
       * for data-feed-in to R Unifrac matrices are quick-and-dirty exported to script target directory
       * control files are processed as well, but there are likely no usable results in those folders
   * copied `/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R` from `/Users/paul/Box Sync/CU_NIS-WRAPS/170912_code_r/170830_10_cleanup_tables.R`
-    * input and output locations adjusted as well as `.Rdata files in `Zenodo/R_Objects`   
+    * input and output locations adjusted as well as `.Rdata files in `Zenodo/R_Objects`
+* **18.04.2018** - R scripting
+  * test-rendered: `500_10_gather_predictor_tables.R` - reading / writing ok but using old storage files.
+  * test-rendered: `500_20_get_predictor_euklidian_distances.pdf` - reading / writing ok but using old storage files. Copy of `/Users/paul/Box Sync/CU_NIS-WRAPS/170912_code_r/170901_20_calculate_distances.R`.
+  * duplicating `/Users/paul/Documents/CU_combined/Github/500_select_samples_SCRATCH.R` and renaming 
+    * for risk matrix creation (upper half of script): `/Users/paul/Documents/CU_combined/Github/500_30_get_predictor_risk_matrix.R`
+    * foo maps and table creation (lower half of script): `/Users/paul/Documents/CU_combined/Github/500_40_get maps_and_tables.R`
+* **19.04.2018** - R scripting
+  * improved stats test script after meeting Giles Hooker (and rendered it).
+  * filled `/Users/paul/Documents/CU_combined/Github/500_40_get maps_and_tables.R` with lower half of original code, now only for mapping.
+  * renamed `/Users/paul/Documents/CU_combined/Github/500_40_get maps_and_tables.R` to `/Users/paul/Documents/CU_combined/Github/500_40_get maps.R`
+  * got a working `/Users/paul/Documents/CU_combined/Github/500_30_get_predictor_risk_matrix.R` which writes three files (as documented in script) to `/Users/paul/Documents/CU_combined/Zenodo/R_Objects`.
+    * last output file to be used by: `/Users/paul/Documents/CU_combined/Github/500_40_get maps.R`
+    * second output file to be used by `/Users/paul/Documents/CU_combined/Github/600_matrix_comparison.R`
 
 ## Todo
 
 ### R analysis of covariance matrices between invasion risk and shared species)
 #### now
-* [x] - code stats test - vectorize symmetric matrix R 
-* [x] - get response (Unifrac) matrices from data - don’t remove “endemics” - 
+* [ ] - get response (Unifrac) matrices from data
+  * [x] - get raw matrices in Qiime
+  * [x] - read raw matrix into `/Users/paul/Documents/CU_combined/Github/600_matrix_comparison.R`
+  * [ ] - average port matrix field in `/Users/paul/Documents/CU_combined/Github/600_matrix_comparison.R`
 * [ ] - get predictor matrices
-  * [ ] - adjust script and input/output `/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R`
-  * [ ] - adjust script and input/output `/Users/paul/Documents/CU_combined/Github/500_20_get_environmental_distances.R`
-  * [ ] - adjust script and input/output (upper half) `/Users/paul/Documents/CU_combined/Github/500_select_samples_SCRATCH.R`
+  * [x] - adjust script and input/output `/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R`
+  * [x] - adjust script and input/output `/Users/paul/Documents/CU_combined/Github/500_20_get_environmental_distances.R`
+  * [ ] - adjust script and input/output `/Users/paul/Documents/CU_combined/Github/500_30_get_predictor_risk_matrix.R`
+  * [ ] - test matrix - should be upper triangle, symmetrical and no NA's in upper triangle onec subset to available ports!
 * [ ] - code maps
-  * [ ] - adjust script and input/output (lower half)  `/Users/paul/Documents/CU_combined/Github/500_select_samples_SCRATCH.R`
-* [ ] - appointment with Giles Hooker
+  * [ ] - adjust script and input/output (lower half): `/Users/paul/Documents/CU_combined/Github/500_40_get maps.R`
    
 #### later
 * test eulerr with unclustered data (?)
 * correct OTU numbers (?) - use 97% for now - address both issues though
 * stats test - pull quantities from eulerr (?)
-* exporting Unifrac distance matrix `qiime tools export /Users/paul/Documents/CU_combined/Zenodo/Qiime/110_18S_core_metrics/unweighted_unifrac_distance_matrix.qza --output-dir /Users/paul/Documents/CU_combined/Scratch`
-* renaming Unifrac distance matrix `mv /Users/paul/Documents/CU_combined/Scratch/distance-matrix.tsv /Users/paul/Documents/CU_combined/Scratch/180316_18S_uf_dm.tsv`
-* check `/Users/paul/Box Sync/CU_NIS-WRAPS/170912_code_r/180116_30_select_samples.R` to get invasion risk distance matrix between worldwide ports
-* devide data in two and use 1st half as training data and 2nd half to test the model
-
-
 
 ### next data addition:
 * include `decontam` close to script `220...` or bolt in R package `https://github.com/benjjneb/decontam`
 * include `evaluate-composition` close to script `220..`(?) to check mock samples
 * improve logging during clustering script (see AAD data 26.03.2018 - clustering script usage of `tee`)
-
 
 ### Network analysis:
 * collapse samples

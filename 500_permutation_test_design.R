@@ -1,7 +1,7 @@
 #' ---
 #' title: "Permutation Test design to evaluate correlations between invasion risk and biological site dissimilarity."
 #' author: "Paul Czechowski"
-#' date: "April 17th, 2018"
+#' date: "April 19th, 2018"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -20,7 +20,10 @@
 #' Required is a test to compare two matrices of identical dimensions, the first
 #' containing Invasion Risks (continuous data between 1 and 7 of unknown distribution)
 #' and Site (Dis)Similarity (retrieved from sequencing data). Permutation testing modified
-#' from the vignette of the `permute` package, and can likely be sped up.  
+#' from the vignette of the `permute` package, and can likely be sped up.
+#' Necessary changes to be implemented:
+#' 
+#'   * not here but in real data: average Unifrac per port (across matrix blocks)
 #'
 #' <!-- #################################################################### -->
 
@@ -52,7 +55,14 @@ add_noise <- function(mtx, mini = -0.00001, maxi = 0.0001) {
 #' Create matrix to simulate invasion risk: `1` = low risk, `6` = high risk. And add
 #' some noise to data.
 rmat_orig <- matrix(sample(1:6, size=100, replace=TRUE), ncol = 10)
+rmat_raw <- rmat_orig
+diag(rmat_raw) <- 0
+
+rmat_orig[lower.tri(rmat_orig)] <- NA
+diag(rmat_orig) <- 0
+
 rmat <- add_noise(rmat_orig, mini = -0.01, maxi = 0.01)
+diag(rmat) <- 0
 
 #' Original and noisy risk matrices:
 rmat_orig
@@ -60,8 +70,11 @@ rmat
 
 #' Create matrix to simulate species similarity matrix, based on invasion risk
 #' scaling between 0 - 1 to simulate similarity. Then adding some noise to data.
-dmat_orig <- apply (rmat_orig, 2, get_normal)
+dmat_orig <- apply (rmat_raw, 2, get_normal)
+dmat_orig[lower.tri(dmat_orig)] <- NA 
 dmat <- add_noise(dmat_orig, mini = 0.000, maxi = 0.01) 
+diag(dmat) <- 0
+
 
 #' Original and noisy dissimilarity matrices:
 dmat_orig
@@ -80,7 +93,7 @@ dvec
 #' 
 #' Correlation and p-value based on Kendall (non-normal data):
 # correlation
-cor(rvec, dvec) 
+cor(rvec, dvec, use = "pairwise.complete.obs", method = "kendall") 
 # "greater" corresponds to positive association,
 cor.test(rvec, dvec, method = "kendall", alternative = "greater") 
 
@@ -88,7 +101,7 @@ cor.test(rvec, dvec, method = "kendall", alternative = "greater")
 #' # Data analysis 2 - correlation and permutation test 
 #' 
 
-perm_risk <- numeric(length = 100000) # create vector to store results, 
+perm_risk <- numeric(length = 10000) # create vector to store results, 
                                      #   with length equal to the amount of
                                      #   permutations
 n = length(rvec)                     
@@ -104,20 +117,23 @@ for (i in seq_len(length(perm_risk) - 1)) {
      perm <- shuffle(n)
      
      # fill vector of defined length loop-by-loop  
-     perm_risk[i] <- cor(rvec[perm], dvec)
+     perm_risk[i] <- cor(rvec[perm], dvec, use = "pairwise.complete.obs", method = "kendall")
   }
 
 
 #' Fill vector `perm_risk` with correlations between measured risk vector and
 #'  vector containing biological species dissimilarities.
-perm_risk[length(perm_risk)] <- cor(rvec, dvec) 
+perm_risk[length(perm_risk)] <- cor(rvec, dvec, use = "pairwise.complete.obs", method = "kendall") 
+
+#' unsfuffeled "true" correlation for input data:
+perm_risk[length(perm_risk)]
 
 #' Show results graphically - see red dot of x-axis.
 hist (perm_risk, 
       main = "Simulated and Shuffled Correlations",
       sub = "Correlation between Invasion Risk and Biologic Site Similarity",
       xlab = "Correlation", 
-      breaks=50, 
+      breaks = 75, 
       prob=TRUE)
 lines(density(perm_risk))
 rug(perm_risk[length(perm_risk)], col = "red", lwd = 5)

@@ -5,7 +5,6 @@
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
-#' bibliography: ./references_2.bib
 #' ---
 #'
 #' # Preface
@@ -69,7 +68,7 @@ get_contents <- function (fnames = NULL) {
 #' * Lloyds port IDs to places, some coordinates may be missing
 #' * Date from [@Keller2011], needed for temperature values. 
 
-paths <- list (INVE = "/Users/paul/Box Sync/CU_NIS-WRAPS/170726_sample_info/170721_cs_samples.xlsx",
+paths <- list (INVE = "/Users/paul/Box Sync/CU_NIS-WRAPS/170726_sample_info/180314_cs_samples.xlsx",
   CLIM = "/Users/paul/Dropbox/NSF NIS-WRAPS Data/Climate Data\ -\ Ports/allportdata3.xlsx",
   ROUT = "/Users/paul/Box Sync/CU_NIS-WRAPS/170727_port_information/160318_57_connected_ports_DERIVATIVE.xlsx",
   PORT = "/Users/paul/Dropbox/NSF NIS-WRAPS Data/raw data for Mandana/PlacesFile_updated_Aug2017.xlsx",
