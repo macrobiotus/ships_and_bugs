@@ -1,5 +1,5 @@
 #' ---
-#' title: "Compare Unifrac and Risk distance matrices and validate using permutation test"
+#' title: "Compare Unifrac and Env (not Risk yet) distance matrices and validate using permutation test"
 #' author: "Paul Czechowski"
 #' date: "April 19th, 2018"
 #' output: pdf_document
@@ -25,7 +25,7 @@ rm(list=ls())
 
 # load packages
 # =============
-
+library("permute")
 
 # functions
 # ==========
@@ -140,22 +140,96 @@ p_mat <- p_mat[rowSums(is.na(p_mat))!=ncol(p_mat), colSums(is.na(p_mat))!=nrow(p
 ### FILLER CODE IS BUGGY WHEN RISK IS ASSOCIATED - check commit message `8bffcbaaadb7267fbcefa9895aab186c1dbbebd6`
 #### and notes 19.04.2018
 
-p_mat[c("2503","1165","3110","2907") , c("2503","1165","3110","2907")] # quick and dirty - manual lookup
+p_mat_xtr <- p_mat[c("2503","1165","3110","2907") , c("2503","1165","3110","2907")] # quick and dirty - manual lookup
                                                          # use order order of response matrix (!!!)
                                                         # here "PH","SP","AD","CH"
-                                                        # improve (!!!)
+                                                         # improve (!!!) this and improve risk adding code
                                                         # `open /Users/paul/Dropbox/NSF\ NIS-WRAPS\ Data/raw\ data\ for\ Mandana/PlacesFile_updated_Aug2017.xlsx -a "Microsoft Excel"`
+
+
+p_mat_xtr[lower.tri(p_mat_xtr, diag = FALSE)] <- NA
 
 # data analysis
 # =============
 
-# test correlation of matrices after vectorisation
+# predictors - copy names - make automatic !! 
+colnames(p_mat_xtr) <- colnames(r_mat_clpsd)
+rownames(p_mat_xtr) <- rownames(r_mat_clpsd)
+p_mat_xtr
+
+# response
+r_mat_clpsd
+
+#' Matrix structure is irrelevant and arbitrary - matrices can be dissolved into vectors:
+rvec <- c(p_mat_xtr) # r = risk  - here environmental distance, later risk  - DIRTY
+dvec <- c(r_mat_clpsd)  # d = distance - biological data - Unifrac -  response - DIRTY
+
+rvec
+dvec
 
 
-#'
-#' <!-- #################################################################### -->
+#' # Data analysis 1 - correlation and _p_ value
+#' 
+#' Correlation and p-value based on Kendall (non-normal data):
+# correlation
+cor(rvec, dvec, use = "pairwise.complete.obs", method = "kendall") 
+# "greater" corresponds to positive association,
+cor.test(rvec, dvec, method = "kendall", alternative = "greater") 
 
-#' <!-- #################################################################### -->
+
+#' # Data analysis 2 - correlation and permutation test 
+#' 
+
+perm_risk <- numeric(length = 100000) # create vector to store results, 
+                                     #   with length equal to the amount of
+                                     #   permutations
+n = length(rvec)                     
+set.seed(42)
+
+#' Fill vector `perm_risk` with correlations between permuted risk vector and
+#' vector containing biological species dissimilarities. 
+#' Loop over integer vector with length of permutations.
+for (i in seq_len(length(perm_risk) - 1)) {
+
+     # create and store permuted vector indices to shuffle real data one line
+     #   below
+     perm <- shuffle(n)
+     
+     # fill vector of defined length loop-by-loop  
+     perm_risk[i] <- cor(rvec[perm], dvec, use = "pairwise.complete.obs", method = "kendall")
+  }
+
+
+#' Fill vector `perm_risk` with correlations between measured risk vector and
+#'  vector containing biological species dissimilarities.
+perm_risk[length(perm_risk)] <- cor(rvec, dvec, use = "pairwise.complete.obs", method = "kendall") 
+
+#' unshuffeled "true" correlation for input data:
+perm_risk[length(perm_risk)]
+
+#' ** DIRTY - Erase this later - lines can't be drawn some reason**
+perm_risk[which(is.na(perm_risk))] <- 0
+
+#' Show results graphically - see red dot of x-axis.
+hist (perm_risk, 
+      main = "Environmental Distance and Shuffled Correlations",
+      sub = "Correlation between Environmental Distance and Biologic Site Similarity",
+      xlab = "Correlation", 
+      breaks = 75, 
+      prob=TRUE)
+lines(density(perm_risk))
+rug(perm_risk[length(perm_risk)], col = "red", lwd = 5)
+
+#' Count random correlations that are as high as the non-random one.
+h_corr <- sum(perm_risk >=  perm_risk[length(perm_risk)])
+
+#' Permutational _p_-value:
+h_corr / length (perm_risk)
+
+#' Slight evidence against the null hypothesis of no correlation between environmental
+#' distance calculated by environmental variables and environmental distance estimated
+#' by biological signal.
+#' 
 #'
 #' # Session info
 #'
