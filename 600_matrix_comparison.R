@@ -103,7 +103,7 @@ for (i in 1:nrow(r_mat_clpsd)){
     
     # edge case - use only upper triangle for matrix calculation if source ports are the same
     if (rnclpsd[i] == cnclpsd[j]) {
-      slctd_mat[lower.tri(slctd_mat, diag = TRUE)] <- NA   # although diagonal is defined with 
+      slctd_mat[lower.tri(slctd_mat, diag = TRUE)] <- NA  # although diagonal is defined with 
                                                            # "0" distance also setting diag to TRUE
                                                            # ( excluded) so that average isn't
                                                            # lowered by the number of replicates
@@ -180,7 +180,7 @@ cor.test(rvec, dvec, method = "kendall", alternative = "greater")
 #' # Data analysis 2 - correlation and permutation test 
 #' 
 
-perm_risk <- numeric(length = 100000) # create vector to store results, 
+perm_risk <- numeric(length = 10000) # create vector to store results, 
                                      #   with length equal to the amount of
                                      #   permutations
 n = length(rvec)                     
@@ -193,10 +193,11 @@ for (i in seq_len(length(perm_risk) - 1)) {
 
      # create and store permuted vector indices to shuffle real data one line
      #   below
-     perm <- shuffle(n)
+     perm1 <- shuffle(n)
+     perm2 <- shuffle(n)
      
      # fill vector of defined length loop-by-loop  
-     perm_risk[i] <- cor(rvec[perm], dvec, use = "pairwise.complete.obs", method = "kendall")
+     perm_risk[i] <- cor(rvec[perm1], dvec[perm2], use = "pairwise.complete.obs", method = "kendall")
   }
 
 
@@ -218,6 +219,7 @@ hist (perm_risk,
       breaks = 75, 
       prob=TRUE)
 lines(density(perm_risk))
+lines(density(perm_risk, adjust=2), lty="dotted", col="darkgreen", lwd=2) 
 rug(perm_risk[length(perm_risk)], col = "red", lwd = 5)
 
 #' Count random correlations that are as high as the non-random one.

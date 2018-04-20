@@ -137,6 +137,7 @@ hist (perm_risk,
       breaks = 75, 
       prob=TRUE)
 lines(density(perm_risk))
+lines(density(perm_risk, adjust=2), lty="dotted", col="darkgreen", lwd=2)
 rug(perm_risk[length(perm_risk)], col = "red", lwd = 5)
 
 #' Count random correlations that are as high as the non-random one.
