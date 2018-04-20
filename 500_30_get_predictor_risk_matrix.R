@@ -66,12 +66,19 @@ load (file =
 load (file =
    "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_20_get_predictor_euklidian_distances__output.Rdata")
 
+
+# getting distance matrix dimnames
+load (file =
+   "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_20_get_predictor_euklidian_distances_dimnames__output.Rdata")
+
 # check successful loading 
-exists (c ("src_heap", "eucl_heap"))
+exists (c ("src_heap", "eucl_heap", "eucl_heap_dimnames"))
 
 # show the data structure for future reference 
 str (src_heap)
 str (eucl_heap)
+str (eucl_heap_dimnames) # 6551 names
+
 
 #'
 #' # Formatting the environmental distance matrix.
@@ -84,6 +91,15 @@ str (eucl_heap)
 #' to speed up things. Refer to the previous script if more details are needed
 #' from the `dist()` object. 
 eucl_heap <- as.matrix(eucl_heap)
+dim(eucl_heap) # 6551 ? - yes! 19.04.2018
+
+# 19.04.2018: adding dimnames
+colnames(eucl_heap) <- c(eucl_heap_dimnames)
+rownames(eucl_heap) <- c(eucl_heap_dimnames)
+
+# checking - ok
+colnames(eucl_heap)[1:10]
+rownames(eucl_heap)[1:10]
 
 #' ## Label distance matrix with port ID's
 #'
@@ -95,26 +111,37 @@ eucl_heap <- as.matrix(eucl_heap)
 
 # `match()` (or `%in%`) doesn't return `NA` thus needed is a left join:
 src_heap$TEMP <- left_join (src_heap$TEMP, src_heap$PORT[c("PID", "PORT")], by = "PORT")
+src_heap$TEMP$PID <- as.integer(src_heap$TEMP$PID) # added 19.04.2018
 
 # of 6651 entries, 83 remain undefined, a very small percentage: 
 sum(is.na(src_heap$TEMP$PID)) / length (src_heap$TEMP$PID)
 
 # renaming the matrix rows and and columns
 #   `as.numeric()` may prevent lookup problems later
-colnames (eucl_heap) <- as.numeric(src_heap$TEMP$PID) 
-rownames (eucl_heap) <- as.numeric(src_heap$TEMP$PID) 
+# colnames (eucl_heap) <- as.numeric(src_heap$TEMP$PID) 
+# rownames (eucl_heap) <- as.numeric(src_heap$TEMP$PID) # modified 19.4.2018
+
+
+colnames (eucl_heap) <- as.character(src_heap$TEMP$PID) 
+rownames (eucl_heap) <- as.character(src_heap$TEMP$PID)
 
 # remove duplicate values to save memory and avoid confusion
-eucl_heap[lower.tri(eucl_heap)] <- NA
-
+# NOOOO - lookup later is in two dimensions (?) commenting out 19.04.2018
+#  eucl_heap[lower.tri(eucl_heap)] <- NA
 
 # testing the result - looks as desired
 eucl_heap[c(1:10), c(1:10)]
+
+# test 19.04.2018 - are test sample in the distance matrix? before calculating risk?
+eucl_heap[c("2503","1165","3110","2907") , c("2503","1165","3110","2907")]
+# YES :-)
 
 #' ## Export distance matrix 
 #'
 #' No risks associated yet, just an intermediate step:
 save (eucl_heap, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_get_predictor_risk_matrix__output_env_matrix.Rdata")
+
+
 
 #'
 #' # Formatting the route information, including _route ranking_
@@ -129,12 +156,11 @@ save (eucl_heap, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_
 #' lookup in distance matrix via variables `src_heap$ROUT$PRTA` and
 #' `src_heap$ROUT$PRTB`. 17% of data are missing, unless I get better data.
 
-# Initially create and index matrix - each position contains row and column position
+# Initially create an index matrix - each position contains row and column position
 # of matching ports.
 pos <- cbind (
-  match (src_heap$ROUT$PRTA, rownames (eucl_heap)),
-  match (src_heap$ROUT$PRTB, colnames (eucl_heap))
-  )
+  match ( rownames (eucl_heap), src_heap$ROUT$PRTA),
+  match ( colnames (eucl_heap), src_heap$ROUT$PRTB)) 
   
 #' Position pairs with `NA`'s do not have a matching row or column in the
 #' Eucledian distance matrices but some route in the route table `src_heap$ROUT`.
@@ -146,6 +172,12 @@ pos <- cbind (
 
 # Create variable by filling it with euclidian distance value from the distance matrix.
 src_heap$ROUT$EDST <- eucl_heap[pos] 
+
+sum(is.na(src_heap$ROUT$EDST))
+
+
+
+
 
 # saving matrix source coordinates in tables - for later
 src_heap$ROUT$EUKPOSR <- pos[,1]
@@ -221,6 +253,10 @@ for (i in 1:nrow(r_mat_content)){
     r_mat[ as.numeric(r_mat_content[i, 2]), as.numeric(r_mat_content[i, 3])] <- 
       as.numeric(r_mat_content[i, 1])
     }
+
+# test 19.04.2018 - are test sample in the distance matrix after calculating risk?
+r_mat[c("2503","1165","3110","2907") , c("2503","1165","3110","2907")]
+# NOOOO :-(
 
 #' **Port names are numbers, still needs filtering, should give symmetrical upper
 #' matrix when filtered for available ports:**

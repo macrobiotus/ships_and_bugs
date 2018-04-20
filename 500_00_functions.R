@@ -122,6 +122,30 @@ get_df_from_phsq_list <- function (phsq_list){
 '%!in%' <- function(x,y)!('%in%'(x,y))
 
 
+#' ## Create empty matrix with necessary dimensions to receive average Unifrac values
+#' 
+get_collapsed_responses_matrix_empty <- function(r_mat){
+
+  #  extract necessary unique dimensions (also to be used later)
+  unq_row_port <-  unique (substr (rownames (r_mat), start = 1, stop = 2))
+  unq_col_port <-  unique (substr (colnames (r_mat), start = 1, stop = 2))
+  
+  #  create matrix with required dimensions
+  r_mat_cllpsd <- matrix (nrow = length(unq_row_port),
+                          ncol = length (unq_col_port))
+
+   #  set col / row names appropriately   
+   colnames(r_mat_cllpsd) = unq_row_port
+   rownames(r_mat_cllpsd) = unq_row_port
+   
+   # diagnostic
+   message("Collapsed matrix has ",dim(r_mat_cllpsd)[1]," rows and ",dim(r_mat_cllpsd)[1]," columns.")
+   message("Collapsed matrix should receive data for samples: ", paste0(unq_row_port, " "),".")
+   
+   return(r_mat_cllpsd)
+}
+                        
+
 #' <!-- #################################################################### -->
 #'
 #' # Session info

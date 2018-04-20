@@ -65,6 +65,7 @@ exists ("src_heap")
 #' ## Inspecting raw data
 #' 
 #' The raw data is here (still), and types are set appropriately:
+str(src_heap)
 
 src_heap$TEMP[c("TMIN", "TMAX", "TMEN", "SMEN")]
 
@@ -85,7 +86,7 @@ ggplot(molten, aes(x=value, fill=variable)) + geom_density(alpha=0.25)
 #' ## Scaling and centring 
 #' 
 scaled_heap <- as_tibble (scale (src_heap$TEMP[c("TMIN", "TMAX", "TMEN", "SMEN")]))
-
+scaled_heap_rownames <-  src_heap$TEMP$PORT ## added 19.04.2018
 #'
 #' ## Inspecting scaled and centered data
 #' 
@@ -100,13 +101,15 @@ ggplot(molten, aes(x=value, fill=variable)) + geom_density(alpha=0.25)
 
 # head() for debugging only - if a small test data set is needed
 eucl_heap <- dist (scaled_heap, method = "euclidean", diag = TRUE, upper = TRUE)
-
+eucl_heap_dimnames <- scaled_heap_rownames
 #' 
-#' ## Exporting the matrix
+#' ## Exporting the matrix and its dimnames
 #' 
 save (eucl_heap,
  file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_20_get_predictor_euklidian_distances__output.Rdata")
 
+save (eucl_heap_dimnames,
+ file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_20_get_predictor_euklidian_distances_dimnames__output.Rdata")
 
 #' # Session info
 #' 
