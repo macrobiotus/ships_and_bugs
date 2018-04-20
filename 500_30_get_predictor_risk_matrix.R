@@ -142,7 +142,7 @@ eucl_heap[c("2503","1165","3110","2907") , c("2503","1165","3110","2907")]
 save (eucl_heap, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_get_predictor_risk_matrix__output_env_matrix.Rdata")
 
 
-
+#' 19.04.2018 - needs debugging - commited  
 #'
 #' # Formatting the route information, including _route ranking_
 #'
@@ -158,9 +158,10 @@ save (eucl_heap, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_
 
 # Initially create an index matrix - each position contains row and column position
 # of matching ports.
+rownames (eucl_heap) == colnames (eucl_heap)
 pos <- cbind (
-  match ( rownames (eucl_heap), src_heap$ROUT$PRTA),
-  match ( colnames (eucl_heap), src_heap$ROUT$PRTB)) 
+  match (src_heap$ROUT$PRTA, rownames (eucl_heap)),
+  match (src_heap$ROUT$PRTB, colnames (eucl_heap))) 
   
 #' Position pairs with `NA`'s do not have a matching row or column in the
 #' Eucledian distance matrices but some route in the route table `src_heap$ROUT`.
@@ -172,21 +173,30 @@ pos <- cbind (
 
 # Create variable by filling it with euclidian distance value from the distance matrix.
 src_heap$ROUT$EDST <- eucl_heap[pos] 
-
 sum(is.na(src_heap$ROUT$EDST))
-
-
-
-
 
 # saving matrix source coordinates in tables - for later
 src_heap$ROUT$EUKPOSR <- pos[,1]
 src_heap$ROUT$EUKPOSC <- pos[,2]
 
-# Check for missing data - quite ab it missing  
+# Check for missing data - quite ab it missing - 0.1684139
 sum(is.na(src_heap$ROUT$EDST)) / length (src_heap$ROUT$EDST)
 
-#' 
+# test 19.04.2018 - are test sample in the route table?
+
+test_samples = c("2503","1165","3110","2907") 
+
+src_heap$ROUT %>% filter (PRTA == "2503" & PRTB %in% test_samples |
+                          PRTB == "2503" & PRTA %in% test_samples &
+                          PRTA == "1165" & PRTB %in% test_samples |
+                          PRTB == "1165" & PRTA %in% test_samples &
+                          PRTA == "3110" & PRTB %in% test_samples |
+                          PRTB == "3110" & PRTA %in% test_samples &
+                          PRTA == "2907" & PRTB %in% test_samples |
+                          PRTB == "2907" & PRTA %in% test_samples )
+
+
+
 #' ## **Calculating the compound ranking variable** 
 #' 
 #' ### Plotting TRIPS
