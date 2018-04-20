@@ -139,8 +139,9 @@ eucl_heap[c("2503","1165","3110","2907") , c("2503","1165","3110","2907")]
 #' ## Export distance matrix 
 #'
 #' No risks associated yet, just an intermediate step:
-save (eucl_heap, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_get_predictor_risk_matrix__output_env_matrix.Rdata")
-
+r_mat <- eucl_heap # renaming for compatibility with downstrem (script 600)
+save (r_mat, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_get_predictor_risk_matrix__output_env_matrix.Rdata")
+rm(r_mat) # erasing for compatibility with downstraem (this script)
 
 #' 19.04.2018 - needs debugging - commited  
 #'

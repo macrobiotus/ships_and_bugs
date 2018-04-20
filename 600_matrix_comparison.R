@@ -46,7 +46,14 @@ source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")
 
 # path to full risk matrix - needs to filtered and then should give upper triangle
 #  of symmetrical matrix, all with Invasion Risk vales
-p_path <- "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_get_predictor_risk_matrix__output_risk_matrix.Rdata"
+#   filler code buggy using env distance alone - should be useful to test 0 hypothesis
+#   check commit message `8bffcbaaadb7267fbcefa9895aab186c1dbbebd6` and notes 19.04.2018
+
+# with risks:
+# p_path <- "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_get_predictor_risk_matrix__output_risk_matrix.Rdata"
+
+# without risks:
+p_path <- "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_get_predictor_risk_matrix__output_env_matrix.Rdata"
 load(p_path); p_mat <- r_mat; rm(r_mat) # DO ERASE `r_mat` THIS NAME IS USED BELOW
 
 # read in Unifrac distance matrix (responses)
@@ -130,7 +137,8 @@ r_mat_clpsd
 #  substantially, check via dim() if needed!)
 p_mat <- p_mat[rowSums(is.na(p_mat))!=ncol(p_mat), colSums(is.na(p_mat))!=nrow(p_mat) ]
 
-### FILLER CODE IS BUGGY
+### FILLER CODE IS BUGGY WHEN RISK IS ASSOCIATED - check commit message `8bffcbaaadb7267fbcefa9895aab186c1dbbebd6`
+#### and notes 19.04.2018
 
 p_mat[c("2503","1165","3110","2907") , c("2503","1165","3110","2907")] # quick and dirty - manual lookup
                                                          # use order order of response matrix (!!!)

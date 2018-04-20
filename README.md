@@ -254,6 +254,7 @@ Data will be included via manifest files and metadate files linked in at
   * got a working `/Users/paul/Documents/CU_combined/Github/500_30_get_predictor_risk_matrix.R` which writes three files (as documented in script) to `/Users/paul/Documents/CU_combined/Zenodo/R_Objects`.
     * last output file to be used by: `/Users/paul/Documents/CU_combined/Github/500_40_get maps.R`
     * second output file to be used by `/Users/paul/Documents/CU_combined/Github/600_matrix_comparison.R`
+  * commit `8bffcbaaadb7267fbcefa9895aab186c1dbbebd6` - `/Users/paul/Documents/CU_combined/Github/500_30_get_predictor_risk_matrix.R` does not yield enough TRIPS to re-calculate environmental matrix
 
 ## Todo
 
@@ -262,11 +263,13 @@ Data will be included via manifest files and metadate files linked in at
 * [ ] - get response (Unifrac) matrices from data
   * [x] - get raw matrices in Qiime
   * [x] - read raw matrix into `/Users/paul/Documents/CU_combined/Github/600_matrix_comparison.R`
-  * [ ] - average port matrix field in `/Users/paul/Documents/CU_combined/Github/600_matrix_comparison.R`
+  * [x] - average port matrix field in `/Users/paul/Documents/CU_combined/Github/600_matrix_comparison.R`
 * [ ] - get predictor matrices
   * [x] - adjust script and input/output `/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R`
   * [x] - adjust script and input/output `/Users/paul/Documents/CU_combined/Github/500_20_get_environmental_distances.R`
   * [ ] - adjust script and input/output `/Users/paul/Documents/CU_combined/Github/500_30_get_predictor_risk_matrix.R`
+     * [ ] - debug if possible - see notes above 19.04.2018 and commit `8bffcbaaadb7267fbcefa9895aab186c1dbbebd6` notes
+     * [ ] - code maps first !
   * [ ] - test matrix - should be upper triangle, symmetrical and no NA's in upper triangle onec subset to available ports!
 * [ ] - code maps
   * [ ] - adjust script and input/output (lower half): `/Users/paul/Documents/CU_combined/Github/500_40_get maps.R`
