@@ -8,6 +8,9 @@
 #' bibliography: ./references.bib
 #' ---
 
+#' Only ports with trips can be compared - this script version only tests the influence of environmental data.
+#' With or without the influence of other factors.
+#'
 #' This code commentary is included in the R code itself and can be rendered at
 #' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/600_matrix_comparison.R")`.
 #' Please check the session info at the end of the document for further 
@@ -18,6 +21,8 @@
 
 #' <!-- #################################################################### -->
 #'
+
+
 
 # empty buffer
 # ============
@@ -53,8 +58,8 @@ source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")
 # p_path <- "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_get_predictor_risk_matrix__output_risk_matrix.Rdata"
 
 # without risks:
-p_path <- "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_get_predictor_risk_matrix__output_env_matrix.Rdata"
-load(p_path); p_mat <- r_mat; rm(r_mat) # DO ERASE `r_mat` THIS NAME IS USED BELOW
+p_path <- "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output__mat_env_dist_full.Rdata"
+load(p_path); p_mat <- mat_env_dist_full; rm(mat_env_dist_full) # DO ERASE `r_mat` THIS NAME IS USED BELOW - names updated 24.4.2018
 
 # read in Unifrac distance matrix (responses)
 # -------------------------------------------

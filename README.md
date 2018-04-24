@@ -255,26 +255,41 @@ Data will be included via manifest files and metadate files linked in at
     * last output file to be used by: `/Users/paul/Documents/CU_combined/Github/500_40_get maps.R`
     * second output file to be used by `/Users/paul/Documents/CU_combined/Github/600_matrix_comparison.R`
   * commit `8bffcbaaadb7267fbcefa9895aab186c1dbbebd6` - `/Users/paul/Documents/CU_combined/Github/500_30_get_predictor_risk_matrix.R` does not yield enough TRIPS to re-calculate environmental matrix
+* **24.04.2018** - R scripting
+  * `working on /Users/paul/Documents/CU_combined/Github/500_30_get_predictor_risk_matrix.R`
+    * renamed to `500_30_shape_matrices.R`
+    * outputs for all port pairs: matrix with environmental distances `500_30_shape_matrices__output__mat_env_dist_full.Rdata`
+    * outputs for all port pairs: matrix with new invasion risks `500_30_shape_matrices__output__mat_risks_full.Rdata`
+    * outputs for all port pairs: matrix with `TRIPS` variable `500_30_shape_matrices__output_mat_trips_full.Rdata`
+    * predictor data for mapping script `... /CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output_predictor_data.Rdata`
+    * [x] - script was re-rendered
+    * [ ] - updated todo in this file
+    * [ ] - committed everthing 
+    
 
 ## Todo
 
 ### R analysis of covariance matrices between invasion risk and shared species)
-#### now
-* [ ] - get response (Unifrac) matrices from data
-  * [x] - get raw matrices in Qiime
-  * [x] - read raw matrix into `/Users/paul/Documents/CU_combined/Github/600_matrix_comparison.R`
-  * [x] - average port matrix field in `/Users/paul/Documents/CU_combined/Github/600_matrix_comparison.R`
-* [ ] - get predictor matrices
-  * [x] - adjust script and input/output `/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R`
-  * [x] - adjust script and input/output `/Users/paul/Documents/CU_combined/Github/500_20_get_environmental_distances.R`
-  * [ ] - adjust script and input/output `/Users/paul/Documents/CU_combined/Github/500_30_get_predictor_risk_matrix.R`
-     * [ ] - debug if possible - see notes above 19.04.2018 and commit `8bffcbaaadb7267fbcefa9895aab186c1dbbebd6` notes
-     * [ ] - code maps first !
-  * [ ] - test matrix - should be upper triangle, symmetrical and no NA's in upper triangle onec subset to available ports!
-* [ ] - code maps
-  * [ ] - adjust script and input/output (lower half): `/Users/paul/Documents/CU_combined/Github/500_40_get maps.R`
+
+#### 25.04.2018 - Wednesday
+* update mapping script `500_40_get_maps.R`, reading file `/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output_predictor_data.Rdata`
+* update `600_matrix_comparison.R` and `500_permutation_test_design.R`
+  * `na.omit()` in matrix vectorisation
+  * comments and headline
+  * re-render  
+* update `600_matrix_comparison.R` to read `500_30_shape_matrices__output__mat_env_dist_full.Rdata`
+* implement `glm()` between defined samples
+  * between Unifrac distances
+  * and `500_30_shape_matrices__output__mat_env_dist_full.Rdata`
+  * and `500_30_shape_matrices__output_mat_trips_full.Rdata`
+
+#### 26.04.2018 - Thursday
+* implement
+  * contamination inspection
+  * blast parser - with eullerr overlap and sorted by original abundance information 
    
 #### later
+* clean out and re-render script `500_30_shape_matrices.R`
 * test eulerr with unclustered data (?)
 * correct OTU numbers (?) - use 97% for now - address both issues though
 * stats test - pull quantities from eulerr (?)
