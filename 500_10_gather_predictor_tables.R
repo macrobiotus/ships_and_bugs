@@ -1,7 +1,7 @@
 #' ---
 #' title: "Cleaning up port information for subsequent scripts"
 #' author: "Paul Czechowski"
-#' date: "September 1st, 2017"
+#' date: "April 24th, 2018"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -13,8 +13,10 @@
 #' columns, sets columns types. This script is derived from
 #' `/Users/paul/Box Sync/CU_NIS-WRAPS/170912_code_r/170830_10_cleanup_tables.R`,
 #' and was revised to accomodate newly formatted port data from the "Data
-#' bootcamp" shortly before the 30th of August 2017. This script can be rendered by
-#' calling `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R")`.
+#' bootcamp" shortly before the 30th of August 2017. It was revised extensively
+#' September 1st, 2017, and rechecked afterwards (see current date).
+#' This script can be rendered by calling
+#' `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R")`.
 #'
 #' **WARNING:** This script reads in data mainly from "Dropbox" and "Box"
 #' (see path names), which may have changed
@@ -33,8 +35,8 @@ rm(list=ls()) # for safety only
 
 #'
 #' ## Load package(s) 
-library (tidyverse) # sorting and file handling
-library (readxl)    # file handling
+library ("tidyverse") # sorting and file handling
+library ("readxl")    # file handling
 
 #'
 #' ## Function definitions
@@ -143,6 +145,10 @@ src_heap$ROUT$PRTB   <- as.numeric   (src_heap$ROUT$PRTB)
 src_heap$ROUT$PBLATI <- as.numeric   (src_heap$ROUT$PBLATI)
 src_heap$ROUT$PBLONG <- as.numeric   (src_heap$ROUT$PBLONG)
 src_heap$ROUT$TRIPS  <- as.numeric   (src_heap$ROUT$TRIPS)
+
+#' Final check:
+
+src_heap$ROUT
 
 #'
 #' ## Port information

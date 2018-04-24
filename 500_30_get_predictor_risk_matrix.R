@@ -116,12 +116,9 @@ src_heap$TEMP$PID <- as.integer(src_heap$TEMP$PID) # added 19.04.2018
 # of 6651 entries, 83 remain undefined, a very small percentage: 
 sum(is.na(src_heap$TEMP$PID)) / length (src_heap$TEMP$PID)
 
-# renaming the matrix rows and and columns
-#   `as.numeric()` may prevent lookup problems later
-# colnames (eucl_heap) <- as.numeric(src_heap$TEMP$PID) 
-# rownames (eucl_heap) <- as.numeric(src_heap$TEMP$PID) # modified 19.4.2018
-
-
+# renaming the matrix rows and and columns - matrix was created from src_heap$TEMP
+#  so this is ok. Used to be  `as.numeric()` instead of `as.character()` before
+#  19.04.2018
 colnames (eucl_heap) <- as.character(src_heap$TEMP$PID) 
 rownames (eucl_heap) <- as.character(src_heap$TEMP$PID)
 
@@ -239,15 +236,15 @@ ggplot (molten, aes (x=value, fill=variable)) +
 #' closeness. Routes will always have a slight environmental distance, so division by zero
 #' will not be an issue when inverting distance values.
 
-# The `log()` shifts the density skew quite substantially.
-src_heap$ROUT$RANK <-  log (src_heap$ROUT$TRIPS * (1 / src_heap$ROUT$EDST))   
+# The `log()` shifts the density skew quite substantially 23.04.2018 - changed log to srt.
+src_heap$ROUT$RANK <-  sqrt (src_heap$ROUT$TRIPS * (1 / src_heap$ROUT$EDST))   
 
 # And the plot, quick and dirty.
 molten <- melt (src_heap$ROUT[c("RANK")])
 ggplot (molten, aes (x=value, fill=variable)) + 
   geom_density(alpha=0.25) +
   labs (title = "Density of RANKS in route data",
-  subtitle = "log (src_heap$ROUT$TRIPS * (1 / src_heap$ROUT$EDST))" )
+  subtitle = "sqrt (src_heap$ROUT$TRIPS * (1 / src_heap$ROUT$EDST))" )
 
 #' # Creating and exporting Risk Matrix 
 #'
