@@ -1,7 +1,7 @@
 #' ---
 #' title: "Calculating environmental distances between samples"
 #' author: "Paul Czechowski"
-#' date: "September 1st, 2017"
+#' date: "April 24th, 2018"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -17,7 +17,8 @@
 #' distance to the GGLE we calculated the Euclidean distance, in four-dimensional
 #' space (salinity plus three temperature dimensions), from all global ports to
 #' the average salinity and temperature values of the 164 ports located within 
-#' the GGLE”_ (page 96). This script can be rendered by
+#' the GGLE”_ (page 96). Written September 1st, 2017, updated April 24th, 2018.
+#' This script can be rendered by
 #' calling `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_20_get_predictor_euklidian_distances.R")`.
 #' 
 #' # Prerequisites to run this code
@@ -31,10 +32,10 @@
 #'
 #' ## Package loading and cleaning of workspace
 #+ message=FALSE, results='hide'
-library (dplyr)       # data wrangling
-library (vegan)       # distance calculations
-library (reshape2)    # plotting, table manipulation
-library (ggplot2)     # plotting
+library ("dplyr")       # data wrangling
+library ("vegan")       # distance calculations
+library ("reshape2")    # plotting, table manipulation
+library ("ggplot2")     # plotting
 
 #'
 #' ## Flushing buffer
@@ -70,7 +71,7 @@ str(src_heap)
 src_heap$TEMP[c("TMIN", "TMAX", "TMEN", "SMEN")]
 
 #' 
-#' Let's look at the distribution of the raw data
+#' Distribution of the raw data
 
 molten <- melt(src_heap$TEMP[c("TMIN", "TMAX", "TMEN", "SMEN")])
 ggplot(molten, aes(x=value, fill=variable)) + geom_density(alpha=0.25)
@@ -86,7 +87,8 @@ ggplot(molten, aes(x=value, fill=variable)) + geom_density(alpha=0.25)
 #' ## Scaling and centring 
 #' 
 scaled_heap <- as_tibble (scale (src_heap$TEMP[c("TMIN", "TMAX", "TMEN", "SMEN")]))
-scaled_heap_rownames <-  src_heap$TEMP$PORT ## added 19.04.2018
+scaled_heap_rownames <-  src_heap$TEMP$PORT ## added 19.04.2018 for later checks if any.
+
 #'
 #' ## Inspecting scaled and centered data
 #' 
@@ -105,6 +107,7 @@ eucl_heap_dimnames <- scaled_heap_rownames
 #' 
 #' ## Exporting the matrix and its dimnames
 #' 
+#' Saving dimnames is for checking purposes only, and can be used by subsequent scripts.
 save (eucl_heap,
  file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_20_get_predictor_euklidian_distances__output.Rdata")
 
