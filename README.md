@@ -275,7 +275,7 @@ Data will be included via manifest files and metadate files linked in at
   * completed mapping script `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R` - writes to `DI...` folders above `Zenodo` - committed
   * adjusted script `/Users/paul/Documents/CU_combined/Github/500_00_permutation_test_design.R` - `NA`s removed from vectorized matrices - committed
   * adjusted script `/Users/paul/Documents/CU_combined/Github/500_50_matrix_comparison_uni_env.R` - commited
-  * adjusted script `/Users/paul/Documents/CU_combined/Github/500_60_matrix_comparison_uni_rsk.R` - need more then 2 routes - commited
+  * adjusted script `/Users/paul/Documents/CU_combined/Github/500_60_matrix_comparison_uni_rsk.R` - need more then 2 routes - committed
     
 
 ## Todo
@@ -283,7 +283,6 @@ Data will be included via manifest files and metadate files linked in at
 ### R analysis
 
 #### 25.04.2018 - Wednesday
-* copy  `600_matrix_comparison.R` to read `500_30_shape_matrices__output__mat_risks_full.Rdata`
 * implement `glm()` between defined samples
   * between Unifrac distances
   * and `500_30_shape_matrices__output__mat_env_dist_full.Rdata`
@@ -294,7 +293,13 @@ Data will be included via manifest files and metadate files linked in at
 * implement
   * contamination inspection
   * blast parser - with eullerr overlap and sorted by original abundance information 
-   
+
+#### before conference
+* create version of script `/Users/paul/Documents/CU_combined/Github/500_50_matrix_comparison_uni_env.R`
+  * that uses the same routes as `/Users/paul/Documents/CU_combined/Github/500_60_matrix_comparison_uni_rsk.R` with environmental data - subsetting needs to be the same
+  * compare correlations
+  * possibly bold this functionality straight into `/Users/paul/Documents/CU_combined/Github/500_60_matrix_comparison_uni_rsk.R`
+
 #### later
 * test eulerr with unclustered data (?)
 * correct OTU numbers (?) - use 97% for now - address both issues though
