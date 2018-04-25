@@ -1,28 +1,20 @@
 #' ---
-#' title: "Compare Unifrac and Env (not Risk yet) distance matrices and validate using permutation test"
+#' title: "Compare Unifrac and Environmental distance matrices and validate using permutation test"
 #' author: "Paul Czechowski"
-#' date: "April 19th, 2018"
+#' date: "April 24th, 2018"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
 #' bibliography: ./references.bib
 #' ---
-
-#' Only ports with trips can be compared - this script version only tests the influence of environmental data.
-#' With or without the influence of other factors.
+#' 
+#' Only ports with trips can be compared - this script version only tests the 
+#' influence of environmental data with or without the influence of other factors.
 #'
 #' This code commentary is included in the R code itself and can be rendered at
-#' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/600_matrix_comparison.R")`.
+#' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_50_matrix_comparison_uni_env.R")`.
 #' Please check the session info at the end of the document for further 
 #' notes on the coding environment.
-#'
-#' <!-- #################################################################### -->
-
-
-#' <!-- #################################################################### -->
-#'
-
-
 
 # empty buffer
 # ============
@@ -36,12 +28,6 @@ library("permute")
 # ==========
 # Loaded from helper script:
 source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")
-
-#'
-#' <!-- #################################################################### -->
-
-#' <!-- #################################################################### -->
-#'
 
 # data read-in
 # ============
@@ -142,32 +128,38 @@ r_mat_clpsd
 #  substantially, check via dim() if needed!)
 p_mat <- p_mat[rowSums(is.na(p_mat))!=ncol(p_mat), colSums(is.na(p_mat))!=nrow(p_mat) ]
 
-### FILLER CODE IS BUGGY WHEN RISK IS ASSOCIATED - check commit message `8bffcbaaadb7267fbcefa9895aab186c1dbbebd6`
-#### and notes 19.04.2018
-
-p_mat_xtr <- p_mat[c("2503","1165","3110","2907") , c("2503","1165","3110","2907")] # quick and dirty - manual lookup
-                                                         # use order order of response matrix (!!!)
-                                                        # here "PH","SP","AD","CH"
-                                                         # improve (!!!) this and improve risk adding code
-                                                        # `open /Users/paul/Dropbox/NSF\ NIS-WRAPS\ Data/raw\ data\ for\ Mandana/PlacesFile_updated_Aug2017.xlsx -a "Microsoft Excel"`
-
+# quick and dirty - manual lookup
+#   use order order of response matrix (!!!)
+#   here "PH","SP","AD","CH"
+#   improve (!!!) this. Manual lookup via:
+#   `open /Users/paul/Dropbox/NSF\ NIS-WRAPS\ Data/raw\ data\ for\ Mandana/PlacesFile_updated_Aug2017.xlsx -a "Microsoft Excel"`
+p_mat_xtr <- p_mat[c("2503","1165","3110","2907") , c("2503","1165","3110","2907")] 
 
 p_mat_xtr[lower.tri(p_mat_xtr, diag = FALSE)] <- NA
-
-# data analysis
-# =============
 
 # predictors - copy names - make automatic !! 
 colnames(p_mat_xtr) <- colnames(r_mat_clpsd)
 rownames(p_mat_xtr) <- rownames(r_mat_clpsd)
+
+
+
+# data analysis
+# =============
+
+# predictors
 p_mat_xtr
 
 # response
 r_mat_clpsd
 
-#' Matrix structure is irrelevant and arbitrary - matrices can be dissolved into vectors:
-rvec <- c(p_mat_xtr) # r = risk  - here environmental distance, later risk  - DIRTY
+# Matrix structure is irrelevant and arbitrary - matrices can be dissolved into vectors:
+rvec <- c(p_mat_xtr)    # r = risk  - here environmental distance, later risk  - DIRTY
 dvec <- c(r_mat_clpsd)  # d = distance - biological data - Unifrac -  response - DIRTY
+
+# This should get ried of ties - probably not "0" Unifrac distance is still 
+#  correlated with several different environmental distances (Inspect vectors).
+rvec <- rvec[!is.na(rvec)]
+dvec <- dvec[!is.na(dvec)]
 
 rvec
 dvec
@@ -178,14 +170,15 @@ dvec
 #' Correlation and p-value based on Kendall (non-normal data):
 # correlation
 cor(rvec, dvec, use = "pairwise.complete.obs", method = "kendall") 
-# "greater" corresponds to positive association,
+# "greater" corresponds to positive association -- ties: "0" Unifrac distance is still 
+#  correlated with several different environmental distances:
 cor.test(rvec, dvec, method = "kendall", alternative = "greater") 
 
 
 #' # Data analysis 2 - correlation and permutation test 
 #' 
 
-perm_risk <- numeric(length = 10000) # create vector to store results, 
+perm_risk <- numeric(length = 100000) # create vector to store results, 
                                      #   with length equal to the amount of
                                      #   permutations
 n = length(rvec)                     
@@ -213,9 +206,6 @@ perm_risk[length(perm_risk)] <- cor(rvec, dvec, use = "pairwise.complete.obs", m
 #' unshuffeled "true" correlation for input data:
 perm_risk[length(perm_risk)]
 
-#' ** DIRTY - Erase this later - lines can't be drawn some reason**
-perm_risk[which(is.na(perm_risk))] <- 0
-
 #' Show results graphically - see red dot of x-axis.
 hist (perm_risk, 
       main = "Environmental Distance and Shuffled Correlations",
@@ -233,10 +223,9 @@ h_corr <- sum(perm_risk >=  perm_risk[length(perm_risk)])
 #' Permutational _p_-value:
 h_corr / length (perm_risk)
 
-#' Slight evidence against the null hypothesis of no correlation between environmental
+#' Strong evidence against the null hypothesis of no correlation between environmental
 #' distance calculated by environmental variables and environmental distance estimated
 #' by biological signal.
-#' 
 #'
 #' # Session info
 #'

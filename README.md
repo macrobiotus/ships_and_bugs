@@ -272,8 +272,9 @@ Data will be included via manifest files and metadate files linked in at
     * in `500_40_get_maps.R` needs to be included into sampled ports `smpld_PID`
     * was desired function.
     * in ` 500_40_get_maps.R` - added ports for which re-processing from old project data was accomplished. This list will not grow so this is a (possibly shaky) solution. The proper (?) alternative _may_ be to add these samples to `src_heap$INVE$PORT`via the input file in `/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R`.
-  * completed mapping script `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R` - writes to `DI...` folders above `Zenodo` - commited
-  * adjusted script `/Users/paul/Documents/CU_combined/Github/500_00_permutation_test_design.R` - `NA`s removed from vectorized matrices
+  * completed mapping script `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R` - writes to `DI...` folders above `Zenodo` - committed
+  * adjusted script `/Users/paul/Documents/CU_combined/Github/500_00_permutation_test_design.R` - `NA`s removed from vectorized matrices - committed
+  * adjusted script `/Users/paul/Documents/CU_combined/Github/500_50_matrix_comparison_uni_env.R` - commited
     
 
 ## Todo
@@ -281,11 +282,6 @@ Data will be included via manifest files and metadate files linked in at
 ### R analysis
 
 #### 25.04.2018 - Wednesday
-* update `600_matrix_comparison.R` and `500_permutation_test_design.R`
-  * `na.omit()` in matrix vectorisation
-  * comments and headline
-  * re-render  
-* update `600_matrix_comparison.R` to read `500_30_shape_matrices__output__mat_env_dist_full.Rdata`
 * copy  `600_matrix_comparison.R` to read `500_30_shape_matrices__output__mat_risks_full.Rdata`
 * implement `glm()` between defined samples
   * between Unifrac distances
