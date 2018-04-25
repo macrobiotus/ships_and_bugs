@@ -1,7 +1,7 @@
 #' ---
 #' title: "Permutation Test design to evaluate correlations between invasion risk and biological site dissimilarity."
 #' author: "Paul Czechowski"
-#' date: "April 19th, 2018"
+#' date: "April 24th, 2018"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -12,7 +12,7 @@
 #'
 #' Path names are defined relative  to the project directory. This code 
 #' commentary is included in the R code itself and can be rendered at any stage
-#' using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_permutation_test_design.R")`. Please check the
+#' using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_00_permutation_test_design.R")`. Please check the
 #' session info at the end of the document for further notes on the coding environment.
 #' 
 #' # Background
@@ -25,10 +25,6 @@
 #' 
 #'   * not here but in real data: average Unifrac per port (across matrix blocks)
 #'
-#' <!-- #################################################################### -->
-
-
-#' <!-- #################################################################### -->
 #'
 #' # Prepare Environment
 library("permute")
@@ -86,6 +82,9 @@ dmat
 #' Matrix structure is irrelevant and arbitrary - matrices can be dissolved into vectors:
 rvec <- c(rmat)
 dvec <- c(dmat)
+
+rvec <- rvec[!is.na(rvec)]
+dvec <- dvec[!is.na(dvec)]
 
 rvec
 dvec
@@ -148,8 +147,6 @@ h_corr / length (perm_risk)
 
 #' Strong evidence against the null hypothesis of no correlation between the two
 #' matrices.
-
-#' <!-- #################################################################### -->
 #'
 #' # Session info
 #'
