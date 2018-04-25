@@ -1,7 +1,7 @@
 #' ---
-#' title: "Compare Unifrac and Environmental distance matrices and validate using permutation test"
+#' title: "Compare Unifrac and Risk matrices and validate using permutation test"
 #' author: "Paul Czechowski"
-#' date: "April 24th, 2018"
+#' date: "April 25th, 2018"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -12,7 +12,7 @@
 #' influence of environmental data with or without the influence of other factors.
 #'
 #' This code commentary is included in the R code itself and can be rendered at
-#' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_50_matrix_comparison_uni_env.R")`.
+#' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_60_matrix_comparison_uni_rsk.R")`.
 #' Please check the session info at the end of the document for further 
 #' notes on the coding environment.
 
@@ -32,17 +32,17 @@ source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")
 # data read-in
 # ============
 
-# read in Environmental distance matrix (predictors)
+# read in Risk distance matrix (predictors)
 # --------------------------------------------
 
-# path to full env dist matrix - needs to filtered and then should give upper triangle
+# path to full risk matrix - needs to filtered and then should give upper triangle
 #  of symmetrical matrix, all with Invasion Risk vales
 #   filler code buggy using env distance alone - should be useful to test 0 hypothesis
 #   check commit message `8bffcbaaadb7267fbcefa9895aab186c1dbbebd6` and notes 19.04.2018
 
-# without risks:
-p_path <- "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output__mat_env_dist_full.Rdata"
-load(p_path); p_mat <- mat_env_dist_full; rm(mat_env_dist_full) # DO ERASE `r_mat` THIS NAME IS USED BELOW - names updated 24.4.2018
+# with risks:
+p_path <- "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output__mat_risks_full.Rdata"
+load(p_path); p_mat <- mat_risks; rm(mat_risks)
 
 # read in Unifrac distance matrix (responses)
 # -------------------------------------------
@@ -117,7 +117,7 @@ r_mat_clpsd[lower.tri(r_mat_clpsd,diag = FALSE)] <- NA
 r_mat_clpsd 
   
 
-# format Environmental distance matrix (predictors)
+# format Risk distance matrix (predictors)
 # -------------------------------------------
 
 # filter matrix dimensions to match response matrix dimension:
@@ -138,9 +138,12 @@ p_mat_xtr[lower.tri(p_mat_xtr, diag = FALSE)] <- NA
 colnames(p_mat_xtr) <- colnames(r_mat_clpsd)
 rownames(p_mat_xtr) <- rownames(r_mat_clpsd)
 
+
+
 # data analysis
 # =============
 
+# matrices must have the same dimensions
 # predictors
 p_mat_xtr
 
@@ -151,10 +154,14 @@ r_mat_clpsd
 rvec <- c(p_mat_xtr)    # r = risk  - here environmental distance, later risk  - DIRTY
 dvec <- c(r_mat_clpsd)  # d = distance - biological data - Unifrac -  response - DIRTY
 
-# This should get ried of ties - probably not "0" Unifrac distance is still 
-#  correlated with several different environmental distances (Inspect vectors).
-rvec <- rvec[!is.na(rvec)]
-dvec <- dvec[!is.na(dvec)]
+# Keeping only unifrac (`dvec`)  distances for which predictors (invasion risk - 
+#  `rvec` - determined by available risk) are available 
+rvec_filter <- rvec 
+
+rvec <- rvec_filter [which (rvec_filter %in% na.omit(rvec_filter))]
+dvec <- dvec [which (rvec_filter %in% na.omit(rvec_filter))]
+
+rm(rvec_filter)
 
 rvec
 dvec
@@ -203,8 +210,8 @@ perm_risk[length(perm_risk)]
 
 #' Show results graphically - see red dot of x-axis.
 hist (perm_risk, 
-      main = "Environmental Distance and Shuffled Correlations",
-      sub = "Correlation between Environmental Distance and Biologic Site Similarity",
+      main = "Risk and Shuffled Correlations",
+      sub = "Correlation between Invasion Risk and Biologic Site Similarity",
       xlab = "Correlation", 
       breaks = 75, 
       prob=TRUE)
