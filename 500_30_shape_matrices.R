@@ -304,15 +304,24 @@ ggplot (molten, aes (x=value, fill=variable)) +
 #'   *  Only ports with available route data can be compared! 
 
 
-# The `log()` shifts the density skew quite substantially 23.04.2018 - changed log to srt.
+# new formula 24.04.2018
 src_heap$ROUT$RISK <-  (log(src_heap$ROUT$TRIPS) + 1) * (1 / src_heap$ROUT$EDST)   
 
-#' Keeping only complete cases - these are only onece that can be used for the anslysis 
+# bug chase 24.04.2018 - ADL SNGP route goes missing - but it is still here 
+src_heap$ROUT %>% filter (PRTA %in% "3110"& PRTB %in% "1165" |
+                          PRTB %in% "3110"& PRTA %in% "1165" )
+
+
+#' Keeping only complete cases - these are only onece that can be used for the analysis 
 #' also re-sorting columns
 src_heap$ROUT <- src_heap$ROUT[complete.cases(src_heap$ROUT), ]
-src_heap$ROUT <- src_heap$ROUT[c("ROUTE",  "PRTA",  "PALATI",
-                                "PALONG", "PRTB", "PBLATI",  "PBLONG", "TRIPS",
-                                "EDST",  "RISK", "EUKPOSR", "EUKPOSC")] 
+src_heap$ROUT <- src_heap$ROUT[c("ROUTE", "PRTA", "PALATI", "PALONG", "PRTB",
+                                 "PBLATI", "PBLONG", "TRIPS", "EDST", "RISK",
+                                "EUKPOSR", "EUKPOSC")] 
+
+# bug chase 24.04.2018 - ADL SNGP route goes missing - but it is still here 
+src_heap$ROUT %>% filter (PRTA %in% "3110"& PRTB %in% "1165" |
+                          PRTB %in% "3110"& PRTA %in% "1165" )
 
 # And the plot, quick and dirty.
 molten <- melt (src_heap$ROUT[c("RISK")])

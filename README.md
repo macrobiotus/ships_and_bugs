@@ -262,26 +262,35 @@ Data will be included via manifest files and metadate files linked in at
     * outputs for all port pairs: matrix with new invasion risks `500_30_shape_matrices__output__mat_risks_full.Rdata`
     * outputs for all port pairs: matrix with `TRIPS` variable `500_30_shape_matrices__output_mat_trips_full.Rdata`
     * predictor data for mapping script `... /CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output_predictor_data.Rdata`
-    * [x] - script was re-rendered
-    * [ ] - updated todo in this file
-    * [ ] - committed everthing 
+    * script was re-rendered
+    * updated todo in this file
+    * committed everthing
+* **25.04.2018** - R scripting
+  * bug chase  - discovered 25.04.2018 -  debug route data not congruent between matrix and table
+    * in  `500_30_shape_matrices__output_predictor_data.Rdata` - test matrix shows route between ADL 3110 and SINGAPORE 1165
+    * in  `500_40_get_maps.R` tibble `srout` - does not show route between ADL 3110 and SINGAPORE 1165 - why?
+    * in `500_40_get_maps.R` needs to be included into sampled ports `smpld_PID`
+    * was desired function.
+    * in ` 500_40_get_maps.R` - added ports for which re-processing from old project data was accomplished. This list will not grow so this is a (possibly shaky) solution. The proper (?) alternative _may_ be to add these samples to `src_heap$INVE$PORT`via the input file in `/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R`.
+  * completed mapping script `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R` - writes to `DI...` folders above `Zenodo` - commited
     
 
 ## Todo
 
-### R analysis of covariance matrices between invasion risk and shared species)
+### R analysis
 
 #### 25.04.2018 - Wednesday
-* update mapping script `500_40_get_maps.R`, reading file `/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output_predictor_data.Rdata`
 * update `600_matrix_comparison.R` and `500_permutation_test_design.R`
   * `na.omit()` in matrix vectorisation
   * comments and headline
   * re-render  
 * update `600_matrix_comparison.R` to read `500_30_shape_matrices__output__mat_env_dist_full.Rdata`
+* copy  `600_matrix_comparison.R` to read `500_30_shape_matrices__output__mat_risks_full.Rdata`
 * implement `glm()` between defined samples
   * between Unifrac distances
   * and `500_30_shape_matrices__output__mat_env_dist_full.Rdata`
-  * and `500_30_shape_matrices__output_mat_trips_full.Rdata`
+  * and `500_30_shape_matrices__output__mat_risks_full.Rdata` or `500_30_shape_matrices__output_mat_trips_full.Rdata` ?
+  * checked script - `500_30_shape_matrices__output__mat_env_dist_full.Rdata` seem ok 
 
 #### 26.04.2018 - Thursday
 * implement
@@ -289,7 +298,6 @@ Data will be included via manifest files and metadate files linked in at
   * blast parser - with eullerr overlap and sorted by original abundance information 
    
 #### later
-* clean out and re-render script `500_30_shape_matrices.R`
 * test eulerr with unclustered data (?)
 * correct OTU numbers (?) - use 97% for now - address both issues though
 * stats test - pull quantities from eulerr (?)
