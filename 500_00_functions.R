@@ -112,8 +112,6 @@ get_df_from_phsq_list <- function (phsq_list){
   }
 
 
-
-
 #' # Plain R functions 
 #'
 #' ## Operator "not in" 
@@ -124,7 +122,7 @@ get_df_from_phsq_list <- function (phsq_list){
 
 #' ## Create empty matrix with necessary dimensions to receive average Unifrac values
 #' 
-get_collapsed_responses_matrix_empty <- function(r_mat){
+get_collapsed_responses_matrix <- function(r_mat){
 
   #  extract necessary unique dimensions (also to be used later)
   unq_row_port <-  unique (substr (rownames (r_mat), start = 1, stop = 2))
@@ -144,10 +142,97 @@ get_collapsed_responses_matrix_empty <- function(r_mat){
    
    return(r_mat_cllpsd)
 }
-                        
 
-#' <!-- #################################################################### -->
-#'
+#' ## Fill empty response matrix with matrix field averages of full matrix
+#' 
+fill_collapsed_responses_matrix <- function(r_mat_clpsd = NULL, r_mat = NULL){
+  
+  # store row and column names for indexing 
+  rnclpsd <- rownames(r_mat_clpsd)
+  cnclpsd <- colnames(r_mat_clpsd)
+  
+  # loop over collapsed matrix and fill with contents of full input matrix 
+  for (i in 1:nrow(r_mat_clpsd)){
+    for (j in 1:ncol(r_mat_clpsd)){
+    
+      # debugging only 
+      #  print(rnclpsd[i])
+      #  print(cnclpsd[j])
+    
+      # average across matrix elements
+      slctd_rows <- which ( substr (rownames (r_mat), start = 1, stop = 2) %in% rnclpsd[i]) # 
+      slctd_cols <- which ( substr (colnames (r_mat), start = 1, stop = 2) %in% cnclpsd[j]) # 
+      slctd_mat <- as.matrix(r_mat[c(slctd_rows), c(slctd_cols)]) # necessary for vectorisation
+    
+      # edge case - use only upper triangle for matrix calculation if source ports are the same
+      if (rnclpsd[i] == cnclpsd[j]){
+         slctd_mat[lower.tri(slctd_mat, diag = TRUE)] <- NA  # although diagonal is defined with 
+                                                             # "0" distance also setting diag to TRUE
+                                                             # ( excluded) so that average isn't
+                                                             # lowered by the number of replicates
+                                                             # per port.
+      }
+    
+    slctd_ave <- mean(slctd_mat, na.rm = TRUE) # na.rm = TRUE for edge cases, those will otherwise be NA
+                                               #  but they do have a signal so can't NA
+    # debugging only 
+    #  print(slctd_ave)
+    
+    # fill collapsed matrix 
+    r_mat_clpsd[rnclpsd[i], cnclpsd[j]] <- slctd_ave
+    
+    }
+  }
+
+  #   ...keep only upper triangle of matrix...
+  r_mat_clpsd[lower.tri(r_mat_clpsd,diag = FALSE)] <- NA 
+
+  #   ...return filled receiving matrix.  
+  return(r_mat_clpsd)
+
+}
+                        
+#' ## Correlate between two permuted vectors
+#' 
+shuffle_vectors <- function (rvec = NULL, pvec = NULL, perm = 10000){
+  
+  require(permute)
+  
+  # input vectors must be the same length 
+  stopifnot(length(rvec) == length (pvec), local = TRUE)
+    
+  # create vector to store results, with length equal to the amount of
+  #   permutations
+  results <- numeric(length = perm)
+  
+  # info
+  message("Shuffling one vector ", perm, " times.")
+  
+  # setting lengths of shuffled vectors
+  n = length(rvec)
+  m = length(pvec)
+  
+  # fill all but one vector position with permuted correlations 
+  for (i in seq_len(length(results) - 1)) {
+
+     # create and store permuted vector indices to shuffle real data one line
+     #   below
+     shffld1 <- shuffle(n)
+     shffld2 <- shuffle(m)
+     
+     # fill vector of defined length loop-by-loop  - use pvec[shffld2]
+     results[i] <- cor (rvec[shffld1], pvec, 
+                        use = "pairwise.complete.obs", method = "kendall")    
+  }
+  
+  #' Fill last position of results vector with correlations between measured 
+  #'   risk vector and vector containing biological species dissimilarities.
+  results[length(results)] <- cor (rvec, pvec, use = "pairwise.complete.obs", 
+                                method = "kendall")
+  
+  return (results)
+}
+
 #' # Session info
 #'
 #' The code and output in this document were tested and generated in the

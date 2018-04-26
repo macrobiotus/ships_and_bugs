@@ -267,8 +267,8 @@ Data will be included via manifest files and metadate files linked in at
     * committed everthing
 * **25.04.2018** - R scripting
   * bug chase  - discovered 25.04.2018 -  debug route data not congruent between matrix and table
-    * in  `500_30_shape_matrices__output_predictor_data.Rdata` - test matrix shows route between ADL 3110 and SINGAPORE 1165
-    * in  `500_40_get_maps.R` tibble `srout` - does not show route between ADL 3110 and SINGAPORE 1165 - why?
+    * in `500_30_shape_matrices__output_predictor_data.Rdata` - test matrix shows route between ADL 3110 and SINGAPORE 1165
+    * in `500_40_get_maps.R` tibble `srout` - does not show route between ADL 3110 and SINGAPORE 1165 - why?
     * in `500_40_get_maps.R` needs to be included into sampled ports `smpld_PID`
     * was desired function.
     * in ` 500_40_get_maps.R` - added ports for which re-processing from old project data was accomplished. This list will not grow so this is a (possibly shaky) solution. The proper (?) alternative _may_ be to add these samples to `src_heap$INVE$PORT`via the input file in `/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R`.
@@ -276,29 +276,22 @@ Data will be included via manifest files and metadate files linked in at
   * adjusted script `/Users/paul/Documents/CU_combined/Github/500_00_permutation_test_design.R` - `NA`s removed from vectorized matrices - committed
   * adjusted script `/Users/paul/Documents/CU_combined/Github/500_50_matrix_comparison_uni_env.R` - commited
   * adjusted script `/Users/paul/Documents/CU_combined/Github/500_60_matrix_comparison_uni_rsk.R` - need more then 2 routes - committed
-    
+* **26.04.2018** - R scripting
+  * created `/Users/paul/Documents/CU_combined/Github/500_70_matrix_comparison_uni_prd.R`
+  * permutation test is moved to functions script
+  * created `/Users/paul/Documents/CU_combined/Github/550_check_taxonomy.R`
 
 ## Todo
 
+
 ### R analysis
 
-#### 25.04.2018 - Wednesday
+#### before conference
 * implement `glm()` between defined samples
   * between Unifrac distances
   * and `500_30_shape_matrices__output__mat_env_dist_full.Rdata`
   * and `500_30_shape_matrices__output__mat_risks_full.Rdata` or `500_30_shape_matrices__output_mat_trips_full.Rdata` ?
   * checked script - `500_30_shape_matrices__output__mat_env_dist_full.Rdata` seem ok 
-
-#### 26.04.2018 - Thursday
-* implement
-  * contamination inspection
-  * blast parser - with eullerr overlap and sorted by original abundance information 
-
-#### before conference
-* create version of script `/Users/paul/Documents/CU_combined/Github/500_50_matrix_comparison_uni_env.R`
-  * that uses the same routes as `/Users/paul/Documents/CU_combined/Github/500_60_matrix_comparison_uni_rsk.R` with environmental data - subsetting needs to be the same
-  * compare correlations
-  * possibly bold this functionality straight into `/Users/paul/Documents/CU_combined/Github/500_60_matrix_comparison_uni_rsk.R`
 
 #### later
 * test eulerr with unclustered data (?)
@@ -310,8 +303,11 @@ Data will be included via manifest files and metadate files linked in at
 * include `evaluate-composition` close to script `220..`(?) to check mock samples
 * improve logging during clustering script (see AAD data 26.03.2018 - clustering script usage of `tee`)
 
-### Network analysis:
-* collapse samples
+## Debugging
+* non-unique rownames _may be_  assigned to all (?) output (?) matrices in `500_30_shape_matrices`  due to duplicate values in the input tables (script 10)? - possibly affected:
+  * `500_30_shape_matrices`
+  * `500_70_matrix_comparison_uni_prd.R` and precursors
+  * some table has only first instances of port names filled, all others port names set NA by previous scripts
 
 ## Miscellaneous Notes
 * alignment masking does not remove sequences, so filtering the repset in `script 100` is not necessary
