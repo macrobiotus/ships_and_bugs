@@ -25,6 +25,7 @@ library("Biostrings")   # read fasta file
 library("phyloseq")     # filtering and utilities for such objects
 library("biomformat")   # perhaps unnecessary
 library("dplyr")        # for blast table modification and lookups
+library("arrangements")
 
 # functions
 # ==========
@@ -102,22 +103,31 @@ df_list <- lapply (phsq_list, get_df_from_phsq_list)
 # ...get row sums - summing observations per OTU across multiple samples per port.. 
 df_list <- lapply (df_list, rowSums)
 
-# ... combining list elements to data frame. Using `do.call` since name checking is
+# ... combining list elements to matrix. Using `do.call` since name checking is
 #   to be done ...  
 # If this is to slow rbindlist can be used:  https://stackoverflow.com/questions/5187794/can-i-combine-a-list-of-similar-dataframes-into-a-single-dataframe.
 df_ports <- do.call("cbind", df_list)
 
 # ... convert to logical (needed for Eulerr) ...
 mat <- apply (df_ports, 2, as.logical)
-
 # ... cary names over ...
 colnames(mat) <- colnames(df_ports)
 rownames(mat) <- rownames(df_ports)
 
-# debugging 26.04.2018: 4917 * 4
-dim(mat)
+# data analysis
+# =============
 
+# get port combinations
+# ---------------------
 
+# CORECT BUG 
+# - POSSIBLE SOLUTION 
+# -- find all unique combinations of TRUE TRUE FALSE
+# -- isolate groups
+# -- keep only trues
+# -- lookup 
+# -- debugging 27.04.2018: 4917 * 4 - rewriting sorting code - numbers will have to
+# -- table below (original)
 #            original   fitted residuals regionError
 # PH              2090 1980.436   109.564       0.026
 # SP              1101 1043.282    57.718       0.014
@@ -137,19 +147,24 @@ dim(mat)
 # nrow(mat[mat[ , "PH"] == TRUE,])
 # nrow(mat[mat[ , "SP"] == TRUE,])
 
+# conversion to use dplyr functions.
+bin_df <- data.frame(mat)
 
-# data analysis
-# =============
 
-# get port combinations
-# ---------------------
+# Get all possible column name combinations that could have overlap
+cmb_df <- data.frame (apply (combinations(x = c(0, 1), k = 4, replace = TRUE), 2, as.logical))
+cmb_df <- cmb_df[-c(1), ] 
+colnames(cmb_df) <- colnames(bin_df) 
 
-# CORECT BUG 
-# - POSSIBLE SOLUTION 
-# -- find all unique combinations of TRUE TRUE FALSE
-# -- isolate groups
-# -- keep only trues
-# -- lookup 
+# create list of data.frames
+
+lapply(cmb_df, function (x) x <- bin_df %>% filter )
+
+head(bin_df) %>% filter
+
+cmb_df
+
+
 
 # Get all possible column name combinations that could have overlap
 mat_list <- lapply ( seq( 2,(ncol(mat))), function (x)  combn(colnames(mat), x ))
