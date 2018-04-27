@@ -41,7 +41,6 @@ source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")
 edna_blast_path <- "/Users/paul/Documents/CU_combined/Zenodo/Blast/270_18S_097_cl_cntrl_biom_export_fasta_blast/blastn_results.txt"
 ctrl_blast_path <- "/Users/paul/Documents/CU_combined/Zenodo/Blast/270_18S_097_cl_edna_biom_export_fasta_blast/blastn_results.txt"
 
-
 # Read in Blast data (must match parameter combination).
 edna_blast_tab <- read.table(edna_blast_path, sep = '\t', quote = "", 
                              stringsAsFactors = FALSE, header = FALSE)
@@ -74,7 +73,6 @@ colnames(edna_blast_tab) <- c("qseqid", "sseqid", "pident", "qlen",  "length",
 
 # Phyloseq
 # --------
-
 phsq_ob <- remove_empty(phsq_ob) # NO EFFECT, AS EXPECTED
 
 
@@ -146,6 +144,13 @@ dim(mat)
 # get port combinations
 # ---------------------
 
+# CORECT BUG 
+# - POSSIBLE SOLUTION 
+# -- find all unique combinations of TRUE TRUE FALSE
+# -- isolate groups
+# -- keep only trues
+# -- lookup 
+
 # Get all possible column name combinations that could have overlap
 mat_list <- lapply ( seq( 2,(ncol(mat))), function (x)  combn(colnames(mat), x ))
 
@@ -155,7 +160,7 @@ vec_list <- unlist(lapply(mat_list, function(x) split(x, rep(1:ncol(x), each = n
 # set continues names
 names(vec_list) <- seq(length(vec_list))
 
-# fill matrix list with otus from input list
+# fill matrix list with otus from input list 
 mat_list <- lapply (vec_list, function (x) mat[ ,c(x)] )
 
 # `x[ which(apply(x, 1, all)), ]` retunes vector if only on row in the matrix 

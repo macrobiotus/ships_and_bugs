@@ -292,7 +292,7 @@ Data will be included via manifest files and metadate files linked in at
   * `/Users/paul/Documents/CU_combined/Github/550_check_taxonomy.R`
   * `/Users/paul/Documents/CU_combined/Github/550_euler.R`
   * possible unconfirmed reason: blast OTU list shorter the OTU list in Phyloseq object
-  * likely reason: combination code in `550_check_taxonomy.R` has a logical error
+  * likely reason: combination code in `550_check_taxonomy.R` has a logical error - solution approach noted in script
 
 ### R analysis
 
