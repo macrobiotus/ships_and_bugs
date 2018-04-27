@@ -116,16 +116,38 @@ mat <- apply (df_ports, 2, as.logical)
 colnames(mat) <- colnames(df_ports)
 rownames(mat) <- rownames(df_ports)
 
+# debugging 26.04.2018: 4917 * 4
+dim(mat)
+
+
+#            original   fitted residuals regionError
+# PH              2090 1980.436   109.564       0.026
+# SP              1101 1043.282    57.718       0.014
+# AD               770  729.635    40.365       0.010
+# CH               290  274.798    15.202       0.004
+# PH&SP            236  223.627    12.373       0.003
+# PH&AD            107  101.390     5.610       0.001
+# PH&CH             14    0.000    14.000       0.003
+# SP&AD             78    0.000    78.000       0.016
+# SP&CH             26   24.636     1.364       0.000
+# AD&CH              9    8.528     0.472       0.000
+# PH&SP&AD         166    0.000   166.000       0.034
+# PH&SP&CH           8    0.000     8.000       0.002
+# PH&AD&CH           6    0.000     6.000       0.001
+# SP&AD&CH           3    0.000     3.000       0.001
+# PH&SP&AD&CH       13    0.000    13.000       0.003
+# nrow(mat[mat[ , "PH"] == TRUE,])
+# nrow(mat[mat[ , "SP"] == TRUE,])
+
 
 # data analysis
 # =============
 
 # get port combinations
 # ---------------------
-test_mat <- mat[1:100, 1:4]
 
 # Get all possible column name combinations that could have overlap
-mat_list <- lapply ( seq( 2,(ncol(test_mat))), function (x)  combn(colnames(test_mat), x ))
+mat_list <- lapply ( seq( 2,(ncol(mat))), function (x)  combn(colnames(mat), x ))
 
 # Get header values from columns of each matrix
 vec_list <- unlist(lapply(mat_list, function(x) split(x, rep(1:ncol(x), each = nrow(x)))), recursive = FALSE)
@@ -134,7 +156,7 @@ vec_list <- unlist(lapply(mat_list, function(x) split(x, rep(1:ncol(x), each = n
 names(vec_list) <- seq(length(vec_list))
 
 # fill matrix list with otus from input list
-mat_list <- lapply (vec_list, function (x) test_mat[ ,c(x)] )
+mat_list <- lapply (vec_list, function (x) mat[ ,c(x)] )
 
 # `x[ which(apply(x, 1, all)), ]` retunes vector if only on row in the matrix 
 #  is returned, and the column names vor vectors are dropped. Need conversion

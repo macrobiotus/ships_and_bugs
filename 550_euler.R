@@ -92,7 +92,6 @@ mat <- apply (df_ports, 2, as.logical)
 colnames(mat) <- colnames(df_ports)
 rownames(mat) <- rownames(df_ports)
 
-
 # data analysis
 # =============
 

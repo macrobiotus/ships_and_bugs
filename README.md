@@ -274,7 +274,7 @@ Data will be included via manifest files and metadate files linked in at
     * in ` 500_40_get_maps.R` - added ports for which re-processing from old project data was accomplished. This list will not grow so this is a (possibly shaky) solution. The proper (?) alternative _may_ be to add these samples to `src_heap$INVE$PORT`via the input file in `/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R`.
   * completed mapping script `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R` - writes to `DI...` folders above `Zenodo` - committed
   * adjusted script `/Users/paul/Documents/CU_combined/Github/500_00_permutation_test_design.R` - `NA`s removed from vectorized matrices - committed
-  * adjusted script `/Users/paul/Documents/CU_combined/Github/500_50_matrix_comparison_uni_env.R` - commited
+  * adjusted script `/Users/paul/Documents/CU_combined/Github/500_50_matrix_comparison_uni_env.R` - committed
   * adjusted script `/Users/paul/Documents/CU_combined/Github/500_60_matrix_comparison_uni_rsk.R` - need more then 2 routes - committed
 * **26.04.2018** - R scripting
   * created `/Users/paul/Documents/CU_combined/Github/500_70_matrix_comparison_uni_prd.R`
@@ -283,6 +283,16 @@ Data will be included via manifest files and metadate files linked in at
 
 ## Todo
 
+## Known issues and bugs
+* 25.04.2018 - **unconfirmed** - non-unique rownames _may be_ assigned to all (?) output (?) matrices in `500_30_shape_matrices`  due to duplicate values in the input tables (script 10)? - possibly affected:
+  * `500_30_shape_matrices`
+  * `500_70_matrix_comparison_uni_prd.R` and precursors
+  * possible unconfirmed reason: some table has only first instances of port names filled, all others port names set NA by previous scripts
+* 26.04.2018 - **confirmed**  - otu counts are different in in an unintuitive way in 
+  * `/Users/paul/Documents/CU_combined/Github/550_check_taxonomy.R`
+  * `/Users/paul/Documents/CU_combined/Github/550_euler.R`
+  * possible unconfirmed reason: blast OTU list shorter the OTU list in Phyloseq object
+  * likely reason: combination code in `550_check_taxonomy.R` has a logical error
 
 ### R analysis
 
@@ -291,8 +301,9 @@ Data will be included via manifest files and metadate files linked in at
   * between Unifrac distances
   * and `500_30_shape_matrices__output__mat_env_dist_full.Rdata`
   * and `500_30_shape_matrices__output__mat_risks_full.Rdata` or `500_30_shape_matrices__output_mat_trips_full.Rdata` ?
-  * checked script - `500_30_shape_matrices__output__mat_env_dist_full.Rdata` seem ok 
-
+  * checked script - `500_30_shape_matrices__output__mat_env_dist_full.Rdata` seem ok
+* chase confrimed logical error `550_check_taxonomy.R`
+ 
 #### later
 * test eulerr with unclustered data (?)
 * correct OTU numbers (?) - use 97% for now - address both issues though
@@ -302,12 +313,6 @@ Data will be included via manifest files and metadate files linked in at
 * include `decontam` close to script `220...` or bolt in R package `https://github.com/benjjneb/decontam`
 * include `evaluate-composition` close to script `220..`(?) to check mock samples
 * improve logging during clustering script (see AAD data 26.03.2018 - clustering script usage of `tee`)
-
-## Debugging
-* non-unique rownames _may be_  assigned to all (?) output (?) matrices in `500_30_shape_matrices`  due to duplicate values in the input tables (script 10)? - possibly affected:
-  * `500_30_shape_matrices`
-  * `500_70_matrix_comparison_uni_prd.R` and precursors
-  * some table has only first instances of port names filled, all others port names set NA by previous scripts
 
 ## Miscellaneous Notes
 * alignment masking does not remove sequences, so filtering the repset in `script 100` is not necessary
