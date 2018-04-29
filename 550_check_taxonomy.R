@@ -117,6 +117,10 @@ rownames(mat) <- rownames(df_ports)
 # data analysis
 # =============
 
+###
+### ################### BEGIN CONSTRUCTION SITE  ###############################
+###
+
 # get port combinations
 # ---------------------
 
@@ -150,6 +154,8 @@ rownames(mat) <- rownames(df_ports)
 # conversion to use dplyr functions.
 bin_df <- data.frame(mat)
 
+bin_df %>% distinct()
+
 
 # Get all possible column name combinations that could have overlap
 cmb_df <- data.frame (apply (combinations(x = c(0, 1), k = 4, replace = TRUE), 2, as.logical))
@@ -162,8 +168,14 @@ lapply(cmb_df, function (x) x <- bin_df %>% filter )
 
 head(bin_df) %>% filter
 
-cmb_df
+lapply(cmb_df, print)
 
+ by(cmb_df, 1:nrow(cmb_df), print)
+
+
+###
+### ################### END CONSTRUCTION SITE #################################
+###
 
 
 # Get all possible column name combinations that could have overlap

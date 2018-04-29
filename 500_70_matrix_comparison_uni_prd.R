@@ -28,6 +28,8 @@ rm(list=ls())
 # load packages
 # =============
 library ("gdata")   # matrix functions
+library ("gplots")  # R text as image 
+
 
 # functions
 # ==========
@@ -104,6 +106,10 @@ r_mat_clpsd[lower.tri(r_mat_clpsd, diag = FALSE)] <- NA
 #' Finished matrix - Unifrac closeness
 r_mat_clpsd
 
+pdf(file="/Users/paul/Documents/CU_combined/DI_talks/r_mat_clpsd.pdf")
+textplot(r_mat_clpsd, halign="center", valign="center")
+dev.off()
+
 #'
 #' ## Predictors - environmental distances influenced by voyages
 #' 
@@ -129,6 +135,11 @@ rownames(mat_risks) <- rownames(r_mat_clpsd)
 #' (Other predictors and responses) to the same non-`NA` before (during) vectorisation.
 mat_risks
 
+pdf(file="/Users/paul/Documents/CU_combined/DI_talks/mat_risks.pdf")
+textplot(mat_risks, halign="center", valign="center")
+dev.off()
+
+
 #'
 #' ## Predictors - environmental distances alone
 #'
@@ -151,6 +162,11 @@ rownames(mat_env_dist) <- rownames(r_mat_clpsd)
 #' Finished matrix - Inverted environmental distances. Needs to be filtere
 #' to match predictors influenced by available voyages during vectorisation.
 mat_env_dist
+
+pdf(file="/Users/paul/Documents/CU_combined/DI_talks/mat_env_dist.pdf")
+textplot(mat_env_dist, halign="center", valign="center")
+dev.off()
+
 
 #'
 #' ## Checking and vectorisation
