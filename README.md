@@ -302,7 +302,13 @@ Data will be included via manifest files and metadate files linked in at
   * and `500_30_shape_matrices__output__mat_env_dist_full.Rdata`
   * and `500_30_shape_matrices__output__mat_risks_full.Rdata` or `500_30_shape_matrices__output_mat_trips_full.Rdata` ?
   * checked script - `500_30_shape_matrices__output__mat_env_dist_full.Rdata` seem ok
-* chase confrimed logical error `550_check_taxonomy.R`
+* chase confirmed logical error `550_check_taxonomy.R`
+* partial mantel tests -  3 matrices - shuffle predictors - also for talk
+    1. partial Mantel: OTU Overlap vs UNIFRAC to setup predictors
+    2. partial Mantel: UNIFRAC vs Environmental distance, controlling for Voyages (possibly HON traffic)  
+    3. partial Mantel: UNIFRAC vs Voyages, controlling for Environmental distance (possibly HON traffic)  
+* include HON distance matrix
+* debug Blast parser - use distinct 
  
 #### later
 * test eulerr with unclustered data (?)
