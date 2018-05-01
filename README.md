@@ -280,6 +280,10 @@ Data will be included via manifest files and metadate files linked in at
   * created `/Users/paul/Documents/CU_combined/Github/500_70_matrix_comparison_uni_prd.R`
   * permutation test is moved to functions script
   * created `/Users/paul/Documents/CU_combined/Github/550_check_taxonomy.R`
+* **01.05.2018** - new data availaible
+  * creating backup copy of this repository which is to be deleted later: `/Users/paul/Documents/CU_combined_BUP`
+  * commit
+  * continue work in `/Users/paul/Documents/CU_combined`
 
 ## Todo
 
@@ -309,11 +313,13 @@ Data will be included via manifest files and metadate files linked in at
     3. partial Mantel: UNIFRAC vs Voyages, controlling for Environmental distance (possibly HON traffic)  
 * include HON distance matrix
 * debug Blast parser - use distinct 
+* also see `/Users/paul/Box\ Sync/CU_NIS-WRAPS/170728_external_presentations/171128_wcmb/180429_wcmb_practice_talk/180429_wcmb_practice_talk.md`
  
 #### later
 * test eulerr with unclustered data (?)
 * correct OTU numbers (?) - use 97% for now - address both issues though
 * stats test - pull quantities from eulerr (?)
+* erase `/Users/paul/Documents/CU_combined_BUP` once `/Users/paul/Documents/CU_combined` is processed.
 
 ### next data addition:
 * include `decontam` close to script `220...` or bolt in R package `https://github.com/benjjneb/decontam`
