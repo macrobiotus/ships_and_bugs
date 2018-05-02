@@ -289,7 +289,10 @@ Data will be included via manifest files and metadate files linked in at
   * renaming `550_euler.R` to `550_80_euler.R` 
   * renaming `550_check_taxonomy.R`to `550_90_check_taxonomy.R`
   * re-render and commit
-
+  * created `/Users/paul/Documents/CU_combined/Github/500_35_shape_overlap_matrices.R` using Euller code - creates Kulczynski distances from OTU overlap at ports - script generates tabel and can be further expnded
+  * moved superseded `550_80_euler.R` to `/Users/paul/Documents/CU_combined/Scratch/R`
+  * updated issues
+  * commit
 
 ## Todo
 
@@ -300,6 +303,8 @@ Data will be included via manifest files and metadate files linked in at
   * possible unconfirmed reason: some table has only first instances of port names filled, all others port names set NA by previous scripts
 * _02.05.2018_ - **unconfirmed** - list output is sparse in `/Users/paul/Documents/CU_combined/Github/550_check_taxonomy.R`
   * possible unconfirmed reason: blast OTU list shorter the OTU list in Phyloseq object - perhaps blast is dropping queries ?
+* _02.05.2018_ - **unconfirmed** - `/Users/paul/Documents/CU_combined/Github/500_35_shape_overlap_matrices.R`
+  * Kulczynski distances may be unsuitable to describe overlap between ports. 
 
 ### R analysis
 
