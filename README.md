@@ -281,38 +281,38 @@ Data will be included via manifest files and metadate files linked in at
   * permutation test is moved to functions script
   * created `/Users/paul/Documents/CU_combined/Github/550_check_taxonomy.R`
 * **01.05.2018** - new data availaible
-  * creating backup copy of this repository which is to be deleted later: `/Users/paul/Documents/CU_combined_BUP`
   * commit
+  * creating backup copy of this repository which is to be deleted later: `/Users/paul/Documents/CU_combined_BUP`
   * continue work in `/Users/paul/Documents/CU_combined`
+* **02.05.2018** - R scripting while new date is being processed
+  * `/Users/paul/Documents/CU_combined/Github/550_check_taxonomy.R` now generating a list output **BUT SEE ISSUES**
+  * renaming `550_euler.R` to `550_80_euler.R` 
+  * renaming `550_check_taxonomy.R`to `550_90_check_taxonomy.R`
+  * re-render and commit
+
 
 ## Todo
 
 ## Known issues and bugs
-* 25.04.2018 - **unconfirmed** - non-unique rownames _may be_ assigned to all (?) output (?) matrices in `500_30_shape_matrices`  due to duplicate values in the input tables (script 10)? - possibly affected:
+* _25.04.2018_ - **unconfirmed** - non-unique rownames _may be_ assigned to all (?) output (?) matrices in `500_30_shape_matrices`  due to duplicate values in the input tables (script 10)? - possibly affected:
   * `500_30_shape_matrices`
   * `500_70_matrix_comparison_uni_prd.R` and precursors
   * possible unconfirmed reason: some table has only first instances of port names filled, all others port names set NA by previous scripts
-* 26.04.2018 - **confirmed**  - otu counts are different in in an unintuitive way in 
-  * `/Users/paul/Documents/CU_combined/Github/550_check_taxonomy.R`
-  * `/Users/paul/Documents/CU_combined/Github/550_euler.R`
-  * possible unconfirmed reason: blast OTU list shorter the OTU list in Phyloseq object
-  * likely reason: combination code in `550_check_taxonomy.R` has a logical error - solution approach noted in script
+* _02.05.2018_ - **unconfirmed** - list output is sparse in `/Users/paul/Documents/CU_combined/Github/550_check_taxonomy.R`
+  * possible unconfirmed reason: blast OTU list shorter the OTU list in Phyloseq object - perhaps blast is dropping queries ?
 
 ### R analysis
 
 #### before conference
-* implement `glm()` between defined samples
-  * between Unifrac distances
-  * and `500_30_shape_matrices__output__mat_env_dist_full.Rdata`
-  * and `500_30_shape_matrices__output__mat_risks_full.Rdata` or `500_30_shape_matrices__output_mat_trips_full.Rdata` ?
-  * checked script - `500_30_shape_matrices__output__mat_env_dist_full.Rdata` seem ok
-* chase confirmed logical error `550_check_taxonomy.R`
+* adjust transport script paths
+* adjust script paths
+* add export code to scripts
+* export matrix with overlap counts for partial mantel tests
 * partial mantel tests -  3 matrices - shuffle predictors - also for talk
     1. partial Mantel: OTU Overlap vs UNIFRAC to setup predictors
     2. partial Mantel: UNIFRAC vs Environmental distance, controlling for Voyages (possibly HON traffic)  
     3. partial Mantel: UNIFRAC vs Voyages, controlling for Environmental distance (possibly HON traffic)  
 * include HON distance matrix
-* debug Blast parser - use distinct 
 * also see `/Users/paul/Box\ Sync/CU_NIS-WRAPS/170728_external_presentations/171128_wcmb/180429_wcmb_practice_talk/180429_wcmb_practice_talk.md`
  
 #### later
@@ -320,8 +320,15 @@ Data will be included via manifest files and metadate files linked in at
 * correct OTU numbers (?) - use 97% for now - address both issues though
 * stats test - pull quantities from eulerr (?)
 * erase `/Users/paul/Documents/CU_combined_BUP` once `/Users/paul/Documents/CU_combined` is processed.
+* implement `glm()` between defined samples
+  * between Unifrac distances
+  * and `500_30_shape_matrices__output__mat_env_dist_full.Rdata`
+  * and `500_30_shape_matrices__output__mat_risks_full.Rdata` or `500_30_shape_matrices__output_mat_trips_full.Rdata` ?
+  * checked script - `500_30_shape_matrices__output__mat_env_dist_full.Rdata` seem ok
 
-### next data addition:
+### Shell scripts
+
+### later
 * include `decontam` close to script `220...` or bolt in R package `https://github.com/benjjneb/decontam`
 * include `evaluate-composition` close to script `220..`(?) to check mock samples
 * improve logging during clustering script (see AAD data 26.03.2018 - clustering script usage of `tee`)
