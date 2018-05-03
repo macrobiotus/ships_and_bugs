@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 19.01.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 03.05.2018 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Qiime biodiversity core analyses
 # https://docs.qiime2.org/2017.11/tutorials/moving-pictures/
@@ -28,7 +28,8 @@ mptpth='Zenodo/Qiime/100_18S_tree_mdp_root.qza'
 ftable='Zenodo/Qiime/100_18S_merged_tab.qza'
 mdata='Zenodo/Manifest/05_18S_merged_metadata.tsv'
 crdir='Zenodo/Qiime/110_18S_core_metrics'
-depth='15000' # using frequency of 085_18S_sum_feat_tab.qzv to include most samples 
+depth='15000' # using frequency of 085_18S_sum_feat_tab.qzv to include most samples
+              # retaining 297 000 (1.25%) seq in 198 (92.96%) samples 
 
 # Run scripts
 # ------------

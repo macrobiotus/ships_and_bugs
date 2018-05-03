@@ -29,5 +29,5 @@ otpth='Zenodo/Qiime/090_18S_raw_alignment.qza'
 # ------------
 qiime alignment mafft \
   --i-sequences "$trpth"/"$inpth" \
-  --o-alignment "$trpth"/"$otpth"
+  --o-alignment "$trpth"/"$otpth" \
   --p-n-threads -1

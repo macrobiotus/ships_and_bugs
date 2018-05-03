@@ -302,11 +302,36 @@ Data will be included via manifest files and metadate files linked in at
      * `/Users/paul/Documents/CU_combined/Github/080_re_cut_adapt_and_filter.sh`
      * `/Users/paul/Documents/CU_combined/Github/085_smr_features_and_table.sh`
   * adjusting and running on cluster after commit (marked purple):
+     * **OVERWRITING CLUSTER DATA PREVIOUS PROJECT FILES ON CLUSTER ARE DELETED**
      * `/Users/paul/Documents/CU_combined/Github/090_align_repseqs.sh`
      * `/Users/paul/Documents/CU_combined/Github/095_mask_alignment.sh`
      * `/Users/paul/Documents/CU_combined/Github/100_build_tree.sh`
-     
-  
+     * running on cluster ok, continuing on cluster:
+     * running `./110_get_core_metrics.sh` - needs to be repeated see below
+     * ommiting `120_train_classifier.sh`
+     * running `130_classify_reads.sh`
+       * [Errno 28] - No space left on device
+       * defining TMPDIR="/workdir/pc683/tmp/" in command line - no luck
+       * defining TMPDIR="/workdir/pc683/tmp/" in script `130` - no luck - no luck
+       * omitting `130_classify_reads.sh`
+       * omitting `140_show_classification.sh`
+    * running adjusted `200_cluster_sequences.sh` - moving to local
+       * won't accept `Zenodo/Qiime/100_18S_merged_tab.qza` - features without tree tips removed and not matching with seq file anymore (?)
+       * possible solution: using `Zenodo/Qiime/080_18S_merged_tab.qz` or filtering sequence table by feature table `100`
+       * adjusted and ran `/Users/paul/Documents/CU_combined/Github/100_build_tree.sh` to generate `/Users/paul/Documents/CU_combined/Zenodo/Qiime/100_18S_merged_seq.qza`, the latter being 1 MB larger then the input file - metadata / Qiime 2 magic (?)
+       * adjusting `200_cluster_sequences.sh` to use
+          * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/100_18S_merged_seq.qza`
+          * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/100_18S_merged_tab.qza`
+          * not using `/Users/paul/Documents/CU_combined/Zenodo/Qiime/080_18S_merged_seq.qza` anymore
+          * test run `200_cluster_sequences.sh` on local - ok - updating cluster
+          * update with errors - `110_18S_coremetrics` has root permissions
+          * restting cluster
+      * running adjusted `./110_get_core_metrics.sh` (with newly filtered seqfile 100) - uneccessary - script is not using sequence file (phew)
+    * running adjusted `200_cluster_sequences.sh`  - seems to be running ok now
+    * running adjusted `/210_filter_samples.sh` - ran ok 
+    * copying to local for adjustedment of blasting script
+    
+
 
 
 ## Todo

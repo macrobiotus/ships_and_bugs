@@ -27,14 +27,17 @@ urtpth='Zenodo/Qiime/100_18S_tree_no_root.qza'
 mptpth='Zenodo/Qiime/100_18S_tree_mdp_root.qza'
 
 intab='Zenodo/Qiime/080_18S_merged_tab.qza'
-ottab='Zenodo/Qiime/100_18S_merged_tab.qza'
+inseq='Zenodo/Qiime/080_18S_merged_seq.qza'
 
-# Run scripts
-# ------------
+ottab='Zenodo/Qiime/100_18S_merged_tab.qza'
+otseq='Zenodo/Qiime/100_18S_merged_seq.qza'
+
+Run scripts
+------------
 printf "Calculating tree...\n"
-qiime2cli phylogeny fasttree \
+ qiime2cli phylogeny fasttree \
  --i-alignment "$trpth"/"$inpth" \
- --o-tree "$trpth"/"$urtpth"
+ --o-tree "$trpth"/"$urtpth" \
  --p-n-threads -1
 
 printf "Rooting at midpoint...\n"  
@@ -43,8 +46,15 @@ qiime2cli phylogeny midpoint-root \
  --o-rooted-tree "$trpth"/"$mptpth"
 
 printf "Retaining features with tree-tips...\n"
-qiime phylogeny filter-table \
+qiime2cli phylogeny filter-table \
   --i-table "$trpth"/"$intab" \
   --i-tree "$trpth"/"$mptpth" \
   --o-filtered-table "$trpth"/"$ottab" \
-  --verbose 
+  --verbose
+
+printf "Filtering sequences to match features with tree-tips...\n"
+qiime2cli feature-table filter-seqs \
+  --i-data "$trpth"/"$inseq" \
+  --i-table "$trpth"/"$ottab" \
+  --o-filtered-data "$trpth"/"$otseq" \
+  --verbose

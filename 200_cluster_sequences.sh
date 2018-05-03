@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 21.03.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 03.05.2018 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 #   "Given a feature table and the associated feature sequences, cluster the
 #   features based on user-specified percent identity threshold of their
@@ -24,46 +24,36 @@ set -x
 if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on remote...\n"
     trpth="/data/CU_combined"
+    dbugp="/workdir/pc683/CU_combined"
     qiime() { qiime2cli "$@"; }
     cores="$(nproc --all)"
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on local...\n"
     trpth="$(dirname "$PWD")"
+    dbugp="$(dirname "$PWD")"
     cores='2'
 fi
 
 # Define input and output locations
 # ---------------------------------
 in_tab='Zenodo/Qiime/100_18S_merged_tab.qza'
-in_seq='Zenodo/Qiime/080_18S_merged_seq.qza'
+in_seq='Zenodo/Qiime/100_18S_merged_seq.qza'
 
 cluster[1]='1.00'
-cluster[2]='0.99'
-cluster[3]='0.98'
-cluster[4]='0.97'
-cluster[5]='0.96'
-cluster[6]='0.95'
-cluster[7]='0.90'
+cluster[2]='0.97'
+cluster[3]='0.90'
 
 clust_tab[1]='Zenodo/Qiime/200_18S_100_cl_tab.qza'
-clust_tab[2]='Zenodo/Qiime/200_18S_099_cl_tab.qza'
-clust_tab[3]='Zenodo/Qiime/200_18S_098_cl_tab.qza'
-clust_tab[4]='Zenodo/Qiime/200_18S_097_cl_tab.qza'
-clust_tab[5]='Zenodo/Qiime/200_18S_096_cl_tab.qza'
-clust_tab[6]='Zenodo/Qiime/200_18S_095_cl_tab.qza'
-clust_tab[7]='Zenodo/Qiime/200_18S_090_cl_tab.qza'
+clust_tab[2]='Zenodo/Qiime/200_18S_097_cl_tab.qza'
+clust_tab[3]='Zenodo/Qiime/200_18S_090_cl_tab.qza'
 
 clust_seq[1]='Zenodo/Qiime/200_18S_100_cl_seq.qza'
-clust_seq[2]='Zenodo/Qiime/200_18S_099_cl_seq.qza'
-clust_seq[3]='Zenodo/Qiime/200_18S_098_cl_seq.qza'
-clust_seq[4]='Zenodo/Qiime/200_18S_097_cl_seq.qza'
-clust_seq[5]='Zenodo/Qiime/200_18S_096_cl_seq.qza'
-clust_seq[6]='Zenodo/Qiime/200_18S_095_cl_seq.qza'
-clust_seq[7]='Zenodo/Qiime/200_18S_090_cl_seq.qza'
+clust_seq[2]='Zenodo/Qiime/200_18S_097_cl_seq.qza'
+clust_seq[3]='Zenodo/Qiime/200_18S_090_cl_seq.qza'
 
 # Run scripts
 # ------------
-for ((i=1;i<=7;i++)); do
+for ((i=1;i<=3;i++)); do
   qiime vsearch cluster-features-de-novo \
     --p-threads "$cores" \
     --i-sequences "$trpth"/"$in_seq" \
@@ -71,5 +61,5 @@ for ((i=1;i<=7;i++)); do
     --p-perc-identity "${cluster[$i]}" \
     --o-clustered-table "$trpth"/"${clust_tab[$i]}" \
     --o-clustered-sequences "$trpth"/"${clust_seq[$i]}" \
-    --verbose | tee -a "$trpth"/'Zenodo/Qiime/200_18S_cluster_log.txt'
+    --verbose | tee -a "$dbugp"/'Zenodo/Qiime/200_18S_cluster_log.txt'
 done
