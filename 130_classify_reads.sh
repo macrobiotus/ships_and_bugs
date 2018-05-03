@@ -31,7 +31,7 @@ qdir="Zenodo/Qiime"
 # input files
 # ------------
 clssf="120_18S_classifier.qza"
-repset="080_18S_merged_seq.qza"
+repset="100_18S_merged_seq.qza"
 
 # output files
 # ------------

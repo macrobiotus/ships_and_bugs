@@ -18,7 +18,7 @@ elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     qiime2cli() { qiime "$@"; }
     printf "Execution on local...\n"
     trpth="$(dirname "$PWD")"
-    cores='2'
+    cores="$(nproc --all)"
 fi
 
 # Define input files (more below)
