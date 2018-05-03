@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 26.02.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 03.05.2018 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # https://docs.qiime2.org/2017.10/tutorials/moving-pictures/
 # merging data from different runs, after denoising
@@ -29,11 +29,13 @@ tab[1]='/Users/paul/Documents/CU_Pearl_Harbour/Zenodo/Qiime/060_18S_PH_feature_t
 tab[2]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Qiime/050_18S_26_SPW_paired-end-tab.qza'
 tab[3]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Qiime/050_18S_29_AD_paired-end-tab.qza'
 tab[4]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Qiime/050_18S_34_CH_paired-end-tab.qza'
+tab[5]='/Users/paul/Documents/CU_US_ports_a/Zenodo/Qiime/050_18S_paired-end-tab.qza'
 
 seq[1]='/Users/paul/Documents/CU_Pearl_Harbour/Zenodo/Qiime/060_18S_PH_rep_seq.qza'
 seq[2]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Qiime/050_18S_26_SPW_paired-end-rep.qza'
 seq[3]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Qiime/050_18S_29_AD_paired-end-rep.qza'
 seq[4]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Qiime/050_18S_34_CH_paired-end-rep.qza'
+seq[5]='/Users/paul/Documents/CU_US_ports_a/Zenodo/Qiime/050_18S_paired-end-rep.qza'
 
 otpth_tab='Zenodo/Qiime/065_18S_merged_tab.qza'
 otpth_seq='Zenodo/Qiime/065_18S_merged_seq.qza'
@@ -45,10 +47,12 @@ qiime feature-table merge \
   --i-tables "${tab[2]}" \
   --i-tables "${tab[3]}" \
   --i-tables "${tab[4]}" \
+  --i-tables "${tab[5]}" \
   --o-merged-table "$trpth"/"$otpth_tab"
 qiime feature-table merge-seqs \
   --i-data "${seq[1]}" \
   --i-data "${seq[2]}" \
   --i-data "${seq[3]}" \
   --i-data "${seq[4]}" \
+  --i-data "${seq[5]}" \
   --o-merged-data "$trpth"/"$otpth_seq"

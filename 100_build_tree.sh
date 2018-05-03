@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 19.01.2017 - Paul Czechowski - paul.czechowski@gmail.com 
+# 03.05.2017 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Qiime tree building and midpoint rooting,
 # https://docs.qiime2.org/2017.11/tutorials/moving-pictures/
@@ -35,6 +35,7 @@ printf "Calculating tree...\n"
 qiime2cli phylogeny fasttree \
  --i-alignment "$trpth"/"$inpth" \
  --o-tree "$trpth"/"$urtpth"
+ --p-n-threads -1
 
 printf "Rooting at midpoint...\n"  
 qiime2cli phylogeny midpoint-root \

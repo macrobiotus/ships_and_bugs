@@ -23,10 +23,8 @@ fi
 
 # define input and output locations
 # ---------------------------------
-tab[1]='/Users/paul/Documents/CU_Pearl_Harbour/Zenodo/Manifest/05_metadata.tsv'
-tab[2]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_26_SPW.tsv'
-tab[3]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_29_AD.tsv'
-tab[4]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_34_CH.tsv'
+tab[1]='/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata_old.tsv'
+tab[2]='/Users/paul/Documents/CU_US_ports_a/Zenodo/Manifest/05_18S_merged_metadata.tsv'
 
 otpth_tab='Zenodo/Manifest/05_18S_merged_metadata.tsv'
 
@@ -34,6 +32,6 @@ otpth_tab='Zenodo/Manifest/05_18S_merged_metadata.tsv'
 # ----------
 touch "$trpth"/"$otpth_tab"
 head -n 1  "${tab[1]}" > "$trpth"/"$otpth_tab"
-for ((i=1;i<=4;i++)); do
+for ((i=1;i<=2;i++)); do
    tail -n +2 "${tab[$i]}" >> "$trpth"/"$otpth_tab"
 done 

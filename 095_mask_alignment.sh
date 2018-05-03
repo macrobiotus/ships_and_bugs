@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 19.01.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 03.05.2018 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Qiime alignment masking.
 # https://docs.qiime2.org/2017.11/tutorials/moving-pictures/

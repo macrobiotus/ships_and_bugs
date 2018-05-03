@@ -284,7 +284,7 @@ Data will be included via manifest files and metadate files linked in at
   * commit
   * creating backup copy of this repository which is to be deleted later: `/Users/paul/Documents/CU_combined_BUP`
   * continue work in `/Users/paul/Documents/CU_combined`
-* **02.05.2018** - R scripting while new date is being processed
+* **02.05.2018** - R scripting while new data is being processed
   * `/Users/paul/Documents/CU_combined/Github/550_check_taxonomy.R` now generating a list output **BUT SEE ISSUES**
   * renaming `550_euler.R` to `550_80_euler.R` 
   * renaming `550_check_taxonomy.R`to `550_90_check_taxonomy.R`
@@ -293,6 +293,21 @@ Data will be included via manifest files and metadate files linked in at
   * moved superseded `550_80_euler.R` to `/Users/paul/Documents/CU_combined/Scratch/R`
   * updated issues
   * commit
+* **03.05.2018** - data addiction and shell scripting
+  * new data is available in `/Users/paul/Documents/CU_US_ports_a` , check that project `README.md`
+  * adjusting and running (marked green):
+     * `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh`
+     * `/Users/paul/Documents/CU_combined/Github/070_merge_metdata.sh`
+     * `/Users/paul/Documents/CU_combined/Github/075_smr_features_and_table.sh`
+     * `/Users/paul/Documents/CU_combined/Github/080_re_cut_adapt_and_filter.sh`
+     * `/Users/paul/Documents/CU_combined/Github/085_smr_features_and_table.sh`
+  * adjusting and running on cluster after commit (marked purple):
+     * `/Users/paul/Documents/CU_combined/Github/090_align_repseqs.sh`
+     * `/Users/paul/Documents/CU_combined/Github/095_mask_alignment.sh`
+     * `/Users/paul/Documents/CU_combined/Github/100_build_tree.sh`
+     
+  
+
 
 ## Todo
 

@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# 16.03.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 03.05.2018 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Re-trimming of primers from set of representative sequences
 # and filtering feature table. For 18S to get rid of remnants,
-# for COI to remove them completely, COi data may be in there since
+# for COI to remove them completely, COI data may be in there since
 # samples from 18S and COI were pooled with the same barcode.
 
 # For debugging only

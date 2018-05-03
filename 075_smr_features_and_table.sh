@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 26.01.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 03.05.2018 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Visualising reads after denoising and merging procedure.
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 20.02.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 03.05.2018 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Qiime align of representative sequences
 # https://docs.qiime2.org/2017.11/tutorials/moving-pictures/
@@ -30,3 +30,4 @@ otpth='Zenodo/Qiime/090_18S_raw_alignment.qza'
 qiime alignment mafft \
   --i-sequences "$trpth"/"$inpth" \
   --o-alignment "$trpth"/"$otpth"
+  --p-n-threads -1
