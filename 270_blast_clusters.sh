@@ -1,11 +1,14 @@
 #!/usr/bin/bash
 
-# 02.04.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 04.05.2018 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Blast fasta file against locally installed copy of NCBI nt database. Modified
 # from https://stackoverflow.com/questions/45014279/running-locally-blastn-against-nt-db-thru-python-script.
 # If excuted on cluster install reference db via script in Transport folder.
 # 12.04.2018 - output to dedicated directory - moving results there
+# 04.05.2018 - maintaining individually blasting fasta sets for the sake of 
+#   consistency in cluster threshold data variety sets, otherwise one could like 
+#   just use the unclustered repset
 
 # For debugging only
 # ------------------ 

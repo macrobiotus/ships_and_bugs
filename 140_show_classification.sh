@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 19.01.2017 - Paul Czechowski - paul.czechowski@gmail.com 
+# 04.05.2018 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # https://docs.qiime2.org/2017.11/tutorials/moving-pictures/
 

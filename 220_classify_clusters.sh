@@ -1,8 +1,10 @@
 #!/bin/bash
 
-# 22.03.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 04.05.2018 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
-# Classification of reads, needs trained classifier. May not be necessary.
+# Classification of reads, needs trained classifier. Depreciated since
+#  reclassification of clustered sequences is likely unnecessary, one can use
+#  the classification of the unclustered data
 
 # For debugging only
 # ------------------ 

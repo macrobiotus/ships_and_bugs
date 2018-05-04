@@ -293,7 +293,7 @@ Data will be included via manifest files and metadate files linked in at
   * moved superseded `550_80_euler.R` to `/Users/paul/Documents/CU_combined/Scratch/R`
   * updated issues
   * commit
-* **03.05.2018** - data addiction and shell scripting
+* **03.05.2018** - data addition and shell scripting
   * new data is available in `/Users/paul/Documents/CU_US_ports_a` , check that project `README.md`
   * adjusting and running (marked green):
      * `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh`
@@ -338,11 +338,21 @@ Data will be included via manifest files and metadate files linked in at
         * seems to be all good
     * adjusting `/Users/paul/Documents/CU_combined/Github/130_classify_reads.sh`
     * adjusting `/Users/paul/Documents/CU_combined/Github/220_classify_clusters.sh`
-    * commit and daisy chain both script above overnight
-       
-    
-
-
+    * commit and daisy chain both script above overnight - last backup before startin 19:29 - 5 minutes ago
+* **04.05.2018** - data addition and shell scripting
+   * running adjusted `/Users/paul/Documents/CU_combined/Github/140_show_classification.sh`
+   * visualisation `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/140_18S_taxvis_merged/visualization.qzv`
+   * ran `/Users/paul/Documents/CU_combined/Github/230_summarize_features_and_sequences.sh`
+   * not running `/Users/paul/Documents/CU_combined/Github/220_classify_clusters.sh`:
+     * `/Users/paul/Documents/CU_combined/Github/240_visualize_features_and_sequences.sh` and 
+     * `/Users/paul/Documents/CU_combined/Github/245_get_cluster_core_metrics.sh` and
+     * `/Users/paul/Documents/CU_combined/Github/250_convert_clusters.sh` are now reading taxonomy straight from
+     * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/130_18S_taxonomy.qza` (unclustered raw taxonomic assignments)
+   * running `/Users/paul/Documents/CU_combined/Github/240_visualize_features_and_sequences.sh` - ok 
+   * running `/Users/paul/Documents/CU_combined/Github/245_get_cluster_core_metrics.sh` - ok 
+   * running `/Users/paul/Documents/CU_combined/Github/250_convert_clusters.sh` - ok 
+   * running `/Users/paul/Documents/CU_combined/Github/260_get_bi_networks.sh` - ok
+   * commit and move to cluster to run `/Users/paul/Documents/CU_combined/Github/270_blast_clusters.sh`
 
 ## Todo
 

@@ -13,7 +13,7 @@
 
 # For debugging only
 # ------------------ 
-# set -x
+set -x
 
 # paths need to be adjusted for remote execution
 # ----------------------------------------------
@@ -49,7 +49,10 @@ for tab_file in $trpth/Zenodo/Qiime/210_18S_???_cl_*_tab.qza ; do
   filename=$(basename "$tab_file")
   prefix="${filename%.*}"
   prefix="220${prefix:3}"
-  tax_file="Zenodo/Qiime/${prefix::${#prefix}-4}_tax.qza" # Bash 4: ${foo::-4}
+  ### if `/Users/paul/Documents/CU_combined/Github/220_classify_clusters.sh`
+  ### was run uncomment the following line and comment the line below that
+  # tax_file="Zenodo/Qiime/${prefix::${#prefix}-4}_tax.qza" # Bash 4: ${foo::-4}
+  tax_file="Zenodo/Qiime/130_18S_taxonomy.qza"
   
   # check if dependent input file exists
   [ -f "$trpth"/"$tax_file" ] || continue
