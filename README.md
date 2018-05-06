@@ -1,4 +1,4 @@
-# Analysing combined 18S data from Pearl Harbour, Singapore, Chicago and Adelaide
+# Analysing combined 18S data from all ports with available sequence data
 
 This folder was created 24.01.2018 by copying folder `/Users/paul/Documents/CU_Pearl_Harbour`.
 Folder was and last updated 23.03.2018. The `GitHub` and `Transport` folders are 
@@ -353,6 +353,11 @@ Data will be included via manifest files and metadate files linked in at
    * running `/Users/paul/Documents/CU_combined/Github/250_convert_clusters.sh` - ok 
    * running `/Users/paul/Documents/CU_combined/Github/260_get_bi_networks.sh` - ok
    * commit and move to cluster to run `/Users/paul/Documents/CU_combined/Github/270_blast_clusters.sh`
+   * **USE UPDATE FOR NEXT CLUSTER PULL** pulling back to local, blast results to be included later
+   
+   
+   
+   
 
 ## Todo
 

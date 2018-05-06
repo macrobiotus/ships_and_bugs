@@ -12,7 +12,7 @@
 
 # For debugging only
 # ------------------ 
-set -x
+# set -x
 
 # Paths need to be adjusted for remote execution
 # ----------------------------------------------
@@ -23,7 +23,7 @@ if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     cores="$(nproc --all)"
     dbpath="/workdir/pc683/BLAST_NCBI/nt" # copy there using transport script
     export PATH=/programs/ncbi-blast-2.3.0+/bin:$PATH # perhaps not needed, aliasing below
-    export BLASTDB=b/workdir/pc683/BLAST_NCBI # may be necessary for taxonomy to work
+    export BLASTDB=/workdir/pc683/BLAST_NCBI # may be necessary for taxonomy to work
     blastn() { /programs/ncbi-blast-2.3.0+/bin/blastn "$@"; }
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on local...\n"
@@ -53,7 +53,8 @@ for fasta in "${fasta_files[@]}";do
   tgt_dir="270${src_dir:3}_fasta_blast"
   
   # for debugging only 
-  # printf "$trpth"/Zenodo/Blast/"$tgt_dir\n"
+  printf "$fasta\n"
+  printf "$trpth"/Zenodo/Blast/"$tgt_dir\n"
   
   # don't know if blast will throw an error if directory in output path doesn't exist
   # blast locally - or else adjust -db flag and set -remote flag
@@ -65,7 +66,7 @@ for fasta in "${fasta_files[@]}";do
   blastn -query "$fasta" -task blastn -evalue 1e-5  \
     -max_target_seqs 5 -max_hsps 5 -db "$dbpath" \
     -outfmt "6 qseqid sseqid pident qlen length mismatch gapope evalue bitscore sscinames scomnames" \
-    -out "$trpth"/Zenodo/Qiime/"$tgt_dir"/blastn_results.txt \
+    -out "$trpth"/Zenodo/Blast/"$tgt_dir"/blastn_results.txt \
     -num_threads "$cores" || \
     { printf "Blastn failed, aborting at $(date +"%T")\n" ; exit 1; }
 
