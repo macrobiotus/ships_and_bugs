@@ -354,6 +354,9 @@ Data will be included via manifest files and metadate files linked in at
    * running `/Users/paul/Documents/CU_combined/Github/260_get_bi_networks.sh` - ok
    * commit and move to cluster to run `/Users/paul/Documents/CU_combined/Github/270_blast_clusters.sh`
    * **USE UPDATE FOR NEXT CLUSTER PULL** pulling back to local, blast results to be included later
+* **07.05.2018** - R script running
+   * pulled all files off cluster after BLAST completed yesterday
+   * adjusting and running `/Users/paul/Documents/CU_combined/Github/500_35_shape_overlap_matrices.R`
    
    
    

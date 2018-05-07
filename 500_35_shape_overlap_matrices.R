@@ -1,7 +1,7 @@
 #' ---
 #' title: "Create Kulczynski distance matrices to encode overlapping taxa among port pairs"
 #' author: "Paul Czechowski"
-#' date: "May 2nd, 2018"
+#' date: "May 7th, 2018"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -13,11 +13,14 @@
 #' Please check the session info at the end of the document for further 
 #' notes on the coding environment.
 
-
 # empty buffer
 # ============
 rm(list=ls())
 
+# setting file export paths
+# =========================
+image_path <- "/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/171128_wcmb/180429_wcmb_talk/500_35_shape_overlap_matrices__eullerr.png"
+matrx_path <- "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_35_shape_overlap_matrices__output__97_overlap_kulczynski_mat.Rdata"
 
 # load packages
 # =============
@@ -32,7 +35,6 @@ library("tidyverse")    # metapackage
 library("eulerr")    # euler diagram
 library("qualpalr")  # euler diagram colour palette
 library("prabclus")  # also for euler diagram, perhaps unnecessary
-
 
 # functions
 # ==========
@@ -111,8 +113,13 @@ kulczynski(mat)
 ## window for Euler diagram
 par (fig = c(0.3,1, 0,0.5), new=TRUE) 
 
-## plot for Euler diagram
+## plot for Euler diagram...
 plot (fit2, main = "OTU counts and overlap between ports", quantities = TRUE)
+
+# ... and save
+png(file = image_path, width = 3, height = 3, units = "in", pointsize = 20, res = 200)
+    plot (fit2, main = "OTU counts and overlap between ports", quantities = TRUE)
+dev.off()
 
 # overlap summary by Eulerr package - `original` are the same counts that are
 #  used below, `fitted` are shown quantities in graphic 
@@ -161,8 +168,7 @@ colnames(kulczynski_mat) <- colnames(df_ports)
 rownames(kulczynski_mat) <- colnames(df_ports)
 kulczynski_mat
 
-save (kulczynski_mat, file =
-  "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_35_shape_overlap_matrices__output__97_overlap_kulczynski_mat.Rdata")
+save (kulczynski_mat, file = matrx_path)
 
 #' # Session info
 #'
