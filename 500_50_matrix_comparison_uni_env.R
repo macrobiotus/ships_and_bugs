@@ -1,7 +1,7 @@
 #' ---
 #' title: "Compare Unifrac and Environmental distance matrices and validate using permutation test"
 #' author: "Paul Czechowski"
-#' date: "April 24th, 2018"
+#' date: "May 7th, 2018"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -19,6 +19,11 @@
 # empty buffer
 # ============
 rm(list=ls())
+
+# setting file export paths
+# =========================
+image_path <- "/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/171128_wcmb/180429_wcmb_talk/500_50_matrix_comparison_uni_env__permute_env_uni.png"
+
 
 # load packages
 # =============
@@ -70,7 +75,7 @@ any(colnames(r_mat) == rownames(r_mat))
 # r_mat <- apply (r_mat, 1, function(x) 1-x)
 
 # Create empty receiving matrix ...
-r_mat_clpsd <- get_collapsed_responses_matrix_empty(r_mat)
+r_mat_clpsd <- get_collapsed_responses_matrix(r_mat)
 
 #   ... and stor rownames and column names....
 rnclpsd <- rownames(r_mat_clpsd)
@@ -127,10 +132,12 @@ p_mat <- p_mat[rowSums(is.na(p_mat))!=ncol(p_mat), colSums(is.na(p_mat))!=nrow(p
 
 # quick and dirty - manual lookup
 #   use order order of response matrix (!!!)
-#   here "PH","SP","AD","CH"
+#   here "PH","SP","AD","CH",
+#   or   "PH","SP","AD","CH", "BT", "HN", "HT", "LB", "MI"
 #   improve (!!!) this. Manual lookup via:
 #   `open /Users/paul/Dropbox/NSF\ NIS-WRAPS\ Data/raw\ data\ for\ Mandana/PlacesFile_updated_Aug2017.xlsx -a "Microsoft Excel"`
-p_mat_xtr <- p_mat[c("2503","1165","3110","2907") , c("2503","1165","3110","2907")] 
+#   double usage of 2503 doesn't matter here, will be replaced by port names ((?))
+p_mat_xtr <- p_mat[c("2503","1165","3110","2907", "854", "2503", "2331", "7597", "4899") , c("2503","1165","3110","2907", "854", "2503", "2331", "7597", "4899")] 
 
 p_mat_xtr[lower.tri(p_mat_xtr, diag = FALSE)] <- NA
 
@@ -173,7 +180,7 @@ cor.test(rvec, dvec, method = "kendall", alternative = "greater")
 #' # Data analysis 2 - correlation and permutation test 
 #' 
 
-perm_risk <- numeric(length = 100000) # create vector to store results, 
+perm_risk <- numeric(length = 50000) # create vector to store results, 
                                      #   with length equal to the amount of
                                      #   permutations
 n = length(rvec)                     
@@ -201,16 +208,27 @@ perm_risk[length(perm_risk)] <- cor(rvec, dvec, use = "pairwise.complete.obs", m
 #' unshuffeled "true" correlation for input data:
 perm_risk[length(perm_risk)]
 
-#' Show results graphically - see red dot of x-axis.
+#' Show results graphically - see red dot of x-axis ...
 hist (perm_risk, 
-      main = "Environmental Distance and Shuffled Correlations",
-      sub = "Correlation between Environmental Distance and Biologic Site Similarity",
+      main = "Correlations between Environmental and UNIFRAC Distances",
       xlab = "Correlation", 
       breaks = 75, 
       prob=TRUE)
 lines(density(perm_risk))
-lines(density(perm_risk, adjust=2), lty="dotted", col="darkgreen", lwd=2) 
+lines(density(perm_risk, adjust=2), lty="dotted", col="red", lwd=1) 
 rug(perm_risk[length(perm_risk)], col = "red", lwd = 5)
+
+# ... and save
+png(file = image_path, width = 8, height = 8, units = "in", pointsize = 14, res = 200)
+    hist (perm_risk, 
+      main = "Correlations between Environmental and UNIFRAC Distances",
+      xlab = "Correlation", 
+      breaks = 75, 
+      prob=TRUE)
+lines(density(perm_risk))
+lines(density(perm_risk, adjust=2), lty="dotted", col="red", lwd=1) 
+rug(perm_risk[length(perm_risk)], col = "red", lwd = 5)
+dev.off()
 
 #' Count random correlations that are as high as the non-random one.
 h_corr <- sum(perm_risk >=  perm_risk[length(perm_risk)])

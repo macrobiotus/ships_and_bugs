@@ -356,10 +356,10 @@ Data will be included via manifest files and metadate files linked in at
    * **USE UPDATE FOR NEXT CLUSTER PULL** pulling back to local, blast results to be included later
 * **07.05.2018** - R script running
    * pulled all files off cluster after BLAST completed yesterday
-   * adjusting and running `/Users/paul/Documents/CU_combined/Github/500_35_shape_overlap_matrices.R`
-   
-   
-   
+   * adjusted and ran `/Users/paul/Documents/CU_combined/Github/500_35_shape_overlap_matrices.R`
+   * adjusted and ran `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R`
+   * adjusted and ran `/Users/paul/Documents/CU_combined/Github/550_90_check_taxonomy.R`
+   * composed `/Users/paul/Documents/CU_combined/Github/255_jackknifed_beta_diversity.sh` to generate 2d PCoA plots
    
 
 ## Todo

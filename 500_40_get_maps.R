@@ -1,7 +1,7 @@
 #' ---
 #' title: "Mapping samples"
 #' author: "Paul Czechowski"
-#' date: "April 25th, 2017"
+#' date: "May 7th, 2017"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -22,9 +22,7 @@
 #' ## Package loading and cleaning of workspace
 #+ message=FALSE, results='hide'
 
-library ("dplyr")       # sorting, table manipulation
 library ("matrixStats") # here used (anymore?) for column median
-library ("tidyverse")   # to `write_excel_csv()`
 library ("readxl")      # to open excel files
 library ("reshape2")    # plotting, table manipulation
 library ("ggplot2")     # plotting, mapping
@@ -32,10 +30,13 @@ library ("maps")        # mapping
 library ("ggrepel")     # plot labelling
 library ("grid")        # handle graphical objects
 library ("gridExtra")   # handle graphical objects
+library ("tidyverse")   # to `write_excel_csv()`
+
 
 #' ## Flushing buffer
 #' 
 rm(list=ls())     # for safety only
+
 
 #' 
 #' ## Functions
@@ -178,8 +179,8 @@ save (srout_all, file =
 # test 25.04.2018 - are test sample in the route table?
 # manual lookup via
 # open /Users/paul/Dropbox/NSF\ NIS-WRAPS\ Data/raw\ data\ for\ Mandana/PlacesFile_updated_Aug2017.xlsx -a "Microsoft Excel"
-#                      "PH",   "SP",   "AD",  "CH"   
-selected_samples = c("2503","1165","3110","2907") 
+#                     PH",  "SP",  "AD",  "CH"    "MI"    "BT"   "HT"    "LB"
+selected_samples = c("2503","1165","3110","2907", "4899", "854", "2331", "7597") 
 
 ## CHANGE THIS LINE IF NECESSARY 
 srout <- srout %>% filter (PRTA %in% selected_samples | 
@@ -238,30 +239,30 @@ us_world_dt <- us_world_dt %>% arrange ( desc(TRIPS)) %>%
 #  ***** BEGIN: --OMITTING THIS SECTION 16.01.2018 AS THERE IS NOT ENOUGH DATA AVAILABALE *****
 
 # get port information from external file
-port_info <- read_excel("/Users/paul/Box Sync/CU_NIS-WRAPS/170727_port_information/160322_57_ports_selection.xlsx")
-  # port_info # %>% print(n = nrow(.))
-
+# port_info <- read_excel("/Users/paul/Box Sync/CU_NIS-WRAPS/170727_port_information/160322_57_ports_selection.xlsx")
+#   port_info # %>% print(n = nrow(.))
+# 
 # keep port information that is relavant to the list created here 
-port_info <- port_info %>% 
-  filter ( PLACE_ID %in% c(us_world_dt$PRTA, us_world_dt$PRTB) )
-  # %>% print(n = nrow(.))
-
+# port_info <- port_info %>% 
+#   filter ( PLACE_ID %in% c(us_world_dt$PRTA, us_world_dt$PRTB) )
+#   %>% print(n = nrow(.))
+# 
 #  select columns, set 0's to NAs, convert types - get a cleaner table
-port_info <- port_info %>% select("PLACE_ID", "CHANGES") %>% 
-             mutate(CHANGES = replace(CHANGES, CHANGES == 0, NA)) %>% 
-             na.omit() %>% mutate(PLACE_ID = as.numeric(PLACE_ID)) 
-
+# port_info <- port_info %>% select("PLACE_ID", "CHANGES") %>% 
+#              mutate(CHANGES = replace(CHANGES, CHANGES == 0, NA)) %>% 
+#              na.omit() %>% mutate(PLACE_ID = as.numeric(PLACE_ID)) 
+# 
 # left join changes to table  
-us_world_dt <- left_join (us_world_dt, port_info, by = c("PRTA" = "PLACE_ID")) 
-us_world_dt <- left_join (us_world_dt, port_info, by = c("PRTB" = "PLACE_ID"))
-
+# us_world_dt <- left_join (us_world_dt, port_info, by = c("PRTA" = "PLACE_ID")) 
+# us_world_dt <- left_join (us_world_dt, port_info, by = c("PRTB" = "PLACE_ID"))
+# 
 # merge columns and drop columns
-us_world_dt <- us_world_dt %>% mutate(CHANGES = coalesce(CHANGES.x, CHANGES.y)) %>%
-  select(-one_of(c("CHANGES.x", "CHANGES.y"))) 
-
+# us_world_dt <- us_world_dt %>% mutate(CHANGES = coalesce(CHANGES.x, CHANGES.y)) %>%
+#   select(-one_of(c("CHANGES.x", "CHANGES.y"))) 
+# 
 # replace character in `Changes` column, for Excel compatibility
-us_world_dt$CHANGES <- gsub("\\+", "more ", us_world_dt$CHANGES)
-us_world_dt$CHANGES <- gsub("\\-", "less ", us_world_dt$CHANGES)
+# us_world_dt$CHANGES <- gsub("\\+", "more ", us_world_dt$CHANGES)
+# us_world_dt$CHANGES <- gsub("\\-", "less ", us_world_dt$CHANGES)
 
 #  ***** END: -- OMITTING THIS SECTION 16.01.2018 AS THERE IS NOT ENOUGH DATA AVAILABALE *****
 
@@ -317,12 +318,18 @@ points_all <- dplyr::arrange(points_all, desc(ROUTE)) # %>% print(n = nrow(.))
 available_samples <- smpld_PID [smpld_PID %!in% selected_samples ]
 
 # the mutate command is nested, but this object can be plotted directly on the map
-points_tabl <- srout_all %>% filter (PRTA %in% smpld_PID |
-                                     PRTA %in% selected_samples ) %>%
+# points_tabl <- srout_all %>% filter (PRTA %in% smpld_PID |
+#                                      PRTA %in% selected_samples ) %>%
+#                                      distinct(PORTA, .keep_all = TRUE) %>%
+#                                      select(c("PALATI", "PALONG", "PORTA", "PRTA")) %>% 
+#                                      mutate (COLOR = ifelse(PRTA %in% selected_samples, "green",
+#                                        ifelse(PRTA %in% available_samples, "orange", "grey")))
+
+points_tabl <- srout_all %>% filter (PRTA %in% selected_samples ) %>%
                                      distinct(PORTA, .keep_all = TRUE) %>%
                                      select(c("PALATI", "PALONG", "PORTA", "PRTA")) %>% 
-                                     mutate (COLOR = ifelse(PRTA %in% selected_samples, "green",
-                                       ifelse(PRTA %in% available_samples, "orange", "grey")))
+                                     mutate (COLOR = ifelse(PRTA %in% selected_samples, "green", NA))
+
 
 #' ## Prepare base layer 
 #' 
@@ -334,7 +341,8 @@ world <- world[ which (world$region != "Antarctica"), ]   # remove Antarctica
 # bolted in: select port to label - find manually using `smpld # %>% print(n = nrow(.))`
 # and `unique(points_all$PORT)`
 #  so far 
-ports_to_label <- c("Honolulu", "Portland","Adelaide", "Chicago", "Singapore")
+ports_to_label <- c("Singapore", "Houston", "Honululu", "Chicago", "Adelaide", 
+                    "Miami", "Long Beach", "Baltimore")
 
 #' This could be written up as function.
 #' 
@@ -351,15 +359,15 @@ m1 <-  ggplot() +
     xlim = c(-170, 175),  ylim = c(-50, 80), ratio = 1.3
   ) +
   geom_line ( data = points_all, 
-    aes (x = LONG, y = LATI, group = ROUTE, colour = RISK)
+    aes (x = LONG, y = LATI, group = ROUTE, colour = log(RISK))
   ) +
   scale_colour_gradient2 (
-    low = "forestgreen", mid = "gold3" , high = "firebrick1"
+    low = "dodgerblue1", mid = "forestgreen" , high = "firebrick1"
   ) +
   geom_label_repel ( 
     data = distinct (points_all , PORT, .keep_all = TRUE) %>% filter (PORT %in% ports_to_label),
     aes (LONG, LATI, label = PORT), 
-    size = 2,
+    size = 3,
     segment.color = 'grey50'
   ) +
   geom_point ( data = points_tabl, aes(points_tabl$PALONG, points_tabl$PALATI), colour = points_tabl$COLOR
@@ -372,7 +380,7 @@ m1 <-  ggplot() +
     "Latitude"
   ) +
   ggtitle (
-    "Sequenced samples and their connections"
+    "Sequenced Samples and Connections"
   ) +
   theme (
     legend.position="bottom"
@@ -386,8 +394,8 @@ m1 <-  ggplot() +
 #' Use multiplot if desirable (likely won't render or render well) in `.pdf`
 print(m1)
 
-ggsave("180425_500_40_get_maps__processed_samples.png", plot = last_plot(), 
-         device = "png", path = "/Users/paul/Documents/CU_combined/DI_talks",
+ggsave("500_40_get_maps__map.png", plot = last_plot(), 
+         device = "png", path = "/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/171128_wcmb/180429_wcmb_talk",
          scale = 1, width = 8, height = 5, units = c("in"),
          dpi = 300, limitsize = TRUE)
 

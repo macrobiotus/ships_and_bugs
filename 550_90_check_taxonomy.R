@@ -1,7 +1,7 @@
 #' ---
-#' title: "Parse Blast output for overlapping taxa"
+#' title: "Parse Blast Output to show Overlapping Taxa"
 #' author: "Paul Czechowski"
-#' date: "May 2nd, 2018"
+#' date: "May 7nd, 2018"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -151,6 +151,12 @@ bin_df_ovrl <- bin_df_ovrl %>% left_join(edna_tab, by = "qseqid", copy = TRUE,
 
 # Sort by bitscore
 bin_df_ovrl %>% arrange(desc(bitscore)) # %>% print(n = nrow(.))
+
+# write results
+# -------------
+
+write_csv(bin_df_ovrl, path = "/Users/paul/Documents/CU_combined/DI_R_tables/550_90_check_taxonomy__output__blast_results.csv")
+write_csv(bin_df_ovrl, path = "/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/171128_wcmb/180429_wcmb_talk/550_90_check_taxonomy__output__blast_results.csv")
 
 #' # Session info
 #'
