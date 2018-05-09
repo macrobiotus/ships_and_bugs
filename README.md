@@ -360,6 +360,9 @@ Data will be included via manifest files and metadate files linked in at
    * adjusted and ran `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R`
    * adjusted and ran `/Users/paul/Documents/CU_combined/Github/550_90_check_taxonomy.R`
    * composed `/Users/paul/Documents/CU_combined/Github/255_jackknifed_beta_diversity.sh` to generate 2d PCoA plots
+* **08.05.2018** - R scripting - implementing Mantel tests
+   * created `/Users/paul/Documents/CU_combined/Github/500_80_mantel_comparison_uni_prd.R` as copy of `/Users/paul/Documents/CU_combined/Github/500_70_matrix_comparison_uni_prd.R`
+   * moved `/Users/paul/Documents/CU_combined/Github/500_60_matrix_comparison_uni_rsk.R` to scratch
    
 
 ## Todo
@@ -372,7 +375,7 @@ Data will be included via manifest files and metadate files linked in at
 * _02.05.2018_ - **unconfirmed** - list output is sparse in `/Users/paul/Documents/CU_combined/Github/550_check_taxonomy.R`
   * possible unconfirmed reason: blast OTU list shorter the OTU list in Phyloseq object - perhaps blast is dropping queries ?
 * _02.05.2018_ - **unconfirmed** - `/Users/paul/Documents/CU_combined/Github/500_35_shape_overlap_matrices.R`
-  * Kulczynski distances may be unsuitable to describe overlap between ports. 
+  * Kulczynski distances may be unsuitable to describe overlap between ports, both for all overlap or dual overlap.
 
 ### R analysis
 

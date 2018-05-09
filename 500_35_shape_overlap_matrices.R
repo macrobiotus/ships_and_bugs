@@ -20,8 +20,8 @@ rm(list=ls())
 # setting file export paths
 # =========================
 image_path <- "/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/171128_wcmb/180429_wcmb_talk/500_35_shape_overlap_matrices__eullerr.png"
-matrx_path <- "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_35_shape_overlap_matrices__output__97_overlap_kulczynski_mat.Rdata"
-
+matrx_path <- "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_35_shape_overlap_matrices__output__97_overlap_kulczynski_mat_all.Rdata"
+matrx_ovrlp_path <- "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_35_shape_overlap_matrices__output__97_overlap_kulczynski_mat_dual.Rdata"
 # load packages
 # =============
 library("ape")          # read tree file
@@ -123,7 +123,7 @@ dev.off()
 
 # overlap summary by Eulerr package - `original` are the same counts that are
 #  used below, `fitted` are shown quantities in graphic 
-fit2
+##  fit2
 
 # format matrices
 # ---------------
@@ -163,12 +163,18 @@ bin_df_ovrl
 #  (and used in the `eulerr()` manual): This might be the most straight forward
 #  way of handling cases where more then one port has shared species.
 
-kulczynski_mat <- kulczynski(mat)
-colnames(kulczynski_mat) <- colnames(df_ports)
-rownames(kulczynski_mat) <- colnames(df_ports)
-kulczynski_mat
+kulczynski_mat_all <- kulczynski(mat)
+colnames(kulczynski_mat_all) <- colnames(df_ports)
+rownames(kulczynski_mat_all) <- colnames(df_ports)
+kulczynski_mat_all
+save (kulczynski_mat_all, file = matrx_path)
 
-save (kulczynski_mat, file = matrx_path)
+# Also getting overlap
+kulczynski_mat_ovrlp <- kulczynski(mat [ which (rowSums(mat[  , 1:ncol(mat)]) == 2 ), ])
+colnames(kulczynski_mat_ovrlp) <- colnames(df_ports)
+rownames(kulczynski_mat_ovrlp) <- colnames(df_ports)
+kulczynski_mat_ovrlp
+save (kulczynski_mat_ovrlp, file = matrx_ovrlp_path)
 
 #' # Session info
 #'
