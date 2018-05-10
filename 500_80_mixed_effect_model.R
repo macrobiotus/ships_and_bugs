@@ -282,6 +282,8 @@ pairs(RESP_UNIFRAC ~ PRED_ENV * PRED_TRIPS,data=model_data, main="Simple Scatter
 head (model_data)
 
 vars <- model_data %>% select(RESP_UNIFRAC, PORT, DEST, ECO_DIFF, PRED_ENV, PRED_TRIPS)
+vars$PORT <- as.factor(vars$PORT)
+
 
 #' ## Full Model and checking 
 
@@ -289,6 +291,58 @@ vars_model_full <- lmer(RESP_UNIFRAC ~ PRED_ENV*PRED_TRIPS + ECO_DIFF + (1 | POR
 
 #' ### Model Summary
 summary(vars_model_full)
+
+
+## some diagnostics - 1 - put below model
+plot(RESP_UNIFRAC ~ PRED_ENV, xlab = "Environmental Distance", ylab = "UNIFRAC distance", data=vars)
+label_vec <- with(vars, paste(PORT, DEST, sep = " "))
+with(vars, text(RESP_UNIFRAC ~ PRED_ENV, labels = label_vec, pos = 4))
+devlm1 <- lm(RESP_UNIFRAC ~ PRED_ENV, data = vars)
+abline(devlm1)
+conflm1<-confint(devlm1)
+abline(coef=conflm1[,1],lty=2)
+abline(coef=conflm1[,2],lty=2) 
+title(main = "UNIFRAC distance ~ Environmental Distance\n (without accounting for random effects)")
+
+png(filename="/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/171128_wcmb/180429_wcmb_talk/500_80__env_dist.png",
+    width = 8, height = 8, units = "in", pointsize = 14, res = 200)
+plot(RESP_UNIFRAC ~ PRED_ENV, xlab = "Environmental Distance", ylab = "UNIFRAC distance", data=vars)
+label_vec <- with(vars, paste(PORT, DEST, sep = " "))
+with(vars, text(RESP_UNIFRAC ~ PRED_ENV, labels = label_vec, pos = 4))
+devlm1 <- lm(RESP_UNIFRAC ~ PRED_ENV, data = vars)
+abline(devlm1)
+conflm1<-confint(devlm1)
+abline(coef=conflm1[,1],lty=2)
+abline(coef=conflm1[,2],lty=2) 
+title(main = "UNIFRAC distance ~ Environmental Distance\n (without accounting for random effects)")
+dev.off()
+
+
+## some diagnostics - 2 - put below model
+plot(RESP_UNIFRAC ~ PRED_TRIPS, xlab = "Voyages (log - scaled)", ylab = "UNIFRAC distance", 
+     data=vars )
+label_vec <- with(vars, paste(PORT, DEST, sep = " "))
+with(vars, text(RESP_UNIFRAC ~ PRED_TRIPS, labels = label_vec, pos = 4))
+devlm2 <- lm(RESP_UNIFRAC ~ PRED_TRIPS, data = vars)
+abline(devlm2)
+conflm2<-confint(devlm2)
+abline(coef=conflm1[,1],lty=2)
+abline(coef=conflm1[,2],lty=2)
+title(main = "UNIFRAC distance ~ Voyages\n (without accounting for random effects)")
+
+png(filename="/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/171128_wcmb/180429_wcmb_talk/500_80__voyages.png",
+    width = 8, height = 8, units = "in", pointsize = 14, res = 200)
+plot(RESP_UNIFRAC ~ PRED_TRIPS, xlab = "Voyages (log - scaled)", ylab = "UNIFRAC distance", 
+     data=vars )
+label_vec <- with(vars, paste(PORT, DEST, sep = " "))
+with(vars, text(RESP_UNIFRAC ~ PRED_TRIPS, labels = label_vec, pos = 4))
+devlm2 <- lm(RESP_UNIFRAC ~ PRED_TRIPS, data = vars)
+abline(devlm2)
+conflm2<-confint(devlm2)
+abline(coef=conflm1[,1],lty=2)
+abline(coef=conflm1[,2],lty=2)
+title(main = "UNIFRAC distance ~ Voyages\n (without accounting for random effects)")
+dev.off()
 
 # stargazer(vars_model_full, type = "html", title="Regression Results", align=TRUE,
 #             dep.var.labels=c("UNIFRAC distance"), covariate.labels=c("Environmental Distance",
@@ -325,19 +379,20 @@ coefs <- data.frame(coef(summary(vars_model_full)))
 # re-fit model
 library ("lmerTest") 
 
-m.semTest <- lmer(RESP_UNIFRAC ~ PRED_ENV * PRED_TRIPS + ECO_DIFF + (1| PORT) + (1| DEST), data=vars, REML=FALSE)
+# m.semTest <- lmer(RESP_UNIFRAC ~ PRED_ENV * PRED_TRIPS + ECO_DIFF + (1| PORT) + (1| DEST), data=vars, REML=FALSE)
 
 # get Satterthwaite-approximated degrees of freedom
-# coefs$df.Satt <- coef( )[, 3]
+coefs$df.Satt <- coef( )[, 3]
 # 
 # # get approximate p-values
-# coefs$p.Satt <- coef(summary(m.semTest))[, 5]
-# coefs
-summary(m.semTest)
+coefs$p.Satt <- coef(summary(vars_model_full))[, 5]
+coefs
+summary(vars_model_full)
 
 #' ## Null Model and checking 
 
 vars_model_null <- lmer(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST), data=vars, REML=FALSE)
+
 #' ### Model Summary
 summary(vars_model_null)
 
