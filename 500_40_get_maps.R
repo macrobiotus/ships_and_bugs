@@ -26,11 +26,11 @@ library ("matrixStats") # here used (anymore?) for column median
 library ("readxl")      # to open excel files
 library ("reshape2")    # plotting, table manipulation
 library ("ggplot2")     # plotting, mapping
+library ("tidyverse")   # to `write_excel_csv()`
 library ("maps")        # mapping
 library ("ggrepel")     # plot labelling
 library ("grid")        # handle graphical objects
 library ("gridExtra")   # handle graphical objects
-library ("tidyverse")   # to `write_excel_csv()`
 
 
 #' ## Flushing buffer
@@ -112,7 +112,7 @@ save (smpld, file =
 #' with start or end points of routes file, and subsetting routes file: 
 
 srout <- filter(src_heap$ROUT, 
-  PRTA %in% smpld$PTID | 
+  PRTA %in% smpld$PTID & 
   PRTB %in% smpld$PTID)
   
 # bug chase 24.04.2018 - ADL SNGP route goes missing - but it is still here - RESOLVED NOW 
@@ -341,8 +341,7 @@ world <- world[ which (world$region != "Antarctica"), ]   # remove Antarctica
 # bolted in: select port to label - find manually using `smpld # %>% print(n = nrow(.))`
 # and `unique(points_all$PORT)`
 #  so far 
-ports_to_label <- c("Singapore", "Houston", "Honululu", "Chicago", "Adelaide", 
-                    "Miami", "Long Beach", "Baltimore")
+ports_to_label <- c("Singapore", "Houston", "Honululu", "Chicago", "Adelaide", "Miami", "Long Beach", "Baltimore")
 
 #' This could be written up as function.
 #' 
@@ -394,7 +393,7 @@ m1 <-  ggplot() +
 #' Use multiplot if desirable (likely won't render or render well) in `.pdf`
 print(m1)
 
-ggsave("500_40_get_maps__map.png", plot = last_plot(), 
+ggsave("500_40_get_maps__map_cnnct.png", plot = last_plot(), 
          device = "png", path = "/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/171128_wcmb/180429_wcmb_talk",
          scale = 1, width = 8, height = 5, units = c("in"),
          dpi = 300, limitsize = TRUE)

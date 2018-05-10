@@ -239,7 +239,7 @@ class(model_data_raw)
 
 # remove incomplete cases - only ignoring lower half of matrix, otherwise remove 
 #  column selector
-# model_data <- model_data_raw %>% filter(complete.cases(.[3:6]))
+#model_data <- model_data_raw %>% filter(complete.cases(.[3:6]))
 model_data <- model_data_raw %>% filter(complete.cases(.))
 
 class(model_data)
@@ -285,7 +285,7 @@ vars <- model_data %>% select(RESP_UNIFRAC, PORT, DEST, ECO_DIFF, PRED_ENV, PRED
 
 #' ## Full Model and checking 
 
-vars_model_full <- lmer(RESP_UNIFRAC ~ PRED_ENV * PRED_TRIPS + ECO_DIFF + (1 | PORT) + (1 | DEST), data=vars, REML=FALSE)
+vars_model_full <- lmer(RESP_UNIFRAC ~ PRED_ENV*PRED_TRIPS + ECO_DIFF + (1 | PORT) + (1 | DEST), data=vars, REML=FALSE)
 
 #' ### Model Summary
 summary(vars_model_full)

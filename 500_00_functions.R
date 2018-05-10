@@ -168,7 +168,7 @@ fill_collapsed_responses_matrix <- function(r_mat_clpsd = NULL, r_mat = NULL){
       if (rnclpsd[i] == cnclpsd[j]){
          slctd_mat[lower.tri(slctd_mat, diag = TRUE)] <- NA  # although diagonal is defined with 
                                                              # "0" distance also setting diag to TRUE
-                                                             # ( excluded) so that average isn't
+                                                             # (excluded) so that average isn't
                                                              # lowered by the number of replicates
                                                              # per port.
       }
