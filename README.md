@@ -363,7 +363,9 @@ Data will be included via manifest files and metadate files linked in at
 * **08.05.2018** - R scripting - implementing Mantel tests
    * created `/Users/paul/Documents/CU_combined/Github/500_80_mantel_comparison_uni_prd.R` as copy of `/Users/paul/Documents/CU_combined/Github/500_70_matrix_comparison_uni_prd.R`
    * moved `/Users/paul/Documents/CU_combined/Github/500_60_matrix_comparison_uni_rsk.R` to scratch
-   
+* **10.05.2018** - R scripting - implementing mixed effect model during the last days
+   * check commit history - this chenge to the README is committed as well and marks the pre-conference stage 
+
 
 ## Todo
 
