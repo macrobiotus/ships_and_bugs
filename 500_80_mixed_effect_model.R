@@ -32,7 +32,7 @@ library ("gplots")    # R text as image
 library ("tidyverse") # dplyr and friends
 library ("reshape2")  # melting
 library ("lme4")      # mixed effect model
-library ("stargazer")
+# library ("stargazer")
 library ("gplots")
 
 
@@ -280,21 +280,21 @@ pairs(RESP_UNIFRAC ~ PRED_ENV * PRED_TRIPS,data=model_data, main="Simple Scatter
 
 #' # Select variables for modelling and build models 
 head (model_data)
-model_data$PORT <- as.factor(model_data$PORT)
 
+model_data$PORT <- as.factor(model_data$PORT)
+model_data$ECO_DIFF <- as.factor(model_data$ECO_DIFF)
 
 vars <- model_data %>% select(RESP_UNIFRAC, PORT, DEST, ECO_DIFF, PRED_ENV, PRED_TRIPS)
 
 # filter PH to get rid of coverage differences
 # vars <- model_data %>% filter(PORT != "PH") %>% filter(DEST != "PH") %>%  droplevels %>% select(RESP_UNIFRAC, PORT, DEST, ECO_DIFF, PRED_ENV, PRED_TRIPS)
 
-
-
 #' ## Full Model and checking 
 
-vars_model_full <- lmer(RESP_UNIFRAC ~ PRED_ENV*PRED_TRIPS + ECO_DIFF + (1 | PORT) + (1 | DEST), data=vars, REML=FALSE)
+vars_model_full <- lmer(RESP_UNIFRAC ~ PRED_ENV * PRED_TRIPS + ECO_DIFF + (1 | PORT) + (1 | DEST), data=vars, REML=FALSE)
 
 #' ### Model Summary
+
 summary(vars_model_full)
 
 
@@ -322,7 +322,6 @@ abline(coef=conflm1[,2],lty=2)
 title(main = "UNIFRAC distance ~ Environmental Distance\n (without accounting for random effects)")
 dev.off()
 
-
 ## some diagnostics - 2 - put below model
 plot(RESP_UNIFRAC ~ PRED_TRIPS, xlab = "Voyages (log - scaled)", ylab = "UNIFRAC distance", 
      data=vars )
@@ -348,6 +347,32 @@ abline(coef=conflm1[,1],lty=2)
 abline(coef=conflm1[,2],lty=2)
 title(main = "UNIFRAC distance ~ Voyages\n (without accounting for random effects)")
 dev.off()
+
+# plot intercation terms - version a
+# https://cran.r-project.org/web/packages/sjPlot/vignettes/plot_interactions.html
+# library(sjPlot)
+# library(sjmisc)
+# library(ggplot2)
+# theme_set(theme_sjplot())
+# fit model with interaction
+# fit <- lm(neg_c_7 ~ c12hour + barthtot * c161sex, data = efc)
+# fit <- lm(RESP_UNIFRAC ~ PRED_ENV * PRED_TRIPS, data = vars)
+# plot_model(fit, type = "pred", terms = c("PRED_ENV", "PRED_TRIPS [1.098612, 6.320768]"))
+
+# plot intercation terms - version b
+library("effects")
+ef <- effect( "PRED_ENV * PRED_TRIPS", vars_model_full)
+summary(ef)
+x <- as.data.frame(ef)
+ggplot(x, aes(PRED_ENV, fit, color=PRED_TRIPS)) + 
+  geom_point() + 
+  geom_errorbar(aes(ymin=fit-se, ymax=fit+se), width=0.4) + 
+  theme_bw(base_size=12)
+ggsave("500_80_mixed_effect_model__effect.svg", plot = last_plot(), device = "svg", path = "/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/171128_wcmb/180429_wcmb_talk",
+  scale = 1, width = 5, height = 5, units = c("in"),
+  dpi = 250, limitsize = TRUE)
+
+
 
 # stargazer(vars_model_full, type = "html", title="Regression Results", align=TRUE,
 #             dep.var.labels=c("UNIFRAC distance"), covariate.labels=c("Environmental Distance",
@@ -387,7 +412,7 @@ library ("lmerTest")
 # m.semTest <- lmer(RESP_UNIFRAC ~ PRED_ENV * PRED_TRIPS + ECO_DIFF + (1| PORT) + (1| DEST), data=vars, REML=FALSE)
 
 # get Satterthwaite-approximated degrees of freedom
-coefs$df.Satt <- coef( )[, 3]
+# coefs$df.Satt <- coef( )[, 3]
 # 
 # # get approximate p-values
 coefs$p.Satt <- coef(summary(vars_model_full))[, 5]
