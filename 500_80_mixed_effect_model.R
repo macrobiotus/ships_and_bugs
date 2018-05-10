@@ -280,9 +280,14 @@ pairs(RESP_UNIFRAC ~ PRED_ENV * PRED_TRIPS,data=model_data, main="Simple Scatter
 
 #' # Select variables for modelling and build models 
 head (model_data)
+model_data$PORT <- as.factor(model_data$PORT)
+
 
 vars <- model_data %>% select(RESP_UNIFRAC, PORT, DEST, ECO_DIFF, PRED_ENV, PRED_TRIPS)
-vars$PORT <- as.factor(vars$PORT)
+
+# filter PH to get rid of coverage differences
+# vars <- model_data %>% filter(PORT != "PH") %>% filter(DEST != "PH") %>%  droplevels %>% select(RESP_UNIFRAC, PORT, DEST, ECO_DIFF, PRED_ENV, PRED_TRIPS)
+
 
 
 #' ## Full Model and checking 
@@ -295,7 +300,7 @@ summary(vars_model_full)
 
 ## some diagnostics - 1 - put below model
 plot(RESP_UNIFRAC ~ PRED_ENV, xlab = "Environmental Distance", ylab = "UNIFRAC distance", data=vars)
-label_vec <- with(vars, paste(PORT, DEST, sep = " "))
+label_vec <- with(vars, paste(PORT, DEST, ECO_DIFF,  sep = " "))
 with(vars, text(RESP_UNIFRAC ~ PRED_ENV, labels = label_vec, pos = 4))
 devlm1 <- lm(RESP_UNIFRAC ~ PRED_ENV, data = vars)
 abline(devlm1)
