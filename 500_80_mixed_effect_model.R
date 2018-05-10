@@ -32,6 +32,8 @@ library ("gplots")    # R text as image
 library ("tidyverse") # dplyr and friends
 library ("reshape2")  # melting
 library ("lme4")      # mixed effect model
+library ("stargazer")
+library ("gplots")
 
 
 # functions
@@ -272,7 +274,9 @@ model_data <- model_data %>% mutate (ECO_DIFF = ifelse(ECO_PORT == ECO_DEST , FA
 
 # quick and dirty - improves model (apparently) - move elsewhere
 model_data$PRED_TRIPS <- log(model_data$PRED_TRIPS)
-# model_data <- model_data %>%  mutate_if(is.numeric, scale)
+# model_data <- model_data %>%  mutate_if(is.numeric, scale(.,scale = FALSE))
+
+pairs(RESP_UNIFRAC ~ PRED_ENV * PRED_TRIPS,data=model_data, main="Simple Scatterplot Matrix")
 
 #' # Select variables for modelling and build models 
 head (model_data)
@@ -281,17 +285,19 @@ vars <- model_data %>% select(RESP_UNIFRAC, PORT, DEST, ECO_DIFF, PRED_ENV, PRED
 
 #' ## Full Model and checking 
 
-vars_model_full <- lmer(RESP_UNIFRAC ~ PRED_ENV * PRED_TRIPS + 
-                          (1| ECO_DIFF) + (1 | PORT) + (1 | DEST), data=vars, REML=FALSE)
+vars_model_full <- lmer(RESP_UNIFRAC ~ PRED_ENV * PRED_TRIPS + ECO_DIFF + (1 | PORT) + (1 | DEST), data=vars, REML=FALSE)
 
 #' ### Model Summary
-
 summary(vars_model_full)
+
+# stargazer(vars_model_full, type = "html", title="Regression Results", align=TRUE,
+#             dep.var.labels=c("UNIFRAC distance"), covariate.labels=c("Environmental Distance",
+#             "Voyage Count", "Different Ecoregions", "Env. Dist. and Voyage Count"), omit.stat=c("LL","ser","f"),
+#             no.space=TRUE, out = "/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/171128_wcmb/180429_wcmb_talk/500_80_mixed_effect_model__full.html")
 
 # following https://www.ssc.wisc.edu/sscc/pubs/MM/MM_DiagInfer.html
 
 #' ### Model Residuals
-
 plot(vars_model_full)
 
 ## check normality of the residuals
@@ -311,22 +317,32 @@ ggplot(data.frame(x2=vars$PRED_TRIPS,pearson=residuals(vars_model_full,type="pea
 ggplot(data.frame(lev=hatvalues(vars_model_full),pearson=residuals(vars_model_full, type="pearson")),
       aes(x=lev,y=pearson)) + geom_point() + theme_bw()
 
+#' ### _p_value using `lmertest()`
+
+# extract coefficients
+coefs <- data.frame(coef(summary(vars_model_full)))
+
+# re-fit model
+library ("lmerTest") 
+
+m.semTest <- lmer(RESP_UNIFRAC ~ PRED_ENV * PRED_TRIPS + ECO_DIFF + (1| PORT) + (1| DEST), data=vars, REML=FALSE)
+
+# get Satterthwaite-approximated degrees of freedom
+# coefs$df.Satt <- coef( )[, 3]
+# 
+# # get approximate p-values
+# coefs$p.Satt <- coef(summary(m.semTest))[, 5]
+# coefs
+summary(m.semTest)
+
 #' ## Null Model and checking 
 
-vars_model_null <- lmer(RESP_UNIFRAC ~ PRED_ENV + 
-                          (1| ECO_DIFF) + (1 | PORT) + (1 | DEST), data=vars, REML=FALSE)
-
+vars_model_null <- lmer(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST), data=vars, REML=FALSE)
 #' ### Model Summary
-
 summary(vars_model_null)
 
-#' ### Model Residuals
-
-plot(vars_model_null)
-qqnorm(residuals(vars_model_null))
 
 #' ## Model Significance
-
 anova(vars_model_null, vars_model_full)
 
 #' <!-- #################################################################### -->
