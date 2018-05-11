@@ -1,0 +1,1289 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Compare Response and Predictor Matrices using Mixed Effect Models},
+            pdfauthor={Paul Czechowski},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+  \title{Compare Response and Predictor Matrices using Mixed Effect Models}
+  \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+  \author{Paul Czechowski}
+  \preauthor{\centering\large\emph}
+  \postauthor{\par}
+  \predate{\centering\large\emph}
+  \postdate{\par}
+  \date{May 8th, 2018}
+
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+This script version tests the influence of environmental data and the
+influence of voyages against biological responses. This script only
+considers port in between which routes are present, such ports are fewer
+the ports which have environmental distances available. (All ports with
+measurements have environmental distances available.)
+
+This code commentary is included in the R code itself and can be
+rendered at any stage using
+\texttt{rmarkdown::render\ ("/Users/paul/Documents/CU\_combined/Github/500\_80\_mixed\_effect\_model.R")}.
+Please check the session info at the end of the document for further
+notes on the coding environment.
+
+\section{Environment preparation}\label{environment-preparation}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# empty buffer}
+\CommentTok{# ============}
+\KeywordTok{rm}\NormalTok{(}\DataTypeTok{list=}\KeywordTok{ls}\NormalTok{())}
+
+\CommentTok{# load packages}
+\CommentTok{# =============}
+\KeywordTok{library}\NormalTok{ (}\StringTok{"gdata"}\NormalTok{)     }\CommentTok{# matrix functions}
+\KeywordTok{library}\NormalTok{ (}\StringTok{"gplots"}\NormalTok{)    }\CommentTok{# R text as image}
+\KeywordTok{library}\NormalTok{ (}\StringTok{"tidyverse"}\NormalTok{) }\CommentTok{# dplyr and friends}
+\KeywordTok{library}\NormalTok{ (}\StringTok{"reshape2"}\NormalTok{)  }\CommentTok{# melting}
+\KeywordTok{library}\NormalTok{ (}\StringTok{"lme4"}\NormalTok{)      }\CommentTok{# mixed effect model}
+\CommentTok{# library ("stargazer")}
+\KeywordTok{library}\NormalTok{ (}\StringTok{"gplots"}\NormalTok{)}
+
+
+\CommentTok{# functions}
+\CommentTok{# ==========}
+\CommentTok{# Loaded from helper script:}
+\KeywordTok{source}\NormalTok{(}\StringTok{"/Users/paul/Documents/CU_combined/Github/500_00_functions.R"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Data read-in}\label{data-read-in}
+
+\subsection{Predictors 1 of 2: Voyages}\label{predictors-1-of-2-voyages}
+
+This data is only available for ports in between which voyages exist.
+(Risk Formula is currently
+\texttt{(log(src\_heap\$ROUT\$TRIPS)\ +\ 1)\ *\ (1\ /\ src\_heap\$ROUT\$EDST)}
+as defined in \texttt{500\_30\_shape\_matrices.R}. Using voyages only
+for now)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# loading matrix with trips (not risks), not loading "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output__mat_risks_full.Rdata")}
+\KeywordTok{load}\NormalTok{(}\StringTok{"/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output_mat_trips_full.Rdata"}\NormalTok{)}
+\CommentTok{# checking }
+\NormalTok{mat_trips[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{,}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      4185 190 1798 2763 1551 3064 3336 5506 1914 4815
+## 4185   NA  NA   NA   NA   NA   NA   NA   NA   NA   NA
+## 190    NA  NA   NA   NA   NA   NA   NA   NA   NA   NA
+## 1798   NA  NA   NA   NA   NA   NA   NA   NA   NA   NA
+## 2763   NA  NA   NA   NA   NA   NA   NA   NA   NA   NA
+## 1551   NA  NA   NA   NA   NA   NA   NA   NA   NA   NA
+## 3064   NA  NA   NA   NA   NA   NA   NA   NA   NA   NA
+## 3336   NA  NA   NA   NA   NA   NA   NA   NA   NA   NA
+## 5506   NA  NA   NA   NA   NA   NA   NA   NA   NA   NA
+## 1914   NA  NA   NA   NA   NA   NA   NA   NA   NA   NA
+## 4815   NA  NA   NA   NA   NA   NA   NA   NA   NA   NA
+\end{verbatim}
+
+\subsection{Predictors 2 of 2: Environmental
+Distances}\label{predictors-2-of-2-environmental-distances}
+
+This data is available for many ports (more ports then shipping routes)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{load}\NormalTok{(}\StringTok{"/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output__mat_env_dist_full.Rdata"}\NormalTok{)}
+
+\CommentTok{# checking -- see debugging notes: some port numbers in row-/colnames are not unique}
+\NormalTok{mat_env_dist_full[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{,}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            4185         190        1798       2763       1551      3064
+## 4185 0.00000000 0.020189538 0.027056634 0.29911637 0.28065809 1.2403853
+## 190  0.02018954 0.000000000 0.008765736 0.28180169 0.26581042 1.2206589
+## 1798 0.02705663 0.008765736 0.000000000 0.27642114 0.26238056 1.2142283
+## 2763 0.29911637 0.281801688 0.276421140 0.00000000 0.07984195 0.9670316
+## 1551 0.28065809 0.265810424 0.262380556 0.07984195 0.00000000 1.0146642
+## 3064 1.24038533 1.220658897 1.214228275 0.96703163 1.01466417 0.0000000
+## 3336 0.55666610 0.538429789 0.533852985 0.28242963 0.30443317 0.7276803
+## 5506 0.78111854 0.768808286 0.766217270 0.52978177 0.52776339 0.8960254
+## 1914 0.60278633 0.584329305 0.579575892 0.32584619 0.35141904 0.6802471
+## 4815 0.60069866 0.581990887 0.576901233 0.32235042 0.35350070 0.6700266
+##            3336      5506       1914       4815
+## 4185 0.55666610 0.7811185 0.60278633 0.60069866
+## 190  0.53842979 0.7688083 0.58432930 0.58199089
+## 1798 0.53385299 0.7662173 0.57957589 0.57690123
+## 2763 0.28242963 0.5297818 0.32584619 0.32235042
+## 1551 0.30443317 0.5277634 0.35141904 0.35350070
+## 3064 0.72768028 0.8960254 0.68024714 0.67002663
+## 3336 0.00000000 0.4610224 0.04865538 0.05998130
+## 5506 0.46102242 0.0000000 0.46114613 0.47328434
+## 1914 0.04865538 0.4611461 0.00000000 0.02755078
+## 4815 0.05998130 0.4732843 0.02755078 0.00000000
+\end{verbatim}
+
+\subsection{Responses 1 of 3: Unifrac distance matrix as produced by
+Qiime
+2}\label{responses-1-of-3-unifrac-distance-matrix-as-produced-by-qiime-2}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# this path should match the parameter combination of the Euler script}
+\NormalTok{resp_path <-}\StringTok{ "/Users/paul/Documents/CU_combined/Zenodo/Qiime/245_18S_097_cl_edna_core_metrics/distance-matrix.tsv"}
+\NormalTok{resp_mat <-}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\DataTypeTok{file =}\NormalTok{ resp_path, }\DataTypeTok{sep =} \StringTok{'}\CharTok{\textbackslash{}t}\StringTok{'}\NormalTok{, }\DataTypeTok{header =} \OtherTok{TRUE}\NormalTok{)}
+
+\CommentTok{# checking}
+\NormalTok{resp_mat[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{,}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            X PH01.0017 PH02.0018 PH03.0019 PH04.0020 PH05.0021 PH06.0022
+## 1  PH01-0017 0.0000000 0.4228665 0.4520111 0.4237796 0.4030628 0.4232375
+## 2  PH02-0018 0.4228665 0.0000000 0.3657294 0.3571192 0.3766809 0.4428106
+## 3  PH03-0019 0.4520111 0.3657294 0.0000000 0.3629527 0.3753660 0.4616599
+## 4  PH04-0020 0.4237796 0.3571192 0.3629527 0.0000000 0.3910314 0.4387763
+## 5  PH05-0021 0.4030628 0.3766809 0.3753660 0.3910314 0.0000000 0.3951157
+## 6  PH06-0022 0.4232375 0.4428106 0.4616599 0.4387763 0.3951157 0.0000000
+## 7  PH07-0023 0.4192651 0.3804366 0.3703788 0.3766176 0.3750437 0.3784380
+## 8  PH08-0024 0.4041386 0.3607527 0.3825277 0.3611089 0.3770757 0.3973492
+## 9  PH09-0029 0.4159151 0.3799575 0.3698070 0.3680207 0.3610700 0.3843828
+## 10 PH10-0030 0.4174768 0.3878771 0.3859913 0.3811272 0.3705854 0.3765024
+##    PH07.0023 PH08.0024 PH09.0029
+## 1  0.4192651 0.4041386 0.4159151
+## 2  0.3804366 0.3607527 0.3799575
+## 3  0.3703788 0.3825277 0.3698070
+## 4  0.3766176 0.3611089 0.3680207
+## 5  0.3750437 0.3770757 0.3610700
+## 6  0.3784380 0.3973492 0.3843828
+## 7  0.0000000 0.3731917 0.3898886
+## 8  0.3731917 0.0000000 0.3550991
+## 9  0.3898886 0.3550991 0.0000000
+## 10 0.3719841 0.3416750 0.3761114
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{class}\NormalTok{(resp_mat)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "data.frame"
+\end{verbatim}
+
+\subsection{Responses 2 of 3: Kulczynski distances between ports if all
+overlap is
+considered}\label{responses-2-of-3-kulczynski-distances-between-ports-if-all-overlap-is-considered}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{kulczynski_mat_all_path <-}\StringTok{ "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_35_shape_overlap_matrices__output__97_overlap_kulczynski_mat_all.Rdata"}
+\KeywordTok{load}\NormalTok{(kulczynski_mat_all_path)}
+\NormalTok{kulczynski_mat_all}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           PH        SP        AD        CH        BT        HN        HT
+## PH 0.0000000 0.7916510 0.8178841 0.9369993 0.8741748 0.7922356 0.9727115
+## SP 0.7916510 0.0000000 0.8141850 0.9272369 0.8631445 0.7909474 0.9508849
+## AD 0.8178841 0.8141850 0.0000000 0.9484914 0.8559935 0.8177308 0.9752575
+## CH 0.9369993 0.9272369 0.9484914 0.0000000 0.9003922 0.8973370 0.8093100
+## BT 0.8741748 0.8631445 0.8559935 0.9003922 0.0000000 0.8762190 0.9259476
+## HN 0.7922356 0.7909474 0.8177308 0.8973370 0.8762190 0.0000000 0.9391230
+## HT 0.9727115 0.9508849 0.9752575 0.8093100 0.9259476 0.9391230 0.0000000
+## LB 0.8531125 0.8668557 0.7988989 0.9592327 0.8799838 0.8656885 0.9852264
+## MI 0.8130311 0.8169843 0.8305481 0.9746048 0.8849584 0.8403118 0.9657333
+##           LB        MI
+## PH 0.8531125 0.8130311
+## SP 0.8668557 0.8169843
+## AD 0.7988989 0.8305481
+## CH 0.9592327 0.9746048
+## BT 0.8799838 0.8849584
+## HN 0.8656885 0.8403118
+## HT 0.9852264 0.9657333
+## LB 0.0000000 0.8670915
+## MI 0.8670915 0.0000000
+\end{verbatim}
+
+\subsection{Responses 3 of 3: Kulczynski distances between ports if
+pairwise overlap is
+considered}\label{responses-3-of-3-kulczynski-distances-between-ports-if-pairwise-overlap-is-considered}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{kulczynski_mat_ovrlp_path <-}\StringTok{ "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_35_shape_overlap_matrices__output__97_overlap_kulczynski_mat_dual.Rdata"}
+\KeywordTok{load}\NormalTok{(kulczynski_mat_ovrlp_path)}
+\NormalTok{kulczynski_mat_ovrlp}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           PH        SP        AD        CH        BT        HN        HT
+## PH 0.0000000 0.7941053 0.9270406 0.9723601 0.9267283 0.5262250 0.9698621
+## SP 0.7941053 0.0000000 0.8929739 0.9537921 0.9017409 0.7064878 0.9133870
+## AD 0.9270406 0.8929739 0.0000000 0.9733421 0.8887098 0.8352095 0.9827703
+## CH 0.9723601 0.9537921 0.9733421 0.0000000 0.9501308 0.9482419 0.4901268
+## BT 0.9267283 0.9017409 0.8887098 0.9501308 0.0000000 0.8921845 0.8974298
+## HN 0.5262250 0.7064878 0.8352095 0.9482419 0.8921845 0.0000000 0.7138749
+## HT 0.9698621 0.9133870 0.9827703 0.4901268 0.8974298 0.7138749 0.0000000
+## LB 0.8586714 0.9594053 0.7095469 0.9919548 0.8886820 0.7507980 0.9901951
+## MI 0.8392891 0.9139228 0.9340029 1.0000000 0.9890856 0.7934932 0.9345971
+##           LB        MI
+## PH 0.8586714 0.8392891
+## SP 0.9594053 0.9139228
+## AD 0.7095469 0.9340029
+## CH 0.9919548 1.0000000
+## BT 0.8886820 0.9890856
+## HN 0.7507980 0.7934932
+## HT 0.9901951 0.9345971
+## LB 0.0000000 0.8896322
+## MI 0.8896322 0.0000000
+\end{verbatim}
+
+\section{Data formatting}\label{data-formatting}
+
+\subsection{Responses 1 of 3: Unifrac distance matrix as produced by
+Qiime
+2}\label{responses-1-of-3-unifrac-distance-matrix-as-produced-by-qiime-2-1}
+
+Need to be done before the predictors: Matrix fields need to be averaged
+across replicates. The resulting ports descriptors are then used to
+shape predictor data. \textbf{NOT} Inverting Unifrac distances to
+closeness in order to match \texttt{(1\ /\ src\_heap\$ROUT\$EDST)},
+which also is a measure of closeness.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# substitute dots `.` in column headers with minus `-` to match row names}
+\KeywordTok{colnames}\NormalTok{(resp_mat) <-}\StringTok{ }\KeywordTok{gsub}\NormalTok{( }\StringTok{'}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{.'}\NormalTok{ , }\StringTok{'-'}\NormalTok{, }\KeywordTok{colnames}\NormalTok{(resp_mat)) }
+
+\CommentTok{# set data frame row-names correctly }
+\KeywordTok{rownames}\NormalTok{(resp_mat) <-}\StringTok{ }\NormalTok{resp_mat}\OperatorTok{$}\NormalTok{X; resp_mat}\OperatorTok{$}\NormalTok{X <-}\StringTok{ }\OtherTok{NULL}
+
+\CommentTok{# check data frame row and column formatting - better to have them equal }
+\KeywordTok{any}\NormalTok{(}\KeywordTok{colnames}\NormalTok{(resp_mat) }\OperatorTok{==}\StringTok{ }\KeywordTok{rownames}\NormalTok{(resp_mat))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Create empty receiving matrix from data frame ...}
+\NormalTok{r_mat_clpsd <-}\StringTok{ }\KeywordTok{get_collapsed_responses_matrix}\NormalTok{(resp_mat)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Collapsed matrix has 9 rows and 9 columns.
+\end{verbatim}
+
+\begin{verbatim}
+## Collapsed matrix should receive data for samples: PH SP AD CH BT HN HT LB MI .
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# ... and fill empty receiving matrix. }
+\NormalTok{r_mat_clpsd <-}\StringTok{ }\KeywordTok{fill_collapsed_responses_matrix}\NormalTok{(r_mat_clpsd, resp_mat)}
+
+\NormalTok{## }\RegionMarkerTok{BEGIN}\NormalTok{ OMISSION}
+\NormalTok{## convert matrix from dissimilarity to similarity ( dissim(x,y) = 1 - sim(x,y))}
+\NormalTok{##  this also requires moving lower triangle to upper triangle, and resetting the}
+\NormalTok{##  lower tiangle. }
+\CommentTok{# r_mat_clpsd <- apply (r_mat_clpsd, 1, function(x) 1-x)}
+
+\CommentTok{# upperTriangle(r_mat_clpsd) <- lowerTriangle(r_mat_clpsd, byrow=TRUE)}
+\CommentTok{# }\RegionMarkerTok{END}\CommentTok{ OMMISION }
+
+\NormalTok{r_mat_clpsd[}\KeywordTok{lower.tri}\NormalTok{(r_mat_clpsd, }\DataTypeTok{diag =} \OtherTok{FALSE}\NormalTok{)] <-}\StringTok{ }\OtherTok{NA}
+\end{Highlighting}
+\end{Shaded}
+
+Finished matrix - Unifrac distance
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{r_mat_clpsd}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           PH        SP        AD        CH        BT        HN        HT
+## PH 0.3970639 0.7716251 0.7594534 0.8714074 0.7955312 0.7520039 0.9306394
+## SP        NA 0.6078203 0.8072523 0.8652008 0.8112486 0.8314524 0.9273744
+## AD        NA        NA 0.4791178 0.8472645 0.7709196 0.8356813 0.9464198
+## CH        NA        NA        NA 0.5364585 0.7969561 0.8958203 0.9010050
+## BT        NA        NA        NA        NA 0.4264832 0.8426091 0.9161017
+## HN        NA        NA        NA        NA        NA 0.5809678 0.9027869
+## HT        NA        NA        NA        NA        NA        NA 0.6504672
+## LB        NA        NA        NA        NA        NA        NA        NA
+## MI        NA        NA        NA        NA        NA        NA        NA
+##           LB        MI
+## PH 0.7349949 0.7033354
+## SP 0.8211792 0.7883500
+## AD 0.7254082 0.7650678
+## CH 0.8834228 0.8756128
+## BT 0.7998944 0.7670309
+## HN 0.8018868 0.7923464
+## HT 0.9403114 0.9324792
+## LB 0.5950584 0.7681156
+## MI        NA 0.4851213
+\end{verbatim}
+
+\subsection{Responses 2 of 3: Kulczynski distances between ports if all
+overlap is
+considered}\label{responses-2-of-3-kulczynski-distances-between-ports-if-all-overlap-is-considered-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{kulczynski_mat_all}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           PH        SP        AD        CH        BT        HN        HT
+## PH 0.0000000 0.7916510 0.8178841 0.9369993 0.8741748 0.7922356 0.9727115
+## SP 0.7916510 0.0000000 0.8141850 0.9272369 0.8631445 0.7909474 0.9508849
+## AD 0.8178841 0.8141850 0.0000000 0.9484914 0.8559935 0.8177308 0.9752575
+## CH 0.9369993 0.9272369 0.9484914 0.0000000 0.9003922 0.8973370 0.8093100
+## BT 0.8741748 0.8631445 0.8559935 0.9003922 0.0000000 0.8762190 0.9259476
+## HN 0.7922356 0.7909474 0.8177308 0.8973370 0.8762190 0.0000000 0.9391230
+## HT 0.9727115 0.9508849 0.9752575 0.8093100 0.9259476 0.9391230 0.0000000
+## LB 0.8531125 0.8668557 0.7988989 0.9592327 0.8799838 0.8656885 0.9852264
+## MI 0.8130311 0.8169843 0.8305481 0.9746048 0.8849584 0.8403118 0.9657333
+##           LB        MI
+## PH 0.8531125 0.8130311
+## SP 0.8668557 0.8169843
+## AD 0.7988989 0.8305481
+## CH 0.9592327 0.9746048
+## BT 0.8799838 0.8849584
+## HN 0.8656885 0.8403118
+## HT 0.9852264 0.9657333
+## LB 0.0000000 0.8670915
+## MI 0.8670915 0.0000000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{kulczynski_mat_all[}\KeywordTok{lower.tri}\NormalTok{(kulczynski_mat_all, }\DataTypeTok{diag =} \OtherTok{FALSE}\NormalTok{)] <-}\StringTok{ }\OtherTok{NA}
+\NormalTok{kulczynski_mat_all}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    PH       SP        AD        CH        BT        HN        HT        LB
+## PH  0 0.791651 0.8178841 0.9369993 0.8741748 0.7922356 0.9727115 0.8531125
+## SP NA 0.000000 0.8141850 0.9272369 0.8631445 0.7909474 0.9508849 0.8668557
+## AD NA       NA 0.0000000 0.9484914 0.8559935 0.8177308 0.9752575 0.7988989
+## CH NA       NA        NA 0.0000000 0.9003922 0.8973370 0.8093100 0.9592327
+## BT NA       NA        NA        NA 0.0000000 0.8762190 0.9259476 0.8799838
+## HN NA       NA        NA        NA        NA 0.0000000 0.9391230 0.8656885
+## HT NA       NA        NA        NA        NA        NA 0.0000000 0.9852264
+## LB NA       NA        NA        NA        NA        NA        NA 0.0000000
+## MI NA       NA        NA        NA        NA        NA        NA        NA
+##           MI
+## PH 0.8130311
+## SP 0.8169843
+## AD 0.8305481
+## CH 0.9746048
+## BT 0.8849584
+## HN 0.8403118
+## HT 0.9657333
+## LB 0.8670915
+## MI 0.0000000
+\end{verbatim}
+
+\subsection{Responses 3 of 3: Kulczynski distances between ports if
+pairwise overlap is
+considered}\label{responses-3-of-3-kulczynski-distances-between-ports-if-pairwise-overlap-is-considered-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{kulczynski_mat_ovrlp}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           PH        SP        AD        CH        BT        HN        HT
+## PH 0.0000000 0.7941053 0.9270406 0.9723601 0.9267283 0.5262250 0.9698621
+## SP 0.7941053 0.0000000 0.8929739 0.9537921 0.9017409 0.7064878 0.9133870
+## AD 0.9270406 0.8929739 0.0000000 0.9733421 0.8887098 0.8352095 0.9827703
+## CH 0.9723601 0.9537921 0.9733421 0.0000000 0.9501308 0.9482419 0.4901268
+## BT 0.9267283 0.9017409 0.8887098 0.9501308 0.0000000 0.8921845 0.8974298
+## HN 0.5262250 0.7064878 0.8352095 0.9482419 0.8921845 0.0000000 0.7138749
+## HT 0.9698621 0.9133870 0.9827703 0.4901268 0.8974298 0.7138749 0.0000000
+## LB 0.8586714 0.9594053 0.7095469 0.9919548 0.8886820 0.7507980 0.9901951
+## MI 0.8392891 0.9139228 0.9340029 1.0000000 0.9890856 0.7934932 0.9345971
+##           LB        MI
+## PH 0.8586714 0.8392891
+## SP 0.9594053 0.9139228
+## AD 0.7095469 0.9340029
+## CH 0.9919548 1.0000000
+## BT 0.8886820 0.9890856
+## HN 0.7507980 0.7934932
+## HT 0.9901951 0.9345971
+## LB 0.0000000 0.8896322
+## MI 0.8896322 0.0000000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{kulczynski_mat_ovrlp[}\KeywordTok{lower.tri}\NormalTok{(kulczynski_mat_ovrlp, }\DataTypeTok{diag =} \OtherTok{FALSE}\NormalTok{)] <-}\StringTok{ }\OtherTok{NA}
+\NormalTok{kulczynski_mat_ovrlp}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    PH        SP        AD        CH        BT        HN        HT
+## PH  0 0.7941053 0.9270406 0.9723601 0.9267283 0.5262250 0.9698621
+## SP NA 0.0000000 0.8929739 0.9537921 0.9017409 0.7064878 0.9133870
+## AD NA        NA 0.0000000 0.9733421 0.8887098 0.8352095 0.9827703
+## CH NA        NA        NA 0.0000000 0.9501308 0.9482419 0.4901268
+## BT NA        NA        NA        NA 0.0000000 0.8921845 0.8974298
+## HN NA        NA        NA        NA        NA 0.0000000 0.7138749
+## HT NA        NA        NA        NA        NA        NA 0.0000000
+## LB NA        NA        NA        NA        NA        NA        NA
+## MI NA        NA        NA        NA        NA        NA        NA
+##           LB        MI
+## PH 0.8586714 0.8392891
+## SP 0.9594053 0.9139228
+## AD 0.7095469 0.9340029
+## CH 0.9919548 1.0000000
+## BT 0.8886820 0.9890856
+## HN 0.7507980 0.7934932
+## HT 0.9901951 0.9345971
+## LB 0.0000000 0.8896322
+## MI        NA 0.0000000
+\end{verbatim}
+
+\subsection{Predictors 1 of 2:
+Voyages}\label{predictors-1-of-2-voyages-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# to save memory: discard completely undefined rows and columns (shrinks from}
+\CommentTok{#  6651 * 6651 to 2332 * 2332}
+\NormalTok{mat_trips <-}\StringTok{ }\NormalTok{mat_trips[}\KeywordTok{rowSums}\NormalTok{(}\KeywordTok{is.na}\NormalTok{(mat_trips))}\OperatorTok{!=}\KeywordTok{ncol}\NormalTok{(mat_trips), }\KeywordTok{colSums}\NormalTok{(}\KeywordTok{is.na}\NormalTok{(mat_trips))}\OperatorTok{!=}\KeywordTok{nrow}\NormalTok{(mat_trips) ]}
+
+\CommentTok{# quick and dirty - manual lookup}
+\CommentTok{#   use order  of response matrix (!!!)}
+\CommentTok{#   here "PH","SP","AD","CH", "BT", "HN", "HT", "LB", "MI"}
+\CommentTok{#   improve (!!!) this. Manual lookup via:}
+\CommentTok{#   `open /Users/paul/Dropbox/NSF\textbackslash{} NIS-WRAPS\textbackslash{} Data/raw\textbackslash{} data\textbackslash{} for\textbackslash{} Mandana/PlacesFile_updated_Aug2017.xlsx -a "Microsoft Excel"`}
+\NormalTok{mat_trips <-}\StringTok{ }\NormalTok{mat_trips[}\KeywordTok{c}\NormalTok{(}\StringTok{"2503"}\NormalTok{,}\StringTok{"1165"}\NormalTok{,}\StringTok{"3110"}\NormalTok{,}\StringTok{"2907"}\NormalTok{, }\StringTok{"4899"}\NormalTok{, }\StringTok{"854"}\NormalTok{, }\StringTok{"2503"}\NormalTok{, }\StringTok{"2331"}\NormalTok{, }\StringTok{"7597"}\NormalTok{),}
+                       \KeywordTok{c}\NormalTok{(}\StringTok{"2503"}\NormalTok{,}\StringTok{"1165"}\NormalTok{,}\StringTok{"3110"}\NormalTok{,}\StringTok{"2907"}\NormalTok{, }\StringTok{"4899"}\NormalTok{, }\StringTok{"854"}\NormalTok{, }\StringTok{"2503"}\NormalTok{, }\StringTok{"2331"}\NormalTok{, }\StringTok{"7597"}\NormalTok{)] }
+
+\CommentTok{# Keep lower triangle}
+\NormalTok{mat_trips[}\KeywordTok{lower.tri}\NormalTok{(mat_trips, }\DataTypeTok{diag =} \OtherTok{FALSE}\NormalTok{)] <-}\StringTok{ }\OtherTok{NA}
+
+\CommentTok{# predictors - copy names - make automatic !! }
+\KeywordTok{colnames}\NormalTok{(mat_trips) <-}\StringTok{ }\KeywordTok{colnames}\NormalTok{(r_mat_clpsd)}
+\KeywordTok{rownames}\NormalTok{(mat_trips) <-}\StringTok{ }\KeywordTok{rownames}\NormalTok{(r_mat_clpsd)}
+\end{Highlighting}
+\end{Shaded}
+
+Finished matrix - Trips. Needs to be used to filter all other matrices
+(Other predictors and responses) to the same non-\texttt{NA} before
+analysis.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mat_trips}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    PH  SP  AD CH BT  HN  HT  LB  MI
+## PH NA 182  NA NA  7  11  NA  30  NA
+## SP NA  NA 556 NA 24 142 182 435 395
+## AD NA  NA  NA NA NA  10  NA   6  NA
+## CH NA  NA  NA NA NA  NA  NA   3  NA
+## BT NA  NA  NA NA NA  75   7 429  11
+## HN NA  NA  NA NA NA  NA  11 287  26
+## HT NA  NA  NA NA NA  NA  NA  30  NA
+## LB NA  NA  NA NA NA  NA  NA  NA  93
+## MI NA  NA  NA NA NA  NA  NA  NA  NA
+\end{verbatim}
+
+\subsection{Predictors 2 of 2: Environmental
+distances}\label{predictors-2-of-2-environmental-distances-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# quick and dirty - manual lookup}
+\CommentTok{#   use order  of response matrix (!!!)}
+\CommentTok{#   here "PH","SP","AD","CH", "BT", "HN", "HT", "LB", "MI"}
+\CommentTok{#   improve (!!!) this. Manual lookup via:}
+\CommentTok{#   `open /Users/paul/Dropbox/NSF\textbackslash{} NIS-WRAPS\textbackslash{} Data/raw\textbackslash{} data\textbackslash{} for\textbackslash{} Mandana/PlacesFile_updated_Aug2017.xlsx -a "Microsoft Excel"`}
+
+\NormalTok{mat_env_dist <-}\StringTok{ }\NormalTok{mat_env_dist_full[}\KeywordTok{c}\NormalTok{(}\StringTok{"2503"}\NormalTok{,}\StringTok{"1165"}\NormalTok{,}\StringTok{"3110"}\NormalTok{,}\StringTok{"2907"}\NormalTok{, }\StringTok{"4899"}\NormalTok{, }\StringTok{"854"}\NormalTok{, }\StringTok{"2503"}\NormalTok{, }\StringTok{"2331"}\NormalTok{, }\StringTok{"7597"}\NormalTok{),}
+                                  \KeywordTok{c}\NormalTok{(}\StringTok{"2503"}\NormalTok{,}\StringTok{"1165"}\NormalTok{,}\StringTok{"3110"}\NormalTok{,}\StringTok{"2907"}\NormalTok{, }\StringTok{"4899"}\NormalTok{, }\StringTok{"854"}\NormalTok{, }\StringTok{"2503"}\NormalTok{, }\StringTok{"2331"}\NormalTok{, }\StringTok{"7597"}\NormalTok{)] }
+
+\NormalTok{mat_env_dist[}\KeywordTok{lower.tri}\NormalTok{(mat_env_dist, }\DataTypeTok{diag =} \OtherTok{FALSE}\NormalTok{)] <-}\StringTok{ }\OtherTok{NA}
+
+\CommentTok{# predictors - copy names - make automatic !! }
+\KeywordTok{colnames}\NormalTok{(mat_env_dist) <-}\StringTok{ }\KeywordTok{colnames}\NormalTok{(r_mat_clpsd)}
+\KeywordTok{rownames}\NormalTok{(mat_env_dist) <-}\StringTok{ }\KeywordTok{rownames}\NormalTok{(r_mat_clpsd)}
+\end{Highlighting}
+\end{Shaded}
+
+Convert distances to closeness in order to comply with formula part
+\texttt{(1\ /\ src\_heap\$ROUT\$EDST)}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# mat_env_dist <- 1/mat_env_dist}
+\end{Highlighting}
+\end{Shaded}
+
+Finished matrix - Inverted environmental distances. Needs to be filtered
+to match predictors influenced by available voyages before analysis.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mat_env_dist}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    PH        SP       AD       CH        BT       HN        HT       LB
+## PH  0 0.5761849 1.659584 4.048353 0.6569272 2.916732 0.0000000 2.809806
+## SP NA 0.0000000 2.057154 4.328967 0.5060508 3.182030 0.5761849 2.805886
+## AD NA        NA 0.000000 2.442250 2.1009177 1.449207 1.6595844 1.963779
+## CH NA        NA       NA 0.000000 4.3985659 1.400425 4.0483533 2.250870
+## BT NA        NA       NA       NA 0.0000000 3.161557 0.6569272 2.940235
+## HN NA        NA       NA       NA        NA 0.000000 2.9167318 1.519973
+## HT NA        NA       NA       NA        NA       NA 0.0000000 2.809806
+## LB NA        NA       NA       NA        NA       NA        NA 0.000000
+## MI NA        NA       NA       NA        NA       NA        NA       NA
+##           MI
+## PH 1.0333344
+## SP 1.5472909
+## AD 0.8057152
+## CH 3.2304159
+## BT 1.5047061
+## HN 2.1420977
+## HT 1.0333344
+## LB 2.5285840
+## MI 0.0000000
+\end{verbatim}
+
+\subsection{Getting Dataframes for
+modelling}\label{getting-dataframes-for-modelling}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# create named list with objects}
+\NormalTok{mat_list <-}\StringTok{ }\KeywordTok{list}\NormalTok{ (r_mat_clpsd, kulczynski_mat_all, kulczynski_mat_ovrlp, }
+\NormalTok{                   mat_env_dist, mat_trips) }
+
+\NormalTok{mat_list <-}\StringTok{ }\KeywordTok{setNames}\NormalTok{(mat_list, }\KeywordTok{c}\NormalTok{(}\StringTok{"resp_unifrac"}\NormalTok{, }\StringTok{"resp_kulczynski_all"}\NormalTok{, }\StringTok{"resp_kulczynski_pair"}\NormalTok{, }
+                     \StringTok{"pred_env"}\NormalTok{, }\StringTok{"pred_trips"}\NormalTok{))}
+
+\CommentTok{# Are all matrix dimesions are the same?}
+\KeywordTok{var}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\KeywordTok{sapply}\NormalTok{ (mat_list, dim))) }\OperatorTok{==}\StringTok{ }\DecValTok{0}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Are all matrices symmetrical and have the same rownames and column names}
+\KeywordTok{all}\NormalTok{(}\KeywordTok{sapply}\NormalTok{ (mat_list, rownames) }\OperatorTok{==}\StringTok{ }\KeywordTok{sapply}\NormalTok{ (mat_list, colnames))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# melt data frames for joining }
+\NormalTok{df_list <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{ (mat_list, }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{data.frame}\NormalTok{(x)  }\OperatorTok{%>%}
+\StringTok{                             }\KeywordTok{rownames_to_column}\NormalTok{(}\StringTok{"PORT"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{                             }\KeywordTok{melt}\NormalTok{(., }\DataTypeTok{id.vars =} \StringTok{"PORT"}\NormalTok{))}
+
+\CommentTok{# join dataframes and name columns}
+\NormalTok{model_data_raw <-}\StringTok{ }\NormalTok{df_list }\OperatorTok{%>%}\StringTok{ }\KeywordTok{reduce}\NormalTok{(inner_join, }\DataTypeTok{by =} \KeywordTok{c}\NormalTok{(}\StringTok{"PORT"}\NormalTok{, }\StringTok{"variable"}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{                          }\KeywordTok{setNames}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"PORT"}\NormalTok{, }\StringTok{"DEST"}\NormalTok{, }\KeywordTok{toupper}\NormalTok{(}\KeywordTok{names}\NormalTok{(mat_list))))}
+\KeywordTok{class}\NormalTok{(model_data_raw)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "data.frame"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# remove incomplete cases - only ignoring lower half of matrix, otherwise remove }
+\CommentTok{#  column selector}
+\CommentTok{#model_data <- model_data_raw %>% filter(complete.cases(.[3:6]))}
+\NormalTok{model_data <-}\StringTok{ }\NormalTok{model_data_raw }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(}\KeywordTok{complete.cases}\NormalTok{(.))}
+
+\KeywordTok{class}\NormalTok{(model_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "data.frame"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# add ecoregion as per:}
+\CommentTok{#   @1. Spalding, M. D. et al. Marine Ecoregions of the World: A Bioregionalization }
+\CommentTok{#    of Coastal and Shelf Areas. Bioscience 57, 573@583 (2007).}
+\CommentTok{# write as function !!!!!!!!}
+
+\NormalTok{model_data <-}\StringTok{ }\NormalTok{model_data }\OperatorTok{%>%}\StringTok{ }\KeywordTok{add_column}\NormalTok{(}\StringTok{"ECO_PORT"}\NormalTok{ =}\StringTok{ }\OtherTok{NA}\NormalTok{)}
+\NormalTok{model_data <-}\StringTok{ }\NormalTok{model_data }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{ (}\DataTypeTok{ECO_PORT =} \KeywordTok{ifelse}\NormalTok{( .}\OperatorTok{$}\StringTok{"PORT"}  \OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"HN"}\NormalTok{, }\StringTok{"PH"}\NormalTok{), }\StringTok{"EIP"}\NormalTok{, model_data}\OperatorTok{$}\StringTok{"ECO_PORT"}\NormalTok{))}
+\NormalTok{model_data <-}\StringTok{ }\NormalTok{model_data }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{ (}\DataTypeTok{ECO_PORT =} \KeywordTok{ifelse}\NormalTok{( .}\OperatorTok{$}\StringTok{"PORT"}  \OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"SP"}\NormalTok{), }\StringTok{"CIP"}\NormalTok{, model_data}\OperatorTok{$}\StringTok{"ECO_PORT"}\NormalTok{))}
+\NormalTok{model_data <-}\StringTok{ }\NormalTok{model_data }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{ (}\DataTypeTok{ECO_PORT =} \KeywordTok{ifelse}\NormalTok{( .}\OperatorTok{$}\StringTok{"PORT"}  \OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"AD"}\NormalTok{), }\StringTok{"TAA"}\NormalTok{, model_data}\OperatorTok{$}\StringTok{"ECO_PORT"}\NormalTok{))}
+\NormalTok{model_data <-}\StringTok{ }\NormalTok{model_data }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{ (}\DataTypeTok{ECO_PORT =} \KeywordTok{ifelse}\NormalTok{( .}\OperatorTok{$}\StringTok{"PORT"}  \OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"CH"}\NormalTok{,}\StringTok{"BT"}\NormalTok{,}\StringTok{"MI"}\NormalTok{, }\StringTok{"HT"}\NormalTok{), }\StringTok{"TNA"}\NormalTok{, model_data}\OperatorTok{$}\StringTok{"ECO_PORT"}\NormalTok{))}
+\NormalTok{model_data <-}\StringTok{ }\NormalTok{model_data }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{ (}\DataTypeTok{ECO_PORT =} \KeywordTok{ifelse}\NormalTok{( .}\OperatorTok{$}\StringTok{"PORT"}  \OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"LB"}\NormalTok{), }\StringTok{"TNP"}\NormalTok{, model_data}\OperatorTok{$}\StringTok{"ECO_PORT"}\NormalTok{))}
+
+\NormalTok{model_data <-}\StringTok{ }\NormalTok{model_data }\OperatorTok{%>%}\StringTok{ }\KeywordTok{add_column}\NormalTok{(}\StringTok{"ECO_DEST"}\NormalTok{ =}\StringTok{ }\OtherTok{NA}\NormalTok{)}
+\NormalTok{model_data <-}\StringTok{ }\NormalTok{model_data }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{ (}\DataTypeTok{ECO_DEST =} \KeywordTok{ifelse}\NormalTok{( .}\OperatorTok{$}\StringTok{"DEST"}  \OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"HN"}\NormalTok{, }\StringTok{"PH"}\NormalTok{), }\StringTok{"EIP"}\NormalTok{, model_data}\OperatorTok{$}\StringTok{"ECO_DEST"}\NormalTok{))}
+\NormalTok{model_data <-}\StringTok{ }\NormalTok{model_data }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{ (}\DataTypeTok{ECO_DEST =} \KeywordTok{ifelse}\NormalTok{( .}\OperatorTok{$}\StringTok{"DEST"}  \OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"SP"}\NormalTok{), }\StringTok{"CIP"}\NormalTok{, model_data}\OperatorTok{$}\StringTok{"ECO_DEST"}\NormalTok{))}
+\NormalTok{model_data <-}\StringTok{ }\NormalTok{model_data }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{ (}\DataTypeTok{ECO_DEST =} \KeywordTok{ifelse}\NormalTok{( .}\OperatorTok{$}\StringTok{"DEST"}  \OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"AD"}\NormalTok{), }\StringTok{"TAA"}\NormalTok{, model_data}\OperatorTok{$}\StringTok{"ECO_DEST"}\NormalTok{))}
+\NormalTok{model_data <-}\StringTok{ }\NormalTok{model_data }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{ (}\DataTypeTok{ECO_DEST =} \KeywordTok{ifelse}\NormalTok{( .}\OperatorTok{$}\StringTok{"DEST"}  \OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"CH"}\NormalTok{,}\StringTok{"BT"}\NormalTok{,}\StringTok{"MI"}\NormalTok{, }\StringTok{"HT"}\NormalTok{), }\StringTok{"TNA"}\NormalTok{, model_data}\OperatorTok{$}\StringTok{"ECO_DEST"}\NormalTok{))}
+\NormalTok{model_data <-}\StringTok{ }\NormalTok{model_data }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{ (}\DataTypeTok{ECO_DEST =} \KeywordTok{ifelse}\NormalTok{( .}\OperatorTok{$}\StringTok{"DEST"}  \OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"LB"}\NormalTok{), }\StringTok{"TNP"}\NormalTok{, model_data}\OperatorTok{$}\StringTok{"ECO_DEST"}\NormalTok{))}
+
+\NormalTok{model_data <-}\StringTok{ }\NormalTok{model_data }\OperatorTok{%>%}\StringTok{ }\KeywordTok{add_column}\NormalTok{(}\StringTok{"ECO_DIFF"}\NormalTok{ =}\StringTok{ }\OtherTok{NA}\NormalTok{)}
+\NormalTok{model_data <-}\StringTok{ }\NormalTok{model_data }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{ (}\DataTypeTok{ECO_DIFF =} \KeywordTok{ifelse}\NormalTok{(ECO_PORT }\OperatorTok{==}\StringTok{ }\NormalTok{ECO_DEST , }\OtherTok{FALSE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# quick and dirty - improves model (apparently) - move elsewhere}
+\NormalTok{model_data}\OperatorTok{$}\NormalTok{PRED_TRIPS <-}\StringTok{ }\KeywordTok{log}\NormalTok{(model_data}\OperatorTok{$}\NormalTok{PRED_TRIPS)}
+\CommentTok{# model_data <- model_data %>%  mutate_if(is.numeric, scale(.,scale = FALSE))}
+
+\KeywordTok{pairs}\NormalTok{(RESP_UNIFRAC }\OperatorTok{~}\StringTok{ }\NormalTok{PRED_ENV }\OperatorTok{*}\StringTok{ }\NormalTok{PRED_TRIPS,}\DataTypeTok{data=}\NormalTok{model_data, }\DataTypeTok{main=}\StringTok{"Simple Scatterplot Matrix"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{500_80_mixed_effect_model_files/figure-latex/unnamed-chunk-17-1.pdf}
+
+\section{Select variables for modelling and build
+models}\label{select-variables-for-modelling-and-build-models}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{ (model_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   PORT DEST RESP_UNIFRAC RESP_KULCZYNSKI_ALL RESP_KULCZYNSKI_PAIR
+## 1   PH   SP    0.7716251           0.7916510            0.7941053
+## 2   SP   AD    0.8072523           0.8141850            0.8929739
+## 3   PH   BT    0.7955312           0.8741748            0.9267283
+## 4   SP   BT    0.8112486           0.8631445            0.9017409
+## 5   PH   HN    0.7520039           0.7922356            0.5262250
+## 6   SP   HN    0.8314524           0.7909474            0.7064878
+##    PRED_ENV PRED_TRIPS ECO_PORT ECO_DEST ECO_DIFF
+## 1 0.5761849   5.204007      EIP      CIP     TRUE
+## 2 2.0571539   6.320768      CIP      TAA     TRUE
+## 3 0.6569272   1.945910      EIP      TNA     TRUE
+## 4 0.5060508   3.178054      CIP      TNA     TRUE
+## 5 2.9167318   2.397895      EIP      EIP    FALSE
+## 6 3.1820297   4.955827      CIP      EIP     TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model_data}\OperatorTok{$}\NormalTok{PORT <-}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(model_data}\OperatorTok{$}\NormalTok{PORT)}
+\NormalTok{model_data}\OperatorTok{$}\NormalTok{ECO_DIFF <-}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(model_data}\OperatorTok{$}\NormalTok{ECO_DIFF)}
+
+\NormalTok{vars <-}\StringTok{ }\NormalTok{model_data }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(RESP_UNIFRAC, PORT, DEST, ECO_DIFF, PRED_ENV, PRED_TRIPS)}
+
+\CommentTok{# filter PH to get rid of coverage differences}
+\CommentTok{# vars <- model_data %>% filter(PORT != "PH") %>% filter(DEST != "PH") %>%  droplevels %>% select(RESP_UNIFRAC, PORT, DEST, ECO_DIFF, PRED_ENV, PRED_TRIPS)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Full Model and checking}\label{full-model-and-checking}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vars_model_full <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(RESP_UNIFRAC }\OperatorTok{~}\StringTok{ }\NormalTok{PRED_ENV }\OperatorTok{*}\StringTok{ }\NormalTok{PRED_TRIPS }\OperatorTok{+}\StringTok{ }\NormalTok{ECO_DIFF }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{PORT) }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{DEST), }\DataTypeTok{data=}\NormalTok{vars, }\DataTypeTok{REML=}\OtherTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Model Summary}\label{model-summary}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(vars_model_full)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear mixed model fit by maximum likelihood . t-tests use
+##   Satterthwaite's method [lmerModLmerTest]
+## Formula: RESP_UNIFRAC ~ PRED_ENV * PRED_TRIPS + ECO_DIFF + (1 | PORT) +  
+##     (1 | DEST)
+##    Data: vars
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##    -58.6    -49.9     37.3    -74.6       14 
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -1.3319 -0.2977 -0.1061  0.3072  1.4949 
+## 
+## Random effects:
+##  Groups   Name        Variance  Std.Dev.
+##  PORT     (Intercept) 0.0050712 0.07121 
+##  DEST     (Intercept) 0.0023092 0.04805 
+##  Residual             0.0001673 0.01293 
+## Number of obs: 22, groups:  PORT, 8; DEST, 7
+## 
+## Fixed effects:
+##                      Estimate Std. Error        df t value Pr(>|t|)    
+## (Intercept)          0.899675   0.044155 21.265325  20.375 1.95e-15 ***
+## PRED_ENV            -0.052106   0.015000  7.850856  -3.474  0.00865 ** 
+## PRED_TRIPS          -0.015517   0.008426  9.716723  -1.841  0.09624 .  
+## ECO_DIFFTRUE         0.032149   0.016685 10.352408   1.927  0.08187 .  
+## PRED_ENV:PRED_TRIPS  0.009825   0.003395  7.232032   2.894  0.02237 *  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Correlation of Fixed Effects:
+##             (Intr) PRED_ENV PRED_T ECO_DI
+## PRED_ENV    -0.629                       
+## PRED_TRIPS  -0.627  0.808                
+## ECO_DIFFTRU  0.077 -0.230   -0.464       
+## PRED_ENV:PR  0.561 -0.897   -0.728 -0.011
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## some diagnostics - 1 - put below model}
+\KeywordTok{plot}\NormalTok{(RESP_UNIFRAC }\OperatorTok{~}\StringTok{ }\NormalTok{PRED_ENV, }\DataTypeTok{xlab =} \StringTok{"Environmental Distance"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"UNIFRAC distance"}\NormalTok{, }\DataTypeTok{data=}\NormalTok{vars)}
+\NormalTok{label_vec <-}\StringTok{ }\KeywordTok{with}\NormalTok{(vars, }\KeywordTok{paste}\NormalTok{(PORT, DEST, ECO_DIFF,  }\DataTypeTok{sep =} \StringTok{" "}\NormalTok{))}
+\KeywordTok{with}\NormalTok{(vars, }\KeywordTok{text}\NormalTok{(RESP_UNIFRAC }\OperatorTok{~}\StringTok{ }\NormalTok{PRED_ENV, }\DataTypeTok{labels =}\NormalTok{ label_vec, }\DataTypeTok{pos =} \DecValTok{4}\NormalTok{))}
+\NormalTok{devlm1 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(RESP_UNIFRAC }\OperatorTok{~}\StringTok{ }\NormalTok{PRED_ENV, }\DataTypeTok{data =}\NormalTok{ vars)}
+\KeywordTok{abline}\NormalTok{(devlm1)}
+\NormalTok{conflm1<-}\KeywordTok{confint}\NormalTok{(devlm1)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{coef=}\NormalTok{conflm1[,}\DecValTok{1}\NormalTok{],}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{coef=}\NormalTok{conflm1[,}\DecValTok{2}\NormalTok{],}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{) }
+\KeywordTok{title}\NormalTok{(}\DataTypeTok{main =} \StringTok{"UNIFRAC distance ~ Environmental Distance}\CharTok{\textbackslash{}n}\StringTok{ (without accounting for random effects)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{500_80_mixed_effect_model_files/figure-latex/unnamed-chunk-20-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{png}\NormalTok{(}\DataTypeTok{filename=}\StringTok{"/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/171128_wcmb/180429_wcmb_talk/500_80__env_dist.png"}\NormalTok{,}
+    \DataTypeTok{width =} \DecValTok{8}\NormalTok{, }\DataTypeTok{height =} \DecValTok{8}\NormalTok{, }\DataTypeTok{units =} \StringTok{"in"}\NormalTok{, }\DataTypeTok{pointsize =} \DecValTok{14}\NormalTok{, }\DataTypeTok{res =} \DecValTok{200}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(RESP_UNIFRAC }\OperatorTok{~}\StringTok{ }\NormalTok{PRED_ENV, }\DataTypeTok{xlab =} \StringTok{"Environmental Distance"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"UNIFRAC distance"}\NormalTok{, }\DataTypeTok{data=}\NormalTok{vars)}
+\NormalTok{label_vec <-}\StringTok{ }\KeywordTok{with}\NormalTok{(vars, }\KeywordTok{paste}\NormalTok{(PORT, DEST, }\DataTypeTok{sep =} \StringTok{" "}\NormalTok{))}
+\KeywordTok{with}\NormalTok{(vars, }\KeywordTok{text}\NormalTok{(RESP_UNIFRAC }\OperatorTok{~}\StringTok{ }\NormalTok{PRED_ENV, }\DataTypeTok{labels =}\NormalTok{ label_vec, }\DataTypeTok{pos =} \DecValTok{4}\NormalTok{))}
+\NormalTok{devlm1 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(RESP_UNIFRAC }\OperatorTok{~}\StringTok{ }\NormalTok{PRED_ENV, }\DataTypeTok{data =}\NormalTok{ vars)}
+\KeywordTok{abline}\NormalTok{(devlm1)}
+\NormalTok{conflm1<-}\KeywordTok{confint}\NormalTok{(devlm1)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{coef=}\NormalTok{conflm1[,}\DecValTok{1}\NormalTok{],}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{coef=}\NormalTok{conflm1[,}\DecValTok{2}\NormalTok{],}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{) }
+\KeywordTok{title}\NormalTok{(}\DataTypeTok{main =} \StringTok{"UNIFRAC distance ~ Environmental Distance}\CharTok{\textbackslash{}n}\StringTok{ (without accounting for random effects)"}\NormalTok{)}
+\KeywordTok{dev.off}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## pdf 
+##   2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## some diagnostics - 2 - put below model}
+\KeywordTok{plot}\NormalTok{(RESP_UNIFRAC }\OperatorTok{~}\StringTok{ }\NormalTok{PRED_TRIPS, }\DataTypeTok{xlab =} \StringTok{"Voyages (log - scaled)"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"UNIFRAC distance"}\NormalTok{, }
+     \DataTypeTok{data=}\NormalTok{vars )}
+\NormalTok{label_vec <-}\StringTok{ }\KeywordTok{with}\NormalTok{(vars, }\KeywordTok{paste}\NormalTok{(PORT, DEST, }\DataTypeTok{sep =} \StringTok{" "}\NormalTok{))}
+\KeywordTok{with}\NormalTok{(vars, }\KeywordTok{text}\NormalTok{(RESP_UNIFRAC }\OperatorTok{~}\StringTok{ }\NormalTok{PRED_TRIPS, }\DataTypeTok{labels =}\NormalTok{ label_vec, }\DataTypeTok{pos =} \DecValTok{4}\NormalTok{))}
+\NormalTok{devlm2 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(RESP_UNIFRAC }\OperatorTok{~}\StringTok{ }\NormalTok{PRED_TRIPS, }\DataTypeTok{data =}\NormalTok{ vars)}
+\KeywordTok{abline}\NormalTok{(devlm2)}
+\NormalTok{conflm2<-}\KeywordTok{confint}\NormalTok{(devlm2)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{coef=}\NormalTok{conflm1[,}\DecValTok{1}\NormalTok{],}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{coef=}\NormalTok{conflm1[,}\DecValTok{2}\NormalTok{],}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{title}\NormalTok{(}\DataTypeTok{main =} \StringTok{"UNIFRAC distance ~ Voyages}\CharTok{\textbackslash{}n}\StringTok{ (without accounting for random effects)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{500_80_mixed_effect_model_files/figure-latex/unnamed-chunk-20-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{png}\NormalTok{(}\DataTypeTok{filename=}\StringTok{"/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/171128_wcmb/180429_wcmb_talk/500_80__voyages.png"}\NormalTok{,}
+    \DataTypeTok{width =} \DecValTok{8}\NormalTok{, }\DataTypeTok{height =} \DecValTok{8}\NormalTok{, }\DataTypeTok{units =} \StringTok{"in"}\NormalTok{, }\DataTypeTok{pointsize =} \DecValTok{14}\NormalTok{, }\DataTypeTok{res =} \DecValTok{200}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(RESP_UNIFRAC }\OperatorTok{~}\StringTok{ }\NormalTok{PRED_TRIPS, }\DataTypeTok{xlab =} \StringTok{"Voyages (log - scaled)"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"UNIFRAC distance"}\NormalTok{, }
+     \DataTypeTok{data=}\NormalTok{vars )}
+\NormalTok{label_vec <-}\StringTok{ }\KeywordTok{with}\NormalTok{(vars, }\KeywordTok{paste}\NormalTok{(PORT, DEST, }\DataTypeTok{sep =} \StringTok{" "}\NormalTok{))}
+\KeywordTok{with}\NormalTok{(vars, }\KeywordTok{text}\NormalTok{(RESP_UNIFRAC }\OperatorTok{~}\StringTok{ }\NormalTok{PRED_TRIPS, }\DataTypeTok{labels =}\NormalTok{ label_vec, }\DataTypeTok{pos =} \DecValTok{4}\NormalTok{))}
+\NormalTok{devlm2 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(RESP_UNIFRAC }\OperatorTok{~}\StringTok{ }\NormalTok{PRED_TRIPS, }\DataTypeTok{data =}\NormalTok{ vars)}
+\KeywordTok{abline}\NormalTok{(devlm2)}
+\NormalTok{conflm2<-}\KeywordTok{confint}\NormalTok{(devlm2)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{coef=}\NormalTok{conflm1[,}\DecValTok{1}\NormalTok{],}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{coef=}\NormalTok{conflm1[,}\DecValTok{2}\NormalTok{],}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{title}\NormalTok{(}\DataTypeTok{main =} \StringTok{"UNIFRAC distance ~ Voyages}\CharTok{\textbackslash{}n}\StringTok{ (without accounting for random effects)"}\NormalTok{)}
+\KeywordTok{dev.off}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## pdf 
+##   2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# plot intercation terms - version a}
+\CommentTok{# https://cran.r-project.org/web/packages/sjPlot/vignettes/plot_interactions.html}
+\CommentTok{# library(sjPlot)}
+\CommentTok{# library(sjmisc)}
+\CommentTok{# library(ggplot2)}
+\CommentTok{# theme_set(theme_sjplot())}
+\CommentTok{# fit model with interaction}
+\CommentTok{# fit <- lm(neg_c_7 ~ c12hour + barthtot * c161sex, data = efc)}
+\CommentTok{# fit <- lm(RESP_UNIFRAC ~ PRED_ENV * PRED_TRIPS, data = vars)}
+\CommentTok{# plot_model(fit, type = "pred", terms = c("PRED_ENV", "PRED_TRIPS [1.098612, 6.320768]"))}
+
+\CommentTok{# plot intercation terms - version b}
+\KeywordTok{library}\NormalTok{(}\StringTok{"effects"}\NormalTok{)}
+\NormalTok{ef <-}\StringTok{ }\KeywordTok{effect}\NormalTok{( }\StringTok{"PRED_ENV * PRED_TRIPS"}\NormalTok{, vars_model_full)}
+\KeywordTok{summary}\NormalTok{(ef)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  PRED_ENV*PRED_TRIPS effect
+##         PRED_TRIPS
+## PRED_ENV         1         2         4         5         6
+##     0.51 0.8903601 0.8798541 0.8588420 0.8483360 0.8378299
+##     1.2  0.8611858 0.8574588 0.8500048 0.8462778 0.8425508
+##     1.8  0.8358168 0.8379846 0.8423202 0.8444881 0.8466559
+##     2.5  0.8062197 0.8152648 0.8333550 0.8424000 0.8514451
+##     3.2  0.7766226 0.7925449 0.8243897 0.8403120 0.8562344
+## 
+##  Lower 95 Percent Confidence Limits
+##         PRED_TRIPS
+## PRED_ENV         1         2         4         5         6
+##     0.51 0.7688550 0.7911567 0.8000520 0.7712545 0.7303402
+##     1.2  0.7789688 0.7973560 0.8090915 0.7925865 0.7680951
+##     1.8  0.7711716 0.7903293 0.8107151 0.8040565 0.7908127
+##     2.5  0.7267404 0.7562800 0.7981417 0.7995222 0.7915913
+##     3.2  0.6583024 0.7049453 0.7735095 0.7784262 0.7690950
+## 
+##  Upper 95 Percent Confidence Limits
+##         PRED_TRIPS
+## PRED_ENV         1         2         4         5         6
+##     0.51 1.0118652 0.9685515 0.9176320 0.9254175 0.9453196
+##     1.2  0.9434028 0.9175615 0.8909181 0.8999690 0.9170065
+##     1.8  0.9004620 0.8856400 0.8739254 0.8849196 0.9024990
+##     2.5  0.8856990 0.8742495 0.8685683 0.8852779 0.9112990
+##     3.2  0.8949428 0.8801446 0.8752698 0.9021979 0.9433738
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{as.data.frame}\NormalTok{(ef)}
+\KeywordTok{ggplot}\NormalTok{(x, }\KeywordTok{aes}\NormalTok{(PRED_ENV, fit, }\DataTypeTok{color=}\NormalTok{PRED_TRIPS)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_errorbar}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{ymin=}\NormalTok{fit}\OperatorTok{-}\NormalTok{se, }\DataTypeTok{ymax=}\NormalTok{fit}\OperatorTok{+}\NormalTok{se), }\DataTypeTok{width=}\FloatTok{0.4}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{theme_bw}\NormalTok{(}\DataTypeTok{base_size=}\DecValTok{12}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{500_80_mixed_effect_model_files/figure-latex/unnamed-chunk-20-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggsave}\NormalTok{(}\StringTok{"500_80_mixed_effect_model__effect.svg"}\NormalTok{, }\DataTypeTok{plot =} \KeywordTok{last_plot}\NormalTok{(), }\DataTypeTok{device =} \StringTok{"svg"}\NormalTok{, }\DataTypeTok{path =} \StringTok{"/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/171128_wcmb/180429_wcmb_talk"}\NormalTok{,}
+  \DataTypeTok{scale =} \DecValTok{1}\NormalTok{, }\DataTypeTok{width =} \DecValTok{5}\NormalTok{, }\DataTypeTok{height =} \DecValTok{5}\NormalTok{, }\DataTypeTok{units =} \KeywordTok{c}\NormalTok{(}\StringTok{"in"}\NormalTok{),}
+  \DataTypeTok{dpi =} \DecValTok{250}\NormalTok{, }\DataTypeTok{limitsize =} \OtherTok{TRUE}\NormalTok{)}
+
+
+
+\CommentTok{# stargazer(vars_model_full, type = "html", title="Regression Results", align=TRUE,}
+\CommentTok{#             dep.var.labels=c("UNIFRAC distance"), covariate.labels=c("Environmental Distance",}
+\CommentTok{#             "Voyage Count", "Different Ecoregions", "Env. Dist. and Voyage Count"), omit.stat=c("LL","ser","f"),}
+\CommentTok{#             no.space=TRUE, out = "/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/171128_wcmb/180429_wcmb_talk/500_80_mixed_effect_model__full.html")}
+
+\CommentTok{# following https://www.ssc.wisc.edu/sscc/pubs/MM/MM_DiagInfer.html}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Model Residuals}\label{model-residuals}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(vars_model_full)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{500_80_mixed_effect_model_files/figure-latex/unnamed-chunk-21-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## check normality of the residuals}
+\KeywordTok{qqnorm}\NormalTok{(}\KeywordTok{residuals}\NormalTok{(vars_model_full))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{500_80_mixed_effect_model_files/figure-latex/unnamed-chunk-21-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## plots of the residuals versus each of the variables - 1 of 2 - linear model ok?}
+\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x1=}\NormalTok{vars}\OperatorTok{$}\NormalTok{PRED_ENV,}\DataTypeTok{pearson=}\KeywordTok{residuals}\NormalTok{(vars_model_full,}\DataTypeTok{type=}\StringTok{"pearson"}\NormalTok{)),}
+      \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{x1,}\DataTypeTok{y=}\NormalTok{pearson)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{500_80_mixed_effect_model_files/figure-latex/unnamed-chunk-21-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## plots of the residuals versus each of the variables - 2 of 2 - linear model ok?}
+\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x2=}\NormalTok{vars}\OperatorTok{$}\NormalTok{PRED_TRIPS,}\DataTypeTok{pearson=}\KeywordTok{residuals}\NormalTok{(vars_model_full,}\DataTypeTok{type=}\StringTok{"pearson"}\NormalTok{)),}
+      \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{x2,}\DataTypeTok{y=}\NormalTok{pearson)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{500_80_mixed_effect_model_files/figure-latex/unnamed-chunk-21-4.pdf}
+
+\subsubsection{Leverage of Observations}\label{leverage-of-observations}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## model is not influenced by one or a small set of observations ?}
+\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{lev=}\KeywordTok{hatvalues}\NormalTok{(vars_model_full),}\DataTypeTok{pearson=}\KeywordTok{residuals}\NormalTok{(vars_model_full, }\DataTypeTok{type=}\StringTok{"pearson"}\NormalTok{)),}
+      \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{lev,}\DataTypeTok{y=}\NormalTok{pearson)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{500_80_mixed_effect_model_files/figure-latex/unnamed-chunk-22-1.pdf}
+
+\subsubsection{\texorpdfstring{\_p\_value using
+\texttt{lmertest()}}{\_p\_value using lmertest()}}\label{p_value-using-lmertest}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# extract coefficients}
+\NormalTok{coefs <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{coef}\NormalTok{(}\KeywordTok{summary}\NormalTok{(vars_model_full)))}
+
+\CommentTok{# re-fit model}
+\KeywordTok{library}\NormalTok{ (}\StringTok{"lmerTest"}\NormalTok{) }
+
+\CommentTok{# m.semTest <- lmer(RESP_UNIFRAC ~ PRED_ENV * PRED_TRIPS + ECO_DIFF + (1| PORT) + (1| DEST), data=vars, REML=FALSE)}
+
+\CommentTok{# get Satterthwaite-approximated degrees of freedom}
+\CommentTok{# coefs$df.Satt <- coef( )[, 3]}
+\CommentTok{# }
+\CommentTok{# # get approximate p-values}
+\CommentTok{# coefs$p.Satt <- coef(summary(vars_model_full))[, 5]}
+\CommentTok{# coefs}
+\KeywordTok{summary}\NormalTok{(vars_model_full)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear mixed model fit by maximum likelihood . t-tests use
+##   Satterthwaite's method [lmerModLmerTest]
+## Formula: RESP_UNIFRAC ~ PRED_ENV * PRED_TRIPS + ECO_DIFF + (1 | PORT) +  
+##     (1 | DEST)
+##    Data: vars
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##    -58.6    -49.9     37.3    -74.6       14 
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -1.3319 -0.2977 -0.1061  0.3072  1.4949 
+## 
+## Random effects:
+##  Groups   Name        Variance  Std.Dev.
+##  PORT     (Intercept) 0.0050712 0.07121 
+##  DEST     (Intercept) 0.0023092 0.04805 
+##  Residual             0.0001673 0.01293 
+## Number of obs: 22, groups:  PORT, 8; DEST, 7
+## 
+## Fixed effects:
+##                      Estimate Std. Error        df t value Pr(>|t|)    
+## (Intercept)          0.899675   0.044155 21.265325  20.375 1.95e-15 ***
+## PRED_ENV            -0.052106   0.015000  7.850856  -3.474  0.00865 ** 
+## PRED_TRIPS          -0.015517   0.008426  9.716723  -1.841  0.09624 .  
+## ECO_DIFFTRUE         0.032149   0.016685 10.352408   1.927  0.08187 .  
+## PRED_ENV:PRED_TRIPS  0.009825   0.003395  7.232032   2.894  0.02237 *  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Correlation of Fixed Effects:
+##             (Intr) PRED_ENV PRED_T ECO_DI
+## PRED_ENV    -0.629                       
+## PRED_TRIPS  -0.627  0.808                
+## ECO_DIFFTRU  0.077 -0.230   -0.464       
+## PRED_ENV:PR  0.561 -0.897   -0.728 -0.011
+\end{verbatim}
+
+\subsection{Null Model and checking}\label{null-model-and-checking}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vars_model_null <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(RESP_UNIFRAC }\OperatorTok{~}\StringTok{ }\NormalTok{PRED_ENV }\OperatorTok{+}\StringTok{ }\NormalTok{ECO_DIFF }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{PORT) }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{DEST), }\DataTypeTok{data=}\NormalTok{vars, }\DataTypeTok{REML=}\OtherTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Model Summary}\label{model-summary-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(vars_model_null)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear mixed model fit by maximum likelihood . t-tests use
+##   Satterthwaite's method [lmerModLmerTest]
+## Formula: RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)
+##    Data: vars
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##    -58.4    -51.9     35.2    -70.4       16 
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -1.5299 -0.2717 -0.1448  0.3004  1.4183 
+## 
+## Random effects:
+##  Groups   Name        Variance  Std.Dev.
+##  PORT     (Intercept) 0.0037793 0.06148 
+##  DEST     (Intercept) 0.0018142 0.04259 
+##  Residual             0.0004053 0.02013 
+## Number of obs: 22, groups:  PORT, 8; DEST, 7
+## 
+## Fixed effects:
+##               Estimate Std. Error        df t value Pr(>|t|)    
+## (Intercept)   0.833224   0.033649 20.568996  24.762   <2e-16 ***
+## PRED_ENV     -0.012832   0.008189 11.560823  -1.567    0.144    
+## ECO_DIFFTRUE  0.032867   0.018133  9.321088   1.813    0.102    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Correlation of Fixed Effects:
+##             (Intr) PRED_E
+## PRED_ENV    -0.289       
+## ECO_DIFFTRU -0.384 -0.263
+\end{verbatim}
+
+\subsection{Model Significance}\label{model-significance}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{anova}\NormalTok{(vars_model_null, vars_model_full)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Data: vars
+## Models:
+## vars_model_null: RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)
+## vars_model_full: RESP_UNIFRAC ~ PRED_ENV * PRED_TRIPS + ECO_DIFF + (1 | PORT) + 
+## vars_model_full:     (1 | DEST)
+##                 Df     AIC     BIC logLik deviance  Chisq Chi Df
+## vars_model_null  6 -58.418 -51.872 35.209  -70.418              
+## vars_model_full  8 -58.587 -49.859 37.294  -74.587 4.1689      2
+##                 Pr(>Chisq)
+## vars_model_null           
+## vars_model_full     0.1244
+\end{verbatim}
+
+\section{Session info}\label{session-info}
+
+The code and output in this document were tested and generated in the
+following computing environment:
+
+\begin{verbatim}
+## R version 3.5.0 (2018-04-23)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS High Sierra 10.13.4
+## 
+## Matrix products: default
+## BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_AU.UTF-8/en_AU.UTF-8/en_AU.UTF-8/C/en_AU.UTF-8/en_AU.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] lmerTest_3.0-1  gdtools_0.1.7   effects_4.0-1   carData_3.0-1  
+##  [5] bindrcpp_0.2.2  lme4_1.1-17     Matrix_1.2-14   reshape2_1.4.3 
+##  [9] forcats_0.3.0   stringr_1.3.0   dplyr_0.7.4     purrr_0.2.4    
+## [13] readr_1.1.1     tidyr_0.8.0     tibble_1.4.2    ggplot2_2.2.1  
+## [17] tidyverse_1.2.1 gplots_3.0.1    gdata_2.18.0   
+## 
+## loaded via a namespace (and not attached):
+##  [1] httr_1.3.1         jsonlite_1.5       splines_3.5.0     
+##  [4] modelr_0.1.1       gtools_3.5.0       assertthat_0.2.0  
+##  [7] cellranger_1.1.0   yaml_2.1.19        numDeriv_2016.8-1 
+## [10] pillar_1.2.2       backports_1.1.2    lattice_0.20-35   
+## [13] glue_1.2.0         digest_0.6.15      rvest_0.3.2       
+## [16] minqa_1.2.4        colorspace_1.3-2   htmltools_0.3.6   
+## [19] survey_3.33-2      plyr_1.8.4         psych_1.8.4       
+## [22] pkgconfig_2.0.1    broom_0.4.4        haven_1.1.1       
+## [25] scales_0.5.0       svglite_1.2.1      nnet_7.3-12       
+## [28] lazyeval_0.2.1     cli_1.0.0          mnormt_1.5-5      
+## [31] survival_2.42-3    magrittr_1.5       crayon_1.3.4      
+## [34] readxl_1.1.0       estimability_1.3   evaluate_0.10.1   
+## [37] nlme_3.1-137       MASS_7.3-50        xml2_1.2.0        
+## [40] foreign_0.8-70     tools_3.5.0        hms_0.4.2         
+## [43] munsell_0.4.3      compiler_3.5.0     tinytex_0.5       
+## [46] caTools_1.17.1     rlang_0.2.0        grid_3.5.0        
+## [49] nloptr_1.0.4       rstudioapi_0.7     bitops_1.0-6      
+## [52] labeling_0.3       rmarkdown_1.9      gtable_0.2.0      
+## [55] R6_2.2.2           lubridate_1.7.4    knitr_1.20        
+## [58] bindr_0.1.1        rprojroot_1.3-2    KernSmooth_2.23-15
+## [61] stringi_1.2.2      parallel_3.5.0     Rcpp_0.12.16
+\end{verbatim}
+
+\section{References}\label{references}
+
+
+\end{document}

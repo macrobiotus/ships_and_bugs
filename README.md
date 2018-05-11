@@ -364,7 +364,8 @@ Data will be included via manifest files and metadate files linked in at
    * created `/Users/paul/Documents/CU_combined/Github/500_80_mantel_comparison_uni_prd.R` as copy of `/Users/paul/Documents/CU_combined/Github/500_70_matrix_comparison_uni_prd.R`
    * moved `/Users/paul/Documents/CU_combined/Github/500_60_matrix_comparison_uni_rsk.R` to scratch
 * **10.05.2018** - R scripting - implementing mixed effect model during the last days
-   * check commit history - this chenge to the README is committed as well and marks the pre-conference stage 
+   * check commit history - this change to the README is committed as well and marks the pre-conference stage
+   * played around for hours - git reset hard - everything rendered with result as in talk - committed 10.05.2018 - ca. 21:00 - also backup 
 
 
 ## Todo
@@ -378,6 +379,8 @@ Data will be included via manifest files and metadate files linked in at
   * possible unconfirmed reason: blast OTU list shorter the OTU list in Phyloseq object - perhaps blast is dropping queries ?
 * _02.05.2018_ - **unconfirmed** - `/Users/paul/Documents/CU_combined/Github/500_35_shape_overlap_matrices.R`
   * Kulczynski distances may be unsuitable to describe overlap between ports, both for all overlap or dual overlap.
+* _10.05.2018_ - **confirmed** - `/Users/paul/Documents/CU_combined/Github/500_35_shape_overlap_matrices.R`
+  * plotting code does not label nor draw all connections - rewrite (?) 
 
 ### R analysis
 

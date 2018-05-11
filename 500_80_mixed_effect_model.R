@@ -415,8 +415,8 @@ library ("lmerTest")
 # coefs$df.Satt <- coef( )[, 3]
 # 
 # # get approximate p-values
-coefs$p.Satt <- coef(summary(vars_model_full))[, 5]
-coefs
+# coefs$p.Satt <- coef(summary(vars_model_full))[, 5]
+# coefs
 summary(vars_model_full)
 
 #' ## Null Model and checking 
