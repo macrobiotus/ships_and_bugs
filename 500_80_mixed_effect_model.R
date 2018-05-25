@@ -309,7 +309,7 @@ abline(coef=conflm1[,1],lty=2)
 abline(coef=conflm1[,2],lty=2) 
 title(main = "UNIFRAC distance ~ Environmental Distance\n (without accounting for random effects)")
 
-png(filename="/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/171128_wcmb/180429_wcmb_talk/500_80__env_dist.png",
+png(filename="/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/180513_wcmb/180429_wcmb_talk/500_80__env_dist.png",
     width = 8, height = 8, units = "in", pointsize = 14, res = 200)
 plot(RESP_UNIFRAC ~ PRED_ENV, xlab = "Environmental Distance", ylab = "UNIFRAC distance", data=vars)
 label_vec <- with(vars, paste(PORT, DEST, sep = " "))
@@ -334,7 +334,7 @@ abline(coef=conflm1[,1],lty=2)
 abline(coef=conflm1[,2],lty=2)
 title(main = "UNIFRAC distance ~ Voyages\n (without accounting for random effects)")
 
-png(filename="/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/171128_wcmb/180429_wcmb_talk/500_80__voyages.png",
+png(filename="/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/180513_wcmb/180429_wcmb_talk/500_80__voyages.png",
     width = 8, height = 8, units = "in", pointsize = 14, res = 200)
 plot(RESP_UNIFRAC ~ PRED_TRIPS, xlab = "Voyages (log - scaled)", ylab = "UNIFRAC distance", 
      data=vars )
@@ -368,7 +368,7 @@ ggplot(x, aes(PRED_ENV, fit, color=PRED_TRIPS)) +
   geom_point() + 
   geom_errorbar(aes(ymin=fit-se, ymax=fit+se), width=0.4) + 
   theme_bw(base_size=12)
-ggsave("500_80_mixed_effect_model__effect.svg", plot = last_plot(), device = "svg", path = "/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/171128_wcmb/180429_wcmb_talk",
+ggsave("500_80_mixed_effect_model__effect.svg", plot = last_plot(), device = "svg", path = "/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/180513_wcmb/180429_wcmb_talk",
   scale = 1, width = 5, height = 5, units = c("in"),
   dpi = 250, limitsize = TRUE)
 
@@ -429,6 +429,14 @@ summary(vars_model_null)
 
 #' ## Model Significance
 anova(vars_model_null, vars_model_full)
+
+#' ## Additive model
+
+vars_model_smpl <- lmer(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + PRED_TRIPS +
+                                       (1 | PORT) + (1 | DEST), data=vars, REML=FALSE)
+                                       
+summary(vars_model_smpl)
+
 
 #' <!-- #################################################################### -->
 #'
