@@ -366,6 +366,10 @@ Data will be included via manifest files and metadate files linked in at
 * **10.05.2018** - R scripting - implementing mixed effect model during the last days
    * check commit history - this change to the README is committed as well and marks the pre-conference stage
    * played around for hours - git reset hard - everything rendered with result as in talk - committed 10.05.2018 - ca. 21:00 - also backup 
+* **10.07.2018** - organisation
+   * undo these steps by using a backup 10 Jul 2018 between 01:00 and 10:00 o'clock.
+   * copying this folder "/Users/paul/Documents/CU_combined" to "180124-180510__CU_combined", locking, for later compression and moving to "/Users/paul/Archive/Cornell_superseeded_analyses"
+   * continuing to work on this folder
 
 
 ## Todo
@@ -382,42 +386,40 @@ Data will be included via manifest files and metadate files linked in at
 * _10.05.2018_ - **confirmed** - `/Users/paul/Documents/CU_combined/Github/500_35_shape_overlap_matrices.R`
   * plotting code does not label nor draw all connections - rewrite (?) 
 
-### R analysis
 
-#### before conference
-* adjust transport script paths
-* adjust script paths
-* add export code to scripts
-* export matrix with overlap counts for partial mantel tests
-* partial mantel tests -  3 matrices - shuffle predictors - also for talk
-    1. partial Mantel: OTU Overlap vs UNIFRAC to setup predictors
-    2. partial Mantel: UNIFRAC vs Environmental distance, controlling for Voyages (possibly HON traffic)  
-    3. partial Mantel: UNIFRAC vs Voyages, controlling for Environmental distance (possibly HON traffic)  
-* include HON distance matrix
+
+### Shell scripts
+* Qiime forum - abundance correction necessary or not (?)
+* Qiime forum - `decontam` 
+* split Singapore
+* include `decontam` close to script `220...` or bolt in R package `https://github.com/benjjneb/decontam`
+* include `evaluate-composition` close to script `220..`(?) to check mock samples
+* improve logging during clustering script (see AAD data 26.03.2018 - clustering script usage of `tee`)
+
+### R analysis
 * also see `/Users/paul/Box\ Sync/CU_NIS-WRAPS/170728_external_presentations/171128_wcmb/180429_wcmb_practice_talk/180429_wcmb_practice_talk.md`
- 
-#### later
 * test eulerr with unclustered data (?)
 * correct OTU numbers (?) - use 97% for now - address both issues though
 * stats test - pull quantities from eulerr (?)
 * erase `/Users/paul/Documents/CU_combined_BUP` once `/Users/paul/Documents/CU_combined` is processed.
+* improve modelling 
+* plot env list relationship - 
+* check overlap - vs UNIFRAC - 
+* plot on env against taxa - 
+* identify taxa - 
+* include Arctic data and routes from Zhaojun 
+* include HON distance matrix
 * implement `glm()` between defined samples
   * between Unifrac distances
   * and `500_30_shape_matrices__output__mat_env_dist_full.Rdata`
   * and `500_30_shape_matrices__output__mat_risks_full.Rdata` or `500_30_shape_matrices__output_mat_trips_full.Rdata` ?
   * checked script - `500_30_shape_matrices__output__mat_env_dist_full.Rdata` seem ok
 
-### Shell scripts
-
-### later
-* include `decontam` close to script `220...` or bolt in R package `https://github.com/benjjneb/decontam`
-* include `evaluate-composition` close to script `220..`(?) to check mock samples
-* improve logging during clustering script (see AAD data 26.03.2018 - clustering script usage of `tee`)
-
 ## Miscellaneous Notes
 * alignment masking does not remove sequences, so filtering the repset in `script 100` is not necessary
 * but also calling `qiime phylogeny filter-table` in `script 100` doesn't change the data, so can be left in 
 * clustering-free analysis after cluster-based analysis
+* review related files in and compress, erase after publication.
 
 ## Relevant Repository contents:
 
