@@ -370,9 +370,15 @@ Data will be included via manifest files and metadate files linked in at
    * undo these steps by using a backup 10 Jul 2018 between 01:00 and 10:00 o'clock.
    * copying this folder "/Users/paul/Documents/CU_combined" to "180124-180510__CU_combined", locking, for later compression and moving to "/Users/paul/Archive/Cornell_superseeded_analyses"
    * continuing to work on this folder
-
+* **20.07.2018** - organisation and preparation for Fort Collins
+   * commit current repository (11:14)
+   * installing Qiime 2018.6 - updating conda
+    
 
 ## Todo
+
+### noticed during preparation for Fort Collins
+ - Singapore divided point cloud is actually from one samples and not from two samples. Division needs to be implemented using an old PCoA plot
 
 ## Known issues and bugs
 * _25.04.2018_ - **unconfirmed** - non-unique rownames _may be_ assigned to all (?) output (?) matrices in `500_30_shape_matrices`  due to duplicate values in the input tables (script 10)? - possibly affected:
