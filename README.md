@@ -373,6 +373,11 @@ Data will be included via manifest files and metadate files linked in at
 * **20.07.2018** - organisation and preparation for Fort Collins
    * commit current repository (11:14)
    * installing Qiime 2018.6 - updating conda
+* **31.07.2018** - check after data migration to SSD
+   * updated R and packages
+   * checked commit history - seem all good
+* **02.08.2018** - coding of species accumulation curves
+   * species accumulation curves encoded in `/Users/paul/Documents/CU_combined/Github/500_33_draw_otus_per_sample.R`
     
 
 ## Todo
@@ -391,8 +396,6 @@ Data will be included via manifest files and metadate files linked in at
   * Kulczynski distances may be unsuitable to describe overlap between ports, both for all overlap or dual overlap.
 * _10.05.2018_ - **confirmed** - `/Users/paul/Documents/CU_combined/Github/500_35_shape_overlap_matrices.R`
   * plotting code does not label nor draw all connections - rewrite (?) 
-
-
 
 ### Shell scripts
 * Qiime forum - abundance correction necessary or not (?)

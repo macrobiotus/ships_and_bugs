@@ -23,6 +23,8 @@
 #'    PCoA (which still includes the Singapore data)
 #'  - Simplification. There is a lot of clutter in here, which should be removed for
 #'    reasons of simplicity.
+#'  - Singapore samples removed in script 500, writes files with dates 20.07.2018
+#'  - Singapore samples included in script 505, writes files with dates 23.07.2018
 #'
 #'
 #'

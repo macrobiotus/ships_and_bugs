@@ -1,7 +1,7 @@
 #' ---
 #' title: "Compare Response and Predictor Matrices using Mixed Effect Models SGP EXCLUDED"
 #' author: "Paul Czechowski"
-#' date: "June 20th, 2018"
+#' date: "June 23th, 2018"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -16,18 +16,20 @@
 #'
 #' In preparation for the meeting in Fort Collins the following may be implemented below.
 #' If you want to go back to an earlier version check commit before 2018-07-20 13:00.
-#'  - Removal of singapore samples. Singapore samples need to be divided in the next data
+#'  - Removal of Singapore samples. Singapore samples need to be divided in the next data
 #'    import iteration. This is potentially time consuming and requires large rewrites
 #'    so that it only makes sense when more data is imported, as well.
 #'  - PCoA of Unifrac matrix. This is done in order to make up for a inaccurate Qiime 2
 #'    PCoA (which still includes the Singapore data)
 #'  - Simplification. There is a lot of clutter in here, which should be removed for
 #'    reasons of simplicity.
+#'  - Singapore samples removed in script 500, writes files with dates 20.07.2018
+#'  - Singapore samples included in script 505, writes files with dates 23.07.2018
 #'
 #'
 #'
 #' This code commentary is included in the R code itself and can be rendered at
-#' any stage using `rmarkdown::render ("/Users/paulczechowski/Documents/CU_combined/Github/500_80_mixed_effect_model.R")`.
+#' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_80_mixed_effect_model.R")`.
 #' Please check the session info at the end of the document for further 
 #' notes on the coding environment.
 #' 
@@ -54,7 +56,7 @@ library ("vegan")     # metaMDS
 # functions
 # ==========
 # Loaded from helper script:
-source("/Users/paulczechowski/Documents/CU_combined/Github/500_00_functions.R")
+source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")
 
 #'
 #' <!-- #################################################################### -->
@@ -67,8 +69,8 @@ source("/Users/paulczechowski/Documents/CU_combined/Github/500_00_functions.R")
 #' (Risk Formula is currently `(log(src_heap$ROUT$TRIPS) + 1) * (1 / src_heap$ROUT$EDST)`
 #' as defined in `500_30_shape_matrices.R`. Using voyages only for now)
 
-# loading matrix with trips (not risks), not loading "/Users/paulczechowski/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output__mat_risks_full.Rdata")
-load("/Users/paulczechowski/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output_mat_trips_full.Rdata")
+# loading matrix with trips (not risks), not loading "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output__mat_risks_full.Rdata")
+load("/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output_mat_trips_full.Rdata")
 
 # checking 
 mat_trips[35:50, 35:50]
@@ -76,7 +78,7 @@ mat_trips[35:50, 35:50]
 #' ## Predictors 2 of 2: Environmental Distances
 #'
 #' This data is available for many ports (more ports then shipping routes)
-load("/Users/paulczechowski/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output__mat_env_dist_full.Rdata")
+load("/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output__mat_env_dist_full.Rdata")
 
 # checking -- see debugging notes: some port numbers in row-/colnames are not unique
 mat_env_dist_full[35:50, 35:50]
@@ -88,7 +90,7 @@ mat_env_dist_full[35:50, 35:50]
 #'
 
 # this path should match the parameter combination of the Euler script
-resp_path <- "/Users/paulczechowski/Documents/CU_combined/Zenodo/Qiime/245_18S_097_cl_edna_core_metrics/distance-matrix.tsv"
+resp_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/245_18S_097_cl_edna_core_metrics/distance-matrix.tsv"
 resp_mat <- read.table(file = resp_path, sep = '\t', header = TRUE)
 
 # checking import and format
@@ -96,12 +98,12 @@ resp_mat[35:50, 35:50]
 class(resp_mat)
 
 #' ## Responses 2 of 3: Kulczynski distances between ports if all overlap is considered - COMMENTED OUT
-kulczynski_mat_all_path <- "/Users/paulczechowski/Documents/CU_combined/Zenodo/R_Objects/500_35_shape_overlap_matrices__output__97_overlap_kulczynski_mat_all.Rdata"
+kulczynski_mat_all_path <- "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_35_shape_overlap_matrices__output__97_overlap_kulczynski_mat_all.Rdata"
 load(kulczynski_mat_all_path)
 kulczynski_mat_all
 
 #' ## Responses  3 of 3:  Kulczynski distances between ports if pairwise overlap is considered - COMMENTED OUT
-kulczynski_mat_ovrlp_path <- "/Users/paulczechowski/Documents/CU_combined/Zenodo/R_Objects/500_35_shape_overlap_matrices__output__97_overlap_kulczynski_mat_dual.Rdata"
+kulczynski_mat_ovrlp_path <- "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_35_shape_overlap_matrices__output__97_overlap_kulczynski_mat_dual.Rdata"
 load(kulczynski_mat_ovrlp_path)
 kulczynski_mat_ovrlp
 
@@ -137,9 +139,9 @@ any(colnames(resp_mat) == rownames(resp_mat))
 plt_mat <- resp_mat
 
 # removing Singapore samples
-slctd_rows <- which ( substr (rownames (plt_mat), start = 1, stop = 2) %!in% "SP") # 
-slctd_cols <- which ( substr (colnames (plt_mat), start = 1, stop = 2) %!in% "SP") # 
-plt_mat <- as.matrix(plt_mat[c(slctd_rows), c(slctd_cols)]) # btw: data frame to matrix
+# slctd_rows <- which ( substr (rownames (plt_mat), start = 1, stop = 2) %!in% "SP") # 
+# slctd_cols <- which ( substr (colnames (plt_mat), start = 1, stop = 2) %!in% "SP") # 
+# plt_mat <- as.matrix(plt_mat[c(slctd_rows), c(slctd_cols)]) # btw: data frame to matrix
                                                             # Singapore is removed
 
 mds_plt_mat <- metaMDS (plt_mat, distance = "euc")
@@ -169,9 +171,6 @@ r_mat_clpsd[lower.tri(r_mat_clpsd, diag = FALSE)] <- NA
 #' Finished matrix - Unifrac distance
 r_mat_clpsd # SP needs to be removed here
 
-
-
-
 #' ## Responses 2 of 3: Kulczynski distances between ports if all overlap is considered
 #'
 kulczynski_mat_all
@@ -180,9 +179,9 @@ kulczynski_mat_all
 
 #' ## Responses  3 of 3:  Kulczynski distances between ports if pairwise overlap is considered
 #'
- kulczynski_mat_ovrlp
- kulczynski_mat_ovrlp[lower.tri(kulczynski_mat_ovrlp, diag = FALSE)] <- NA
- kulczynski_mat_ovrlp
+kulczynski_mat_ovrlp
+kulczynski_mat_ovrlp[lower.tri(kulczynski_mat_ovrlp, diag = FALSE)] <- NA
+kulczynski_mat_ovrlp
 
 #'
 #' <!-- -------------------------------------------------------------------- -->
@@ -198,7 +197,7 @@ mat_trips <- mat_trips[rowSums(is.na(mat_trips))!=ncol(mat_trips), colSums(is.na
 #   use order  of response matrix (!!!)
 #   here "PH","SP","AD","CH", "BT", "HN", "HT", "LB", "MI"
 #   improve (!!!) this. Manual lookup via:
-#   `open /Users/paulczechowski/Dropbox/NSF\ NIS-WRAPS\ Data/raw\ data\ for\ Mandana/PlacesFile_updated_Aug2017.xlsx -a "Microsoft Excel"`
+#   `open /Users/paul/Dropbox/NSF\ NIS-WRAPS\ Data/raw\ data\ for\ Mandana/PlacesFile_updated_Aug2017.xlsx -a "Microsoft Excel"`
 mat_trips <- mat_trips[c("2503","1165","3110","2907", "4899", "854", "2503", "2331", "7597"),
                        c("2503","1165","3110","2907", "4899", "854", "2503", "2331", "7597")] 
 
@@ -220,7 +219,7 @@ mat_trips
 #   use order  of response matrix (!!!)
 #   here "PH","SP","AD","CH", "BT", "HN", "HT", "LB", "MI"
 #   improve (!!!) this. Manual lookup via:
-#   `open /Users/paulczechowski/Dropbox/NSF\ NIS-WRAPS\ Data/raw\ data\ for\ Mandana/PlacesFile_updated_Aug2017.xlsx -a "Microsoft Excel"`
+#   `open /Users/paul/Dropbox/NSF\ NIS-WRAPS\ Data/raw\ data\ for\ Mandana/PlacesFile_updated_Aug2017.xlsx -a "Microsoft Excel"`
 
 mat_env_dist <- mat_env_dist_full[c("2503","1165","3110","2907", "4899", "854", "2503", "2331", "7597"),
                                   c("2503","1165","3110","2907", "4899", "854", "2503", "2331", "7597")] 
@@ -278,8 +277,7 @@ model_data <- model_data_raw %>% filter(complete.cases(.))
 
 
 # insert - remove Singapore from data frama
-model_data <- model_data %>% filter(PORT != "SP" & DEST != "SP")
-
+# model_data <- model_data %>% filter(PORT != "SP" & DEST != "SP")
 class(model_data)
 
 # add ecoregion as per:
@@ -369,7 +367,7 @@ abline(coef=conflm1[,1],lty=2)
 abline(coef=conflm1[,2],lty=2) 
 title(main = "UNIFRAC distance ~ Environmental Distance\n (without accounting for random effects)")
 
-pdf("/Users/paulczechowski/Box Sync/CU_NIS-WRAPS/170724_internal_meetings/180627_meeting_Fort_Collins/180220_slides/180720__500_80__unifrac_vs_env_dist.pdf", 
+pdf("/Users/paul/Box Sync/CU_NIS-WRAPS/170724_internal_meetings/180627_meeting_Fort_Collins/180220_slides/180723__500_80__unifrac_vs_env_dist.pdf", 
     width = 8, height = 8)
 plot(RESP_UNIFRAC ~ PRED_ENV, xlab = "Environmental Distance", ylab = "UNIFRAC distance", data=vars)
 label_vec <- with(vars, paste(PORT, DEST, ECO_DIFF,  sep = " "))
@@ -395,7 +393,7 @@ abline(coef=conflm1[,1],lty=2)
 abline(coef=conflm1[,2],lty=2)
 title(main = "UNIFRAC distance ~ Voyages\n (without accounting for random effects)")
 
-pdf("/Users/paulczechowski/Box Sync/CU_NIS-WRAPS/170724_internal_meetings/180627_meeting_Fort_Collins/180220_slides/180720__500_80__unifrac_vs_voyages.pdf",
+pdf("/Users/paul/Box Sync/CU_NIS-WRAPS/170724_internal_meetings/180627_meeting_Fort_Collins/180220_slides/180723__500_80__unifrac_vs_voyages.pdf",
     width = 8, height = 8)
 plot(RESP_UNIFRAC ~ PRED_TRIPS, xlab = "Voyages (log - scaled)", ylab = "UNIFRAC distance", 
      data=vars )
