@@ -1,19 +1,20 @@
 #' ---
-#' title: "Mapping samples"
+#' title: "Mapping Samples for Conference Presentation(s)"
 #' author: "Paul Czechowski"
-#' date: "May 7th, 2017"
+#' date: "Aug 31th, 2018"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
-#' bibliography: /Users/paul/Documents/CU_combined/Github/references.bib
+#' 
 #' ---
 #'
 #' # Preface
 #' 
-#' Please refer to `/Users/paul/Documents/CU_combined/Github/README.md` for a 
-#' project overview. This code commentary is included in the R code itself and
+#' This is a backup copy, derived from "/Users/paul/Documents/CU_combined/Github/500_40_get_maps_conf.R"
+#' load and write path names have been adjusted.
+#' This code commentary is included in the R code itself and
 #' can be rendered at any stage using 
-#' `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R")`.
+#' `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_40_get_maps_conf.R")`.
 #' Please check the session info at the end of the document for further 
 #' notes on the coding environment.
 #'
@@ -22,7 +23,7 @@
 #' ## Package loading and cleaning of workspace
 #+ message=FALSE, results='hide'
 
-library ("matrixStats") # here used (anymore?) for column median
+# library ("matrixStats") # here used (anymore?) for column median
 library ("readxl")      # to open excel files
 library ("reshape2")    # plotting, table manipulation
 library ("ggplot2")     # plotting, mapping
@@ -32,16 +33,13 @@ library ("ggrepel")     # plot labelling
 library ("grid")        # handle graphical objects
 library ("gridExtra")   # handle graphical objects
 
-
 #' ## Flushing buffer
 #' 
 rm(list=ls())     # for safety only
 
-
 #' 
 #' ## Functions
 #'
-
 '%!in%' <- function(x,y)!('%in%'(x,y))
 
 #' 
@@ -69,20 +67,19 @@ load (file =
 # get port names from inventory file for MANUAL lookup 
 smpld_PORT <- unique (src_heap$INVE$PORT)
 
-# added 25.04.2018 - added ports for which re-processing from old project data
+# added 25.04.2018 and 31.08.2018 - added ports for which re-processing from old project data
 #  was accomplished. This list will not grow so this is a (possibly shaky)
 #  solution. The proper (?) Alternative _may_ be to add these samples to `src_heap$INVE$PORT`
 #  via the input file in `/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R`
-smpld_PORT <- append(smpld_PORT, c("Adelaide", "Chicago", "Singapore"))
+smpld_PORT <- append(smpld_PORT, c("Adelaide", "Chicago", "Singapore", 
+                                   "Zeebrugge", "Ghent", "Antwerp", 
+                                   "Rotterdam", "Buenos Aires", "Puerto Madryn",
+                                   "Iqaluit"))
 
-#' Manual lookup of sampled ports via  
+#' Manual lookup of sampled ports via 
 #' `open /Users/paul/Dropbox/NSF\ NIS-WRAPS\ Data/raw\ data\ for\ Mandana/PlacesFile_updated_Aug2017.xlsx -a "Microsoft Excel"`
 #' This file needs to be the same as used by `~/Box\ Sync/CU_NIS-WRAPS/170720_code/170830_10_cleanup_tables.R`.
-
-# bug chase 24.04.2018 - ADL SNGP route goes missing - but it is still here 
-src_heap$ROUT %>% filter (PRTA %in% "3110"& PRTB %in% "1165" |
-                          PRTB %in% "3110"& PRTA %in% "1165" )
-
+# must match order of `smpld_PORT`
 
 #  alternatively try a fuzzy match with agrep()
 #  Milne Inlet coded as Nanisivik (3371)
@@ -92,7 +89,8 @@ src_heap$ROUT %>% filter (PRTA %in% "3110"& PRTB %in% "1165" |
 
 smpld_PID <- c("3367", "2141", "2111", "3108", "7597",  "311", "2503", "2503",
                 "238", "4021", "7598", "7976", "7975", "3381", "4899", "2331",
-                "854", "3371", "1165", "3110", "2907")
+                "854", "3371", "3110", "2907", "1165", "1675", "4538", "576",
+                "830", "2729", "193", "5362")
 
 # create concise inventory tibble 
  # 23.08.2017 duplicate harbour ID "2503" does not appear to be a problem
@@ -105,21 +103,15 @@ save (smpld, file =
 
 #' # Selecting and ranking of routes connecting to samples in the freezer
 #'
-#' ## Finding routes connecting to samples in the freezer
+#' ## Route filtering
 #'
 #' Route information is in `src_heap$ROUT`. Sampled port ids are in `smpld$PTID`
-#' Defining sampled routes (`srout`) by matching sampled port ids
-#' with start or end points of routes file, and subsetting routes file: 
+#' Defining sampled routes (`srout`) by matching sampled port ids with each other
+#' at ends. Can be used to fin all conncetion to unsample ports as well, of course.'
 
 srout <- filter(src_heap$ROUT, 
   PRTA %in% smpld$PTID & 
   PRTB %in% smpld$PTID)
-  
-# bug chase 24.04.2018 - ADL SNGP route goes missing - but it is still here - RESOLVED NOW 
-src_heap$ROUT %>% filter (PRTA %in% "3110"& PRTB %in% "1165" |
-                          PRTB %in% "3110"& PRTA %in% "1165" )
-srout %>% filter (PRTA %in% "3110"& PRTB %in% "1165" |
-                          PRTB %in% "3110"& PRTA %in% "1165" )
 
 #' ## Checking number of comple cases
 #'
@@ -180,7 +172,10 @@ save (srout_all, file =
 # manual lookup via
 # open /Users/paul/Dropbox/NSF\ NIS-WRAPS\ Data/raw\ data\ for\ Mandana/PlacesFile_updated_Aug2017.xlsx -a "Microsoft Excel"
 #                     PH",  "SP",  "AD",  "CH"    "MI"    "BT"   "HT"    "LB"
-selected_samples = c("2503","1165","3110","2907", "4899", "854", "2331", "7597") 
+selected_samples = c("3367", "2141", "2111", "3108", "7597",  "311", "2503", "2503",
+                      "238", "4021", "7598", "7976", "7975", "3381", "4899", "2331",
+                      "854", "3371", "3110", "2907", "1165", "1675", "4538", "576",
+                      "830", "2729", "193", "5362")
 
 ## CHANGE THIS LINE IF NECESSARY 
 srout <- srout %>% filter (PRTA %in% selected_samples | 
@@ -194,7 +189,7 @@ us_world <- srout %>% arrange (desc (RISK), desc (ROUTE)) # %>%  print(n = nrow(
 
 #' Saving for R 
 save (us_world, file =
-  "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_40_get_maps__output__current_routes_sorted.Rdata")
+  "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/plot_generation/500_40_get_maps__output__current_routes_sorted.Rdata")
 
 #' Saving for humans and external viewers:
 write_excel_csv (us_world, 
@@ -285,8 +280,8 @@ write_excel_csv ( us_world_dt,
 #' Shortlisted samples are in `us_world_dt`, and all routes outgoing from selected
 #' samples in query `selected_samples` are in `us_world`. Change as needed.
 
-drawn_routes <- us_world_dt 
-# drawn_routes <- us_world
+# drawn_routes <- us_world_dt # filtered routes
+drawn_routes <- us_world # full routes
 
 #' This could be written up as function. Dividing point columns for `geom_line()`:
 pointa <- dplyr::select(drawn_routes, c("ROUTE", "RISK", "EDST", "TRIPS", 
@@ -338,10 +333,11 @@ points_tabl <- srout_all %>% filter (PRTA %in% selected_samples ) %>%
 world <- map_data("world")
 world <- world[ which (world$region != "Antarctica"), ]   # remove Antarctica
 
-# bolted in: select port to label - find manually using `smpld # %>% print(n = nrow(.))`
+# bolted in: select port to label - find manually using `smpld %>% print(n = nrow(.))`
 # and `unique(points_all$PORT)`
 #  so far 
-ports_to_label <- c("Singapore", "Houston", "Honululu", "Chicago", "Adelaide", "Miami", "Long Beach", "Baltimore")
+ports_to_label <- c("Singapore", "Houston", "Honululu", "Chicago", "Adelaide", "Miami", "Long Beach", "Baltimore",
+                    "Buenos Aires", "Antwerp", "Rotterdam")
 
 #' This could be written up as function.
 #' 
@@ -357,11 +353,14 @@ m1 <-  ggplot() +
   coord_fixed (
     xlim = c(-170, 175),  ylim = c(-50, 80), ratio = 1.3
   ) +
-  geom_line ( data = points_all, 
+ geom_line ( data = points_all, 
     aes (x = LONG, y = LATI, group = ROUTE, colour = log(RISK))
   ) +
   scale_colour_gradient2 (
-    low = "dodgerblue1", mid = "forestgreen" , high = "firebrick1"
+     # low = "dodgerblue1", mid = "forestgreen" , high = "firebrick1" # changed for DL
+     low = "forestgreen", mid = "forestgreen" , high = "forestgreen" # changed for DL
+  ) + 
+  geom_point ( data = points_tabl, aes(points_tabl$PALONG, points_tabl$PALATI), colour = points_tabl$COLOR
   ) +
   geom_label_repel ( 
     data = distinct (points_all , PORT, .keep_all = TRUE) %>% filter (PORT %in% ports_to_label),
@@ -369,20 +368,17 @@ m1 <-  ggplot() +
     size = 3,
     segment.color = 'grey50'
   ) +
-  geom_point ( data = points_tabl, aes(points_tabl$PALONG, points_tabl$PALATI), colour = points_tabl$COLOR
-  ) + 
-  
   xlab(
     "Longitude"
   ) +
   ylab(
     "Latitude"
   ) +
-  ggtitle (
-    "Sequenced Samples and Connections"
-  ) +
+  # ggtitle (
+  #  "Sequenced Samples and Connections"
+  # ) +
   theme (
-    legend.position="bottom"
+    legend.position="none"
   ) +
   theme (
     plot.title = element_text (hjust = 0.5)
@@ -393,10 +389,10 @@ m1 <-  ggplot() +
 #' Use multiplot if desirable (likely won't render or render well) in `.pdf`
 print(m1)
 
-ggsave("500_40_get_maps__map_cnnct.png", plot = last_plot(), 
-         device = "png", path = "/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/171128_wcmb/180429_wcmb_talk",
-         scale = 1, width = 8, height = 5, units = c("in"),
-         dpi = 300, limitsize = TRUE)
+# ggsave("500_40_get_maps__map_cnnct.png", plot = last_plot(), 
+#         device = "png", path = "",
+#         scale = 1, width = 8, height = 5, units = c("in"),
+#         dpi = 300, limitsize = TRUE)
 
 
 #'

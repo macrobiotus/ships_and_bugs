@@ -378,7 +378,11 @@ Data will be included via manifest files and metadate files linked in at
    * checked commit history - seem all good
 * **02.08.2018** - coding of species accumulation curves
    * species accumulation curves encoded in `/Users/paul/Documents/CU_combined/Github/500_33_draw_otus_per_sample.R`
-    
+   * 18S data does not seem to reach plateau - needs to be filtered for metazoans - or establish that UNIFRAC distance is independant
+* **31.08.2018** - change of mapping code
+   * see commnets therein
+   * code in script `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R` was adjusted for David
+   * code and dependencies were copied to `/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/180910_neobiota`
 
 ## Todo
 
