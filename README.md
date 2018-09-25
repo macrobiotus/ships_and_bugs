@@ -383,6 +383,9 @@ Data will be included via manifest files and metadate files linked in at
    * see commnets therein
    * code in script `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R` was adjusted for David
    * code and dependencies were copied to `/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/180910_neobiota`
+* **25.09.2018** - preparation for Argentina
+    * postponing Arctic data import, only correct Singapore, clean code, get new display items, make compatible with rarefaction test
+    * needs backtracking to `/Users/paul/Documents/CU_SP_AD_CH`, moving there 
 
 ## Todo
 
