@@ -393,8 +393,19 @@ Data will be included via manifest files and metadate files linked in at
     * for renaming of samples copied `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata.tsv` to `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata_for_rename.tsv`
     * adding column `SIDnew` to metadata files with sample ids from recently corrected individual files at `/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/180925_port_coordinates.csv`
     * resetting all execution flags on shell scripts (`chmod -x *`)
-    * creating and running `/Users/paul/Documents/CU_combined/Github/073_rename_samples.sh`
-    
+    * creating `/Users/paul/Documents/CU_combined/Github/073_rename_samples.sh`
+    * renaming to `/Users/paul/Documents/CU_combined/Github/135_rename_samples.sh`
+    * skipping re-running of all shell scripts before `/Users/paul/Documents/CU_combined/Github/135_rename_samples.sh`, and marking related Qiime output grey - all these files have wrong sample ids for Singapore.
+    * ran successfully `140_show_classification`
+    * modified `150_cluster_sequences` from `200_cluster_sequences.sh` and ran successfully
+       * 7488396 nt in 22225 seqs, min 185, max 459, avg 337 
+       * Clusters: 13540 Size min 1, max 136, avg 1.6
+       * Singletons: 10224, 46.0% of seqs, 75.5% of clusters
+    * renaming old data fails with clustering step, since this requires pulling seq id's matching sampl'id's which have been altered
+    * possible work around:
+       * try script 135 with new debugging plot that crashed today at work end.
+       * use `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata.tsv` with old data files in scripts `140...`, `150...`, use script `135...`, then use script `160...`, `170...`. Committing now, continuing denoising as fall-back. 
+
     
 ## Todo
 
@@ -402,7 +413,7 @@ Data will be included via manifest files and metadate files linked in at
 
 * rename samples, see notes of 28.09.2018 or include newly denoised data
 * filter for metazoans for Argentina
-* include distance measure tesing script at the beginning
+* include distance measure testing script at the beginning
 
 ### noticed during preparation for Fort Collins
  - Singapore divided point cloud is actually from one samples and not from two samples. Division needs to be implemented using an old PCoA plot

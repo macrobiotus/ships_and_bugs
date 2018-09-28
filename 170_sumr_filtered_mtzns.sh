@@ -24,20 +24,36 @@ fi
 
 # input files
 # ------------
-ftab='Zenodo/Qiime/135_18S_merged_tab.qza'                   # corrected sample id's for Singapore
-mdat='Zenodo/Manifest/05_18S_merged_metadata_for_rename.tsv' # corrected sample id's for Singapore
+meta_tab='Zenodo/Qiime/160_18S_097_cl_meta_tab.qza'
+meta_seq='Zenodo/Qiime/160_18S_097_cl_meta_seq.qza'
+
+mdat='Zenodo/Manifest/05_18S_merged_metadata_for_rename.tsv'
 taxo='Zenodo/Qiime/130_18S_taxonomy.qza'
 
 # output files
 # ------------
-plot='Zenodo/Qiime/140_18S_taxvis_merged.qzv'
+otpth_tabv='Zenodo/Qiime/170_18S_097_cl_meta_tab.qzv'
+otpth_seqv='Zenodo/Qiime/170_18S_097_cl_meta_seq.qzv'
+
+plota='Zenodo/Qiime/170_18S_097_cl_meta_plot.qzv'
+plotb='Zenodo/Qiime/170_18S_097_cl_edna_plot.qzv'
 
 # Run scripts
 # ------------
 qiime taxa barplot \
-  --i-table "$trpth"/"$ftab" \
+  --i-table "$trpth"/"$meta_tab" \
   --i-taxonomy "$trpth"/"$taxo" \
   --m-metadata-file "$trpth"/"$mdat" \
-  --o-visualization "$trpth"/"$plot" \
+  --o-visualization "$trpth"/"$plota" \
   --verbose
+
+qiime feature-table summarize \
+ --i-table "$trpth"/"$meta_tab" \
+ --o-visualization "$trpth"/"$otpth_tabv"  \
+ --m-sample-metadata-file "$trpth"/"$mdat"
+
+qiime feature-table tabulate-seqs \
+  --i-data "$trpth"/"$meta_seq" \
+  --o-visualization "$trpth"/"$otpth_seqv"
+
 

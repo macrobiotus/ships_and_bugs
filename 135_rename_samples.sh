@@ -28,8 +28,9 @@ fi
 # define relative input and output locations
 # ---------------------------------
 inpth_map='Zenodo/Manifest/05_18S_merged_metadata_for_rename.tsv'
-inpth_tab='Zenodo/Qiime/065_18S_merged_tab.qza'
-otpth_tab='Zenodo/Qiime/073_18S_sum_feat_tab.qza'
+inpth_tab='Zenodo/Qiime/100_18S_merged_tab.qza'
+otpth_tab='Zenodo/Qiime/135_18S_merged_tab.qza'
+otpth_viz='Zenodo/Qiime/135_18S_merged_tab.qzv'
 
 # run script
 # ----------
@@ -41,3 +42,8 @@ qiime2cli feature-table group \
  --p-mode sum \
  --o-grouped-table "$trpth"/"$otpth_tab" \
  --verbose
+
+qiime feature-table summarize \
+  --i-table "$trpth"/"$otpth_tab" \
+  --m-sample-metadata-file "$trpth"/"$inpth_map" \
+  --o-visualization "$trpth"/"$otpth_viz"
