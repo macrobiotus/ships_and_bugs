@@ -6,6 +6,8 @@
 # merging data from different runs, after denoising
 # https://docs.qiime2.org/2018.2/tutorials/fmt/
 
+# 28.09.2018 - remove port names to include newly denoising data and check README's
+
 # for debugging only
 # ------------------ 
 # set -x

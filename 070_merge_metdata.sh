@@ -4,6 +4,8 @@
 # ========================================================
 # merging metadata
 
+# 28.09.2018 - remove port names to include newly denoising data and check README's
+
 # for debugging only
 # ------------------ 
 set -x

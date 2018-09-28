@@ -389,7 +389,11 @@ Data will be included via manifest files and metadate files linked in at
 * **28.09.2018** - preparation for Argentina
     * see README.md `/Users/paul/Documents/CU_SP_AD_CH` for current progress of redenoising
        * takes very long and may not finish in time
-       * attempting to rename old data of current dir as described in https://forum.qiime2.org/t/change-sample-ids-after-running-dada2/3918
+       * attempting to rename old data of current dir as described in `https://forum.qiime2.org/t/change-sample-ids-after-running-dada2/3918`
+    * for renaming of samples copied `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata.tsv` to `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata_for_rename.tsv`
+    * adding column `SIDnew` to metadata files with sample ids from recently corrected individual files at `/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/180925_port_coordinates.csv`
+    * resetting all execution flags on shell scripts (`chmod -x *`)
+    * creating and running `/Users/paul/Documents/CU_combined/Github/073_rename_samples.sh`
     
     
 ## Todo
