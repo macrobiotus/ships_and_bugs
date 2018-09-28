@@ -385,9 +385,20 @@ Data will be included via manifest files and metadate files linked in at
    * code and dependencies were copied to `/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/180910_neobiota`
 * **25.09.2018** - preparation for Argentina
     * postponing Arctic data import, only correct Singapore, clean code, get new display items, make compatible with rarefaction test
-    * needs backtracking to `/Users/paul/Documents/CU_SP_AD_CH`, moving there 
-
+    * needs backtracking to `/Users/paul/Documents/CU_SP_AD_CH`, moving there. 
+* **28.09.2018** - preparation for Argentina
+    * see README.md `/Users/paul/Documents/CU_SP_AD_CH` for current progress of redenoising
+       * takes very long and may not finish in time
+       * attempting to rename old data of current dir as described in https://forum.qiime2.org/t/change-sample-ids-after-running-dada2/3918
+    
+    
 ## Todo
+
+### before Argentina
+
+* rename samples, see notes of 28.09.2018 or include newly denoised data
+* filter for metazoans for Argentina
+* include distance measure tesing script at the beginning
 
 ### noticed during preparation for Fort Collins
  - Singapore divided point cloud is actually from one samples and not from two samples. Division needs to be implemented using an old PCoA plot
