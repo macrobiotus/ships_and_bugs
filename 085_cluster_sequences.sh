@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 28.09.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 01.10.2018 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 #   "Given a feature table and the associated feature sequences, cluster the
 #   features based on user-specified percent identity threshold of their
@@ -34,20 +34,21 @@ fi
 
 # Define input and output locations
 # ---------------------------------
-in_tab='Zenodo/Qiime/135_18S_merged_tab.qza' # corrected sample id's for Singapore
-in_seq='Zenodo/Qiime/100_18S_merged_seq.qza'
+in_seq='Zenodo/Qiime/080_18S_merged_seq.qza' # early clustering
+in_tab='Zenodo/Qiime/080_18S_merged_tab.qza' # corrected sample id's for Singapore
+
 
 cluster[1]='1.00'
 cluster[2]='0.97'
 cluster[3]='0.90'
 
-clust_tab[1]='Zenodo/Qiime/150_18S_100_cl_tab.qza'
-clust_tab[2]='Zenodo/Qiime/150_18S_097_cl_tab.qza'
-clust_tab[3]='Zenodo/Qiime/150_18S_090_cl_tab.qza'
+clust_tab[1]='Zenodo/Qiime/085_18S_100_cl_tab.qza'
+clust_tab[2]='Zenodo/Qiime/085_18S_097_cl_tab.qza'
+clust_tab[3]='Zenodo/Qiime/085_18S_090_cl_tab.qza'
 
-clust_seq[1]='Zenodo/Qiime/150_18S_100_cl_seq.qza'
-clust_seq[2]='Zenodo/Qiime/150_18S_097_cl_seq.qza'
-clust_seq[3]='Zenodo/Qiime/150_18S_090_cl_seq.qza'
+clust_seq[1]='Zenodo/Qiime/085_18S_100_cl_seq.qza'
+clust_seq[2]='Zenodo/Qiime/085_18S_097_cl_seq.qza'
+clust_seq[3]='Zenodo/Qiime/085_18S_090_cl_seq.qza'
 
 # Run scripts
 # ------------
@@ -59,5 +60,5 @@ for ((i=2;i<=2;i++)); do
     --p-perc-identity "${cluster[$i]}" \
     --o-clustered-table "$trpth"/"${clust_tab[$i]}" \
     --o-clustered-sequences "$trpth"/"${clust_seq[$i]}" \
-    --verbose | tee -a "$trpth"/"Zenodo/Qiime/150_18S_cluster_log.txt"
+    --verbose 2>&1 | tee -a "$trpth"/"Zenodo/Qiime/085_18S_cluster_log.txt"
 done

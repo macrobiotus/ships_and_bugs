@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 03.05.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 01.10.2018 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Visualising reads after denoising and merging procedure.
 
@@ -36,7 +36,7 @@ inpth_map='Zenodo/Manifest/05_18S_merged_metadata.tsv'
   
 qiime2cli feature-table summarize \
  --i-table "$trpth"/"$inpth_tab" \
- --o-visualization "$trpth"/"$otpth_tab" 
+ --o-visualization "$trpth"/"$otpth_tab" \
  --m-sample-metadata-file "$trpth"/"$inpth_map"
 
 qiime2cli feature-table tabulate-seqs \

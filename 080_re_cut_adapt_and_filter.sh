@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 03.05.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 01.10.2018 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Re-trimming of primers from set of representative sequences
 # and filtering feature table. For 18S to get rid of remnants,
@@ -22,9 +22,8 @@ if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     printf "Setting qiime alias, execution on local...\n"
-    cores='2'
-    trpth="$(dirname "$PWD")"
-    qiime2cli() { qiime "$@"; }
+    cores="$(nproc --all)"
+    trpth="/Users/paul/Documents/CU_combined"
 fi
 
 # Defining paths
@@ -75,7 +74,7 @@ revcutrc[2]='TGRTTYTTYGGDCAYCCDGARGTDTA'
 # 1) export rep seqs from qza to fasta
 # ------------------------------------
 
-qiime tools export "$trpth"/"$inpth" --output-dir "$trpth"/"$tppth" || { echo 'export failed' ; exit 1; }
+qiime tools export --input-path "$trpth"/"$inpth" --output-path "$trpth"/"$tppth" || { echo 'export failed' ; exit 1; }
 
 # 2) re-trim 18S sequences  - see http://cutadapt.readthedocs.io/en/stable/guide.html
 # ---------------------------------------------------------------------------

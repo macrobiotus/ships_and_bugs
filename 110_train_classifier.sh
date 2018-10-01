@@ -36,10 +36,11 @@ taxdbmed="/Users/paul/Sequences/References/SILVA_128_QIIME_release/taxonomy/18S_
 
 # target files
 # ------------
-seqf="120_18S_otus.qza"
-taxf="120_18S_ref-taxonomy.qza"
-refseq="120_18S_ref-seqs.qza"
-clssf="120_18S_classifier.qza"
+# paths adjusted from 120 to 110 01.10.2018
+seqf="110_18S_otus.qza"
+taxf="110_18S_ref-taxonomy.qza"
+refseq="110_18S_ref-seqs.qza"
+clssf="110_18S_classifier.qza"
 
 # Run scripts
 # ------------

@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# 03.05.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 01.10.2018 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
-# Qiime alignment masking.
+# Qiime align of representative sequences
 # https://docs.qiime2.org/2017.11/tutorials/moving-pictures/
 
 # For debugging only
@@ -15,20 +15,19 @@ if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on remote...\n"
     trpth="/data/CU_combined"
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
-    qiime2cli() { qiime "$@"; }
     printf "Execution on local...\n"
-    trpth="$(dirname "$PWD")"
+    trpth="/Users/paul/Documents/CU_combined"
 fi
 
 # Define input and output locations
 # ---------------------------------
-inpth='Zenodo/Qiime/090_18S_raw_alignment.qza'
-otpth='Zenodo/Qiime/095_18S_mskd_alignment.qza'
+inpth='Zenodo/Qiime/085_18S_097_cl_seq.qza'
+otpth='Zenodo/Qiime/095_18S_097_cl_seq_algn.qza'
 
 # Run scripts
 # ------------
-
-qiime2cli alignment mask \
-  --i-alignment "$trpth"/"$inpth" \
-  --o-masked-alignment "$trpth"/"$otpth"
-  
+qiime alignment mafft \
+  --i-sequences "$trpth"/"$inpth" \
+  --o-alignment "$trpth"/"$otpth" \
+  --p-n-threads '2'\
+  --verbose 2>&1 | tee -a "$trpth"/"Zenodo/Qiime/095_18S_097_cl_algn_log.txt"

@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# 03.05.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 01.10.2018 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
-# Qiime align of representative sequences
+# Qiime alignment masking.
 # https://docs.qiime2.org/2017.11/tutorials/moving-pictures/
 
 # For debugging only
@@ -14,20 +14,19 @@
 if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on remote...\n"
     trpth="/data/CU_combined"
-    qiime() { qiime2cli "$@"; }
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on local...\n"
-    trpth="$(dirname "$PWD")"
+    trpth="/Users/paul/Documents/CU_combined"
 fi
 
 # Define input and output locations
 # ---------------------------------
-inpth='Zenodo/Qiime/080_18S_merged_seq.qza'
-otpth='Zenodo/Qiime/090_18S_raw_alignment.qza'
+inpth='Zenodo/Qiime/095_18S_097_cl_seq_algn.qza'
+otpth='Zenodo/Qiime/100_18S_097_cl_seq_algn.qza'
 
 # Run scripts
 # ------------
-qiime alignment mafft \
-  --i-sequences "$trpth"/"$inpth" \
-  --o-alignment "$trpth"/"$otpth" \
-  --p-n-threads -1
+
+qiime alignment mask \
+  --i-alignment "$trpth"/"$inpth" \
+  --o-masked-alignment "$trpth"/"$otpth"

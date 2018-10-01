@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 03.05.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 01.10.2018 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # https://docs.qiime2.org/2017.11/tutorials/moving-pictures/
 
@@ -12,15 +12,13 @@
 # ----------------------------------------------
 if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on remote...\n"
-    trpth="/data/CU_combined"
-    dbugp="/data/CU_combined"
-    # dbugp="/workdir/pc683/CU_combined"
-    TMPDIR="/workdir/pc683/tmp/"
+    trpth="/workdir/pc683/CU_combined"
+    export PATH=/programs/Anaconda2/bin:$PATH
+    source activate qiime2-2018.6
+    cores="$(nproc --all)"
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
-    qiime2cli() { qiime "$@"; }
     printf "Execution on local...\n"
-    trpth="$(dirname "$PWD")"
-    dbugp="$(dirname "$PWD")"
+    trpth="/Users/paul/Documents/CU_combined"
 fi
 
 # define input and output locations
@@ -30,23 +28,19 @@ qdir="Zenodo/Qiime"
 
 # input files
 # ------------
-clssf="120_18S_classifier.qza"
-repset="100_18S_merged_seq.qza"
+clssf="110_18S_classifier.qza"
+repset="105_18S_097_cl_seq.qza"
 
 # output files
 # ------------
-tax="130_18S_taxonomy.qza"
-taxv="130_18S_taxonomy.qzv"
+tax="115_18S_taxonomy.qza"
 
 # Run scripts
 # ------------
-qiime2cli feature-classifier classify-sklearn \
+qiime feature-classifier classify-sklearn \
   --i-classifier "$trpth"/"$wdir"/"$clssf" \
   --i-reads "$trpth"/"$qdir"/"$repset" \
   --o-classification "$dbugp"/"$qdir"/"$tax" \
-  --p-n-jobs -1 \
+  --p-n-jobs "$cores" \
   --verbose
 
-qiime2cli metadata tabulate \
-  --m-input-file "$dbugp"/"$qdir"/"$tax" \
-  --o-visualization "$trpth"/"$qdir"/"$taxv"

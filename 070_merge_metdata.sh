@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 26.02.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 01.10.2018 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # merging metadata
 

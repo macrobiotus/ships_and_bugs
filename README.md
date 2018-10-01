@@ -405,6 +405,15 @@ Data will be included via manifest files and metadate files linked in at
     * possible work around:
        * try script 135 with new debugging plot that crashed today at work end.
        * use `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata.tsv` with old data files in scripts `140...`, `150...`, use script `135...`, then use script `160...`, `170...`. Committing now, continuing denoising as fall-back. 
+* ***30.09.2018** - denoising finished on 24 core cluster
+    * also check ``/Users/paul/Documents/CU_SP_AD_CH/Github/README.md`
+    * adjusted and ran `/065_merge_data.sh`
+    * renamed metadata file `mv ../Manifest/05_18S_merged_metadata_for_rename.tsv ../Manifest/05_18S_merged_metadata.tsv` and kept only new sample ids
+    * adjusted and ran `./075_smr_features_and_table.sh`
+    * now running clustering early, as script `085...`
+       * 7108026 nt in 21106 seqs, min 195, max 459, avg 337
+       * Clusters: 13135 Size min 1, max 131, avg 1.6
+       * Singletons: 9984, 47.3% of seqs, 76.0% of clusters
 
     
 ## Todo

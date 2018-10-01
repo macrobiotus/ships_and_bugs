@@ -28,15 +28,15 @@ fi
 # define input and output locations
 # ---------------------------------
 tab[1]='/Users/paul/Documents/CU_Pearl_Harbour/Zenodo/Qiime/060_18S_PH_feature_table.qza'
-tab[2]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Qiime/050_18S_26_SPW_paired-end-tab.qza'
-tab[3]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Qiime/050_18S_29_AD_paired-end-tab.qza'
-tab[4]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Qiime/050_18S_34_CH_paired-end-tab.qza'
+tab[2]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Qiime/050_18S_26_paired-end-tab_180930_set24.qza'
+tab[3]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Qiime/050_18S_29_paired-end-tab_180930_set24.qza'
+tab[4]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Qiime/050_18S_34_paired-end-tab_180930_set24.qza'
 tab[5]='/Users/paul/Documents/CU_US_ports_a/Zenodo/Qiime/050_18S_paired-end-tab.qza'
 
 seq[1]='/Users/paul/Documents/CU_Pearl_Harbour/Zenodo/Qiime/060_18S_PH_rep_seq.qza'
-seq[2]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Qiime/050_18S_26_SPW_paired-end-rep.qza'
-seq[3]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Qiime/050_18S_29_AD_paired-end-rep.qza'
-seq[4]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Qiime/050_18S_34_CH_paired-end-rep.qza'
+seq[2]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Qiime/050_18S_26_paired-end-rep_180930_set24.qza'
+seq[3]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Qiime/050_18S_29_paired-end-rep_180930_set24.qza'
+seq[4]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Qiime/050_18S_34_paired-end-rep_180930_set24.qza'
 seq[5]='/Users/paul/Documents/CU_US_ports_a/Zenodo/Qiime/050_18S_paired-end-rep.qza'
 
 otpth_tab='Zenodo/Qiime/065_18S_merged_tab.qza'
