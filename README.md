@@ -416,7 +416,7 @@ Data will be included via manifest files and metadate files linked in at
        * Singletons: 9984, 47.3% of seqs, 76.0% of clusters
     * running cluster classification script (`115...`) on 40 core cluster (here)
     * 10x speed increase(?)
-    * tested qiime2r on Github but decided to stick with adjusted shell solution: `./155...`
+    * tested `qiime2r` on Github but decided to stick with adjusted shell solution: `./155...`
     * committed script folder for tomorrows R run
 
     
