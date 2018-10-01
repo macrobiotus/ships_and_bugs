@@ -13,12 +13,12 @@
 # ----------------------------------------------
 if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on remote...\n"
-    trpth="/data/CU_combined"
-    thrds='14'
+    trpth="/workdir/pc683/CU_combined"
+    thrds="$(nproc --all)"
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
-    thrds='2'
+    thrds="$(nproc --all)"
 fi
 
 # define relative input and output locations
@@ -30,13 +30,16 @@ inpth_tree='Zenodo/Qiime/100_18S_tree_mdp_root.qza'
 
 otpath_bd='Zenodo/Qiime/255_jackkn_beta_div'
 
+depth='10000' # using frequency of 140_18S_097_cl_euk_tab.qzv to include most samples
+              # Retained 1,210,000 (21.76%) sequences in 121 (68.36%) samples at the specified sampling depth.
+
+
 # run script
 # ----------
 
-# get -e from `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/230_18S_097_cl_cntrl_tab.qzv`
 
 printf "Loading Qiime 2 ...\n"
-source deactivate && source activate qiime2-2018.4
+source deactivate && source activate qiime2-2018.8
  
 printf "... exporting tree ...\n"
 qiime tools export "$trpth"/"$inpth_tree" --output-dir "$trpth"/"$otpath_bd"
@@ -49,7 +52,7 @@ printf "... running Jack-Knived PCoAs...\n"
 jackknifed_beta_diversity.py \
    -i "$trpth"/"$inpth_biom" \
    -o "$trpth"/"$otpath_bd" \
-   -e 5000 \
+   -e "$depth" \
    -m "$trpth"/"$inpth_map" \
    -t "$trpth"/"$otpath_bd"/tree.nwk \
    -f

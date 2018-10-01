@@ -13,24 +13,26 @@
 # ----------------------------------------------
 if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on remote...\n"
-    trpth="/data/CU_combined"
+    trpth="/workdir/pc683/CU_combined"
     useConfirm=false
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     qiime2cli() { qiime "$@"; }
     printf "Execution on local...\n"
-    trpth="$(dirname "$PWD")"
+    trpth="/Users/paul/Documents/CU_combined"
     useConfirm=true
 fi
 
 # Define input and output locations
 # ---------------------------------
-mptpth='Zenodo/Qiime/100_18S_tree_mdp_root.qza'
-ftable='Zenodo/Qiime/100_18S_merged_tab.qza'
+mptpth='Zenodo/Qiime/105_18S_097_cl_tree_mid.qza'
 mdata='Zenodo/Manifest/05_18S_merged_metadata.tsv'
-crdir='Zenodo/Qiime/110_18S_core_metrics'
-depth='15000' # using frequency of 085_18S_sum_feat_tab.qzv to include most samples
-              # retaining 297 000 (1.25%) seq in 198 (92.96%) samples 
 
+
+ftable='Zenodo/Qiime/130_18S_097_cl_meta_tab.qza'
+crdir='Zenodo/Qiime/150_18S_metazoan_core_metrics'
+depth='10000' # using frequency of 140_18S_097_cl_euk_tab.qzv to include most samples
+              # Retained 1,210,000 (21.76%) sequences in 121 (68.36%) samples at the specified sampling depth.
+            
 # Run scripts
 # ------------
 qiime2cli diversity core-metrics-phylogenetic \

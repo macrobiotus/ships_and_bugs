@@ -414,18 +414,23 @@ Data will be included via manifest files and metadate files linked in at
        * 7108026 nt in 21106 seqs, min 195, max 459, avg 337
        * Clusters: 13135 Size min 1, max 131, avg 1.6
        * Singletons: 9984, 47.3% of seqs, 76.0% of clusters
+    * running cluster classification script (`115...`) on 40 core cluster (here)
+    * 10x speed increase(?)
+    * tested qiime2r on Github but decided to stick with adjusted shell solution: `./155...`
+    * committed script folder for tomorrows R run
 
     
 ## Todo
 
 ### before Argentina
 
-* rename samples, see notes of 28.09.2018 or include newly denoised data
-* filter for metazoans for Argentina
+* get updated map and 2d plot 
 * include distance measure testing script at the beginning
 
-### noticed during preparation for Fort Collins
- - Singapore divided point cloud is actually from one samples and not from two samples. Division needs to be implemented using an old PCoA plot
+### later
+
+* erase old output files (Qiime and R)
+* re-run with correct trimming settings (after the older settings are confirmed wrong)
 
 ## Known issues and bugs
 * _25.04.2018_ - **unconfirmed** - non-unique rownames _may be_ assigned to all (?) output (?) matrices in `500_30_shape_matrices`  due to duplicate values in the input tables (script 10)? - possibly affected:

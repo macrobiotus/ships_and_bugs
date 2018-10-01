@@ -37,10 +37,11 @@ tax="115_18S_taxonomy.qza"
 
 # Run scripts
 # ------------
+echo "Running Classifier"
 qiime feature-classifier classify-sklearn \
   --i-classifier "$trpth"/"$wdir"/"$clssf" \
   --i-reads "$trpth"/"$qdir"/"$repset" \
-  --o-classification "$dbugp"/"$qdir"/"$tax" \
+  --o-classification "$trpth"/"$qdir"/"$tax" \
   --p-n-jobs "$cores" \
   --verbose
 

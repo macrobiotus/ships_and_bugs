@@ -25,44 +25,44 @@ fi
 
 # Define input paths 
 # ------------------
-clust_tab[1]='Zenodo/Qiime/150_foo'
-clust_tab[2]='Zenodo/Qiime/150_18S_097_cl_tab.qza'
-clust_tab[3]='Zenodo/Qiime/150_foo'
 
-clust_seq[1]='Zenodo/Qiime/150_foo'
-clust_seq[2]='Zenodo/Qiime/150_18S_097_cl_seq.qza'
-clust_seq[3]='Zenodo/Qiime/150_foo'
+clust_tab[1]='Zenodo/Qiime/105_foo'
+clust_tab[2]='Zenodo/Qiime/105_18S_097_cl_tab.qza'
+clust_tab[3]='Zenodo/Qiime/105_foo'
 
-taxo='Zenodo/Qiime/130_18S_taxonomy.qza'
+clust_seq[1]='Zenodo/Qiime/105_foo'
+clust_seq[2]='Zenodo/Qiime/105_18S_097_cl_seq.qza'
+clust_seq[3]='Zenodo/Qiime/105_foo'
 
-mapping[1]='Zenodo/Manifest/05_18S_merged_metadata_for_rename.tsv' # names corrected for Singapore
+taxo='Zenodo/Qiime/115_18S_taxonomy.qza'
+
+mapping[1]='Zenodo/Manifest/05_18S_merged_metadata.tsv' # names corrected for Singapore
 
 # Define output paths 
 # -------------------
-edna_tab[1]='Zenodo/Qiime/160_foo'
-edna_tab[2]='Zenodo/Qiime/160_18S_097_cl_edna_tab.qza'
-edna_tab[3]='Zenodo/Qiime/160_foo'
+edna_tab[1]='Zenodo/Qiime/130_foo'
+edna_tab[2]='Zenodo/Qiime/130_18S_097_cl_edna_tab.qza'
+edna_tab[3]='Zenodo/Qiime/130_foo'
 
-cntrl_tab[1]='Zenodo/Qiime/160_foo'
-cntrl_tab[2]='Zenodo/Qiime/160_18S_097_cl_cntrl_tab.qza'
-cntrl_tab[3]='Zenodo/Qiime/160_foo'
+cntrl_tab[1]='Zenodo/Qiime/130_foo'
+cntrl_tab[2]='Zenodo/Qiime/130_18S_097_cl_cntrl_tab.qza'
+cntrl_tab[3]='Zenodo/Qiime/130_foo'
 
-meta_tab[1]='Zenodo/Qiime/160_foo'
-meta_tab[2]='Zenodo/Qiime/160_18S_097_cl_meta_tab.qza'
-meta_tab[3]='Zenodo/Qiime/160_foo'
+meta_tab[1]='Zenodo/Qiime/130_foo'
+meta_tab[2]='Zenodo/Qiime/130_18S_097_cl_meta_tab.qza'
+meta_tab[3]='Zenodo/Qiime/130_foo'
 
+edna_seq[1]='Zenodo/Qiime/130_18S_foo'
+edna_seq[2]='Zenodo/Qiime/130_18S_097_cl_edna_seq.qza'
+edna_seq[3]='Zenodo/Qiime/130_18S_foo'
 
-edna_seq[1]='Zenodo/Qiime/160_18S_foo'
-edna_seq[2]='Zenodo/Qiime/160_18S_097_cl_edna_seq.qza'
-edna_seq[3]='Zenodo/Qiime/160_18S_foo'
+cntrl_seq[1]='Zenodo/Qiime/130_18S_foo'
+cntrl_seq[2]='Zenodo/Qiime/130_18S_097_cl_cntrl_seq.qza'
+cntrl_seq[3]='Zenodo/Qiime/130_18S_foo'
 
-cntrl_seq[1]='Zenodo/Qiime/160_18S_foo'
-cntrl_seq[2]='Zenodo/Qiime/160_18S_097_cl_cntrl_seq.qza'
-cntrl_seq[3]='Zenodo/Qiime/160_18S_foo'
-
-meta_seq[1]='Zenodo/Qiime/160_18S_foo'
-meta_seq[2]='Zenodo/Qiime/160_18S_097_cl_meta_seq.qza'
-meta_seq[3]='Zenodo/Qiime/160_18S_foo'
+meta_seq[1]='Zenodo/Qiime/130_18S_foo'
+meta_seq[2]='Zenodo/Qiime/130_18S_097_cl_meta_seq.qza'
+meta_seq[3]='Zenodo/Qiime/130_18S_foo'
 
 # Run scripts - ADJUST I
 # ----------------------

@@ -24,8 +24,8 @@ fi
 
 # input files
 # ------------
-meta_tab='Zenodo/Qiime/105_18S_097_cl_seq.qza'
-meta_seq='Zenodo/Qiime/105_18S_097_cl_tab.qza'
+meta_seq='Zenodo/Qiime/105_18S_097_cl_seq.qza'
+meta_tab='Zenodo/Qiime/105_18S_097_cl_tab.qza'
 
 mdat='Zenodo/Manifest/05_18S_merged_metadata.tsv'
 taxo='Zenodo/Qiime/115_18S_taxonomy.qza'
@@ -40,16 +40,16 @@ plot='Zenodo/Qiime/120_18S_097_cl_euk_plot.qzv'
 # ------------
 qiime feature-table summarize \
  --i-table "$trpth"/"$meta_tab" \
- --o-visualization "$trpth"/"$otpth_tabv"  \
+ --o-visualization "$trpth"/"$tabv"  \
  --m-sample-metadata-file "$trpth"/"$mdat"
 
 qiime feature-table tabulate-seqs \
   --i-data "$trpth"/"$meta_seq" \
-  --o-visualization "$trpth"/"$otpth_seqv"
+  --o-visualization "$trpth"/"$seqv"
 
 qiime taxa barplot \
   --i-table "$trpth"/"$meta_tab" \
   --i-taxonomy "$trpth"/"$taxo" \
   --m-metadata-file "$trpth"/"$mdat" \
-  --o-visualization "$trpth"/"$plota" \
+  --o-visualization "$trpth"/"$plot" \
   --verbose
