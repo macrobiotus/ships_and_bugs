@@ -435,15 +435,13 @@ Data will be included via manifest files and metadate files linked in at
         * `/Users/paul/Documents/CU_combined/Github/500_50_matrix_comparison_uni_env.R`
         * `/Users/paul/Documents/CU_combined/Github/500_70_matrix_comparison_uni_prd.R`
     * committing after running modeling again.
-
-
  
 ## Todo
 
 ### before Argentina
 
-* get updated map and 2d plot 
-* include distance measure testing script at the beginning
+* get updated map 
+* get updated 2d plot 
 
 ### later
 
