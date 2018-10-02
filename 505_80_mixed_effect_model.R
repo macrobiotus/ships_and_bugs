@@ -1,7 +1,7 @@
 #' ---
-#' title: "Compare Response and Predictor Matrices using Mixed Effect Models SGP EXCLUDED"
+#' title: "Compare Response and Predictor Matrices using Mixed Effect Models"
 #' author: "Paul Czechowski"
-#' date: "June 23th, 2018"
+#' date: "Oct 23th, 2018"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -90,7 +90,7 @@ mat_env_dist_full[35:50, 35:50]
 #'
 
 # this path should match the parameter combination of the Euler script
-resp_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/245_18S_097_cl_edna_core_metrics/distance-matrix.tsv"
+resp_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/155_18S_097_cl_meta_mat/distance-matrix.tsv"
 resp_mat <- read.table(file = resp_path, sep = '\t', header = TRUE)
 
 # checking import and format
@@ -98,14 +98,14 @@ resp_mat[35:50, 35:50]
 class(resp_mat)
 
 #' ## Responses 2 of 3: Kulczynski distances between ports if all overlap is considered - COMMENTED OUT
-kulczynski_mat_all_path <- "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_35_shape_overlap_matrices__output__97_overlap_kulczynski_mat_all.Rdata"
-load(kulczynski_mat_all_path)
-kulczynski_mat_all
+# kulczynski_mat_all_path <- "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_35_shape_overlap_matrices__output__97_overlap_kulczynski_mat_all.Rdata"
+# load(kulczynski_mat_all_path)
+# kulczynski_mat_all
 
 #' ## Responses  3 of 3:  Kulczynski distances between ports if pairwise overlap is considered - COMMENTED OUT
-kulczynski_mat_ovrlp_path <- "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_35_shape_overlap_matrices__output__97_overlap_kulczynski_mat_dual.Rdata"
-load(kulczynski_mat_ovrlp_path)
-kulczynski_mat_ovrlp
+# kulczynski_mat_ovrlp_path <- "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_35_shape_overlap_matrices__output__97_overlap_kulczynski_mat_dual.Rdata"
+# load(kulczynski_mat_ovrlp_path)
+# kulczynski_mat_ovrlp
 
 #' <!-- #################################################################### -->
 #'
@@ -130,26 +130,6 @@ rownames(resp_mat) <- resp_mat$X; resp_mat$X <- NULL
 # check data frame row and column formatting - better to have them equal 
 any(colnames(resp_mat) == rownames(resp_mat))
 
-# ---- begin insert 20.07.2018  ----  
-#
-#  PCoA of uncollapsed response matrix with SIngapore removed
-#  (can be re-run in Qiime once Singapore issue is dealt with)
-
-# copying for plotting
-plt_mat <- resp_mat
-
-# removing Singapore samples
-# slctd_rows <- which ( substr (rownames (plt_mat), start = 1, stop = 2) %!in% "SP") # 
-# slctd_cols <- which ( substr (colnames (plt_mat), start = 1, stop = 2) %!in% "SP") # 
-# plt_mat <- as.matrix(plt_mat[c(slctd_rows), c(slctd_cols)]) # btw: data frame to matrix
-                                                            # Singapore is removed
-
-mds_plt_mat <- metaMDS (plt_mat, distance = "euc")
-stressplot(mds_plt_mat)
-# dull plot - but how to improve (?)
-ordiplot(mds_plt_mat, type = "t")
-
-# ---- end insert 20.07.2018  ----  
 
 # Create empty receiving matrix from data frame ...
 r_mat_clpsd <- get_collapsed_responses_matrix(resp_mat)
@@ -157,32 +137,32 @@ r_mat_clpsd <- get_collapsed_responses_matrix(resp_mat)
 # ... and fill empty receiving matrix. 
 r_mat_clpsd <- fill_collapsed_responses_matrix(r_mat_clpsd, resp_mat)
 
-## BEGIN OMISSION
-## convert matrix from dissimilarity to similarity ( dissim(x,y) = 1 - sim(x,y))
-##  this also requires moving lower triangle to upper triangle, and resetting the
-##  lower tiangle. 
+# BEGIN OMISSION
+# convert matrix from dissimilarity to similarity ( dissim(x,y) = 1 - sim(x,y))
+#  this also requires moving lower triangle to upper triangle, and resetting the
+#  lower tiangle. 
 # r_mat_clpsd <- apply (r_mat_clpsd, 1, function(x) 1-x)
-
+# 
 # upperTriangle(r_mat_clpsd) <- lowerTriangle(r_mat_clpsd, byrow=TRUE)
 # END OMMISION 
-
-r_mat_clpsd[lower.tri(r_mat_clpsd, diag = FALSE)] <- NA
-
-#' Finished matrix - Unifrac distance
-r_mat_clpsd # SP needs to be removed here
-
-#' ## Responses 2 of 3: Kulczynski distances between ports if all overlap is considered
-#'
-kulczynski_mat_all
-kulczynski_mat_all[lower.tri(kulczynski_mat_all, diag = FALSE)] <- NA
-kulczynski_mat_all
-
-#' ## Responses  3 of 3:  Kulczynski distances between ports if pairwise overlap is considered
-#'
-kulczynski_mat_ovrlp
-kulczynski_mat_ovrlp[lower.tri(kulczynski_mat_ovrlp, diag = FALSE)] <- NA
-kulczynski_mat_ovrlp
-
+# 
+# r_mat_clpsd[lower.tri(r_mat_clpsd, diag = FALSE)] <- NA
+# 
+# ' Finished matrix - Unifrac distance
+# r_mat_clpsd # SP needs to be removed here
+# 
+# ' ## Responses 2 of 3: Kulczynski distances between ports if all overlap is considered
+# '
+# kulczynski_mat_all
+# kulczynski_mat_all[lower.tri(kulczynski_mat_all, diag = FALSE)] <- NA
+# kulczynski_mat_all
+# 
+# ' ## Responses  3 of 3:  Kulczynski distances between ports if pairwise overlap is considered
+# '
+# kulczynski_mat_ovrlp
+# kulczynski_mat_ovrlp[lower.tri(kulczynski_mat_ovrlp, diag = FALSE)] <- NA
+# kulczynski_mat_ovrlp
+# 
 #'
 #' <!-- -------------------------------------------------------------------- -->
 #'      
@@ -193,13 +173,13 @@ kulczynski_mat_ovrlp
 #  6651 * 6651 to 2332 * 2332
 mat_trips <- mat_trips[rowSums(is.na(mat_trips))!=ncol(mat_trips), colSums(is.na(mat_trips))!=nrow(mat_trips) ]
 
-# quick and dirty - manual lookup
+# quick and dirty - manual lookup for subsetting
 #   use order  of response matrix (!!!)
 #   here "PH","SP","AD","CH", "BT", "HN", "HT", "LB", "MI"
 #   improve (!!!) this. Manual lookup via:
 #   `open /Users/paul/Dropbox/NSF\ NIS-WRAPS\ Data/raw\ data\ for\ Mandana/PlacesFile_updated_Aug2017.xlsx -a "Microsoft Excel"`
-mat_trips <- mat_trips[c("2503","1165","3110","2907", "4899", "854", "2503", "2331", "7597"),
-                       c("2503","1165","3110","2907", "4899", "854", "2503", "2331", "7597")] 
+mat_trips <- mat_trips[c("2503","1165", "1165", "3110", "2907", "854", "2503", "2331", "7597", "4899"),
+                       c("2503","1165", "1165", "3110", "2907", "854", "2503", "2331", "7597", "4899")] 
 
 # Keep lower triangle
 mat_trips[lower.tri(mat_trips, diag = FALSE)] <- NA
@@ -221,8 +201,8 @@ mat_trips
 #   improve (!!!) this. Manual lookup via:
 #   `open /Users/paul/Dropbox/NSF\ NIS-WRAPS\ Data/raw\ data\ for\ Mandana/PlacesFile_updated_Aug2017.xlsx -a "Microsoft Excel"`
 
-mat_env_dist <- mat_env_dist_full[c("2503","1165","3110","2907", "4899", "854", "2503", "2331", "7597"),
-                                  c("2503","1165","3110","2907", "4899", "854", "2503", "2331", "7597")] 
+mat_env_dist <- mat_env_dist_full[c("2503","1165", "1165", "3110", "2907", "854", "2503", "2331", "7597", "4899"),
+                                  c("2503","1165", "1165", "3110", "2907", "854", "2503", "2331", "7597", "4899")] 
 
 mat_env_dist[lower.tri(mat_env_dist, diag = FALSE)] <- NA
 
@@ -248,11 +228,9 @@ mat_env_dist
 #'
 
 # create named list with objects
-mat_list <- list (r_mat_clpsd, kulczynski_mat_all, kulczynski_mat_ovrlp, 
-                   mat_env_dist, mat_trips) 
+mat_list <- list (r_mat_clpsd, mat_env_dist, mat_trips) 
 
-mat_list <- setNames(mat_list, c("resp_unifrac", "resp_kulczynski_all", "resp_kulczynski_pair", 
-                     "pred_env", "pred_trips"))
+mat_list <- setNames(mat_list, c("resp_unifrac", "pred_env", "pred_trips"))
 
 # Are all matrix dimesions are the same?
 var(c(sapply (mat_list, dim))) == 0
@@ -272,13 +250,9 @@ class(model_data_raw)
 
 # remove incomplete cases - only ignoring lower half of matrix, otherwise remove 
 #  column selector
-#model_data <- model_data_raw %>% filter(complete.cases(.[3:6]))
 model_data <- model_data_raw %>% filter(complete.cases(.))
-
-
-# insert - remove Singapore from data frama
-# model_data <- model_data %>% filter(PORT != "SP" & DEST != "SP")
 class(model_data)
+model_data
 
 # add ecoregion as per:
 #   @1. Spalding, M. D. et al. Marine Ecoregions of the World: A Bioregionalization 
@@ -288,14 +262,16 @@ class(model_data)
 
 model_data <- model_data %>% add_column("ECO_PORT" = NA)
 model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("HN", "PH"), "EIP", model_data$"ECO_PORT"))
-model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("SP"), "CIP", model_data$"ECO_PORT"))
+model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("SY"), "CIP", model_data$"ECO_PORT"))
+model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("SW"), "CIP", model_data$"ECO_PORT"))
 model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("AD"), "TAA", model_data$"ECO_PORT"))
 model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("CH","BT","MI", "HT"), "TNA", model_data$"ECO_PORT"))
 model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("LB"), "TNP", model_data$"ECO_PORT"))
 
 model_data <- model_data %>% add_column("ECO_DEST" = NA)
 model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("HN", "PH"), "EIP", model_data$"ECO_DEST"))
-model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("SP"), "CIP", model_data$"ECO_DEST"))
+model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("SY"), "CIP", model_data$"ECO_DEST"))
+model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("SW"), "CIP", model_data$"ECO_DEST"))
 model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("AD"), "TAA", model_data$"ECO_DEST"))
 model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("CH","BT","MI", "HT"), "TNA", model_data$"ECO_DEST"))
 model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("LB"), "TNP", model_data$"ECO_DEST"))
@@ -311,6 +287,7 @@ model_data <- model_data %>% mutate (ECO_DIFF = ifelse(ECO_PORT == ECO_DEST , FA
 
 # quick and dirty - improves model (apparently) - move elsewhere
 model_data$PRED_TRIPS <- log(model_data$PRED_TRIPS)
+model_data
 
 # model_data <- model_data %>%  mutate_if(is.numeric, scale(.,scale = FALSE))
 pairs(RESP_UNIFRAC ~ PRED_ENV * PRED_TRIPS, data=model_data, main="Simple Scatterplot Matrix")
@@ -340,9 +317,7 @@ plot(vars_model_full)
 ## check normality of the residuals
 qqnorm(residuals(vars_model_full))
 
-
 ## plotting random effects - trial after https://stackoverflow.com/questions/13847936/in-r-plotting-random-effects-from-lmer-lme4-package-using-qqmath-or-dotplot
-
 # qqplot of the random effects with their variances
 # "The last line of code produces a really nice plot of each intercept with the error around each estimate."
 qqmath(ranef(vars_model_full, condVar = TRUE), strip = FALSE)$PORT
@@ -355,57 +330,6 @@ qqmath(ranef(vars_model_full, condVar = TRUE), strip = FALSE)$DEST
 ggplot(data.frame(lev=hatvalues(vars_model_full),pearson=residuals(vars_model_full, type="pearson")),
       aes(x=lev,y=pearson)) + geom_point() + theme_bw()
 
-## some diagnostics - 1 ---- UNIFRAC distance ~ Environmental Distance
-
-plot(RESP_UNIFRAC ~ PRED_ENV, xlab = "Environmental Distance", ylab = "UNIFRAC distance", data=vars)
-label_vec <- with(vars, paste(PORT, DEST, ECO_DIFF,  sep = " "))
-with(vars, text(RESP_UNIFRAC ~ PRED_ENV, labels = label_vec, pos = 4))
-devlm1 <- lm(RESP_UNIFRAC ~ PRED_ENV, data = vars)
-abline(devlm1)
-conflm1<-confint(devlm1)
-abline(coef=conflm1[,1],lty=2)
-abline(coef=conflm1[,2],lty=2) 
-title(main = "UNIFRAC distance ~ Environmental Distance\n (without accounting for random effects)")
-
-pdf("/Users/paul/Box Sync/CU_NIS-WRAPS/170724_internal_meetings/180627_meeting_Fort_Collins/180220_slides/180723__500_80__unifrac_vs_env_dist.pdf", 
-    width = 8, height = 8)
-plot(RESP_UNIFRAC ~ PRED_ENV, xlab = "Environmental Distance", ylab = "UNIFRAC distance", data=vars)
-label_vec <- with(vars, paste(PORT, DEST, ECO_DIFF,  sep = " "))
-with(vars, text(RESP_UNIFRAC ~ PRED_ENV, labels = label_vec, pos = 4))
-devlm1 <- lm(RESP_UNIFRAC ~ PRED_ENV, data = vars)
-abline(devlm1)
-conflm1<-confint(devlm1)
-abline(coef=conflm1[,1],lty=2)
-abline(coef=conflm1[,2],lty=2) 
-title(main = "UNIFRAC distance ~ Environmental Distance\n (without accounting for random effects)")
-dev.off()
-
-
-## some diagnostics - 2 ---- RESP_UNIFRAC ~ PRED_TRIPS
-plot(RESP_UNIFRAC ~ PRED_TRIPS, xlab = "Voyages (log - scaled)", ylab = "UNIFRAC distance", 
-     data=vars )
-label_vec <- with(vars, paste(PORT, DEST, ECO_DIFF,  sep = " "))
-with(vars, text(RESP_UNIFRAC ~ PRED_TRIPS, labels = label_vec, pos = 4))
-devlm2 <- lm(RESP_UNIFRAC ~ PRED_TRIPS, data = vars)
-abline(devlm2)
-conflm2<-confint(devlm2)
-abline(coef=conflm1[,1],lty=2)
-abline(coef=conflm1[,2],lty=2)
-title(main = "UNIFRAC distance ~ Voyages\n (without accounting for random effects)")
-
-pdf("/Users/paul/Box Sync/CU_NIS-WRAPS/170724_internal_meetings/180627_meeting_Fort_Collins/180220_slides/180723__500_80__unifrac_vs_voyages.pdf",
-    width = 8, height = 8)
-plot(RESP_UNIFRAC ~ PRED_TRIPS, xlab = "Voyages (log - scaled)", ylab = "UNIFRAC distance", 
-     data=vars )
-label_vec <- with(vars, paste(PORT, DEST, ECO_DIFF,  sep = " "))
-with(vars, text(RESP_UNIFRAC ~ PRED_TRIPS, labels = label_vec, pos = 4))
-devlm2 <- lm(RESP_UNIFRAC ~ PRED_TRIPS, data = vars)
-abline(devlm2)
-conflm2<-confint(devlm2)
-abline(coef=conflm1[,1],lty=2)
-abline(coef=conflm1[,2],lty=2)
-title(main = "UNIFRAC distance ~ Voyages\n (without accounting for random effects)")
-dev.off()
 
 #' ## Null Model and checking 
 
@@ -413,7 +337,6 @@ vars_model_null <- lmer(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | D
 
 #' ### Model Summary
 summary(vars_model_null)
-
 
 #' ## Model Significance
 anova(vars_model_null, vars_model_full)

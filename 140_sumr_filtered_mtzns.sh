@@ -32,9 +32,9 @@ taxo='Zenodo/Qiime/115_18S_taxonomy.qza'
 
 # output files
 # ------------
-tabv='Zenodo/Qiime/140_18S_097_cl_euk_tab.qzv'
-seqv='Zenodo/Qiime/140_18S_097_cl_euk_seq.qzv'
-plot='Zenodo/Qiime/140_18S_097_cl_euk_plot.qzv'
+tabv='Zenodo/Qiime/140_18S_097_cl_meta_tab.qzv'
+seqv='Zenodo/Qiime/140_18S_097_cl_meta_seq.qzv'
+plot='Zenodo/Qiime/140_18S_097_cl_meta_plot.qzv'
 
 # Run scripts
 # ------------

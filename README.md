@@ -405,7 +405,7 @@ Data will be included via manifest files and metadate files linked in at
     * possible work around:
        * try script 135 with new debugging plot that crashed today at work end.
        * use `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata.tsv` with old data files in scripts `140...`, `150...`, use script `135...`, then use script `160...`, `170...`. Committing now, continuing denoising as fall-back. 
-* ***30.09.2018** - denoising finished on 24 core cluster
+* ***01.10.2018** - denoising finished yesterday on 24 core cluster
     * also check ``/Users/paul/Documents/CU_SP_AD_CH/Github/README.md`
     * adjusted and ran `/065_merge_data.sh`
     * renamed metadata file `mv ../Manifest/05_18S_merged_metadata_for_rename.tsv ../Manifest/05_18S_merged_metadata.tsv` and kept only new sample ids
@@ -418,8 +418,20 @@ Data will be included via manifest files and metadate files linked in at
     * 10x speed increase(?)
     * tested `qiime2r` on Github but decided to stick with adjusted shell solution: `./155...`
     * committed script folder for tomorrows R run
+* ***02.10.2018** - R scripting
+    * adjusting and running `/Users/paul/Documents/CU_combined/Github/155_get_unifrac_mat.sh`
+    * adjusting and running `/Users/paul/Documents/CU_combined/Github/160_convert_artifact.sh`
+    * last backup 11:21, 12:05 erasing old output files in
+       * `/Users/paul/Documents/CU_combined/Zenodo/Qiime`
+       * running `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R` and saving results (`Results`) and R.data files `R_Objects`
+    * checking scripts and `Rdata` files of:
+       * `/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R`
+       * `/Users/paul/Documents/CU_combined/Github/500_20_get_predictor_euklidian_distances.R`
+    * adjusting and running `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R`
+    * moving to scratch `/Users/paul/Documents/CU_combined/Github/500_80_mixed_effect_model.R`
+    * committing after running modeling
 
-    
+ 
 ## Todo
 
 ### before Argentina

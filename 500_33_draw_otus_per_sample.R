@@ -1,7 +1,7 @@
 #' ---
 #' title: "Check OTU Accumulation Across Samples"
 #' author: "Paul Czechowski"
-#' date: "August 3 2018"
+#' date: "October 2 2018"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -44,9 +44,9 @@ source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")
 
 # Target these paths to the Qiime1 exported biom file with metadata and the
 #   matching fasta file.
-biom_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/250_18S_097_cl_edna_biom_export/features-tax-meta.biom"
-sequ_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/250_18S_097_cl_edna_biom_export/dna-sequences.fasta"
-tree_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/100_18S_tree_mdp_root.qza"
+biom_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/160_18S_097_cl_meta_biom/features-tax-meta.biom"
+sequ_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/160_18S_097_cl_meta_biom/dna-sequences.fasta"
+tree_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/160_18S_097_cl_meta_biom/105_18S_097_cl_tree_mid.tre/tree.nwk"
 
 # Creation of this objects lets us take advantage of the Phyloseq's 
 #  functionality 
@@ -79,7 +79,7 @@ df_list <- lapply (df_list, function(x) specaccum( t(x), method = "exact", permu
                        conditioned = TRUE, gamma = "jack1"))
 
 # Plot Object
-par(mfrow=c(3,3))
+par(mfrow=c(4,4))
 lapply (df_list, function(x) plot(x, add = FALSE, ci.type = "polygon", 
                                   col= "blue", lwd=2, ci.lty=0, 
                                   ci.col="lightblue", 

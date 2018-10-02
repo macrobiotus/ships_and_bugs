@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 02.04.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 02.10.2018 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Converting clustering results to biom files for Qiime 1 and
 # network graphics. (Trees are neglected here, they can be incorporated
@@ -30,7 +30,7 @@ tax_file='Zenodo/Qiime/115_18S_taxonomy.qza'
 map_file='Zenodo/Manifest/05_18S_merged_metadata.tsv'
 tree_file='Zenodo/Qiime/105_18S_097_cl_tree_mid.qza'
 
-biom_dir='Zenodo/Qiime/155_18S_097_cl_meta_biom' 
+biom_dir='Zenodo/Qiime/160_18S_097_cl_meta_biom' 
 tree_out='105_18S_097_cl_tree_mid.tre'
 
 # Run scripts
@@ -42,7 +42,7 @@ qiime tools export --input-path "$trpth"/"$tax_file" --output-path "$trpth"/"$bi
 { echo 'Export failed' ; exit 1; }
  
 # Tree unzipping is not implemented
-unzip -p "$trpth"/"$tree_file" > "$trpth"/"$biom_dir"/"$tree_out"
+qiime tools export --input-path "$trpth"/"$tree_file" --output-path "$trpth"/"$biom_dir"/"$tree_out"
  
 printf "Modifying taxonomy file to match exported feature table at $(date +"%T") ...\n" && \
 new_header='#OTUID  taxonomy    confidence' && \
