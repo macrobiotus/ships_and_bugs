@@ -430,6 +430,12 @@ Data will be included via manifest files and metadate files linked in at
     * adjusting and running `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R`
     * moving to scratch `/Users/paul/Documents/CU_combined/Github/500_80_mixed_effect_model.R`
     * committing after running modeling
+    * moved more files to `Scratch`: 
+        * `/Users/paul/Documents/CU_combined/Github/500_35_shape_overlap_matrices.R`
+        * `/Users/paul/Documents/CU_combined/Github/500_50_matrix_comparison_uni_env.R`
+        * `/Users/paul/Documents/CU_combined/Github/500_70_matrix_comparison_uni_prd.R`
+    * committing after running modeling again.
+
 
  
 ## Todo

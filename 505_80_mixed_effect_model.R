@@ -286,7 +286,7 @@ model_data <- model_data %>% mutate (ECO_DIFF = ifelse(ECO_PORT == ECO_DEST , FA
 #'
 
 # quick and dirty - improves model (apparently) - move elsewhere
-model_data$PRED_TRIPS <- log(model_data$PRED_TRIPS)
+model_data$PRED_TRIPS <- model_data$PRED_TRIPS
 model_data
 
 # model_data <- model_data %>%  mutate_if(is.numeric, scale(.,scale = FALSE))
@@ -301,6 +301,7 @@ model_data$ECO_DIFF <- as.factor(model_data$ECO_DIFF)
 
 vars <- model_data %>% select(RESP_UNIFRAC, PORT, DEST, ECO_DIFF, PRED_ENV, PRED_TRIPS)
 
+
 # filter PH to get rid of coverage differences
 # vars <- model_data %>% filter(PORT != "PH") %>% filter(DEST != "PH") %>%  droplevels %>% select(RESP_UNIFRAC, PORT, DEST, ECO_DIFF, PRED_ENV, PRED_TRIPS)
 
@@ -310,6 +311,19 @@ vars_model_full <- lmer(RESP_UNIFRAC ~ PRED_ENV + PRED_TRIPS + ECO_DIFF + (1 | P
 #' ### Model Summary
 summary(vars_model_full)
 coef(vars_model_full) #intercept for each level
+
+# For linear models, you can also plot standardized beta coefficients,
+# https://cran.r-project.org/web/packages/sjPlot/vignettes/plot_model_estimates.html
+# using type = "std" or type = "std2". These two options differ in the way how
+# coefficients are standardized. type = "std2" plots standardized beta values,
+# however, standardization follows Gelman’s (2008) suggestion, 
+# rescaling the estimates by dividing them by two standard deviations
+# instead of just one. (Use, type = std)
+
+library("sjPlot")
+plot_model(vars_model_full, show.values = TRUE, value.offset = .3,
+   type = "std", 
+   title = "UNIFRAC Changes for Model Terms (in SD)")
 
 #' Residuals
 plot(vars_model_full)
