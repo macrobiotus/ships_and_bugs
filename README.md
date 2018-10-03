@@ -437,6 +437,7 @@ Data will be included via manifest files and metadate files linked in at
     * committing after running modeling again.
 * ***03.10.2018** - R scripting
    * updated map with newly adjusted mapping script - lot of carp and clutter in there needs to be simplified - saved map - path might still be wonky (output file names)
+   * erased blast results, moved all unused scripts to scratch
 
  
 ## Todo
