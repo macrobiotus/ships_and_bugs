@@ -26,15 +26,12 @@
 #'  - Singapore samples removed in script 500, writes files with dates 20.07.2018
 #'  - Singapore samples included in script 505, writes files with dates 23.07.2018
 #'
-#'
-#'
 #' This code commentary is included in the R code itself and can be rendered at
 #' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_80_mixed_effect_model.R")`.
 #' Please check the session info at the end of the document for further 
 #' notes on the coding environment.
 #' 
 #' # Environment preparation
-#'
 
 # empty buffer
 # ============
@@ -344,7 +341,6 @@ qqmath(ranef(vars_model_full, condVar = TRUE), strip = FALSE)$DEST
 ggplot(data.frame(lev=hatvalues(vars_model_full),pearson=residuals(vars_model_full, type="pearson")),
       aes(x=lev,y=pearson)) + geom_point() + theme_bw()
 
-
 #' ## Null Model and checking 
 
 vars_model_null <- lmer(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST), data=vars, REML=FALSE)
@@ -354,7 +350,6 @@ summary(vars_model_null)
 
 #' ## Model Significance
 anova(vars_model_null, vars_model_full)
-
 
 
 #' <!-- #################################################################### -->

@@ -1,7 +1,7 @@
 #' ---
 #' title: "Mapping Samples for Conference Presentation(s)"
 #' author: "Paul Czechowski"
-#' date: "Aug 31th, 2018"
+#' date: "October 3, 2018"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -51,7 +51,7 @@ rm(list=ls())     # for safety only
 #'  *  `/Users/paul/Documents/CU_combined/Github/500_20_get_predictor_euklidian_distances.R`
 
 load (file = 
-   "/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/180910_neobiota/plot_generation/500_30_shape_matrices__output_predictor_data.Rdata")
+   "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output_predictor_data.Rdata")
 
 #' # Formatting local sample inventory
 #' 
@@ -84,13 +84,22 @@ smpld_PORT <- append(smpld_PORT, c("Adelaide", "Chicago", "Singapore",
 #  alternatively try a fuzzy match with agrep()
 #  Milne Inlet coded as Nanisivik (3371)
 #  Pearl Harbour coded as Honolulu (2503)
-# 24.04.2018 added    "PH",   "SP",   "AD",  "CH"   
-#                     "2503","1165","3110","2907") 
+# [1] "Haines_AK_USA"          "Coos_Bay_OR_USA"        "Guam_Apra_Harbor_USA"   "Nanaimo_BC_Canada"      "Long_Beach_CA_USA"      "Vancouver_BC_Canada"    "Pearl_Harbor_HI_USA"   
+# [8] "Honolulu_Harbor_HI_USA" "Portland_OR_USA"        "Churchill_MB_Canada"    "Oakland_CA_USA"         "Richmond_VA_USA"        "Wilmington_DE_USA"      "New_Orleans_LA_USA"    
+# [15] "Miami_FL_USA"           "Houston_TX_USA"         "Baltimore_MD_USA"       "Milne_Inlet_NU_CAN"     "Adelaide"               "Chicago"                "Singapore"             
+# [22] "Zeebrugge"              "Ghent"                  "Antwerp"                "Rotterdam"              "Buenos Aires"           "Puerto Madryn"          "Iqaluit"               
 
-smpld_PID <- c("3367", "2141", "2111", "3108", "7597",  "311", "2503", "2503",
-                "238", "4021", "7598", "7976", "7975", "3381", "4899", "2331",
-                "854", "3371", "3110", "2907", "1165", "1675", "4538", "576",
-                "830", "2729", "193", "5362")
+# Correct names. "*": Nearest port in port database chosen for actual location.
+smpld_PORT <- c("Haines", "Coos Bay", "Guam Apra", "Nanaimo", "Long Beach", "Vancouver", "Pearl Harbor*",
+                "Honolulu",  "Portland", "Churchill", "Oakland", "Richmond", "Wilmington", "New_Orleans",
+                "Miami", "Houston", "Baltimore", "Milne Inlet*", "Adelaide", "Chicago", "Singapore",
+                "Zeebrugge", "Ghent", "Antwerp", "Rotterdam", "Buenos Aires", "Puerto Madryn", "Iqaluit")               
+
+
+smpld_PID <- c("3367", "2141", "2111", "3108", "7597", "311", "2503",
+               "2503",  "238", "4021", "7598", "7976", "7975", "3381",
+               "4899", "2331",  "854", "3371", "3110", "2907", "1165",
+               "1675", "4538",  "576",  "830", "2729", "193", "5362")
 
 # create concise inventory tibble 
  # 23.08.2017 duplicate harbour ID "2503" does not appear to be a problem
@@ -99,19 +108,19 @@ smpld <- data_frame (PORT = smpld_PORT, PTID = smpld_PID)
 
 # this filename is variable and based on the script name 
 save (smpld, file = 
-  "/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/180910_neobiota/plot_generation/500_40_get_maps_conf__output__sampled_ports_df.Rdata")
+  "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_40_get_maps_output__sampled_ports_df.Rdata")
 
-#' # Selecting and ranking of routes connecting to samples in the freezer
+#' # Selecting and ranking of routes connecting to samples in the freezer (now and in the future)
 #'
 #' ## Route filtering
 #'
 #' Route information is in `src_heap$ROUT`. Sampled port ids are in `smpld$PTID`
 #' Defining sampled routes (`srout`) by matching sampled port ids with each other
-#' at ends. Can be used to fin all conncetion to unsample ports as well, of course.'
+#' at ends. Can be used to find all conncetion to unsample ports as well, of course.'
 
 srout <- filter(src_heap$ROUT, 
-  PRTA %in% smpld$PTID & 
-  PRTB %in% smpld$PTID)
+  PRTA %in% smpld$PTID & PRTB %in% smpld$PTID |
+  PRTB %in% smpld$PTID & PRTA %in% smpld$PTID )
 
 #' ## Checking number of comple cases
 #'
@@ -149,16 +158,16 @@ names (srout)[names (srout) %in% c("PORT", "COUN")] <- c("PORTB", "COUNB")
 srout <-  srout [ which (complete.cases (srout)), ] 
 
 
-#' ## Saving US outbound routes
+#' ## Saving comnected routes
 #' 
-#' Routes that start in the US and go to the world are saved:
+#' Routes that connect our samples are saved:
 
 # copying object - points depiction needs full table down below but
 # `srout` will be shaped further in the following lines 
 
 srout_all <- srout 
 save (srout_all, file =
-  "/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/180910_neobiota/plot_generation/500_40_get_maps_conf__output__US_outbound_routes.Rdata")
+  "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_40_get_maps_output__considered_routes.Rdata")
 
 #' ## Route filtering
 #' 
@@ -172,67 +181,68 @@ save (srout_all, file =
 # manual lookup via
 # open /Users/paul/Dropbox/NSF\ NIS-WRAPS\ Data/raw\ data\ for\ Mandana/PlacesFile_updated_Aug2017.xlsx -a "Microsoft Excel"
 #                     PH",  "SP",  "AD",  "CH"    "MI"    "BT"   "HT"    "LB"
-selected_samples = c("3367", "2141", "2111", "3108", "7597",  "311", "2503", "2503",
-                      "238", "4021", "7598", "7976", "7975", "3381", "4899", "2331",
-                      "854", "3371", "3110", "2907", "1165", "1675", "4538", "576",
-                      "830", "2729", "193", "5362")
 
-## CHANGE THIS LINE IF NECESSARY 
-srout <- srout %>% filter (PRTA %in% selected_samples | 
-                           PRTB %in% selected_samples ) # %>% print(n = nrow(.))
+
+# 3.10.2018 - route subsetting on focussed routes has already been done on step up
+# and doesn't need to be repeated. Selcted smaples is also needed for plotting, though
+selected_samples = c("2503","1165", "1165", "3110", "2907", "854", "2503", "2331", "7597", "4899")
+ 
+# ## CHANGE THIS LINE IF NECESSARY 
+# srout <- srout %>% filter (PRTA %in% selected_samples | 
+#                            PRTB %in% selected_samples ) # %>% print(n = nrow(.))
 
 
 #' ## **Route ranking based on calculated rank**
 #'
 #' Ranking by `RISK` variable, printing, and keeping for mapping
-us_world <- srout %>% arrange (desc (RISK), desc (ROUTE)) # %>%  print(n = nrow(.))
+us_world <- srout %>% arrange (desc (RISK), desc (ROUTE))  %>%  print(n = nrow(.))
 
 #' Saving for R 
 save (us_world, file =
-  "/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/180910_neobiota/plot_generation/500_40_get_maps_conf__output__current_routes_sorted.Rdata")
+  "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_40_get_maps_output__current_routes_sorted.Rdata")
 
 #' Saving for humans and external viewers:
 write_excel_csv (us_world, 
-                 "/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/180910_neobiota/plot_generation/500_40_get_maps_conf__output__current_routes_sorted.csv",
+                 "/Users/paul/Documents/CU_combined/Zenodo/Results/500_40_get_maps_output__current_routes_sorted.csv",
                  na = "NA", append = FALSE, col_names = TRUE)
 
-#' ## **Route ranking based on environmental distance and trips**
-#'
-#' Copying object, original object needs to be kept for mapping
-us_world_dt <- us_world  # %>% print(n = nrow(.))
-
-#' Add grouping variable indicating quartiles of `TRIPS`
-
+# ' ## **Route ranking based on environmental distance and trips** - skipped 3.10.2018 
+# '
+# ' Copying object, original object needs to be kept for mapping
+# us_world_dt <- us_world  # %>% print(n = nrow(.))
+# 
+# ' Add grouping variable indicating quartiles of `TRIPS`
+# 
 # https://stackoverflow.com/questions/7508229/how-to-create-a-column-with-a-quartile-rank
-us_world_dt <- within (us_world_dt, TQRT <- as.integer (cut (TRIPS, quantile (TRIPS,
-  seq(0, 1, 1/3), na.rm = FALSE), include.lowest=TRUE))) # %>% print(n = nrow(.))
-
-#' Add grouping variable indicating quartiles of `EDST`
-
-us_world_dt <- within (us_world_dt, EQRT <- as.integer (cut (EDST, quantile (EDST,
-  seq(0, 1, 1/3), na.rm = FALSE), include.lowest=TRUE))) # %>%  print(n = nrow(.))
-
-#' _"Sort routes by environmental similarity (temp & salinity index). Then deal only with the
-#' routes at the end of this continuum where ports that are being connected are very 
-#' similar to each other."_
-
-us_world_dt <- us_world_dt %>% arrange (EDST) %>% filter (EQRT == 1)  # %>% print(n = nrow(.))
-
-#' _"Then sort the subset of routes that connect environmentally similar ports 
-#' (identified above) by number of voyages, and create two priority lists:_
-#'   a. _Routes with high traffic (one end of the list)._
-#'   b. _Routes with very low traffic (the other end of the list)"._
-
-us_world_dt <- us_world_dt %>% arrange ( desc(TRIPS)) %>% 
-             filter (TQRT == 1 | TQRT == 3 ) # %>% print(n = nrow(.))
-
-#' _"One further qualification... If possible select 2(b) with another criterion 
-#' also in mind: ports that are currently low traffic that we expect to become
-#' high traffic (because of changes in infrastructure, etc). This would set
-#' us up nicely for future before-after comparisons."_
-
+# us_world_dt <- within (us_world_dt, TQRT <- as.integer (cut (TRIPS, quantile (TRIPS,
+#   seq(0, 1, 1/3), na.rm = FALSE), include.lowest=TRUE))) # %>% print(n = nrow(.))
+# 
+# ' Add grouping variable indicating quartiles of `EDST`
+# 
+# us_world_dt <- within (us_world_dt, EQRT <- as.integer (cut (EDST, quantile (EDST,
+#   seq(0, 1, 1/3), na.rm = FALSE), include.lowest=TRUE))) # %>%  print(n = nrow(.))
+# 
+# ' _"Sort routes by environmental similarity (temp & salinity index). Then deal only with the
+# ' routes at the end of this continuum where ports that are being connected are very 
+# ' similar to each other."_
+# 
+# us_world_dt <- us_world_dt %>% arrange (EDST) %>% filter (EQRT == 1)  # %>% print(n = nrow(.))
+# 
+# ' _"Then sort the subset of routes that connect environmentally similar ports 
+# ' (identified above) by number of voyages, and create two priority lists:_
+# '   a. _Routes with high traffic (one end of the list)._
+# '   b. _Routes with very low traffic (the other end of the list)"._
+# 
+# us_world_dt <- us_world_dt %>% arrange ( desc(TRIPS)) %>% 
+#              filter (TQRT == 1 | TQRT == 3 ) # %>% print(n = nrow(.))
+# 
+# ' _"One further qualification... If possible select 2(b) with another criterion 
+# ' also in mind: ports that are currently low traffic that we expect to become
+# ' high traffic (because of changes in infrastructure, etc). This would set
+# ' us up nicely for future before-after comparisons."_
+# 
 #  ***** BEGIN: --OMITTING THIS SECTION 16.01.2018 AS THERE IS NOT ENOUGH DATA AVAILABALE *****
-
+# 
 # get port information from external file
 # port_info <- read_excel("/Users/paul/Box Sync/CU_NIS-WRAPS/170727_port_information/160322_57_ports_selection.xlsx")
 #   port_info # %>% print(n = nrow(.))
@@ -258,20 +268,20 @@ us_world_dt <- us_world_dt %>% arrange ( desc(TRIPS)) %>%
 # replace character in `Changes` column, for Excel compatibility
 # us_world_dt$CHANGES <- gsub("\\+", "more ", us_world_dt$CHANGES)
 # us_world_dt$CHANGES <- gsub("\\-", "less ", us_world_dt$CHANGES)
-
+# 
 #  ***** END: -- OMITTING THIS SECTION 16.01.2018 AS THERE IS NOT ENOUGH DATA AVAILABALE *****
-
-#' Print and save final list:
-us_world_dt <- us_world_dt %>% arrange (desc(TQRT), desc(TRIPS), desc(RISK)) # %>% print(n = nrow(.))
-
-#' Saving for R 
-save (us_world_dt, file =
-  "/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/180910_neobiota/plot_generation/500_40_get_maps_conf__output__current_routes_selected.Rdata")
-
-#' Saving for humans and external viewers:
-write_excel_csv ( us_world_dt, 
-                 "/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/180910_neobiota/plot_generation/500_40_get_maps_conf__output__current_routes_selected.csv",
-                 na = "NA", append = FALSE, col_names = TRUE)
+# 
+# ' Print and save final list:
+# us_world_dt <- us_world_dt %>% arrange (desc(TQRT), desc(TRIPS), desc(RISK)) # %>% print(n = nrow(.))
+# 
+# ' Saving for R 
+# save (us_world_dt, file =
+#   "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_40_get_maps_output__current_routes_selected.Rdata")
+# 
+# ' Saving for humans and external viewers:
+# write_excel_csv ( us_world_dt, 
+#                  "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_40_get_maps_output__current_routes_selected.csv",
+#                  na = "NA", append = FALSE, col_names = TRUE)
 
 #' # Create maps
 #'
@@ -316,20 +326,13 @@ points_all$PORT[points_all$PORT == "Portland(OR USA)"] <- "Portland"
 # Available but unprocessed samples are to get a different colour down
 #  further but these vector overlap, and this messes with the colour assignment.
 #  Un-overlapping them here
-available_samples <- smpld_PID [smpld_PID %!in% selected_samples ]
+available_samples <- smpld_PID [smpld_PID %!in% selected_samples]
 
-# the mutate command is nested, but this object can be plotted directly on the map
-# points_tabl <- srout_all %>% filter (PRTA %in% smpld_PID |
-#                                      PRTA %in% selected_samples ) %>%
-#                                      distinct(PORTA, .keep_all = TRUE) %>%
-#                                      select(c("PALATI", "PALONG", "PORTA", "PRTA")) %>% 
-#                                      mutate (COLOR = ifelse(PRTA %in% selected_samples, "green",
-#                                        ifelse(PRTA %in% available_samples, "orange", "grey")))
+# 2.10.2018 not using mutate anymore, too complicated, using manual lookup 
 
-points_tabl <- srout_all %>% filter (PRTA %in% selected_samples ) %>%
-                                     distinct(PORTA, .keep_all = TRUE) %>%
-                                     select(c("PALATI", "PALONG", "PORTA", "PRTA")) %>% 
-                                     mutate (COLOR = ifelse(PRTA %in% selected_samples, "green", NA))
+points_all$COLOR <- as.character("skyblue")
+points_all$COLOR[which (points_all$PORT %in% c("Honolulu", "Singapore",
+  "Adelaide", "Chicago", "Baltimore", "Houston", "Long Beach", "Miami"))] <- as.character("green")
 
 
 #' ## Prepare base layer 
@@ -342,8 +345,8 @@ world <- world[ which (world$region != "Antarctica"), ]   # remove Antarctica
 # bolted in: select port to label - find manually using `smpld %>% print(n = nrow(.))`
 # and `unique(points_all$PORT)`
 #  so far 
-ports_to_label <- c("Singapore", "Houston", "Honululu", "Chicago", "Adelaide", "Miami", "Long Beach", "Baltimore",
-                    "Buenos Aires", "Antwerp", "Rotterdam")
+# ports_to_label <- c("Singapore", "Houston", "Honululu", "Chicago", "Adelaide", "Miami", "Long Beach", "Baltimore",
+#                     "Buenos Aires", "Antwerp", "Rotterdam")
 
 #' This could be written up as function.
 #' 
@@ -366,13 +369,16 @@ m1 <-  ggplot() +
      # low = "dodgerblue1", mid = "forestgreen" , high = "firebrick1" # changed for DL
      low = "forestgreen", mid = "forestgreen" , high = "forestgreen" # changed for DL
   ) + 
-  geom_point ( data = points_tabl, aes(points_tabl$PALONG, points_tabl$PALATI), colour = points_tabl$COLOR
-  ) +
   geom_label_repel ( 
     data = distinct (points_all , PORT, .keep_all = TRUE), # %>% filter (PORT %in% ports_to_label),
     aes (LONG, LATI, label = PORT), 
     size = 3,
     segment.color = 'grey50'
+  ) +
+  
+  geom_point (
+    data = points_all, aes (points_all$LONG, points_all$LATI),
+    fill=points_all$COLOR, colour="black", pch=21, size=3
   ) +
   xlab(
     "Longitude"
