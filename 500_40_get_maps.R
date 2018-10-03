@@ -10,11 +10,7 @@
 #'
 #' # Preface
 #' 
-#' This is a backup copy, derived from "/Users/paul/Documents/CU_combined/Github/500_40_get_maps_conf.R"
-#' load and write path names have been adjusted.
-#' This code commentary is included in the R code itself and
-#' can be rendered at any stage using 
-#' `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_40_get_maps_conf.R")`.
+#' `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R")`.
 #' Please check the session info at the end of the document for further 
 #' notes on the coding environment.
 #'
@@ -405,7 +401,6 @@ print(m1)
 #         device = "png", path = "/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/180910_neobiota/180831_plot_without_connections.pdf",
 #         scale = 1, width = 8, height = 5, units = c("in"),
 #         dpi = 300, limitsize = TRUE)
-
 
 #'
 #' # Session info

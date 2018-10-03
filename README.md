@@ -435,6 +435,9 @@ Data will be included via manifest files and metadate files linked in at
         * `/Users/paul/Documents/CU_combined/Github/500_50_matrix_comparison_uni_env.R`
         * `/Users/paul/Documents/CU_combined/Github/500_70_matrix_comparison_uni_prd.R`
     * committing after running modeling again.
+* ***03.10.2018** - R scripting
+   * updated map with newly adjusted mapping script - lot of carp and clutter in there needs to be simplified - saved map - path might still be wonky (output file names)
+
  
 ## Todo
 
