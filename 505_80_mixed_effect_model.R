@@ -251,30 +251,57 @@ model_data <- model_data_raw %>% filter(complete.cases(.))
 class(model_data)
 model_data
 
+#     # add ecoregion as per:
+#     #   @1. Spalding, M. D. et al. Marine Ecoregions of the World: A Bioregionalization 
+#     #    of Coastal and Shelf Areas. Bioscience 57, 573@583 (2007).
+#     # write as function !!!!!!!!
+#     # here using REALMS, there are 12 Realms listed in the paper
+# 
+#     model_data <- model_data %>% add_column("ECO_PORT" = NA)
+#     model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("HN", "PH"), "EIP", model_data$"ECO_PORT"))
+#     model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("SY"), "CIP", model_data$"ECO_PORT"))
+#     model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("SW"), "CIP", model_data$"ECO_PORT"))
+#     model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("AD"), "TAA", model_data$"ECO_PORT"))
+#     model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("CH","BT","MI", "HT"), "TNA", model_data$"ECO_PORT"))
+#     model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("LB"), "TNP", model_data$"ECO_PORT"))
+# 
+#     model_data <- model_data %>% add_column("ECO_DEST" = NA)
+#     model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("HN", "PH"), "EIP", model_data$"ECO_DEST"))
+#     model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("SY"), "CIP", model_data$"ECO_DEST"))
+#     model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("SW"), "CIP", model_data$"ECO_DEST"))
+#     model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("AD"), "TAA", model_data$"ECO_DEST"))
+#     model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("CH","BT","MI", "HT"), "TNA", model_data$"ECO_DEST"))
+#     model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("LB"), "TNP", model_data$"ECO_DEST"))
+# 
+#     model_data <- model_data %>% add_column("ECO_DIFF" = NA)
+#     model_data <- model_data %>% mutate (ECO_DIFF = ifelse(ECO_PORT == ECO_DEST , FALSE, TRUE))
+
 # add ecoregion as per:
-#   @1. Spalding, M. D. et al. Marine Ecoregions of the World: A Bioregionalization 
-#    of Coastal and Shelf Areas. Bioscience 57, 573@583 (2007).
+#   @Costello, M. J., Tsai, P., Wong, P. S., Cheung, A. K. L., Basher, Z. 
+#   and Chaudhary, C. (2017) “Marine biogeographic realms and species endemicity,” 
+# Nature Communications. Springer US, 8(1), p. 1057. doi: 10.1038/s41467-017-01121-2..
 # write as function !!!!!!!!
 # here using REALMS, there are 12 Realms listed in the paper
 
 model_data <- model_data %>% add_column("ECO_PORT" = NA)
-model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("HN", "PH"), "EIP", model_data$"ECO_PORT"))
-model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("SY"), "CIP", model_data$"ECO_PORT"))
-model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("SW"), "CIP", model_data$"ECO_PORT"))
-model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("AD"), "TAA", model_data$"ECO_PORT"))
-model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("CH","BT","MI", "HT"), "TNA", model_data$"ECO_PORT"))
-model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("LB"), "TNP", model_data$"ECO_PORT"))
+model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("HN", "PH"), "17", model_data$"ECO_PORT"))
+model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("SY"), "13", model_data$"ECO_PORT"))
+model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("SW"), "13", model_data$"ECO_PORT"))
+model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("AD"), "26", model_data$"ECO_PORT"))
+model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("CH","BT","MI", "HT"), "11", model_data$"ECO_PORT"))
+model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("LB"), "7", model_data$"ECO_PORT"))
 
 model_data <- model_data %>% add_column("ECO_DEST" = NA)
-model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("HN", "PH"), "EIP", model_data$"ECO_DEST"))
-model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("SY"), "CIP", model_data$"ECO_DEST"))
-model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("SW"), "CIP", model_data$"ECO_DEST"))
-model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("AD"), "TAA", model_data$"ECO_DEST"))
-model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("CH","BT","MI", "HT"), "TNA", model_data$"ECO_DEST"))
-model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("LB"), "TNP", model_data$"ECO_DEST"))
+model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("HN", "PH"), "17", model_data$"ECO_DEST"))
+model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("SY"), "13", model_data$"ECO_DEST"))
+model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("SW"), "13", model_data$"ECO_DEST"))
+model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("AD"), "26", model_data$"ECO_DEST"))
+model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("CH","BT","MI", "HT"), "11", model_data$"ECO_DEST"))
+model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("LB"), "7", model_data$"ECO_DEST"))
 
 model_data <- model_data %>% add_column("ECO_DIFF" = NA)
 model_data <- model_data %>% mutate (ECO_DIFF = ifelse(ECO_PORT == ECO_DEST , FALSE, TRUE))
+
 
 #'
 #' <!-- #################################################################### -->

@@ -436,8 +436,15 @@ Data will be included via manifest files and metadate files linked in at
         * `/Users/paul/Documents/CU_combined/Github/500_70_matrix_comparison_uni_prd.R`
     * committing after running modeling again.
 * ***03.10.2018** - R scripting
-   * updated map with newly adjusted mapping script - lot of carp and clutter in there needs to be simplified - saved map - path might still be wonky (output file names)
+   * updated map with newly adjusted mapping script - lot of crap and clutter in there needs to be simplified - saved map - path might still be wonky (output file names)
    * erased blast results, moved all unused scripts to scratch
+* ***15.01.2019** - Happy New Year - R scripting
+   * attempting implementation of marine realms as suggested by DL and noted in
+      * Costello, M. J., Tsai, P., Wong, P. S., Cheung, A. K. L., Basher, Z. and Chaudhary, C. (2017) “Marine biogeographic realms and species endemicity,” Nature Communications. Springer US, 8(1), p. 1057. doi: 10.1038/s41467-017-01121-2.
+      * modifying "/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R" accordingly
+      * commenting old code out
+      * changes done, no change to results for preliminary set of ports, committing repository
+
 
  
 ## Todo
