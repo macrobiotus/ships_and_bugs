@@ -463,6 +463,7 @@ Data will be included via manifest files and metadate files linked in at
       * re-run `CU_cmbd_rf_test/`
       * re-run `CU_combined`
       * analyse `CU_combined`
+    * saved compressed copy of `/Users/paul/Archive/Cornell_superseeded_analyses/180501-190306_CU_combined.zip` prior to modifying repository
 
  
  
