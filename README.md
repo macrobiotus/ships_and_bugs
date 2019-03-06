@@ -441,12 +441,30 @@ Data will be included via manifest files and metadate files linked in at
 * ***15.01.2019** - Happy New Year - R scripting
    * attempting implementation of marine realms as suggested by DL and noted in
       * Costello, M. J., Tsai, P., Wong, P. S., Cheung, A. K. L., Basher, Z. and Chaudhary, C. (2017) “Marine biogeographic realms and species endemicity,” Nature Communications. Springer US, 8(1), p. 1057. doi: 10.1038/s41467-017-01121-2.
-      * modifying "/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R" accordingly
+      * modifying `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R` accordingly
       * commenting old code out
       * changes done, no change to results for preliminary set of ports, committing repository
-* ***01.03.2019**
-  * accidently messed around with classifier files, copied out and back in from `/Users/paul/Documents/CU_mock/Zenodo/Classifier`
+* **01.03.2019** - quick correction
+   * accidentally messed around with classifier files, copied out and back in from `/Users/paul/Documents/CU_mock/Zenodo/Classifier`
+* **06.03.2019** - **prepare for improved final dat set**
+   * ***correct towards adequate merging procedure, improved classification**
+   * **this will take some time, and be work over a couple of days at least**
+   * for these repositories available to date
+     * `CU_Pearl_Harbour`
+     * `CU_RT_AN`
+     * `CU_SP_AD_CH`
+     * `CU_US_ports_a`
+   * do this in each repository
+      * re-import using `qiime 2018.11`
+      * trim adapters as previously
+      * re-merge data with less stringent trimming settings
+    * once done:
+      * re-estimate classification parameters with  `CU_mock/`
+      * re-run `CU_cmbd_rf_test/`
+      * re-run `CU_combined`
+      * analyse `CU_combined`
 
+ 
  
 ## Todo
 
