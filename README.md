@@ -446,27 +446,56 @@ Data will be included via manifest files and metadate files linked in at
       * changes done, no change to results for preliminary set of ports, committing repository
 * **01.03.2019** - quick correction
    * accidentally messed around with classifier files, copied out and back in from `/Users/paul/Documents/CU_mock/Zenodo/Classifier`
-* **06.03.2019** - **prepare for improved final dat set**
-   * ***correct towards adequate merging procedure, improved classification**
-   * **this will take some time, and be work over a couple of days at least**
-   * for these repositories available to date
-     * `CU_Pearl_Harbour`
-     * `CU_RT_AN`
-     * `CU_SP_AD_CH`
-     * `CU_US_ports_a`
-   * do this in each repository
-      * re-import using `qiime 2018.11`
-      * trim adapters as previously
-      * re-merge data with less stringent trimming settings
-    * once done:
+* **06.03.2019** - **prepare for improved final data set**
+  * **goals**
+    * **use adequate merging procedure, and check merging**
+    * **use improved classification `blast+` with settings obtained from `CU_mock`**
+    * **use `qiime 2018-11` throughout, as this is the version available on cluster**
+    * **use and Sanger reference data (and later, further streamlined classification if necessary)**
+    * **check for batch effects using extra column in mapping files**
+  * **this will take some time, and be work over a couple of days at least**
+  * for these repositories available to date:
+    * `CU_Pearl_Harbour` - denoising on cluster (08.03.2019)
+    * `CU_RT_AN` - obtained from cluster (08.03.2019)
+    * `CU_SP_AD_CH` - partly denoised (11.03.2019)
+    * `CU_US_ports_a` - not started yet (08.03.2019)
+  * do this in each repository
+     * re-import using `qiime 2018.11`
+     * trim adapters as previously
+     * re-merge data with less stringent trimming settings
+   * once done:
       * re-estimate classification parameters with  `CU_mock/`
       * re-run `CU_cmbd_rf_test/`
       * re-run `CU_combined`
       * analyse `CU_combined`
     * saved compressed copy of `/Users/paul/Archive/Cornell_superseeded_analyses/180501-190306_CU_combined.zip` prior to modifying repository
+    * created and executed file to commit all data handling scripts at once: `/Users/paul/Documents/CU_commit_uncombined_transport_scripts.sh`
+    * created and executed file to commit all transport scripts at once: `/Users/paul/Documents/CU_commit_uncombined_transport_scripts.sh`
+* **07.03.2019** - starting re-merging of individual data sets
+   * starting with repository `CU_Pearl_Harbour` as described therein
+      * next time add adapter reference to Fastqc script call
+      * **updated adapter cutadapt trimming code** - newly trimmed pre-denoised data saved locally
+   * starting with repository `CU_RT_AN` as described therein
+      * **updated adapter cutadapt trimming code** - newly trimmed pre-denoised data saved locally
+* **08.03.2019** - starting re-merging of individual data sets
+   * denoising still running for `CU_Pearl_Harbour`
+   * **denoising finished for `CU_RT_AN`**
+      * retrieved files - merging statistics better - denoising was finished very quick though
+   * **starting with repository `CU_SP_AD_CH` as described therein**
+* **09.03.2019** - setting up merge of next repositories
+  * merging and denoising went ok according to graphic for `CU_Pearl_Harbour` and `CU_RT_AN`
+  * denoising was very quick for `CU_RT_AN`
+  * repository `CU_SP_AD_CH` is ready for denoise and merge, commit all repositories locally (then added gnuplot code)
+* **11.03.2019** - setting up merge of next repositories
+  * repository `CU_SP_AD_CH` is still denoising - now finished
+  * opening  `CU_US_ports_a` script files for edit
+  * obtained `CU_SP_AD_CH` from cluster and checked merging - ok
+  * `CU_US_ports_a` is last to be re-merged and denoied
+  * committing all repositories, refreshing `CU_US_ports_a` on cluster before starting to work on it
+  * `CU_US_ports_a` currently denoising on cluster
+  
+  
 
- 
- 
 ## Todo
 
 ### before Argentina
