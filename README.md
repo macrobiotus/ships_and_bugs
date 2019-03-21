@@ -493,6 +493,12 @@ Data will be included via manifest files and metadate files linked in at
   * `CU_US_ports_a` is last to be re-merged and denoied
   * committing all repositories, refreshing `CU_US_ports_a` on cluster before starting to work on it
   * `CU_US_ports_a` currently denoising on cluster
+* **20.03.2019** - preparing merging, incl. manifests
+  * checking, adjusting, and running  `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh` - ok
+* **21.03.2019** - continuing merging, incl. manifests
+  
+  - of script 65 check output after script 75
+    
   
   
 
