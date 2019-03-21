@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # 28.09.2018 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
