@@ -496,6 +496,32 @@ Data will be included via manifest files and metadate files linked in at
 * **20.03.2019** - preparing merging, incl. manifests
   * checking, adjusting, and running  `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh` - ok
 * **21.03.2019** - continuing merging, incl. manifests
+  * revising mapping files to encode for run origin, creating mapping file for last run (from sample sheets)
+    * encode for sequencing run
+    * check coordinates
+    * check Singapore sample naming using `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata.tsv`
+    * check for consitency 
+  
+  * created and saved mapping file for `ROT_AN` data
+    * file path is `/Users/paul/Documents/CU_RT_AN/Zenodo/Manifest/10_18S_mapping_file_10410623.xlsx`, and later
+    * file path is `/Users/paul/Documents/CU_RT_AN/Zenodo/Manifest/10_18S_mapping_file_10410623.tsv`
+    
+    * updated ``-`README.md`
+  
+  
+  
+  * revised and saved Pearl Harbour metadata
+    * with columns `SampleID`, `BarcodeSequence`, `LinkerPrimerSequence`, `Port`,`Type`,`Temp`,`Sali`,`Lati`,`Long`,`Run`,`Facility`,`CollYear`
+    * overwrote `/Users/paul/Documents/CU_Pearl_Harbour/Zenodo/Manifest/05_metadata.tsv`
+    * updated `PH`-`README.md`
+  
+  * commit all scripts in all Github directories - not done yet
+  
+  
+  
+  * checking, adjusting, and running `/Users/paul/Documents/CU_combined/Github/070_merge_metdata.sh` - 
+     * started, but not finished
+     * needs to merge files agains
   
   - of script 65 check output after script 75
     

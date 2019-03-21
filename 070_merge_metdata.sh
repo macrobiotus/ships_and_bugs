@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 01.10.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 21.03.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # merging metadata
 
@@ -25,6 +25,13 @@ fi
 
 # define input and output locations
 # ---------------------------------
+map[1]
+map[2]
+map[3]
+map[4]
+map[5]
+map[6]
+
 tab[1]='/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata_old.tsv'
 tab[2]='/Users/paul/Documents/CU_US_ports_a/Zenodo/Manifest/05_18S_merged_metadata.tsv'
 
