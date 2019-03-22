@@ -493,37 +493,43 @@ Data will be included via manifest files and metadate files linked in at
   * `CU_US_ports_a` is last to be re-merged and denoied
   * committing all repositories, refreshing `CU_US_ports_a` on cluster before starting to work on it
   * `CU_US_ports_a` currently denoising on cluster
-* **20.03.2019** - preparing merging, incl. manifests
+* **20.03.2019** - preparing data merging, incl. manifests
   * checking, adjusting, and running  `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh` - ok
-* **21.03.2019** - continuing merging, incl. manifests
+* **21.03.2019** - continuing data combination
   * revising mapping files to encode for run origin, creating mapping file for last run (from sample sheets)
-    * encode for sequencing run
-    * check coordinates
-    * check Singapore sample naming using `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata.tsv`
-    * check for consitency 
-  
-  * created and saved mapping file for `ROT_AN` data
-    * file path is `/Users/paul/Documents/CU_RT_AN/Zenodo/Manifest/10_18S_mapping_file_10410623.xlsx`, and later
-    * file path is `/Users/paul/Documents/CU_RT_AN/Zenodo/Manifest/10_18S_mapping_file_10410623.tsv`
-    
-    * updated ``-`README.md`
-  
-  
-  
+    * encode for sequencing run - ok
+    * check coordinates - check thoroughly for `CU_RT_AN` only so far
+    * check Singapore sample naming - ok
+    * check for consistency - ok: Location column can be added to all tables as done in Adelaide data, this column is only in the xlsx sheets for now, for Adelaide, and only there
   * revised and saved Pearl Harbour metadata
     * with columns `SampleID`, `BarcodeSequence`, `LinkerPrimerSequence`, `Port`,`Type`,`Temp`,`Sali`,`Lati`,`Long`,`Run`,`Facility`,`CollYear`
-    * overwrote `/Users/paul/Documents/CU_Pearl_Harbour/Zenodo/Manifest/05_metadata.tsv`
+    * re-created `/Users/paul/Documents/CU_Pearl_Harbour/Zenodo/Manifest/05_metadata.xlsx`, and
+    * overwrote `/Users/paul/Documents/CU_Pearl_Harbour/Zenodo/Manifest/05_metadata.tsv` (use this one)
     * updated `PH`-`README.md`
-  
-  * commit all scripts in all Github directories - not done yet
-  
-  
-  
-  * checking, adjusting, and running `/Users/paul/Documents/CU_combined/Github/070_merge_metdata.sh` - 
-     * started, but not finished
-     * needs to merge files agains
-  
-  - of script 65 check output after script 75
+* **22.03.2019** - continuing data combination
+  * created and saved mapping file for `CU_RT_AN` data
+    * file path is `/Users/paul/Documents/CU_RT_AN/Zenodo/Manifest/10_18S_mapping_file_10410623.xlsx`, and 
+    * file path is `/Users/paul/Documents/CU_RT_AN/Zenodo/Manifest/10_18S_mapping_file_10410623.tsv` (use this one)
+    * updated `/Users/paul/Documents/CU_RT_AN/Github/README.md`
+  * revising metadata for data set `CU_SP_AD_CH`
+    * revising and checking data for Chicago - ok
+      * use `/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_34.xlsx`- as source file, 
+      * use `/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_34.tsv` - for script
+    * revising and checking data for Adleaide - ok
+      * `/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_29.xlsx` - this file includes sub-locations
+      * `/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_29.tsv` - this file does not include sub-locations
+    * revising and checking for Singapore - ok
+      * `/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_26.xlsx` - as source file
+      * `/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_26.tsv` - for script
+   * revising metadata for data set `CU_US_ports_a`
+      * `/Users/paul/Documents/CU_US_ports_a/Zenodo/Manifest/05_18S_merged_metadata.xlsx` - as source file
+      * `/Users/paul/Documents/CU_US_ports_a/Zenodo/Manifest/05_18S_merged_metadata.tsv` - for script 
+   * committed before continuing - break - net step below:
+     
+   * checking, adjusting, and running `/Users/paul/Documents/CU_combined/Github/070_merge_metdata.sh` - 
+      * started, but not finished
+      * needs to merge files agains
+      * check output of script 65  after script 75
     
   
   
