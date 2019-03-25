@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 01.10.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 25.03.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 #   "Given a feature table and the associated feature sequences, cluster the
 #   features based on user-specified percent identity threshold of their
@@ -24,7 +24,6 @@ set -x
 if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     printf "This script needs at least qiime2-2018.08. Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
-    qiime() { qiime2cli "$@"; }
     cores="$(nproc --all)"
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     printf "This script needs at least qiime2-2018.08. Execution on local...\n"
@@ -34,9 +33,8 @@ fi
 
 # Define input and output locations
 # ---------------------------------
-in_seq='Zenodo/Qiime/080_18S_merged_seq.qza' # early clustering
+in_seq='Zenodo/Qiime/080_18S_merged_seq.qza'
 in_tab='Zenodo/Qiime/080_18S_merged_tab.qza' # corrected sample id's for Singapore
-
 
 cluster[1]='1.00'
 cluster[2]='0.97'

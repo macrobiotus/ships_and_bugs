@@ -451,6 +451,7 @@ Data will be included via manifest files and metadate files linked in at
     * **use adequate merging procedure, and check merging**
     * **use improved classification `blast+` with settings obtained from `CU_mock`**
     * **use `qiime 2018-11` throughout, as this is the version available on cluster**
+      * 25.03.2019: using `qiime 2019.1` for clustering and beyond, clustering doesn't work with qiime 2018-11? 
     * **use and Sanger reference data (and later, further streamlined classification if necessary)**
     * **check for batch effects using extra column in mapping files**
   * **this will take some time, and be work over a couple of days at least**
@@ -523,14 +524,13 @@ Data will be included via manifest files and metadate files linked in at
       * `/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_26.tsv` - for script
    * revising metadata for data set `CU_US_ports_a`
       * `/Users/paul/Documents/CU_US_ports_a/Zenodo/Manifest/05_18S_merged_metadata.xlsx` - as source file
-      * `/Users/paul/Documents/CU_US_ports_a/Zenodo/Manifest/05_18S_merged_metadata.tsv` - for script 
-   * committed before continuing - break - net step below:
-     
+      * `/Users/paul/Documents/CU_US_ports_a/Zenodo/Manifest/05_18S_merged_metadata.tsv` - for script
+* **25.03.2019** - continuing preliminary data combination and analysis
    * checking, adjusting, and running `/Users/paul/Documents/CU_combined/Github/070_merge_metdata.sh` - 
-      * started, but not finished
-      * needs to merge files agains
-      * check output of script 65  after script 75
-    
+   * created `/Users/paul/Documents/CU_US_ports_a/Zenodo/Manifest/05_18S_merged_metadata.tsv`
+   * created backup copy `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata.xlsx`
+   * commit after running script `/Users/paul/Documents/CU_combined/Github/085_cluster_sequences.sh`
+ 
   
   
 

@@ -17,7 +17,7 @@
 if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
-    thrds="$(nproc --all)" 
+    thrds="$(nproc --all)"
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
