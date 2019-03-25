@@ -33,8 +33,13 @@ fi
 
 # Define input and output locations
 # ---------------------------------
-in_seq='Zenodo/Qiime/080_18S_merged_seq.qza'
-in_tab='Zenodo/Qiime/080_18S_merged_tab.qza' # corrected sample id's for Singapore
+
+in_seq='Zenodo/Qiime/065_18S_merged_seq.qza'
+in_tab='Zenodo/Qiime/065_18S_merged_tab.qza'
+
+# re-cust script is buggy - so these files can't be used yet
+# in_seq='Zenodo/Qiime/080_18S_merged_seq.qza'
+# in_tab='Zenodo/Qiime/080_18S_merged_tab.qza' # corrected sample id's for Singapore
 
 cluster[1]='1.00'
 cluster[2]='0.97'

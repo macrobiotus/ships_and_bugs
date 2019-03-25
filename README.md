@@ -530,21 +530,18 @@ Data will be included via manifest files and metadate files linked in at
    * created `/Users/paul/Documents/CU_US_ports_a/Zenodo/Manifest/05_18S_merged_metadata.tsv`
    * created backup copy `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata.xlsx`
    * commit after running script `/Users/paul/Documents/CU_combined/Github/085_cluster_sequences.sh`
+   * installing `qiime2-2019.1` as clustering fails, doesn't change anything, script `/Users/paul/Documents/CU_combined/Github/085_cluster_sequences.sh` is buggy
+   * testing whether script `~/Documents/CU_combined/Github/080_re_cut_adapt_and_filter.sh` is buggy - yes - 
+     * logical error - filters only COI reads with adapter, but remnants stay in file, with results in crash during clustering
+     * using untrimmed files in script `~/Documents/CU_combined/Github/085_cluster_sequences.sh` that may contain COI
+   * commit for before break - deal with this at re-import 
  
   
   
 
 ## Todo
 
-### before Argentina
 
-* get updated map 
-* get updated 2d plot 
-
-### later
-
-* erase old output files (Qiime and R)
-* re-run with correct trimming settings (after the older settings are confirmed wrong)
 
 ## Known issues and bugs
 * _25.04.2018_ - **unconfirmed** - non-unique rownames _may be_ assigned to all (?) output (?) matrices in `500_30_shape_matrices`  due to duplicate values in the input tables (script 10)? - possibly affected:
