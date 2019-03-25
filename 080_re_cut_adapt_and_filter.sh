@@ -46,7 +46,7 @@ adpfcut[1]='GCGAAAGCATTTGCCAA' # was revcutrc
 
 # COI primers 
 # -----------
-# discarding 1,026 reads with adapters (3.8%), reating 26,136 (96.2%)4 
+# discarding 1,026 reads with adapters (3.8%), reating 26,136 (96.2%) 
 fwdcut[2]='GGWACWGGWTGAACWGTWTAYCCYCC'
 adpfcut[2]='TGRTTYTTYGGDCAYCCDGARGTDTA' # was "revcutrc"
 
