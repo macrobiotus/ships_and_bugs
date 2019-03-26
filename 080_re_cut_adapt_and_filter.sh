@@ -42,7 +42,7 @@ ottbl='Zenodo/Qiime/080_18S_merged_tab.qza'
 # ------------
 # trimming 1.3% of reads (trimming 365 of 27,162)
 fwdcut[1]='GCGGTAATTCCAGCTCCAA'
-adpfcut[1]='GCGAAAGCATTTGCCAA' # was revcutrc
+adpfcut[1]='GCGAAAGCATTTGCCAA'
 
 # COI primers 
 # -----------
