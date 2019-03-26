@@ -532,12 +532,10 @@ Data will be included via manifest files and metadate files linked in at
    * commit after running script `/Users/paul/Documents/CU_combined/Github/085_cluster_sequences.sh`
    * installing `qiime2-2019.1` as clustering fails, doesn't change anything, script `/Users/paul/Documents/CU_combined/Github/085_cluster_sequences.sh` is buggy
    * testing whether script `~/Documents/CU_combined/Github/080_re_cut_adapt_and_filter.sh` is buggy - yes - possible cause
-      * logical error - filters only COI reads with adapter, but remnants stay in file, with results in crash during clustering ?
-      * using untrimmed files in script `~/Documents/CU_combined/Github/085_cluster_sequences.sh` that may contain COI
-   * commit for before break 
-      * deal with this at re-import
-      * see paper notes 
-      * back to inherited data for better cleanup 
+   * logical error? - filters only COI reads with adapter, but remnants stay in file, with results in crash during clustering ?
+   * using untrimmed files in script `~/Documents/CU_combined/Github/085_cluster_sequences.sh` that may contain COI?
+   * **NO:** back to inherited data for better cleanup - please check `/Users/paul/Documents/CU_SP_AD_CH/Github/README.md`
+   * commit
 
 
 ## Todo
