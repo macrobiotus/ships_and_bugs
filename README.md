@@ -536,6 +536,24 @@ Data will be included via manifest files and metadate files linked in at
    * using untrimmed files in script `~/Documents/CU_combined/Github/085_cluster_sequences.sh` that may contain COI?
    * **NO:** back to inherited data for better cleanup - please check `/Users/paul/Documents/CU_SP_AD_CH/Github/README.md`
    * commit
+* **27.03.2019** - preparing data combination after re-cleaning of inherited data
+   * mock data available and can be used
+     * copying reference data to project directory for inclusion of Sanger Sequences
+       * `cp /Users/paul/Sequences/References/SILVA_128_QIIME_release/rep_set/rep_set_18S_only/99/99_otus_18S.fasta \
+           /Users/paul/Documents/CU_combined/Zenodo/References/Silva128_extract/99_otus_18S.fasta`
+       * `cp /Users/paul/Sequences/References/SILVA_128_QIIME_release/taxonomy/18S_only/99/majority_taxonomy_7_levels.txt \
+           /Users/paul/Documents/CU_combined/Zenodo/References/Silva128_extract/majority_taxonomy_7_levels.txt`
+     * copying Sanger data to project directory:
+       * `cp "/Users/paul/Box Sync/CU_NIS-WRAPS/170926_mock_communities/190326_checked_mock_sequences_for_DB.fasta" \
+           /Users/paul/Documents/CU_combined/Zenodo/References/`
+   * denoising finished for `CU_SP_AD_CH` - needs attention - commit README before return - next
+      * review all metadata files
+      * export
+      * commit
+      * re-combine data and files
+      * adjust classification DB
+      * re-classify
+
 
 
 ## Todo
