@@ -550,7 +550,7 @@ Data will be included via manifest files and metadate files linked in at
        * using md5 sum (`md5 -s`) of fasta sequence to tie together taxonomy and sequence
        * taxonomy from NCBI
        * finished incluions of mock in  `/Users/paul/Documents/CU_combined/Zenodo/References/Silva128_extract_extended/99_otus_18S.fasta`
-       * pending inclusion of tax strings from NCBI to `/Users/paul/Documents/CU_combined/Zenodo/References/Silva128_extract_extended/majority_taxonomy_7_levels.txt`
+       * finished inclusion of tax strings from NCBI to `/Users/paul/Documents/CU_combined/Zenodo/References/Silva128_extract_extended/majority_taxonomy_7_levels.txt`
    * denoising finished for `CU_SP_AD_CH` - needs attention - commit README before return - next
       * review all metadata files
       * export
