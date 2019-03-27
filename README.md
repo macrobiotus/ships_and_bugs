@@ -546,12 +546,17 @@ Data will be included via manifest files and metadate files linked in at
      * copying Sanger data to project directory:
        * `cp "/Users/paul/Box Sync/CU_NIS-WRAPS/170926_mock_communities/190326_checked_mock_sequences_degapped.fasta" \
               /Users/paul/Documents/CU_combined/Zenodo/References/190326_checked_mock_sequences_degapped.fasta`
+     * in `/Users/paul/Documents/CU_combined/Zenodo/References/Silva128_extract_extended/*`:
+       * using md5 sum (`md5 -s`) of fasta sequence to tie together taxonomy and sequence
+       * taxonomy from NCBI
+       * finished incluions of mock in  `/Users/paul/Documents/CU_combined/Zenodo/References/Silva128_extract_extended/99_otus_18S.fasta`
+       * pending inclusion of tax strings from NCBI to `/Users/paul/Documents/CU_combined/Zenodo/References/Silva128_extract_extended/majority_taxonomy_7_levels.txt`
    * denoising finished for `CU_SP_AD_CH` - needs attention - commit README before return - next
       * review all metadata files
       * export
       * commit
       * re-combine data and files
-      * adjust classification DB
+      * adjust classification DB - started - see above
       * re-classify
 
 
