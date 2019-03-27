@@ -544,8 +544,8 @@ Data will be included via manifest files and metadate files linked in at
        * `cp /Users/paul/Sequences/References/SILVA_128_QIIME_release/taxonomy/18S_only/99/majority_taxonomy_7_levels.txt \
            /Users/paul/Documents/CU_combined/Zenodo/References/Silva128_extract/majority_taxonomy_7_levels.txt`
      * copying Sanger data to project directory:
-       * `cp "/Users/paul/Box Sync/CU_NIS-WRAPS/170926_mock_communities/190326_checked_mock_sequences_for_DB.fasta" \
-           /Users/paul/Documents/CU_combined/Zenodo/References/`
+       * `cp "/Users/paul/Box Sync/CU_NIS-WRAPS/170926_mock_communities/190326_checked_mock_sequences_degapped.fasta" \
+              /Users/paul/Documents/CU_combined/Zenodo/References/190326_checked_mock_sequences_degapped.fasta`
    * denoising finished for `CU_SP_AD_CH` - needs attention - commit README before return - next
       * review all metadata files
       * export
