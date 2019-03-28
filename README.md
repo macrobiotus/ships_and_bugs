@@ -586,6 +586,18 @@ Data will be included via manifest files and metadate files linked in at
     * ND indices missing
     * salinity values inconsistent
   * adjusting running `/Users/paul/Documents/CU_combined/Github/075_smr_features_and_table.sh` - ok, commit
+    * checking manually `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/075_18S_sum_feat_tab.qzv`
+    * checking manually `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/075_18S_sum_repr_seq.qzv` - see this file for stats!
+    * exporting fasta `/Users/paul/Documents/CU_combined/Zenodo/Qiime/075_18S_sum_repr_seq.fasta.gz` (`cc624f993c7f95d408bc15e625662d53`), noting hash in Geneious import - available in Geneious
+  * omitting `/Users/paul/Documents/CU_combined/Github/080_re_cut_adapt_and_filter.sh` and moving to Scratch
+  * checking and running `/Users/paul/Documents/CU_combined/Github/085_cluster_sequences.sh`
+    * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/085_18S_097_cl_tab.qza` - `18b4968f20536432d90294216f9024cc`
+    * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/085_18S_097_cl_seq.qza` - `4ed466d51ad85d28c9af126595fc5675`
+  * checking and running `/Users/paul/Documents/CU_combined/Github/090_smr_features_and_table.sh`
+    * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/085_18S_097_cl_seq.qzv`
+    * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_097_cl_tab.qzv`
+  * checking and running `/Users/paul/Documents/CU_combined/Github/095_align_repseqs.sh` - pending
+
       
      
 

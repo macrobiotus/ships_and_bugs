@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 01.10.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 28.03.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Checking reads after denoising, merging, and clustering.
 
@@ -12,8 +12,8 @@ set -x
 # ----------------------------------------------
 if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on remote...\n"
-    trpth="/data/CU_combined"
-    thrds='14'
+    trpth="/workdir/pc683/CU_combined"
+    thrds="$(nproc --all)"
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
@@ -28,7 +28,7 @@ inpth_rep='Zenodo/Qiime/085_18S_097_cl_seq.qza'
 otpth_tab='Zenodo/Qiime/090_18S_097_cl_tab.qzv'
 otpth_rep='Zenodo/Qiime/085_18S_097_cl_seq.qzv'
 
-inpth_map='Zenodo/Manifest/05_18S_merged_metadata.tsv'
+inpth_map='Zenodo/Manifest/05_18S_merged_metadata_checked.tsv'
 
 # run script
 # ----------

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 25.03.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 28.03.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 #   "Given a feature table and the associated feature sequences, cluster the
 #   features based on user-specified percent identity threshold of their
@@ -53,6 +53,11 @@ clust_seq[1]='Zenodo/Qiime/085_18S_100_cl_seq.qza'
 clust_seq[2]='Zenodo/Qiime/085_18S_097_cl_seq.qza'
 clust_seq[3]='Zenodo/Qiime/085_18S_090_cl_seq.qza'
 
+log[1]='Zenodo/Qiime/085_18S_100_cl_log.txt'
+log[2]='Zenodo/Qiime/085_18S_097_cl_log.txt'
+log[3]='Zenodo/Qiime/085_18S_090_cl_log.txt'
+
+
 # Run scripts
 # ------------
 for ((i=2;i<=2;i++)); do
@@ -63,5 +68,5 @@ for ((i=2;i<=2;i++)); do
     --p-perc-identity "${cluster[$i]}" \
     --o-clustered-table "$trpth"/"${clust_tab[$i]}" \
     --o-clustered-sequences "$trpth"/"${clust_seq[$i]}" \
-    --verbose 2>&1 | tee -a "$trpth"/"Zenodo/Qiime/085_18S_cluster_log.txt"
+    --verbose 2>&1 | tee -a "$trpth"/"${log[$i]}"
 done
