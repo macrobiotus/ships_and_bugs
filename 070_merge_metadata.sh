@@ -27,9 +27,9 @@ fi
 # run 35 still missing, also re-check mapping files
 tab[1]='/Users/paul/Documents/CU_Pearl_Harbour/Zenodo/Manifest/05_metadata.tsv'
 tab[2]='/Users/paul/Documents/CU_RT_AN/Zenodo/Manifest/10_18S_mapping_file_10410623.tsv'
-tab[3]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_34.tsv'
+tab[3]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_26.tsv'
 tab[4]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_29.tsv'
-tab[5]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_26.tsv'
+tab[5]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_34.tsv'
 tab[6]='/Users/paul/Documents/CU_US_ports_a/Zenodo/Manifest/05_18S_merged_metadata.tsv'
 
 # define output locations

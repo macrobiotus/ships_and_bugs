@@ -556,10 +556,29 @@ Data will be included via manifest files and metadate files linked in at
       * export
       * commit
       * re-combine data and files
-      * adjust classification DB - started - see above
-      * re-classify
-
-
+   * starting revision of metadata files - introducing `Location` column, but accepting unused inconsistent salinity values
+      * revised `/Users/paul/Documents/CU_Pearl_Harbour/Zenodo/Manifest/05_metadata.xlsx` - not yet exported
+      * revised `/Users/paul/Documents/CU_RT_AN/Zenodo/Manifest/10_18S_mapping_file_10410623.xlsx` - not yest exported`
+      * revised `/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_26.xlsx` - not yet exported
+      * revised `/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_29.xlsx` - not yet exported
+      * revised `/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_34.xlsx` - not yet exported
+      * revised `/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_35.xlsx` although currently unneeded - not yet exported
+* **28.03.2019** - preparing data combination after re-cleaning of inherited data
+   * continuing revision of metadata files - introducing `Location` column, but accepting unused inconsistent salinity values
+      * revised `/Users/paul/Documents/CU_US_ports_a/Zenodo/Manifest/05_18S_merged_metadata.xlsx`- not yet exported
+      * exporting tsv of above files **check for consistency after merging!**
+   * exporting files via `open -a "Microsoft Excel"` **check for consistency after merging!**
+      * created `/Users/paul/Documents/CU_Pearl_Harbour/Zenodo/Manifest/05_metadata.tsv`
+      * created `/Users/paul/Documents/CU_RT_AN/Zenodo/Manifest/10_18S_mapping_file_10410623.tsv`
+      * created `/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_26.tsv`
+      * created `/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_29.tsv`
+      * created `/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_34.tsv`
+      * erasing unneeded `/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_35.tsv` -  recreate if necessary
+      * created `/Users/paul/Documents/CU_US_ports_a/Zenodo/Manifest/05_18S_merged_metadata.tsv`
+  * committing all directories centrally to commit all up-to-date `README`s
+  * switching to `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh`
+      
+     
 
 ## Todo
 
