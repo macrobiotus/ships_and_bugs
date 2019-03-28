@@ -596,8 +596,11 @@ Data will be included via manifest files and metadate files linked in at
   * checking and running `/Users/paul/Documents/CU_combined/Github/090_smr_features_and_table.sh`
     * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/085_18S_097_cl_seq.qzv`
     * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_097_cl_tab.qzv`
-  * checking and running `/Users/paul/Documents/CU_combined/Github/095_align_repseqs.sh` - pending
-
+  * commit for cluster round-trip, committed after those actions 
+    * checking `/Users/paul/Documents/CU_combined/Github/095_align_repseqs.sh` - cluster execution pending
+    * checking `/Users/paul/Documents/CU_combined/Github/100_mask_alignment.sh`- cluster execution pending
+    * checking `/Users/paul/Documents/CU_combined/Github/105_build_tree.sh` - cluster execution pending
+  
       
      
 
