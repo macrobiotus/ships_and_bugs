@@ -12,12 +12,11 @@ set -x
 # ----------------------------------------------
 if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on remote...\n"
-    trpth="/data/CU_combined"
+    trpth="/workdir/pc683/CU_combined"
     thrds="$(nproc --all)"
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
-    qiime2cli() { qiime "$@" ; }
     thrds='2'
 fi
 
@@ -34,7 +33,7 @@ tab[6]='/Users/paul/Documents/CU_US_ports_a/Zenodo/Manifest/05_18S_merged_metada
 
 # define output locations
 # -----------------------
-otpth_tab='Zenodo/Manifest/05_18S_merged_metadata.tsv'
+otpth_tab='Zenodo/Manifest/05_18S_merged_metadata.tsv' # unrevised file b43365a014d7ac27ea712520e54aca78
 
 # run script
 # ----------

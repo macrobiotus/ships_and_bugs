@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 25.03.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 28.03.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Visualising reads after denoising and merging procedure.
 
@@ -12,19 +12,18 @@ set -x
 # ----------------------------------------------
 if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on remote...\n"
-    trpth="/data/CU_combined"
+    trpth="/workdir/pc683/CU_combined"
     thrds="$(nproc --all)"
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
-    qiime2cli() { qiime "$@" ; }
     thrds='2'
 fi
 
 # define relative input and output locations
 # ---------------------------------
 
-inpth_map='Zenodo/Manifest/05_18S_merged_metadata.tsv'
+inpth_map='Zenodo/Manifest/05_18S_merged_metadata_checked.tsv'
 
 inpth_tab='Zenodo/Qiime/065_18S_merged_tab.qza'
 inpth_rep='Zenodo/Qiime/065_18S_merged_seq.qza'

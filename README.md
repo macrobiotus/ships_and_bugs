@@ -578,7 +578,14 @@ Data will be included via manifest files and metadate files linked in at
   * committing all directories centrally to commit all up-to-date `README`s
   * switching to `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh`
   * adjusting, committing and running `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh`
+    * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/065_18S_merged_seq.qza` hash: `2c5ddd2d41d3b1a5c196350dfb1127fa`
+    * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/065_18S_merged_tab.qza` hash: `66ab218cfa3c7b29db4641b9e485a0ad`
   * adjusting, committing and running `/Users/paul/Documents/CU_combined/Github/070_merge_metadata.sh`
+  * checking for consistency and resorting `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata.tsv` (`b43365a014d7ac27ea712520e54aca78`)
+  * sorted file is `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata_checked.tsv` (`c1ca7209941aa96ee9ce9f843b629f98`)
+    * ND indices missing
+    * salinity values inconsistent
+  * adjusting running `/Users/paul/Documents/CU_combined/Github/075_smr_features_and_table.sh` - ok, commit
       
      
 
