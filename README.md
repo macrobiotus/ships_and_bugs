@@ -577,6 +577,7 @@ Data will be included via manifest files and metadate files linked in at
       * created `/Users/paul/Documents/CU_US_ports_a/Zenodo/Manifest/05_18S_merged_metadata.tsv`
   * committing all directories centrally to commit all up-to-date `README`s
   * switching to `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh`
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh` - after commit
       
      
 
