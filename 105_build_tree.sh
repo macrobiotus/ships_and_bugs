@@ -27,6 +27,8 @@ inseq='Zenodo/Qiime/100_18S_097_cl_seq_algn.qza'
 intab='Zenodo/Qiime/085_18S_097_cl_tab.qza'
 
 urtpth='Zenodo/Qiime/105_18S_097_cl_tree_urt.qza'
+urtdir='Zenodo/Qiime/105_18S_097_cl_tree_urt'
+
 mptpth='Zenodo/Qiime/105_18S_097_cl_tree_mid.qza'
 
 ottab='Zenodo/Qiime/105_18S_097_cl_tab.qza'
@@ -41,13 +43,25 @@ otseq='Zenodo/Qiime/105_18S_097_cl_seq.qza'
 # URL: http://dx.doi.org/10.1093/bioinformatics/btu033, doi:10.1093/bioinformatics/btu033.
 
 printf "Calculating tree...\n"
-  qiime phylogeny raxml-rapid-bootstrap \
-    --p-seed 1723 --p-rapid-bootstrap-seed 9384 \
-    --p-bootstrap-replicates 1000 \
-    --p-substitution-model GTRGAMMA \
-    --p-n-threads "$thrds" \
-    --i-alignment "$trpth"/"$inseq" \
+#   qiime phylogeny raxml-rapid-bootstrap \
+#     --p-seed 1723 \
+#     --p-raxml-version AVX2 \
+#     --p-rapid-bootstrap-seed 9384 \
+#     --p-bootstrap-replicates 100 \
+#     --p-substitution-model GTRCAT \
+#     --p-n-threads "$thrds" \
+#     --i-alignment "$trpth"/"$inseq" \
+#     --o-tree "$trpth"/"$urtpth" \
+#     --verbose 2>&1 | tee -a "$trpth"/"Zenodo/Qiime/105_18S_097_cl_tree_urt_log.txt"
+    
+ qiime phylogeny iqtree \
+    --p-seed 1723 \
+    --p-n-cores 0 \
+    --p-n-runs 10 \
+    --p-alrt 1000 \
+    --p-safe \
     --o-tree "$trpth"/"$urtpth" \
+    --output-dir "$trpth"/"$urtdir" \
     --verbose 2>&1 | tee -a "$trpth"/"Zenodo/Qiime/105_18S_097_cl_tree_urt_log.txt"
  
 printf "Rooting at midpoint...\n"  

@@ -601,9 +601,19 @@ Data will be included via manifest files and metadate files linked in at
     * checking `/Users/paul/Documents/CU_combined/Github/095_align_repseqs.sh` - cluster execution pending
     * checking `/Users/paul/Documents/CU_combined/Github/100_mask_alignment.sh`- cluster execution pending
     * checking `/Users/paul/Documents/CU_combined/Github/105_build_tree.sh` - cluster execution pending
-  
+  * daisy chaining scripts `095_align_repseqs.sh` `100_mask_alignment.sh` `105_build_tree.sh` - results pending (after corrections)
+  * tree builing running using raxml optimized for speed - meanwhile
+     * sync to local - **later only update**  
+     * compress full alignment(s) - for masked and unmasked
+        * available now on local: `/Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_097_cl_seq_algn.fasta.gz` - `d9489844d01d3f56b2f8e5c82e82a9d8`
+        * available now on local: `/Users/paul/Documents/CU_combined/Zenodo/Qiime/100_18S_097_cl_seq_algn.fasta.gz` - `23537c11b0709f3d88295a7636d029e1` 
+     * get hash value(s) - for masked and unmasked - ok
+     * in Geneious inspect masked and unmasked - pending
+     * restart tree building after `raxml` crashed - modified script on local for `iqtree` - syncing up - starting - waiting...
+  * later (Friday)
+    * check tree with all 18S sequences
+    * decide if should be run only on metazoans 
       
-     
 
 ## Todo
 

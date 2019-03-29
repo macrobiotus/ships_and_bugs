@@ -31,5 +31,5 @@ otpth='Zenodo/Qiime/100_18S_097_cl_seq_algn.qza'
 
 qiime alignment mask \
   --i-alignment "$trpth"/"$inpth" \
-  --o-masked-alignment "$trpth"/"$otpth"
-  --verbose 2>&1 | tee -a "$trpth"/"Zenodo/Qiime/100_18S_097_cl_seq_algn.txt"
+  --o-masked-alignment "$trpth"/"$otpth" \
+  --verbose 2>&1 | tee -a "$trpth"/"Zenodo/Qiime/100_18S_097_cl_seq_algn_log.txt"

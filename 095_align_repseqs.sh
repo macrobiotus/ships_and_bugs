@@ -23,7 +23,7 @@ fi
 
 # Define input and output locations
 # ---------------------------------
-inpth='Zenodo/Qiime/085_18S_097_cl_seq.qzv'
+inpth='Zenodo/Qiime/085_18S_097_cl_seq.qza'
 otpth='Zenodo/Qiime/095_18S_097_cl_seq_algn.qza'
 
 # Run scripts
@@ -31,5 +31,5 @@ otpth='Zenodo/Qiime/095_18S_097_cl_seq_algn.qza'
 qiime alignment mafft \
   --i-sequences "$trpth"/"$inpth" \
   --o-alignment "$trpth"/"$otpth" \
-  --p-n-threads "$thrds"\
+  --p-n-threads "$thrds" \
   --verbose 2>&1 | tee -a "$trpth"/"Zenodo/Qiime/095_18S_097_cl_seq_algn_log.txt"
