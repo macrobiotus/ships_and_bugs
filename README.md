@@ -594,9 +594,10 @@ Data will be included via manifest files and metadate files linked in at
     * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/085_18S_097_cl_tab.qza` - `18b4968f20536432d90294216f9024cc`
     * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/085_18S_097_cl_seq.qza` - `4ed466d51ad85d28c9af126595fc5675`
   * checking and running `/Users/paul/Documents/CU_combined/Github/090_smr_features_and_table.sh`
-    * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/085_18S_097_cl_seq.qzv`
-    * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_097_cl_tab.qzv`
-  * commit for cluster round-trip, committed after those actions 
+    * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/085_18S_097_cl_seq.qzv` 
+    * exporting fasta, also to Geneious `/Users/paul/Documents/CU_combined/Zenodo/Qiime/085_18S_097_cl_seq.fasta.gz` -`ef53e1defcc4b8883f99d94b5b3a23c0`
+    * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_097_cl_tab.qzv` -  - see this file for stats!
+  * commit for cluster round-trip, committed after those actions (and even more checking) 
     * checking `/Users/paul/Documents/CU_combined/Github/095_align_repseqs.sh` - cluster execution pending
     * checking `/Users/paul/Documents/CU_combined/Github/100_mask_alignment.sh`- cluster execution pending
     * checking `/Users/paul/Documents/CU_combined/Github/105_build_tree.sh` - cluster execution pending
