@@ -59,6 +59,7 @@ printf "Calculating tree...\n"
     --p-n-cores 0 \
     --p-n-runs 10 \
     --p-alrt 1000 \
+    --i-alignment "$trpth"/"$inseq" \
     --p-safe \
     --o-tree "$trpth"/"$urtpth" \
     --output-dir "$trpth"/"$urtdir" \
@@ -69,3 +70,4 @@ printf "Rooting at midpoint...\n"
   --i-tree "$trpth"/"$urtpth" \
   --o-rooted-tree "$trpth"/"$mptpth" \
   --verbose 2>&1 | tee -a "$trpth"/"Zenodo/Qiime/105_18S_097_cl_tree_mid_log.txt"
+

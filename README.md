@@ -609,11 +609,22 @@ Data will be included via manifest files and metadate files linked in at
         * available now on local: `/Users/paul/Documents/CU_combined/Zenodo/Qiime/100_18S_097_cl_seq_algn.fasta.gz` - `23537c11b0709f3d88295a7636d029e1` 
      * get hash value(s) - for masked and unmasked - ok
      * in Geneious inspect masked and unmasked - pending
-     * restart tree building after `raxml` crashed - modified script on local for `iqtree` - syncing up - starting - waiting...
+     * restart tree building after `raxml` crashed - modified script on local for `iqtree` - syncing up - starting - waiting... .. running with warning on full 18S alignment.. check end of logfile! ... 
+        * keep in mind cool command `watch -n3 tail -"$(($LINES-6))" foo.txt`
   * later (Friday)
     * check tree with all 18S sequences
-    * decide if should be run only on metazoans 
-      
+    * decide if should be run only on metazoans - probably yes - then:
+       * sync home adjust script for cluster - classify reads - tree builing etc - reapeat 
+* **29.03.2019** - working with metazoan data to get results for Washington DC
+  * tree calculation ongoing on cluster `cbsumm05`: **update only, don't commit until finished, do not tocuh scripts `095_align_repseqs.sh`, `100_mask_alignment.sh`, `105_build_tree.sh` **
+  * aborted as per Jose - todays plan
+    * sync to local - ok 
+    * erase output files - ok
+    * establish new script order - ok 
+    * assigning taxonomy to unaligned sequences, using extende SILVA db
+    * build second tree parallel
+  * 
+
 
 ## Todo
 
