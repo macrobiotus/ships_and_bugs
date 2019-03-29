@@ -27,9 +27,8 @@ refdbseq="Zenodo/References/Silva128_extract_extended/99_otus_18S.fasta"
 refdbtax="Zenodo/References/Silva128_extract_extended/majority_taxonomy_7_levels.txt"
 
 # export to 
-qiime_import_seq="Zenodo/References/095_Silva128_Qiime_sequence_import.qza"
-qiime_import_tax="Zenodo/References/095_Silva128_Qiime_taxonomy_import.qza"
-
+qiime_import_seq="Zenodo/Qiime/095_Silva128_Qiime_sequence_import.qza"
+qiime_import_tax="Zenodo/Qiime/095_Silva128_Qiime_taxonomy_import.qza"
 
 # query and assignment files
 # --------------------------
@@ -47,25 +46,23 @@ qiime_assign_log="Zenodo/Qiime/095_Silva128_Qiime_taxonomy_assignment_log.txt"
 # ------------
 printf "Importing reference sequences into Qiime...\n"
 qiime tools import \
-  --input-path  "$trpth"/"$refdbtax"   \
+  --input-path  "$trpth"/"$refdbseq"   \
   --output-path "$trpth"/"$qiime_import_seq"    \
-  --type 'FeatureData[Sequence]'
-  --verbose 2>&1 | tee -a "$trpth"/"$qiime_assign_log"
+  --type 'FeatureData[Sequence]' || { echo 'Reference data import failed' ; exit 1; }
 
 printf "Importing reference taxonomy into Qiime...\n"
 qiime tools import \
-  --input-path  "$trpth"/"$refdbseq" \
+  --input-path  "$trpth"/"$refdbtax" \
   --output-path "$trpth"/"$qiime_import_tax" \
   --type 'FeatureData[Taxonomy]' \
-  --input-format HeaderlessTSVTaxonomyFormat \
-  --verbose 2>&1 | tee -a "$trpth"/"$qiime_assign_log"
+  --input-format HeaderlessTSVTaxonomyFormat || { echo 'Taxonomy import failed' ; exit 1; }
 
 # Blast+ classifier - preliminarily adjusted with mock data (but Zebra fish only)
   qiime feature-classifier classify-consensus-blast \
-    --i-reference-reads    "$trpth"/"$qiime_import_tax" \
+    --i-reference-reads    "$trpth"/"$qiime_import_seq" \
     --i-reference-taxonomy "$trpth"/"$qiime_import_tax" \
     --i-query              "$trpth"/"$query" \
-    --o-classification     "$trpth"/"$tax_assignemnts" \ 
+    --o-classification     "$trpth"/"$tax_assignemnts" \
     --p-maxaccepts 4 \
     --p-perc-identity 0.99 \
     --p-evalue 0.0000000001 \

@@ -621,10 +621,11 @@ Data will be included via manifest files and metadate files linked in at
     * sync to local - ok 
     * erase output files - ok
     * establish new script order - ok 
-    * assigning taxonomy to unaligned sequences, using extende SILVA db
-    * build second tree parallel
-  * 
-
+    * assigning taxonomy to unaligned sequences, using extende SILVA db - working on it 
+    * build second tree parallel - will be done
+  * adjusted `/Users/paul/Documents/CU_combined/Github/095_classify_reads.sh` - psuhing to cluster and running -  
+    * reference data extract: `/Users/paul/Documents/CU_combined/Zenodo/Qiime/095_Silva128_Qiime_sequence_import.qza` - `57b8fb7dc5cb40401e2a94e3e5bd1cdc`
+    * reference data extract: `/Users/paul/Documents/CU_combined/Zenodo/Qiime/095_Silva128_Qiime_taxonomy_import.qza` - `fd28a68633a22bc57f3b4e1c3527398d`
 
 ## Todo
 
