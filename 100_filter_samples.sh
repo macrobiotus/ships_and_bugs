@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 28.09.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 29.03.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 #  Isolate but keep control samples
 #  for closer analysis and removal (via `qiime
@@ -15,71 +15,51 @@
 # ----------------------------------------------
 if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on remote...\n"
-    trpth="/data/CU_combined"
+    trpth="/workdir/pc683/CU_combined"
     cores="$(nproc --all)"
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
-    cores="$(nproc --all)"
 fi
 
 # Define input paths 
 # ------------------
+# define more arrays for other files if needed
 
-clust_tab[1]='Zenodo/Qiime/105_foo'
-clust_tab[2]='Zenodo/Qiime/105_18S_097_cl_tab.qza'
-clust_tab[3]='Zenodo/Qiime/105_foo'
+# clustered input sequences
+clust_tab[2]='Zenodo/Qiime/085_18S_097_cl_tab.qza'
+clust_seq[2]='Zenodo/Qiime/085_18S_097_cl_seq.qza'
 
-clust_seq[1]='Zenodo/Qiime/105_foo'
-clust_seq[2]='Zenodo/Qiime/105_18S_097_cl_seq.qza'
-clust_seq[3]='Zenodo/Qiime/105_foo'
+# checked mapping files
+metad_tsv[2]='Zenodo/Manifest/05_18S_merged_metadata_checked.tsv' # (should be  `c1ca7209941aa96ee9ce9f843b629f98`)
 
-taxo='Zenodo/Qiime/115_18S_taxonomy.qza'
-
-mapping[1]='Zenodo/Manifest/05_18S_merged_metadata.tsv' # names corrected for Singapore
+# in last increment run via vsearch
+tax_assignemnts[2]='Zenodo/Qiime/115_18S_taxonomy.qza'
 
 # Define output paths 
 # -------------------
-edna_tab[1]='Zenodo/Qiime/130_foo'
-edna_tab[2]='Zenodo/Qiime/130_18S_097_cl_edna_tab.qza'
-edna_tab[3]='Zenodo/Qiime/130_foo'
+edna_tab[2]='Zenodo/Qiime/100_18S_097_cl_edna_tab.qza'
+cntrl_tab[2]='Zenodo/Qiime/100_18S_097_cl_cntrl_tab.qza'
+metzn_tab[2]='Zenodo/Qiime/100_18S_097_cl_metzn_tab.qza'
 
-cntrl_tab[1]='Zenodo/Qiime/130_foo'
-cntrl_tab[2]='Zenodo/Qiime/130_18S_097_cl_cntrl_tab.qza'
-cntrl_tab[3]='Zenodo/Qiime/130_foo'
+edna_seq[2]='Zenodo/Qiime/100_18S_097_cl_edna_seq.qza'
+cntrl_seq[2]='Zenodo/Qiime/100_18S_097_cl_cntrl_seq.qza'
+metzn_seq[2]='Zenodo/Qiime/100_18S_097_cl_metzn_seq.qza'
 
-meta_tab[1]='Zenodo/Qiime/130_foo'
-meta_tab[2]='Zenodo/Qiime/130_18S_097_cl_meta_tab.qza'
-meta_tab[3]='Zenodo/Qiime/130_foo'
-
-edna_seq[1]='Zenodo/Qiime/130_18S_foo'
-edna_seq[2]='Zenodo/Qiime/130_18S_097_cl_edna_seq.qza'
-edna_seq[3]='Zenodo/Qiime/130_18S_foo'
-
-cntrl_seq[1]='Zenodo/Qiime/130_18S_foo'
-cntrl_seq[2]='Zenodo/Qiime/130_18S_097_cl_cntrl_seq.qza'
-cntrl_seq[3]='Zenodo/Qiime/130_18S_foo'
-
-meta_seq[1]='Zenodo/Qiime/130_18S_foo'
-meta_seq[2]='Zenodo/Qiime/130_18S_097_cl_meta_seq.qza'
-meta_seq[3]='Zenodo/Qiime/130_18S_foo'
-
-# Run scripts - ADJUST I
-# ----------------------
+# Run scripts 
+# -----------
+# (check that i is set correctly to loop over the intended files)
 for ((i=2;i<=2;i++)); do
   printf "Isolating eDNA features...\n"
   qiime feature-table filter-samples \
     --i-table "$trpth"/"${clust_tab[$i]}" \
-    --m-metadata-file "$trpth"/"${mapping[1]}" \
+    --m-metadata-file "$trpth"/"${metad_tsv[1]}" \
     --p-min-frequency '1' \
     --p-min-features '1' \
     --p-where "Type='eDNA'" \
     --p-no-exclude-ids \
     --o-filtered-table "$trpth"/"${edna_tab[$i]}" \
     --verbose
-done
-
-for ((i=2;i<=2;i++)); do
   printf "Isolating eDNA sequences...\n"
   qiime feature-table filter-seqs \
     --i-data "$trpth"/"${clust_seq[$i]}" \
@@ -89,7 +69,7 @@ for ((i=2;i<=2;i++)); do
     --verbose
 done
 
-for ((i=2;i<=2;i++)); do
+for ((i=2;i<=2;i++)); do 
   printf "Isolating control features...\n"
   qiime feature-table filter-samples \
     --i-table "$trpth"/"${clust_tab[$i]}" \
@@ -100,9 +80,6 @@ for ((i=2;i<=2;i++)); do
     --m-metadata-file "$trpth"/"${mapping[1]}" \
     --o-filtered-table "$trpth"/"${cntrl_tab[$i]}" \
     --verbose
-done
-
-for ((i=2;i<=2;i++)); do
   printf "Isolating control sequences...\n"
   qiime feature-table filter-seqs \
     --i-data "$trpth"/"${clust_seq[$i]}" \
@@ -118,16 +95,14 @@ for ((i=2;i<=2;i++)); do
     --i-table "$trpth"/"${edna_tab[$i]}" \
     --p-include metazoa \
     --i-taxonomy "$trpth"/"$taxo" \
-    --o-filtered-table "$trpth"/"${meta_tab[$i]}" \
+    --o-filtered-table "$trpth"/"${metzn_tab[$i]}" \
     --verbose
-done
 
-for ((i=2;i<=2;i++)); do
   printf "Isolating Metazoan sequences...\n"
   qiime taxa filter-seqs \
     --i-sequences "$trpth"/"${edna_seq[$i]}" \
     --i-taxonomy "$trpth"/"$taxo" \
     --p-include metazoa \
-    --o-filtered-sequences "$trpth"/"${meta_seq[$i]}" \
+    --o-filtered-sequences "$trpth"/"${metzn_seq[$i]}" \
     --verbose
 done

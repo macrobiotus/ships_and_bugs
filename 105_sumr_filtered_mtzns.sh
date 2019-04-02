@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-
-# 01.10.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 29.03.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # https://docs.qiime2.org/2017.11/tutorials/moving-pictures/
 
@@ -54,5 +53,3 @@ qiime taxa barplot \
   --m-metadata-file "$trpth"/"$mdat" \
   --o-visualization "$trpth"/"$plot" \
   --verbose
-
-

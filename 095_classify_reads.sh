@@ -6,7 +6,7 @@
 
 # For debugging only
 # ------------------ 
-set -x
+# set -x
 
 # Paths need to be adjusted for remote execution
 # ----------------------------------------------
@@ -37,7 +37,7 @@ qiime_import_tax="Zenodo/Qiime/095_Silva128_Qiime_taxonomy_import.qza"
 query="Zenodo/Qiime/085_18S_097_cl_seq.qza"
 
 # write taxonomic assignments to this file
-tax_assignemnts="Zenodo/Qiime/095_18S_097_cl_seq_taxonomic_assigmnets.qza"
+tax_assignemnts='Zenodo/Qiime/095_18S_097_cl_seq_taxonomic_assigmnets.qza'
 
 # rolling log
 qiime_assign_log="Zenodo/Qiime/095_Silva128_Qiime_taxonomy_assignment_log.txt"
@@ -58,13 +58,27 @@ qiime tools import \
   --input-format HeaderlessTSVTaxonomyFormat || { echo 'Taxonomy import failed' ; exit 1; }
 
 # Blast+ classifier - preliminarily adjusted with mock data (but Zebra fish only)
-  qiime feature-classifier classify-consensus-blast \
+
+# printf "Running Blast Classifier...\n"
+#   qiime feature-classifier classify-consensus-blast \
+#     --i-reference-reads    "$trpth"/"$qiime_import_seq" \
+#   --i-reference-taxonomy "$trpth"/"$qiime_import_tax" \
+#   --i-query              "$trpth"/"$query" \
+#   --o-classification     "$trpth"/"$tax_assignemnts" \
+#   --p-maxaccepts 4 \
+#   --p-perc-identity 0.99 \
+#   --p-evalue 0.0000000001 \
+#   --p-min-consensus 0.75 \
+#    --verbose 2>&1 | tee -a "$trpth"/"$qiime_assign_log"
+
+printf "Running Vsearch Classifier...\n"
+  qiime feature-classifier classify-consensus-vsearch \
+    --i-query              "$trpth"/"$query" \
     --i-reference-reads    "$trpth"/"$qiime_import_seq" \
     --i-reference-taxonomy "$trpth"/"$qiime_import_tax" \
-    --i-query              "$trpth"/"$query" \
-    --o-classification     "$trpth"/"$tax_assignemnts" \
     --p-maxaccepts 4 \
     --p-perc-identity 0.99 \
-    --p-evalue 0.0000000001 \
     --p-min-consensus 0.75 \
+    --p-threads "$cores" \
+    --o-classification "$trpth"/"$tax_assignemnts" \
     --verbose 2>&1 | tee -a "$trpth"/"$qiime_assign_log"

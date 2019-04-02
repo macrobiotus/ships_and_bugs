@@ -596,7 +596,7 @@ Data will be included via manifest files and metadate files linked in at
   * checking and running `/Users/paul/Documents/CU_combined/Github/090_smr_features_and_table.sh`
     * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/085_18S_097_cl_seq.qzv` 
     * exporting fasta, also to Geneious `/Users/paul/Documents/CU_combined/Zenodo/Qiime/085_18S_097_cl_seq.fasta.gz` -`ef53e1defcc4b8883f99d94b5b3a23c0`
-    * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_097_cl_tab.qzv` -  - see this file for stats!
+    * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_097_cl_tab.qzv` -  see this file for stats!
   * commit for cluster round-trip, committed after those actions (and even more checking) 
     * checking `/Users/paul/Documents/CU_combined/Github/095_align_repseqs.sh` - cluster execution pending
     * checking `/Users/paul/Documents/CU_combined/Github/100_mask_alignment.sh`- cluster execution pending
@@ -623,9 +623,19 @@ Data will be included via manifest files and metadate files linked in at
     * establish new script order - ok 
     * assigning taxonomy to unaligned sequences, using extende SILVA db - working on it 
     * build second tree parallel - will be done
-  * adjusted `/Users/paul/Documents/CU_combined/Github/095_classify_reads.sh` - psuhing to cluster and running -  
+  * adjusted `/Users/paul/Documents/CU_combined/Github/095_classify_reads.sh` - ***pushing to cluster and running*** -  
     * reference data extract: `/Users/paul/Documents/CU_combined/Zenodo/Qiime/095_Silva128_Qiime_sequence_import.qza` - `57b8fb7dc5cb40401e2a94e3e5bd1cdc`
     * reference data extract: `/Users/paul/Documents/CU_combined/Zenodo/Qiime/095_Silva128_Qiime_taxonomy_import.qza` - `fd28a68633a22bc57f3b4e1c3527398d`
+  * on cluster: taxonomy is running:
+     * in taxonomy assignemnt script `095_classify_reads.sh` blast can't be multithreaded
+     * needed to use vsaecrh - needs to be evaluated later & commited once back at local
+  * while classification is running, revised: `100_filter_samples.sh`
+  * while classification is running, revised: `105_smr_features_and_table.sh`
+  * classification crashed due to mis-formated reference data - inserting tabs in reference data files - restart
+* **02.04.2019** - restarting classification with properly formatted reference data
+  * on local, commit and check, upload to cluster and restart classification
+  * using script `/Users/paul/Documents/CU_combined/Github/095_classify_reads.sh`
+  
 
 ## Todo
 
