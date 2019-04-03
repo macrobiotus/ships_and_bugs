@@ -635,6 +635,8 @@ Data will be included via manifest files and metadate files linked in at
 * **02.04.2019** - restarting classification with properly formatted reference data
   * on local, commit and check, upload to cluster and restart classification
   * using script `/Users/paul/Documents/CU_combined/Github/095_classify_reads.sh`
+  * downloaded results to local and cancelled reservationm
+  * adjusted and attempting to run `100_filter_samples.sh` after commit - pending
   
 
 ## Todo

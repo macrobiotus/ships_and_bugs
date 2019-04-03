@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 29.03.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 02.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # https://docs.qiime2.org/2017.11/tutorials/moving-pictures/
 
@@ -12,9 +12,8 @@
 # ----------------------------------------------
 if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     printf "This script needs at least qiime2-2018.08. Execution on remote...\n"
-    trpth="/data/CU_combined"
+    trpth="/workdir/pc683/CU_combined"
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
-    qiime2cli() { qiime "$@"; }
     printf "This script needs at least qiime2-2018.08. Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
 fi

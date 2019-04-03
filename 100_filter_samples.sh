@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 29.03.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 02.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 #  Isolate but keep control samples
 #  for closer analysis and removal (via `qiime
@@ -34,7 +34,7 @@ clust_seq[2]='Zenodo/Qiime/085_18S_097_cl_seq.qza'
 metad_tsv[2]='Zenodo/Manifest/05_18S_merged_metadata_checked.tsv' # (should be  `c1ca7209941aa96ee9ce9f843b629f98`)
 
 # in last increment run via vsearch
-tax_assignemnts[2]='Zenodo/Qiime/115_18S_taxonomy.qza'
+tax_assignemnts[2]='Zenodo/Qiime/095_18S_097_cl_seq_taxonomic_assigmnets.qza'
 
 # Define output paths 
 # -------------------
