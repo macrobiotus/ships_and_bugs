@@ -636,7 +636,8 @@ Data will be included via manifest files and metadate files linked in at
   * on local, commit and check, upload to cluster and restart classification
   * using script `/Users/paul/Documents/CU_combined/Github/095_classify_reads.sh`
   * downloaded results to local and cancelled reservationm
-  * adjusted and attempting to run `100_filter_samples.sh` after commit - pending
+  * adjusted and attempting to run `100_filter_samples.sh` after commit - ok
+  * continue with `100_filter_samples.sh`
   
 
 ## Todo

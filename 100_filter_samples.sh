@@ -53,13 +53,14 @@ for ((i=2;i<=2;i++)); do
   printf "Isolating eDNA features...\n"
   qiime feature-table filter-samples \
     --i-table "$trpth"/"${clust_tab[$i]}" \
-    --m-metadata-file "$trpth"/"${metad_tsv[1]}" \
+    --m-metadata-file "$trpth"/"${metad_tsv[$i]}" \
     --p-min-frequency '1' \
     --p-min-features '1' \
     --p-where "Type='eDNA'" \
     --p-no-exclude-ids \
     --o-filtered-table "$trpth"/"${edna_tab[$i]}" \
     --verbose
+  
   printf "Isolating eDNA sequences...\n"
   qiime feature-table filter-seqs \
     --i-data "$trpth"/"${clust_seq[$i]}" \
@@ -77,9 +78,10 @@ for ((i=2;i<=2;i++)); do
     --p-min-features '1' \
     --p-where "Type='eDNA'" \
     --p-exclude-ids \
-    --m-metadata-file "$trpth"/"${mapping[1]}" \
+    --m-metadata-file "$trpth"/"${metad_tsv[$i]}" \
     --o-filtered-table "$trpth"/"${cntrl_tab[$i]}" \
     --verbose
+
   printf "Isolating control sequences...\n"
   qiime feature-table filter-seqs \
     --i-data "$trpth"/"${clust_seq[$i]}" \
@@ -94,14 +96,14 @@ for ((i=2;i<=2;i++)); do
   qiime taxa filter-table \
     --i-table "$trpth"/"${edna_tab[$i]}" \
     --p-include metazoa \
-    --i-taxonomy "$trpth"/"$taxo" \
+    --i-taxonomy "$trpth"/"${tax_assignemnts[$i]}" \
     --o-filtered-table "$trpth"/"${metzn_tab[$i]}" \
     --verbose
 
   printf "Isolating Metazoan sequences...\n"
   qiime taxa filter-seqs \
     --i-sequences "$trpth"/"${edna_seq[$i]}" \
-    --i-taxonomy "$trpth"/"$taxo" \
+    --i-taxonomy "$trpth"/"${tax_assignemnts[$i]}" \
     --p-include metazoa \
     --o-filtered-sequences "$trpth"/"${metzn_seq[$i]}" \
     --verbose
