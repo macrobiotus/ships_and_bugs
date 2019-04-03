@@ -26,7 +26,6 @@ fi
 inseq='Zenodo/Qiime/110_18S_097_cl_metzn_seq_algn_masked.qza'
 
 urtpth='Zenodo/Qiime/115_18S_097_cl_tree_urt.qza'
-urtdir='Zenodo/Qiime/115_18S_097_cl_tree_urt'
 
 mptpth='Zenodo/Qiime/115_18S_097_cl_tree_mid.qza'
 
@@ -57,7 +56,6 @@ qiime phylogeny iqtree \
    --i-alignment "$trpth"/"$inseq" \
    --p-safe \
    --o-tree "$trpth"/"$urtpth" \
-   --output-dir "$trpth"/"$urtdir" \
    --verbose 2>&1 | tee -a "$trpth"/"Zenodo/Qiime/115_18S_097_cl_tree_urt_log.txt"
  
 printf "Rooting at midpoint...\n"  

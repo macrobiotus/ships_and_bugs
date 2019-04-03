@@ -650,7 +650,21 @@ Data will be included via manifest files and metadate files linked in at
   * ran `/Users/paul/Documents/CU_combined/Github/110_mask_alignment.sh`
     * manually exporting and checking in Geneious `/Users/paul/Documents/CU_combined/Zenodo/Qiime/110_18S_097_cl_metzn_seq_algn_masked.fasta.gz` - `cdf8cc437665e1e8767a13c88ebc1963`
   * running `/Users/paul/Documents/CU_combined/Github/115_build_tree.sh` - pending
+    * manually check tree:
+    * export (and un-nest)`qiime tools export --input-path /Users/paul/Documents/CU_combined/Zenodo/Qiime/115_18S_097_cl_tree_mid.qza --output-path /Users/paul/Documents/CU_combined/Zenodo/Qiime/115_18S_097_cl_tree_mid.nwk`
+    * get hash `md5 /Users/paul/Documents/CU_combined/Zenodo/Qiime/115_18S_097_cl_tree_mid.nwk`- `03f5934a0467b5b1b6809925c5d31ef4`
+    * tree `03f5934a0467b5b1b6809925c5d31ef4` imported to Geneious - not yet prefect
+  * adjusting `/Users/paul/Documents/CU_combined/Github/120_get_metazoan_core_metrics.sh`
+    * checking sampling depth of `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/105_18S_097_cl_metzn_tab.qzv`
+    * settling on 2500 seqs, excluding Buenos Aires and others, but keeping at least 4 samples per port
+    * for exported screenshot `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/190403_rarefaction_depth.png`
+    * `"Retained 467,500 (7.35%) sequences in 187 (78.57%) samples at the specifed sampling depth."`
+    * commit and run 
   
+  
+  * later - abundance correct 
+  * get both core diversities
+  * get both unifrac measures
 
 ## Todo
 

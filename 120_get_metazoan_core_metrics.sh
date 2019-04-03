@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 03.05.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 03.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Qiime biodiversity core analyses
 # https://docs.qiime2.org/2017.11/tutorials/moving-pictures/
@@ -16,26 +16,23 @@ if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     trpth="/workdir/pc683/CU_combined"
     useConfirm=false
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
-    qiime2cli() { qiime "$@"; }
     printf "Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
-    useConfirm=true
 fi
 
 # Define input and output locations
 # ---------------------------------
-mptpth='Zenodo/Qiime/105_18S_097_cl_tree_mid.qza'
+mptpth='Zenodo/Qiime/115_18S_097_cl_tree_mid.qza'
+ftable='Zenodo/Qiime/100_18S_097_cl_metzn_tab.qza'
 mdata='Zenodo/Manifest/05_18S_merged_metadata.tsv'
 
-
-ftable='Zenodo/Qiime/130_18S_097_cl_meta_tab.qza'
-crdir='Zenodo/Qiime/150_18S_metazoan_core_metrics'
-depth='10000' # using frequency of 140_18S_097_cl_euk_tab.qzv to include most samples
-              # Retained 1,210,000 (21.76%) sequences in 121 (68.36%) samples at the specified sampling depth.
+crdir='Zenodo/Qiime/120_18S_metazoan_core_metrics'
+depth='2500' # see README and `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/190403_rarefaction_depth.png`
+             # "Retained 467,500 (7.35%) sequences in 187 (78.57%) samples at the specifed sampling depth."
             
 # Run scripts
 # ------------
-qiime2cli diversity core-metrics-phylogenetic \
+qiime diversity core-metrics-phylogenetic \
   --i-phylogeny "$trpth"/"$mptpth" \
   --i-table "$trpth"/"$ftable" \
   --m-metadata-file "$trpth"/"$mdata" \
