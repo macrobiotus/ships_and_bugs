@@ -24,6 +24,7 @@ fi
 # ---------------------------------
 
 inpth_map='Zenodo/Manifest/05_18S_merged_metadata_checked.tsv' # (should be  `c1ca7209941aa96ee9ce9f843b629f98`)
+                                                               # (correction: `9704c8ce6cf9f8acbd08c88d124b4a5b`)
 
 inpth_tab='Zenodo/Qiime/065_18S_merged_tab.qza'
 inpth_rep='Zenodo/Qiime/065_18S_merged_seq.qza'

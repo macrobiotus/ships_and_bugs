@@ -660,11 +660,12 @@ Data will be included via manifest files and metadate files linked in at
     * for exported screenshot `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/190403_rarefaction_depth.png`
     * `"Retained 467,500 (7.35%) sequences in 187 (78.57%) samples at the specifed sampling depth."`
     * commit and run 
-  
-  
-  * later - abundance correct 
-  * get both core diversities
-  * get both unifrac measures
+  * for interpretation using unweighted unifrac measure
+    * as per `https://forum.qiime2.org/t/unweighted-vs-weighted-unifrac-explanation/2206/3`
+    * low count OTU's would be most important
+    * saved video as `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/190403_120_18S_metazoan_core_metrics_Unweihted_unifrac.mov`
+ * adjusting and running `/Users/paul/Documents/CU_combined/Github/125_isolate_unifrac_results.sh` - ok, after some fighting, needed to add more explicit commands
+ * later - ready to run R scripts
 
 ## Todo
 

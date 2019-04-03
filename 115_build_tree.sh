@@ -24,9 +24,7 @@ fi
 # Define input and output locations
 # ---------------------------------
 inseq='Zenodo/Qiime/110_18S_097_cl_metzn_seq_algn_masked.qza'
-
 urtpth='Zenodo/Qiime/115_18S_097_cl_tree_urt.qza'
-
 mptpth='Zenodo/Qiime/115_18S_097_cl_tree_mid.qza'
 
 

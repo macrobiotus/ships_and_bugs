@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 02.10.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 03.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Converting clustering results to biom files for Qiime 1 and
 # network graphics. (Trees are neglected here, they can be incorporated
@@ -24,14 +24,15 @@ fi
 
 # Define input files
 # ------------------
-tab_file='Zenodo/Qiime/130_18S_097_cl_meta_tab.qza'
-seq_file='Zenodo/Qiime/130_18S_097_cl_meta_seq.qza'
-tax_file='Zenodo/Qiime/115_18S_taxonomy.qza'
-map_file='Zenodo/Manifest/05_18S_merged_metadata.tsv'
-tree_file='Zenodo/Qiime/105_18S_097_cl_tree_mid.qza'
 
-biom_dir='Zenodo/Qiime/160_18S_097_cl_meta_biom' 
-tree_out='105_18S_097_cl_tree_mid.tre'
+map_file='Zenodo/Manifest/05_18S_merged_metadata_checked.tsv' # (after correction: `9704c8ce6cf9f8acbd08c88d124b4a5b`)
+tax_file='Zenodo/Qiime/095_18S_097_cl_seq_taxonomic_assigmnets.qza'
+seq_file='Zenodo/Qiime/100_18S_097_cl_metzn_seq.qza'
+tab_file='Zenodo/Qiime/100_18S_097_cl_metzn_tab.qza'
+tree_file='Zenodo/Qiime/115_18S_097_cl_tree_mid.qza'
+
+biom_dir='Zenodo/Qiime/130_18S_097_cl_metazoan_biom_export' 
+tree_out='130_18S_097_cl_metazoan_tree'
 
 # Run scripts
 # ------------
@@ -60,5 +61,6 @@ printf "Adding metadata information to .biom file at $(date +"%T")...\n"
   biom add-metadata \
   -i "$trpth"/"$biom_dir"/features-tax.biom \
   -o "$trpth"/"$biom_dir"/features-tax-meta.biom \
-  --sample-metadata-fp "$trpth"/"$map_file" \
-  --observation-header OTUID,taxonomy,confidence || { echo 'metadata addition failed' ; exit 1; }
+  -m "$trpth"/"$map_file" \
+  --observation-header OTUID,taxonomy,confidence \
+  --sample-header SampleID,BarcodeSequence,LinkerPrimerSequence,Port,Location,Type,Temp,Sali,Lati,Long,Run,Facility,CollYear || { echo 'metadata addition failed' ; exit 1; }

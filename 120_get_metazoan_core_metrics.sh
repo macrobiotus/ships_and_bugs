@@ -24,7 +24,7 @@ fi
 # ---------------------------------
 mptpth='Zenodo/Qiime/115_18S_097_cl_tree_mid.qza'
 ftable='Zenodo/Qiime/100_18S_097_cl_metzn_tab.qza'
-mdata='Zenodo/Manifest/05_18S_merged_metadata.tsv'
+mdata='Zenodo/Manifest/05_18S_merged_metadata.tsv' # (after correction: `9704c8ce6cf9f8acbd08c88d124b4a5b`)
 
 crdir='Zenodo/Qiime/120_18S_metazoan_core_metrics'
 depth='2500' # see README and `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/190403_rarefaction_depth.png`
