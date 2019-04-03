@@ -637,7 +637,18 @@ Data will be included via manifest files and metadate files linked in at
   * using script `/Users/paul/Documents/CU_combined/Github/095_classify_reads.sh`
   * downloaded results to local and cancelled reservationm
   * adjusted and attempting to run `100_filter_samples.sh` after commit - ok
-  * continue with `100_filter_samples.sh`
+  * ran `100_filter_samples.sh` - ok 
+* **03.04.2019** - inspect files
+  * adjust and run `/Users/paul/Documents/CU_combined/Github/105_sumr_filtered_data_sets.sh` - ok
+    * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/105_18S_097_cl_cntrl_barplot.qzv` - ok (huge)
+    * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/105_18S_097_cl_cntrl_barplot.qzv`
+    * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/105_18S_097_cl_edna_barplot.qzv` - ok (huge)
+  * manually exporting metazoan sequences to `/Users/paul/Documents/CU_combined/Zenodo/Qiime/105_18S_097_cl_metzn_seq.fasta.gz` - `8f3cdcd2ca1b7c4cfb9b6d262e0be744`
+  * testing alignment in Geneious incl. 50% masking - ok (check for hash `8f3cdcd2ca1b7c4cfb9b6d262e0be744`)
+  * ran `/Users/paul/Documents/CU_combined/Github/110_align_repseqs.sh`
+    * manually exporting and checking in Geneious `/Users/paul/Documents/CU_combined/Zenodo/Qiime/110_18S_097_cl_metzn_seq_algn.fasta.gz` - `91ebd48b842f34feaaa5e800845da8b8`
+  * ran `/Users/paul/Documents/CU_combined/Github/110_mask_alignment.sh`
+    * manually exporting and checking in Geneious `/Users/paul/Documents/CU_combined/Zenodo/Qiime/110_18S_097_cl_metzn_seq_algn_masked.fasta.gz` - `cdf8cc437665e1e8767a13c88ebc1963`
   
 
 ## Todo

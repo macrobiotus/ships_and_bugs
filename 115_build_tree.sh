@@ -23,18 +23,13 @@ fi
 
 # Define input and output locations
 # ---------------------------------
-inseq='Zenodo/Qiime/100_18S_097_cl_seq_algn.qza'
-intab='Zenodo/Qiime/085_18S_097_cl_tab.qza'
+inseq='Zenodo/Qiime/110_18S_097_cl_metzn_seq_algn_masked.qza'
 
-urtpth='Zenodo/Qiime/105_18S_097_cl_tree_urt.qza'
-urtdir='Zenodo/Qiime/105_18S_097_cl_tree_urt'
+urtpth='Zenodo/Qiime/115_18S_097_cl_tree_urt.qza'
+urtdir='Zenodo/Qiime/115_18S_097_cl_tree_urt'
 
-mptpth='Zenodo/Qiime/105_18S_097_cl_tree_mid.qza'
+mptpth='Zenodo/Qiime/115_18S_097_cl_tree_mid.qza'
 
-ottab='Zenodo/Qiime/105_18S_097_cl_tab.qza'
-inpth='Zenodo/Qiime/085_18S_097_cl_seq.qza'
-
-otseq='Zenodo/Qiime/105_18S_097_cl_seq.qza'
 
 # Run scripts
 # ------------
@@ -54,20 +49,19 @@ printf "Calculating tree...\n"
 #     --o-tree "$trpth"/"$urtpth" \
 #     --verbose 2>&1 | tee -a "$trpth"/"Zenodo/Qiime/105_18S_097_cl_tree_urt_log.txt"
     
- qiime phylogeny iqtree \
-    --p-seed 1723 \
-    --p-n-cores 0 \
-    --p-n-runs 10 \
-    --p-alrt 1000 \
-    --i-alignment "$trpth"/"$inseq" \
-    --p-safe \
-    --o-tree "$trpth"/"$urtpth" \
-    --output-dir "$trpth"/"$urtdir" \
-    --verbose 2>&1 | tee -a "$trpth"/"Zenodo/Qiime/105_18S_097_cl_tree_urt_log.txt"
+qiime phylogeny iqtree \
+   --p-seed 1723 \
+   --p-n-cores 0 \
+   --p-n-runs 10 \
+   --p-alrt 1000 \
+   --i-alignment "$trpth"/"$inseq" \
+   --p-safe \
+   --o-tree "$trpth"/"$urtpth" \
+   --output-dir "$trpth"/"$urtdir" \
+   --verbose 2>&1 | tee -a "$trpth"/"Zenodo/Qiime/115_18S_097_cl_tree_urt_log.txt"
  
 printf "Rooting at midpoint...\n"  
  qiime phylogeny midpoint-root \
   --i-tree "$trpth"/"$urtpth" \
   --o-rooted-tree "$trpth"/"$mptpth" \
-  --verbose 2>&1 | tee -a "$trpth"/"Zenodo/Qiime/105_18S_097_cl_tree_mid_log.txt"
-
+  --verbose 2>&1 | tee -a "$trpth"/"Zenodo/Qiime/115_18S_097_cl_tree_mid_log.txt"

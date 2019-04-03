@@ -23,8 +23,8 @@ fi
 
 # Define input and output locations
 # ---------------------------------
-inpth='Zenodo/Qiime/095_18S_097_cl_seq_algn.qza'
-otpth='Zenodo/Qiime/100_18S_097_cl_seq_algn.qza'
+inpth='Zenodo/Qiime/110_18S_097_cl_metzn_seq_algn.qza'
+otpth='Zenodo/Qiime/110_18S_097_cl_metzn_seq_algn_masked.qza'
 
 # Run scripts
 # ------------
@@ -32,4 +32,6 @@ otpth='Zenodo/Qiime/100_18S_097_cl_seq_algn.qza'
 qiime alignment mask \
   --i-alignment "$trpth"/"$inpth" \
   --o-masked-alignment "$trpth"/"$otpth" \
-  --verbose 2>&1 | tee -a "$trpth"/"Zenodo/Qiime/100_18S_097_cl_seq_algn_log.txt"
+  --p-min-conservation 0.5 \
+  --p-max-gap-frequency 0.0 \
+  --verbose 2>&1 | tee -a "$trpth"/"Zenodo/Qiime/110_18S_097_cl_metzn_seq_algn_masked_log.txt"

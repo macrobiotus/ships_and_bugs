@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 28.03.2018 - Paul Czechowski - paul.czechowski@gmail.com 
+# 03.03.2018 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Qiime align of representative sequences
 # https://docs.qiime2.org/2017.11/tutorials/moving-pictures/
@@ -23,8 +23,8 @@ fi
 
 # Define input and output locations
 # ---------------------------------
-inpth='Zenodo/Qiime/085_18S_097_cl_seq.qza'
-otpth='Zenodo/Qiime/095_18S_097_cl_seq_algn.qza'
+inpth='Zenodo/Qiime/100_18S_097_cl_metzn_seq.qza'
+otpth='Zenodo/Qiime/110_18S_097_cl_metzn_seq_algn.qza'
 
 # Run scripts
 # ------------
@@ -32,4 +32,4 @@ qiime alignment mafft \
   --i-sequences "$trpth"/"$inpth" \
   --o-alignment "$trpth"/"$otpth" \
   --p-n-threads "$thrds" \
-  --verbose 2>&1 | tee -a "$trpth"/"Zenodo/Qiime/095_18S_097_cl_seq_algn_log.txt"
+  --verbose 2>&1 | tee -a "$trpth"/"Zenodo/Qiime/110_18S_097_cl_metzn_seq_algn_log.txt"
