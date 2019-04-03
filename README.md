@@ -649,6 +649,7 @@ Data will be included via manifest files and metadate files linked in at
     * manually exporting and checking in Geneious `/Users/paul/Documents/CU_combined/Zenodo/Qiime/110_18S_097_cl_metzn_seq_algn.fasta.gz` - `91ebd48b842f34feaaa5e800845da8b8`
   * ran `/Users/paul/Documents/CU_combined/Github/110_mask_alignment.sh`
     * manually exporting and checking in Geneious `/Users/paul/Documents/CU_combined/Zenodo/Qiime/110_18S_097_cl_metzn_seq_algn_masked.fasta.gz` - `cdf8cc437665e1e8767a13c88ebc1963`
+  * running `/Users/paul/Documents/CU_combined/Github/115_build_tree.sh` - pending
   
 
 ## Todo
