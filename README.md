@@ -638,7 +638,7 @@ Data will be included via manifest files and metadate files linked in at
   * downloaded results to local and cancelled reservationm
   * adjusted and attempting to run `100_filter_samples.sh` after commit - ok
   * ran `100_filter_samples.sh` - ok 
-* **03.04.2019** - inspect files
+* **03.04.2019** - inspect files - export for R import
   * adjust and run `/Users/paul/Documents/CU_combined/Github/105_sumr_filtered_data_sets.sh` - ok
     * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/105_18S_097_cl_cntrl_barplot.qzv` - ok (huge)
     * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/105_18S_097_cl_cntrl_barplot.qzv`
@@ -660,12 +660,25 @@ Data will be included via manifest files and metadate files linked in at
     * for exported screenshot `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/190403_rarefaction_depth.png`
     * `"Retained 467,500 (7.35%) sequences in 187 (78.57%) samples at the specifed sampling depth."`
     * commit and run 
-  * for interpretation using unweighted unifrac measure
+  * for interpretation using **unweighted unifrac measure**:
     * as per `https://forum.qiime2.org/t/unweighted-vs-weighted-unifrac-explanation/2206/3`
     * low count OTU's would be most important
     * saved video as `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/190403_120_18S_metazoan_core_metrics_Unweihted_unifrac.mov`
  * adjusting and running `/Users/paul/Documents/CU_combined/Github/125_isolate_unifrac_results.sh` - ok, after some fighting, needed to add more explicit commands
  * later - ready to run R scripts
+* **04.04.2019** - starting to work on R scripts
+  * adjust and run  `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
+    * data files at `/Users/paul/Documents/CU_combined/Zenodo/R_Objects` are kept for now but most are outdated and will be overwritten - check file dates
+    * overwriting `/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_05_UNIFRAC_behaviour_10k_results_list.Rdata`
+    * bootstrapping started, executed until lien 429 - ok
+    * limit result plotting to less then ~350 port pairs later - ok - rendered results as `.pdf`:
+       * see `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/190404_500_05_UNIFRAC_behaviour__means.pdf`
+       * see: `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/190404_500_05_UNIFRAC_behaviour__mad.pdf`
+    * save results files as `.Rdata` - ok `/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_05_UNIFRAC_behaviour_10k_results_list.Rdata`
+    * commit - check date, should be `4.4.2019`
+    * check and commit repository `/Users/paul/Documents/CU_cmbd_rf_test`
+    * tick off todo list if possible
+
 
 ## Todo
 

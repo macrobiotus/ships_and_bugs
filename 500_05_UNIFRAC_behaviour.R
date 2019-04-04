@@ -1,7 +1,7 @@
 #' ---
 #' title: "UNIFRAC value change in dependence of included samples."
 #' author: "Paul Czechowski"
-#' date: "Oct 02 2018"
+#' date: "Apr 04 2019"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -14,7 +14,8 @@
 #' commentary is included in the R code itself and can be rendered at any stage
 #' using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R")`.
 #' Please check the session info at the end of the document for further 
-#' notes on the coding environment. Check README.md for further documentation.
+#' notes on the coding environment. Check `README.md` for further documentation.
+#' Code was developed in `/Users/paul/Documents/CU_cmbd_rf_test` around Oct 02 2018.
 #'
 #' # Prepare Environment
 #'
@@ -367,7 +368,6 @@ get_results_vector_list_current_port = function(port_matrix, limit, ports_pairs)
   return(rslts_vector_list_current_port)
 }
 
-
 #' ## Data read-in
 #'
 #' Paths defined in list are UNIFRAC matrices for ports samples, without control
@@ -379,9 +379,7 @@ get_results_vector_list_current_port = function(port_matrix, limit, ports_pairs)
 #'    
 
 paths <- list(
-  "/Users/paul/Documents/CU_combined/Zenodo/Qiime/155_18S_097_cl_meta_mat/distance-matrix.tsv",
-  "/Users/paul/Documents/CU_combined/Zenodo/Qiime/155_18S_097_cl_edna_mat/distance-matrix.tsv",
-  "/Users/paul/Documents/CU_combined/Zenodo/Qiime/155_18S_097_cl_cntrl_mat/distance-matrix.tsv")
+  "/Users/paul/Documents/CU_combined/Zenodo/Qiime/125_18S_metazoan_unweighted_unifrac_distance_matrix/distance-matrix.tsv")
        
 raw_unifrac_values <- read_tsv(paths[[1]])
 
@@ -409,19 +407,25 @@ unifrac_matrix_list <- get_many_matrices_from_input_matrix(unifrac_matrix)
 
 unifrac_matrix_list <- label_matrix_list(unifrac_matrix_list, unifrac_matrix)
 
+# just checking correct naming and amount of matrices - perhaps define later after data processing
+names(unifrac_matrix_list)
+
+# for plotting, counter part to `n_pairs` below
+n_pairs_orig <- length(names(unifrac_matrix_list))
+
 #' # Bootstrapping
 #'
 #' ## Bootstrap each distance matrix element for minimal to maximal sample numbers 
 #' 
 #' Number of bootstrap replicates is defined by the square of `limit`:
 
-limit <- 10000 # loading data fro 10000 replicates below 
+limit <- 10000 # loading data for 10000 replicates below 
 
 # 20.09.2018 - `ports_pairs_available` can be set manually as function parameter of 
 #   get_results_vector_list_current_port(), when `get_dim_indices_bootstrap()`
 #   samples with replacement, and hence more indices then available in each
 #   source matrix dimension cane be sampled.
-ports_pairs_available <- 10 # slow at 20
+ports_pairs_available <- 5 # slow at 20, 04.04.2018 reduced from 10 to 5
 
 # get the list - main work, may take a long time for limit > 35 - 20.09.2018 `port_pairs` introduced as parameter
 bootstrap_results_list <- lapply(unifrac_matrix_list, get_results_vector_list_current_port, limit, ports_pairs_available)
@@ -436,19 +440,42 @@ bootstrap_results <- rbindlist(bootstrap_results_list, idcol = TRUE, use.names=T
 # for ggplot2 it may be necessary to have the port pairs as factors
 bootstrap_results$.id <- as.factor(bootstrap_results$.id)
 
+# for ggplot2 counting maximum amount of graphs to be drawn - more then 20
+#  at most is nonsensical and may not even work in R. Alleviating this by
+#  first counting number of available port pairs:
+
+pair_list <- bootstrap_results %>%  # take the data.frame "bootstrap_results"
+  group_by(.id) %>%                 # Then, with the filtered data, group it by ".id"
+  summarise(Unique_Port_Pairs = n_distinct(.id))  # Summarise with unique elements per group
+pair_list
+
+#  Then, selecting a few randomly to display (adjust number of graphs via `n_rpairs`)
+n_pairs = 64  # do not set this value higher then then the number of lines in `pair_list`
+             #   you probably don't want to select more port pairs then available
+             #   If you do, set `replace` to `TRUE`
+set.seed(123)
+rand_pairs <- sample_n(pair_list, n_pairs, replace = FALSE)
+
+# I am not sure about the warning, but some pairs seem to contain more bootstrap results then
+#   but I think its caused by some port pairs having less ports available then
+#   `ports_pairs_available` which I adressed in the bootstrapping code already. 
+#   Not chasing this further here, since this is meant only to prepare plotting. 
+selected_bootstrap_results <- bootstrap_results %>% filter(bootstrap_results$.id == rand_pairs$.id) %>%  data.table()
+
+
 #' # Results
 #'
-#' Calculating MAD values for plotting.
-
-mad_bootstrap_results <- bootstrap_results[, lapply(.SD, mad), by=.id]
+#' Calculating MAD values for plotting. (Using `selected_bootstrap_results`
+#' instad of `bootstrap_results` with full data)
+mad_bootstrap_results <- selected_bootstrap_results[, lapply(.SD, mad), by=.id]
 
 #' Calculating log(MAD) values for plotting.
-log_mad_bootstrap_results <- bootstrap_results[, lapply(.SD, function(x) log(mad(x))), by=.id]
+log_mad_bootstrap_results <- selected_bootstrap_results[, lapply(.SD, function(x) log(mad(x))), by=.id]
 
 
 #' Melting raw data and MAD values to long format for `ggplot2`
 
-raw_bootstrap_results_long <- melt(bootstrap_results, id.vars=".id")
+raw_bootstrap_results_long <- melt(selected_bootstrap_results, id.vars=".id")
 mad_bootstrap_results_long <- melt(mad_bootstrap_results, id.vars=".id")
 log_mad_bootstrap_results_long <- melt(log_mad_bootstrap_results, id.vars=".id")
 
@@ -473,7 +500,7 @@ ggplot (
    axis.text.y = element_text(size = 6, angle = 45, hjust = 1)
    ) +
   labs(x = "Samples Taken From Each Port of Pair", y = "Distribution of Means of Bootstrap-Replicated Matrices") +
-  ggtitle ("Variability of UNIFRAC Values in Dependence of Sampling Effort", subtitle = "for Different Port Pairs")
+  ggtitle ("Variability of UNIFRAC Values in Dependence of Sampling Effort", subtitle = paste("for", n_pairs, "randomly selected of",n_pairs_orig, "port pairs"))
 
 #' ## Plotting MAD-values
 #'
@@ -493,7 +520,7 @@ ggplot (
    axis.text.y = element_text(size = 6, angle = 45, hjust = 1)
    ) +
   labs(x = "Samples Taken From Each Port of Pair", y = "Median Absolute Deviation of Means of Bootstrap-Replicated Matrices") +
-  ggtitle ("Variability of UNIFRAC Values in Dependence of Sampling Effort", subtitle = "for Different Port Pairs")
+  ggtitle ("Variability of UNIFRAC Values in Dependence of Sampling Effort", subtitle = paste("for", n_pairs, "randomly selected of",n_pairs_orig, "port pairs"))
 
 #' ## Plotting log-MAD-values
 #'
@@ -512,7 +539,7 @@ ggplot (
    axis.text.y = element_text(size = 6, angle = 45, hjust = 1)
    ) +
   labs(x = "Samples Taken From Each Port of Pair", y = "log of Median Absolute Deviation of Means of Bootstrap-Replicated Matrices") +
-  ggtitle ("Variability of UNIFRAC Values in Dependence of Sampling Effort", subtitle = "for Different Port Pairs")
+  ggtitle ("Variability of UNIFRAC Values in Dependence of Sampling Effort", subtitle = paste("for", n_pairs, "randomly selected of",n_pairs_orig, "port pairs"))
 
 #' # Discussion
 #'
