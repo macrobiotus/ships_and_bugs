@@ -675,13 +675,15 @@ Data will be included via manifest files and metadate files linked in at
        * see `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/190404_500_05_UNIFRAC_behaviour__means.pdf`
        * see: `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/190404_500_05_UNIFRAC_behaviour__mad.pdf`
     * save results files as `.Rdata` - ok `/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_05_UNIFRAC_behaviour_10k_results_list.Rdata`
-    * commit - check date, should be `4.4.2019` - some corrections after .pdf rendering
-    * check and commit repository `/Users/paul/Documents/CU_cmbd_rf_test`
-    * tick off todo list if possible
+    * commit - check date, should be `4.4.2019` - some corrections after `.pdf` rendering - see `/Users/paul/Documents/CU_combined/Zenodo/Documentation/500_05_UNIFRAC_behaviour.pdf`
+    * check and commit repository `/Users/paul/Documents/CU_cmbd_rf_test` - ok 
+    * tick off todo list if possible - ok 
+    
 
 
 ## Todo
 
+* keep in mind that in sample id mapping file  **must** start with two letter abbrivation, needed for R code!
 
 ## Known issues and bugs
 * _25.04.2018_ - **unconfirmed** - non-unique rownames _may be_ assigned to all (?) output (?) matrices in `500_30_shape_matrices`  due to duplicate values in the input tables (script 10)? - possibly affected:
