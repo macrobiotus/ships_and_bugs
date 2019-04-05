@@ -120,7 +120,7 @@ get_df_from_phsq_list <- function (phsq_list){
 '%!in%' <- function(x,y)!('%in%'(x,y))
 
 
-#' ## Create empty matrix with necessary dimensions to receive average Unifrac values
+#' ## Create empty matrix with necessary dimensions to receive average or median Unifrac values
 #' 
 get_collapsed_responses_matrix <- function(r_mat){
 
@@ -173,7 +173,7 @@ fill_collapsed_responses_matrix <- function(r_mat_clpsd = NULL, r_mat = NULL){
                                                              # per port.
       }
     
-    slctd_ave <- mean(slctd_mat, na.rm = TRUE) # na.rm = TRUE for edge cases, those will otherwise be NA
+    slctd_ave <- median(slctd_mat, na.rm = TRUE) # na.rm = TRUE for edge cases, those will otherwise be NA
                                                #  but they do have a signal so can't NA
     # debugging only 
     #  print(slctd_ave)

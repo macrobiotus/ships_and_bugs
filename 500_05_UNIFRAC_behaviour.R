@@ -269,19 +269,21 @@ get_matrix_list_current_port_current_sample_count = function (
   return(mt_list_tpls)
 }
 
-#' ### Get means vector for current port matrix at current sample collection number
+#' ### Get median vector for current port matrix at current sample collection number
 #' 
 #'   * input:  distance matrix for port pair, number of samples to test for, 
 #'             upper limit since not all subset matrices can be searched, and 
 #'             since bootstrapping is needed for n=1 sample and n=all samples in matrix  
 #'   * output: vector with means of distance matrices of all possible combinations
 #'             of collecting n samples from 2 port pairs, length limited 
-#              and bootstarp replicated by 'limit'
+#'             and bootstarp replicated by 'limit'.
+#'
 
 get_distance_matrix_means_current_port_matrix_at_sample_count = function (port_matrix, count_ports_chosen, limit) {
   
   # get all combinations of row and column indices for the current number of samples
   #   to be chosen from current port for current port matrix list generation
+  #   **05.05.2019** - changed below from mean to median, committed - see commit history
    
   nrow_p_mat <- dim(port_matrix)[1]
   ncol_p_mat <- dim(port_matrix)[2]
@@ -433,10 +435,10 @@ ports_pairs_available <- 5 # slow at 20, 04.04.2018 reduced from 10 to 5
 bootstrap_results_list <- lapply(unifrac_matrix_list, get_results_vector_list_current_port, limit, ports_pairs_available)
 
 # obtaining results can be time intensive, save and load here (15 MB for 10000 replicates at 15 pairs)
-# ***updated results 04.04.2019 - comment this line out and load below***
-# save(bootstrap_results_list, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_05_UNIFRAC_behaviour_10k_results_list.Rdata")
+# ***updated results 05.04.2019 - comment this line out and load below***
+save(bootstrap_results_list, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_05_UNIFRAC_behaviour_10k_results_list.Rdata")
 
-# ***updated results 04.04.2019 - load below***
+# ***updated results 05.04.2019 - load below***
 load("/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_05_UNIFRAC_behaviour_10k_results_list.Rdata")
 
 # reformat nested list to (very large) data table

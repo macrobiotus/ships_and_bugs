@@ -677,13 +677,23 @@ Data will be included via manifest files and metadate files linked in at
     * save results files as `.Rdata` - ok `/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_05_UNIFRAC_behaviour_10k_results_list.Rdata`
     * commit - check date, should be `4.4.2019` - some corrections after `.pdf` rendering - see `/Users/paul/Documents/CU_combined/Zenodo/Documentation/500_05_UNIFRAC_behaviour.pdf`
     * check and commit repository `/Users/paul/Documents/CU_cmbd_rf_test` - ok 
-    * tick off todo list if possible - ok 
-    
+    * tick off todo list if possible - ok
+* **05.04.2019** - starting to work on R scripts
+  * due to large spread of Unifrac values, as visible in violin plots of  `500_05_UNIFRAC_behaviour.R`:
+     * matrix "lumping" of different sample pair Unifrac distances now done using `median` and not `mean` 
+     * check 1st commit 05.05.2019 - in `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R` done in function `get_distance_matrix_means_current_port_matrix_at_sample_count`
+     * check 2nd commit 05.05.2019 - in `/Users/paul/Documents/CU_combined/Github/500_00_functions.R`done in function `fill_collapsed_responses_matrix`
+     * re-running analyses `500_05_UNIFRAC_behaviour` - pending
+     * saving display items - pending
+     * re-rendering output pending
 
 
 ## Todo
 
-* keep in mind that in sample id mapping file  **must** start with two letter abbrivation, needed for R code!
+* keep in mind that in `#SampleID` mapping file  **must** start with two letter abbrivation, needed for R code!
+* keep in mind that matrix "lumping" of different sample pair Unifrac distances now done using `median` and not `mean` due to large spread of data
+   * check 1st commit 05.05.2019 - done in function `get_distance_matrix_means_current_port_matrix_at_sample_count` of `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
+   * check 2nd commit 05.05.2019 - done in function `fill_collapsed_responses_matrix` of `/Users/paul/Documents/CU_combined/Github/500_00_functions.R`
 
 ## Known issues and bugs
 * _25.04.2018_ - **unconfirmed** - non-unique rownames _may be_ assigned to all (?) output (?) matrices in `500_30_shape_matrices`  due to duplicate values in the input tables (script 10)? - possibly affected:
@@ -697,15 +707,14 @@ Data will be included via manifest files and metadate files linked in at
 * _10.05.2018_ - **confirmed** - `/Users/paul/Documents/CU_combined/Github/500_35_shape_overlap_matrices.R`
   * plotting code does not label nor draw all connections - rewrite (?) 
 
-### Shell scripts
-* Qiime forum - abundance correction necessary or not (?)
+### Shell scripts - miscellaneous suggestions
 * Qiime forum - `decontam` 
 * split Singapore
 * include `decontam` close to script `220...` or bolt in R package `https://github.com/benjjneb/decontam`
 * include `evaluate-composition` close to script `220..`(?) to check mock samples
 * improve logging during clustering script (see AAD data 26.03.2018 - clustering script usage of `tee`)
 
-### R analysis
+### R analysis - miscellaneous suggestions
 * also see `/Users/paul/Box\ Sync/CU_NIS-WRAPS/170728_external_presentations/171128_wcmb/180429_wcmb_practice_talk/180429_wcmb_practice_talk.md`
 * test eulerr with unclustered data (?)
 * correct OTU numbers (?) - use 97% for now - address both issues though
@@ -715,7 +724,6 @@ Data will be included via manifest files and metadate files linked in at
 * plot env list relationship - 
 * check overlap - vs UNIFRAC - 
 * plot on env against taxa - 
-* identify taxa - 
 * include Arctic data and routes from Zhaojun 
 * include HON distance matrix
 * implement `glm()` between defined samples
