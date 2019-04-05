@@ -319,8 +319,9 @@ get_distance_matrix_means_current_port_matrix_at_sample_count = function (port_m
   #   as a vector of length of product of row and column tupel count 
   #   e.g. 455 * 35 = 15965 for 3 samples and one port of 20
   # sapply(current_port_and_sample_tupel_comb_matrices, mean, simplify = TRUE)
+  # ***05.04.2018 - changed from mean to median***
 
-  current_port_and_sample_tupel_comb_means <- sapply(current_port_and_sample_tupel_comb_matrices, mean, simplify = TRUE)
+  current_port_and_sample_tupel_comb_means <- sapply(current_port_and_sample_tupel_comb_matrices, median, simplify = TRUE)
   
   # returning long vector of means from matrices - should be approximately
   #   `dim(dim_indices_rows_p_mat)[1] * dim(dim_indices_cols_p_mat)[1]`
