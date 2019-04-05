@@ -679,19 +679,22 @@ Data will be included via manifest files and metadate files linked in at
     * check and commit repository `/Users/paul/Documents/CU_cmbd_rf_test` - ok 
     * tick off todo list if possible - ok
 * **05.04.2019** - starting to work on R scripts
-  * due to large spread of Unifrac values, as visible in violin plots of  `500_05_UNIFRAC_behaviour.R`:
+  * in  `500_05_UNIFRAC_behaviour.R`:
      * matrix "lumping" of different sample pair Unifrac distances now done using `median` and not `mean` 
      * check 1st commit 05.05.2019 - in `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R` done in function `get_distance_matrix_means_current_port_matrix_at_sample_count`
      * check 2nd commit 05.05.2019 - in `/Users/paul/Documents/CU_combined/Github/500_00_functions.R`done in function `fill_collapsed_responses_matrix`
      * re-running analyses `500_05_UNIFRAC_behaviour` - pending
      * saving display items - pending
-     * re-rendering output pending
+     * re-rendering output - ok
+       * old image shows more smoothing due to averages - `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/190404_500_05_UNIFRAC_behaviour_via_means_mad_(old).pdf`
+       * new image is more realistic - keeping it this way - `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/190405_500_05_UNIFRAC_behaviour_via_medians_mad.pdf`
+     * commit
 
 
 ## Todo
 
-* keep in mind that in `#SampleID` mapping file  **must** start with two letter abbrivation, needed for R code!
-* keep in mind that matrix "lumping" of different sample pair Unifrac distances now done using `median` and not `mean` due to large spread of data
+* _04.04.2019_ - keep in mind that in `#SampleID` mapping file  **must** start with two letter abbrivation, needed for R code!
+* _05.04.2019_ - keep in mind that matrix "lumping" of different sample pair Unifrac distances now done using `median` and not `mean`
    * check 1st commit 05.05.2019 - done in function `get_distance_matrix_means_current_port_matrix_at_sample_count` of `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
    * check 2nd commit 05.05.2019 - done in function `fill_collapsed_responses_matrix` of `/Users/paul/Documents/CU_combined/Github/500_00_functions.R`
 

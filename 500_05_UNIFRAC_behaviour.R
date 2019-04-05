@@ -436,7 +436,7 @@ bootstrap_results_list <- lapply(unifrac_matrix_list, get_results_vector_list_cu
 
 # obtaining results can be time intensive, save and load here (15 MB for 10000 replicates at 15 pairs)
 # ***updated results 05.04.2019 - comment this line out and load below***
-save(bootstrap_results_list, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_05_UNIFRAC_behaviour_10k_results_list.Rdata")
+# save(bootstrap_results_list, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_05_UNIFRAC_behaviour_10k_results_list.Rdata")
 
 # ***updated results 05.04.2019 - load below***
 load("/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_05_UNIFRAC_behaviour_10k_results_list.Rdata")
@@ -489,7 +489,7 @@ log_mad_bootstrap_results_long <- melt(log_mad_bootstrap_results, id.vars=".id")
 # quick and dirty, logging x axis as well
 log_mad_bootstrap_results_long$variable <- log(as.numeric(log_mad_bootstrap_results_long$variable))
 
-#' ## Plotting UNIFRAC means
+#' ## Plotting UNIFRAC medians
 #'
 
 ggplot (
@@ -506,7 +506,7 @@ ggplot (
    axis.text.x = element_text(size = 6, angle = 45, hjust = 1),
    axis.text.y = element_text(size = 6, angle = 45, hjust = 1)
    ) +
-  labs(x = "Samples Taken From Each Port of Pair", y = "Distribution of Means of Bootstrap-Replicated Matrices") +
+  labs(x = "Samples Taken From Each Port of Pair", y = "Distribution of Medians of Bootstrap-Replicated Matrices") +
   ggtitle ("Variability of UNIFRAC Values in Dependence of Sampling Effort", subtitle = paste("for", n_pairs, "randomly selected of",n_pairs_orig, "port pairs"))
 
 #' ## Plotting MAD-values
@@ -526,7 +526,7 @@ ggplot (
    axis.text.x = element_text(size = 6, angle = 45, hjust = 1),
    axis.text.y = element_text(size = 6, angle = 45, hjust = 1)
    ) +
-  labs(x = "Samples Taken From Each Port of Pair", y = "Median Absolute Deviation of Means of Bootstrap-Replicated Matrices") +
+  labs(x = "Samples Taken From Each Port of Pair", y = "Median Absolute Deviation of Median of Bootstrap-Replicated Matrices") +
   ggtitle ("Variability of UNIFRAC Values in Dependence of Sampling Effort", subtitle = paste("for", n_pairs, "randomly selected of",n_pairs_orig, "port pairs"))
 
 #' ## Plotting log-MAD-values
