@@ -91,10 +91,11 @@ str (eucl_heap_dimnames) # 6551 names - from `src_heap$TEMP$PORT`
 #' to speed up things. Refer to the previous script if more details are needed
 #' from the `dist()` object. 
 eucl_heap <- as.matrix(eucl_heap)
+head(eucl_heap)
 
 # for debugging - so that data cabn be recognized as a vector
 
-dim(eucl_heap)      # 6551 x 6551 - yes! 19.04.2018
+dim(eucl_heap)      # 6551 x 6551 - yes! 19.04.2018 05.04.2019
 class (eucl_heap)
 summary (c(eucl_heap)) #  Min.    1st Qu.  Median    Mean   3rd Qu.    Max. 
                        #  0.000   1.524    2.474     2.519   3.464     7.686 
@@ -103,7 +104,9 @@ summary (c(eucl_heap)) #  Min.    1st Qu.  Median    Mean   3rd Qu.    Max.
 colnames(eucl_heap) <- c(eucl_heap_dimnames)
 rownames(eucl_heap) <- c(eucl_heap_dimnames)
 
-# checking - ok
+# checking
+# via Bash call `open -a "Microsoft Excel" "/Users/paul/Box Sync/CU_NIS-WRAPS/170727_port_information/170901_Keller_2010_suppl/DDI_696_sm_TableS3.xlsx"`
+
 colnames(eucl_heap)[1:10]
 rownames(eucl_heap)[1:10]
 
@@ -116,10 +119,15 @@ rownames(eucl_heap)[1:10]
 #' I will match this up in a new variable (`PID`):
 
 # `match()` (or `%in%`) doesn't return `NA` thus needed is a left join:
+src_heap$TEMP # checking input
 src_heap$TEMP <- left_join (src_heap$TEMP, src_heap$PORT[c("PID", "PORT")], by = "PORT")
 src_heap$TEMP$PID <- as.integer(src_heap$TEMP$PID) # added 19.04.2018
+src_heap$TEMP # checking output
+
 
 # of 6651 entries, 83 remain undefined, a very small percentage: 
+length (src_heap$TEMP$PID)
+sum(!is.na(src_heap$TEMP$PID))
 sum(is.na(src_heap$TEMP$PID)) / length (src_heap$TEMP$PID)
 
 # renaming the matrix rows and and columns - matrix was created from src_heap$TEMP
@@ -133,14 +141,22 @@ rownames (eucl_heap) <- as.character(src_heap$TEMP$PID)
 # eucl_heap[lower.tri(eucl_heap)] <- NA
 
 # testing the result - looks as desired
+src_heap$TEMP
 eucl_heap[c(1:10), c(1:10)]
 
 # test 19.04.2018 - are test sample in the distance matrix? before calculating risk?
-#           "PH",   "SP",   "AD",  "CH"     "PH",   "SP",   "AD",  "CH" 
-eucl_heap[c("2503","1165","3110","2907") , c("2503","1165","3110","2907")]
-# YES for test data - may have no routes though - need data with verified routes e.g.:
-#     Long Beach - Houston // Houston - Miami //  Baltimore - Houston   
-eucl_heap[c("7597","2331","4899","854") , c("7597","2331","4899","854")]
+#           "PH",   "SP",   "AD",  "CH"     "PH",   "SP",   "AD",  "CH"
+# test 08.04.2019 - AD AW BA BT CB CH HN HS HT LB MI 
+#                    NA NO OK PH PL PM RC RT SW SY VN
+
+# "3110" "576"  "2729" "854" "2141" "2907" "2503" "3367" "2331" "7597" "4899"
+# "3108"  "3381" "7598" "2503" "234" "193" "4777" "1165" "1165" "311" 
+
+eucl_heap[c("3110", "576", "2729", "854", "2141", "2907", "2503", "3367", "2331", "7597", "4899", 
+            "3108", "3381", "7598", "2503", "234", "193", "4777", "1165", "1165", "311"),
+          c("3110", "576", "2729", "854", "2141", "2907", "2503", "3367", "2331", "7597", "4899", 
+            "3108", "3381", "7598", "2503", "234", "193", "4777", "1165", "1165", "311")]
+
 # (always possible to calculate distance 
 
 
@@ -168,10 +184,10 @@ save (mat_env_dist_full, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Obje
 #' distance values are indexed by row and column numbers (0-6551 x 0 - 6551)
 #' of the environmental distance matrix.
 # rownames (eucl_heap) == colnames (eucl_heap) # check if those are identical before using them 
-                                             # - they must be and should be 
+                                               # - they must be and should be 
 env_val_pos <- cbind (
   match (src_heap$ROUT$PRTA, rownames (eucl_heap)),
-  match (src_heap$ROUT$PRTB, colnames (eucl_heap))) 
+  match (src_heap$ROUT$PRTB, colnames (eucl_heap)))
   
 #' The resulting list is of length 23656, which is the length of the route table
 #' `src_heap$ROUT`. Position pairs with `NA`'s do not have a PORT ID in the matrix
@@ -194,7 +210,7 @@ sum (complete.cases(env_val_pos), na.rm=TRUE)
 #' So that the data is 83% complete (17% missing data).
 
 # Create variable by filling it with euclidian distance value from the distance matrix.
-src_heap$ROUT$EDST <- eucl_heap[env_val_pos] 
+src_heap$ROUT$EDST <- eucl_heap[env_val_pos]
 
 # There are now 19672 environmental distances in the route table 
 sum(!is.na(src_heap$ROUT$EDST)) 
@@ -207,16 +223,16 @@ src_heap$ROUT$EUKPOSC <- env_val_pos[,2]
 sum(is.na(src_heap$ROUT$EDST)) / length (src_heap$ROUT$EDST)
 
 # test 19.04.2018 - are test sample in the route table?
-# test_samples = c("2503","1165","3110","2907") 
-
 # test 24.04.2018 - are test sample in the route table?
-# Long Beach // Miami // Houston // Baltimore 
-test_samples = c("7597","2331","4899","854")
+# test 08.04.2018 - are test sample in the route table?
+test_samples = c("3110", "576", "2729", "854", "2141", "2907", "2503", "3367", "2331", "7597", "4899", 
+            "3108", "3381", "7598", "2503", "234", "193", "4777", "1165", "1165", "311") 
 
 src_heap$ROUT %>% filter (PRTA %in% test_samples & PRTB %in% test_samples) 
 src_heap$ROUT %>% filter (PRTB %in% test_samples & PRTA %in% test_samples)
 
 # A tibble: 6 x 11
+# A tibble: 68 x 11
 #   ROUTE      PRTA PALATI PALONG  PRTB PBLATI PBLONG TRIPS  EDST EUKPOSR EUKPOSC
 #   <chr>     <dbl>  <dbl>  <dbl> <dbl>  <dbl>  <dbl> <dbl> <dbl>   <int>   <int>
 # 1 2331a854  2331.   29.8  -95.3  854.   39.3  -76.6  287.  1.52    6151    5971 -- Houston - Baltimore

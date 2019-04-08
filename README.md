@@ -406,7 +406,7 @@ Data will be included via manifest files and metadate files linked in at
        * try script 135 with new debugging plot that crashed today at work end.
        * use `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata.tsv` with old data files in scripts `140...`, `150...`, use script `135...`, then use script `160...`, `170...`. Committing now, continuing denoising as fall-back. 
 * ***01.10.2018** - denoising finished yesterday on 24 core cluster
-    * also check ``/Users/paul/Documents/CU_SP_AD_CH/Github/README.md`
+    * also check `/Users/paul/Documents/CU_SP_AD_CH/Github/README.md`
     * adjusted and ran `/065_merge_data.sh`
     * renamed metadata file `mv ../Manifest/05_18S_merged_metadata_for_rename.tsv ../Manifest/05_18S_merged_metadata.tsv` and kept only new sample ids
     * adjusted and ran `./075_smr_features_and_table.sh`
@@ -700,19 +700,61 @@ Data will be included via manifest files and metadate files linked in at
          * modified for rendering, loading old results, rendered to `.pdf`, committed.
        * check `/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R`
          * run, understood, output saved, rendered to `.pdf`, committed.
+         * checking `open -a "Microsoft Excel" "/Users/paul/Box Sync/CU_NIS-WRAPS/170727_port_information/170901_Keller_2010_suppl/DDI_696_sm_TableS3.xlsx"`
        * check `/Users/paul/Documents/CU_combined/Github/500_20_get_predictor_euklidian_distances.R`
          * run, **not quite understood (matrix returned as vector?)**, output saved, rendered to `.pdf`, committed.
-       * check `/Users/paul/Documents/CU_combined/Github/500_30_shape_matrices.R`
-      
+         * checking hashes of in- and output files 
+           * checking `MD5 (/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_20_get_predictor_euklidian_distances__output_old.Rdata) = 203ebd759029b1a317c158106afa2c9f`
+           * checking `MD5 (/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_20_get_predictor_euklidian_distances__output.Rdata) = 203ebd759029b1a317c158106afa2c9f` - erasing old file
+           * checking `MD5 (/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_20_get_predictor_euklidian_distances_dimnames__output_old.Rdata) = 3fd6a5310a4a49243ed08ea06cef7d9a`
+           * checking `MD5 (/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_20_get_predictor_euklidian_distances_dimnames__output.Rdata) = 3fd6a5310a4a49243ed08ea06cef7d9a` - erasing old file
+           * checking `MD5 (/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output__mat_env_dist_full_old.Rdata) = 5af9364e806e3547dcd8c09d507d3360`
+           * checking `MD5 (/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output__mat_env_dist_full.Rdata) = 8c1fe801414f3d4d98e5b4fc0bd1d350` - keeping old file
+      * check `/Users/paul/Documents/CU_combined/Github/500_30_shape_matrices.R`
+         * run **understood (matrix formatted to matrix here)**
+         * getting first two characters of lines in  mapping file `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata_checked.tsv`
+           * `cut -c 1-2 /Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata_checked.tsv | sort | uniq`
+         * getting port IDs manually from 
+           * `open -a "Microsoft Excel" "/Users/paul/Dropbox/NSF NIS-WRAPS Data/raw data for Mandana/PlacesFile_updated_Aug2017.xlsx"`
+           * updated port IDs by manual lookup in this script, use also for later
+         * for model use `/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output_predictor_data.Rdata"`
+         * probably used for sample sorting earlier `/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output__mat_risks_full.Rdata"`
+         * checking test matrix
+           * using `open -a "Microsoft Excel" "/Users/paul/Box Sync/CU_NIS-WRAPS/170727_port_information/160318_57_connected_ports_DERIVATIVE.xlsx"
+           * using ` > # 6 * 2 routes expected for Long Beach // Miami // Houston // Baltimore 
+                     > mat_trips[c("7597","2331","4899","854"), c("7597","2331","4899","854")]
+                           7597 2331 4899 854
+                      7597   NA   93   11  26
+                      2331   93   NA  429 287
+                      4899   11  429   NA  75
+                      854    26  287   75  NA`
+          *  `7597a2331` in Excel file should be `93` - ok
+          *  `2331a854` in Excel file should be `287` - ok 
+          *  `4899a7597` in Excel file should be `11` - ok - phew.
+        * checking hashes - keeping old files
+          * `MD5 (/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output__mat_risks_full_old.Rdata) = 6814d3ba1037f7207db2e28dedef27f2`
+          * `MD5 (/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output_mat_trips_full_old.Rdata) = 2c45dfa6251ed1003412e34e3364438e`
+          * `MD5 (/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output_predictor_data_old.Rdata) = 458da23823a94d7010c31d33b6cec39a`
+          * `MD5 (/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output__mat_risks_full.Rdata) = 33bf6915c32ba6bc8c283a2a015ba34c`
+          * `MD5 (/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output_mat_trips_full.Rdata) = 2e63d866dc4f7a1011a399ed2f40e1d0`
+          * `MD5 (/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output_predictor_data.Rdata) = 3c07b79451199a2cdd3840c9fe24e72a`
+
+
+
 
 
 
 ## Todo
-
-* _04.04.2019_ - keep in mind that in `#SampleID` mapping file  **must** start with two letter abbrivation, needed for R code!
+* _08.04.2019_ - ***re run analysis with correct mapping file** - 
+   * needs extension anyways and minus and underscores
+   * otherwise use `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata_checked.tsv` with hash `c1ca7209941aa96ee9ce9f843b629f98`
+   * correct identifier `H2O-0026`
+   * check `cut -c 1-2 /Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata_checked.tsv | sort | uniq`
 * _05.04.2019_ - keep in mind that matrix "lumping" of different sample pair Unifrac distances now done using `median` and not `mean`
    * check 1st commit 05.05.2019 - done in function `get_distance_matrix_means_current_port_matrix_at_sample_count` of `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
    * check 2nd commit 05.05.2019 - done in function `fill_collapsed_responses_matrix` of `/Users/paul/Documents/CU_combined/Github/500_00_functions.R`
+* _04.04.2019_ - keep in mind that in `#SampleID` mapping file  **must** start with two letter abbrivation, needed for R code!
+
 
 ## Known issues and bugs
 * _25.04.2018_ - **unconfirmed** - non-unique rownames _may be_ assigned to all (?) output (?) matrices in `500_30_shape_matrices`  due to duplicate values in the input tables (script 10)? - possibly affected:
