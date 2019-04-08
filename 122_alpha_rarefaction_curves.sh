@@ -53,7 +53,6 @@ for ((i=1;i<=1;i++)); do
     --i-phylogeny "$trpth"/"${mptpth[$i]}" \
     --m-metadata-file "$trpth"/"${map_txt[$i]}" \
     --p-min-depth 1 \
-    --p-metrics mcintosh_e,michaelis_menten_fit,shannon,faith_pd,menhinick,margalef,simpson_e,dominance,lladser_pe,ace,enspie,brillouin_d,singles,observed_otus,pielou_e,berger_parker_d,gini_index,chao1, doubles, goods_coverage, mcintosh_d,simpson,heip_e,robbins,fisher_alpha \
     --p-steps 100 \
     --p-iterations 10 \
     --o-visualization "$trpth"/"${tax_crv[$i]}" \

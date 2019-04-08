@@ -692,7 +692,9 @@ Data will be included via manifest files and metadate files linked in at
 * **05.04.2019** - continued to work on R scripts, included rarefaction analysis
      * adjusted and ran `/Users/paul/Documents/CU_combined/Github/122_alpha_rarefaction_curves.sh` - test ok 
      * committed
-     * starting full analysis - pending 
+     * starting full analysis using default values for now - pending
+     * can't call `--p-metrics mcintosh_e,michaelis_menten_fit,shannon,faith_pd,menhinick,margalef,simpson_e,dominance,lladser_pe,ace,enspie,brillouin_d,singles,observed_otus,pielou_e,berger_parker_d,gini_index,chao1,doubles,goods_coverage,mcintosh_d,simpson,heip_e,robbins,fisher_alpha \`
+     * Qiime forum post posted. 
 
 
 
