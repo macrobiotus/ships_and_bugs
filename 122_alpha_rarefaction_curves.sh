@@ -62,7 +62,7 @@ for ((i=1;i<=1;i++)); do
     --p-metrics simpson_e \
     --p-metrics dominance \
     --p-metrics lladser_pe \
-    --p-metricsace \
+    --p-metrics ace \
     --p-metrics enspie \
     --p-metrics brillouin_d \
     --p-metrics singles \
