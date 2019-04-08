@@ -701,7 +701,8 @@ Data will be included via manifest files and metadate files linked in at
        * check `/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R`
          * run, understood, output saved, rendered to `.pdf`, committed.
        * check `/Users/paul/Documents/CU_combined/Github/500_20_get_predictor_euklidian_distances.R`
-         * run, not quite understood (matrix returned as vector?), output saved, rendered to `.pdf`, committed.
+         * run, **not quite understood (matrix returned as vector?)**, output saved, rendered to `.pdf`, committed.
+       * check `/Users/paul/Documents/CU_combined/Github/500_30_shape_matrices.R`
       
 
 
