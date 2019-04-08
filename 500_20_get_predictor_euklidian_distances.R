@@ -1,7 +1,7 @@
 #' ---
 #' title: "Calculating environmental distances between samples"
 #' author: "Paul Czechowski"
-#' date: "April 24th, 2018"
+#' date: "April 8th, 2019"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -33,7 +33,6 @@
 #' ## Package loading and cleaning of workspace
 #+ message=FALSE, results='hide'
 library ("dplyr")       # data wrangling
-library ("vegan")       # distance calculations
 library ("reshape2")    # plotting, table manipulation
 library ("ggplot2")     # plotting
 
@@ -71,7 +70,7 @@ str(src_heap)
 src_heap$TEMP[c("TMIN", "TMAX", "TMEN", "SMEN")]
 
 #' 
-#' Distribution of the raw data
+#' Distributions of the environmental raw data variables
 
 molten <- melt(src_heap$TEMP[c("TMIN", "TMAX", "TMEN", "SMEN")])
 ggplot(molten, aes(x=value, fill=variable)) + geom_density(alpha=0.25)
@@ -85,25 +84,31 @@ ggplot(molten, aes(x=value, fill=variable)) + geom_density(alpha=0.25)
 #' I will scale and center before I calculate distances.
 #' 
 #' ## Scaling and centring 
-#' 
+#'
+#' As described in [@Keller2011]:
+
 scaled_heap <- as_tibble (scale (src_heap$TEMP[c("TMIN", "TMAX", "TMEN", "SMEN")]))
 scaled_heap_rownames <-  src_heap$TEMP$PORT ## added 19.04.2018 for later checks if any.
 
 #'
 #' ## Inspecting scaled and centered data
 #' 
-#' This can be inspected:
+#' As above:
 molten <- melt(scaled_heap)
 ggplot(molten, aes(x=value, fill=variable)) + geom_density(alpha=0.25)
 
 #'
 #' ## Generating a distance matrix
 #' 
-#' I can also easily calculate a distance matrix as in [@Keller2011]:
+#' Calculate a distance matrix as in [@Keller2011]:
 
-# head() for debugging only - if a small test data set is needed
+# Use head() inspection! - if a small test data set is needed
 eucl_heap <- dist (scaled_heap, method = "euclidean", diag = TRUE, upper = TRUE)
+head(eucl_heap, n=100)
+class(eucl_heap)
+str(eucl_heap)
 eucl_heap_dimnames <- scaled_heap_rownames
+
 #' 
 #' ## Exporting the matrix and its dimnames
 #' 
