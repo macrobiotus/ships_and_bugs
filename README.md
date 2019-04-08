@@ -689,12 +689,12 @@ Data will be included via manifest files and metadate files linked in at
        * old image shows more smoothing due to averages - `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/190404_500_05_UNIFRAC_behaviour_via_means_mad_(old).pdf`
        * new image is more realistic - keeping it this way - `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/190405_500_05_UNIFRAC_behaviour_via_medians_mad.pdf`
      * commit
-* **05.04.2019** - continued to work on R scripts, included rarefaction analysis
+* **08.04.2019** - , included rarefaction analysis, continued to work on R scripts
      * adjusted and ran `/Users/paul/Documents/CU_combined/Github/122_alpha_rarefaction_curves.sh` - test ok 
      * committed
      * starting full analysis using default values for now - pending
-     * can't call `--p-metrics mcintosh_e,michaelis_menten_fit,shannon,faith_pd,menhinick,margalef,simpson_e,dominance,lladser_pe,ace,enspie,brillouin_d,singles,observed_otus,pielou_e,berger_parker_d,gini_index,chao1,doubles,goods_coverage,mcintosh_d,simpson,heip_e,robbins,fisher_alpha \`
-     * Qiime forum post posted. 
+     * can't call `
+     * Qiime forum post posted - correcetd in script - redoing with mant more metrics
 
 
 

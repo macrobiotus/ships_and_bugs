@@ -62,7 +62,6 @@ for ((i=1;i<=1;i++)); do
     --p-metrics simpson_e \
     --p-metrics dominance \
     --p-metrics lladser_pe \
-    --p-metrics ace \
     --p-metrics enspie \
     --p-metrics brillouin_d \
     --p-metrics singles \
@@ -78,8 +77,8 @@ for ((i=1;i<=1;i++)); do
     --p-metrics heip_e \
     --p-metrics robbins \
     --p-metrics fisher_alpha \
-    --p-steps 100 \
-    --p-iterations 10 \
+    --p-steps 50 \
+    --p-iterations 100 \
     --o-visualization "$trpth"/"${tax_crv[$i]}" \
     --verbose 2>&1 | tee -a "$trpth"/"Zenodo/Qiime/122_18S_097_cl_tree_curves_log.txt"
 done
