@@ -694,7 +694,12 @@ Data will be included via manifest files and metadate files linked in at
      * committed
      * starting full analysis using default values for now - pending
      * can't call `
-     * Qiime forum post posted - correcetd in script - redoing with mant more metrics
+     * Qiime forum post posted - corrected in script - redoing with mant more metrics
+     * continue with R scripts:
+       * check `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
+         * modified for rendering, loading old results, rendered to `.pdf`, committed.
+       * check `/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R`
+         * run, understood, output saved, rendered to `.pdf`, committed.
 
 
 

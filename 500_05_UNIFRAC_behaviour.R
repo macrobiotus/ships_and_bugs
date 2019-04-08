@@ -432,10 +432,12 @@ ports_pairs_available <- 5 # slow at 20, 04.04.2018 reduced from 10 to 5
 
 # get the list - main work, may take a long time for limit > 35 - 20.09.2018 `port_pairs` introduced as parameter
 # ***updated results 04.04.2019 - comment this line out and load below***
-bootstrap_results_list <- lapply(unifrac_matrix_list, get_results_vector_list_current_port, limit, ports_pairs_available)
+
+# bootstrap_results_list <- lapply(unifrac_matrix_list, get_results_vector_list_current_port, limit, ports_pairs_available)
 
 # obtaining results can be time intensive, save and load here (15 MB for 10000 replicates at 15 pairs)
 # ***updated results 05.04.2019 - comment this line out and load below***
+
 # save(bootstrap_results_list, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_05_UNIFRAC_behaviour_10k_results_list.Rdata")
 
 # ***updated results 05.04.2019 - load below***
@@ -457,7 +459,8 @@ pair_list <- bootstrap_results %>%  # take the data.frame "bootstrap_results"
 pair_list
 
 #  Then, selecting a few randomly to display (adjust number of graphs via `n_rpairs`)
-n_pairs = 64  # do not set this value higher then then the number of lines in `pair_list`
+#  adjusted from 64 to 9 for rendering
+n_pairs = 9  # do not set this value higher then then the number of lines in `pair_list`
              #   you probably don't want to select more port pairs then available
              #   If you do, set `replace` to `TRUE`
 set.seed(123)
@@ -558,5 +561,3 @@ ggplot (
 #' following computing environment:
 #+ echo=FALSE
 sessionInfo()
-
-#' # References

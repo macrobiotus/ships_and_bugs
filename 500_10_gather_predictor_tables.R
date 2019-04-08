@@ -84,12 +84,12 @@ paths <- list (INVE = "/Users/paul/Box Sync/CU_NIS-WRAPS/170726_sample_info/1803
 #' Reading in the data and printing for verifications
 src_heap <- lapply (paths, get_contents)
 
-#' Saving inventory and port data files - in case source dir changes drastically. **Updated to project directory
-#' 17.04.2018**
+#' Saving inventory and port data files - in case source dir changes drastically. (**Updated to project directory
+#' 08.04.2019**. Restore previous version from backup if really necessary.)
 save (src_heap, 
   file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_10_gather_predictor_tables__input__all.Rdata")
 
-#' Cleaning environment
+#' Cleaning environment to eliminate changes of  accidentally overwriting files.
 rm (paths)
 
 #'
@@ -116,7 +116,7 @@ src_heap$INVE$PORT <- as.character (src_heap$INVE$PORT)
 src_heap$CLIM <- dplyr::select(src_heap$CLIM, c("NAME", "ID", "ABBREV",
   "LATDD", "LONGDD", "YR_MEAN_T", "Salinity", "ECOREGION_FINAL", "NorthSouth"))
 
-names (src_heap$CLIM) <- c("PORT", "PID", "COUN", "LATI", "LONG", 
+names(src_heap$CLIM) <- c("PORT", "PID", "COUN", "LATI", "LONG", 
   "TMEAN", "SMEAN", "ECOR", "HEMI")
   
 src_heap$CLIM$PORT  <- as.character (src_heap$CLIM$PORT)
@@ -136,7 +136,7 @@ src_heap$CLIM$HEMI  <- as.character (src_heap$CLIM$HEMI)
 src_heap$ROUT <- dplyr::select(src_heap$ROUT, c ("Route_Name", "PortA", "PortALat", 
   "PortALon", "PortB", "PortBLat", "PortBLon",  "Sum_of_Trips"))
 
-names (src_heap$ROUT) <- c("ROUTE", "PRTA", "PALATI", "PALONG", "PRTB", "PBLATI",
+names(src_heap$ROUT) <- c("ROUTE", "PRTA", "PALATI", "PALONG", "PRTB", "PBLATI",
   "PBLONG", "TRIPS") # rename
 
 src_heap$ROUT$ROUTE  <- as.character (src_heap$ROUT$ROUTE)
@@ -159,7 +159,7 @@ src_heap$ROUT
 src_heap$PORT <- dplyr::select (src_heap$PORT, c ("PLACE\ ID", "PLACE\ NAME",
   "COUNTRY\ CODE", "LATITUDE\ DECIMAL", "LONGITUDE\ DECIMAL")) 
   
-names (src_heap$PORT) <- c("PID", "PORT", "COUN", "LATI", "LONG")
+names(src_heap$PORT) <- c("PID", "PORT", "COUN", "LATI", "LONG")
 
 src_heap$PORT$PID  <- as.numeric   (src_heap$PORT$PID)
 src_heap$PORT$PORT <- as.character (src_heap$PORT$PORT)
@@ -173,13 +173,13 @@ src_heap$PORT$LONG <- as.numeric   (src_heap$PORT$LONG)
 #' I am omitting type setting since all types are set well. Sub setting:
 src_heap$TEMP <- dplyr::select (src_heap$TEMP, c ("PortName", "Country",
   "Latitude", "Longitude", "MinTemp", "MaxTemp", "AnnualTemp", "Salinity",
-  "TempSource", "SalSource")) 
+  "TempSource", "SalSource"))
 
 names (src_heap$TEMP) <- c ("PORT", "COUN", "LATI", "LONG", "TMIN", "TMAX",
   "TMEN", "SMEN", "TSRC", "SSRC")
 
 #'
-#' ## Inspecting cleaned tables
+#' ## **Inspecting cleaned tables**
 #'
 #' Just getting the data structure here:
 str(src_heap, max.level = 2)
@@ -188,7 +188,7 @@ str(src_heap, max.level = 2)
 #' # Writing data to disc
 #'
 #' Saving structure for subsequent script or future reference. **Updated to project directory
-#' 17.04.2018**
+#' 08.04.2019**
 save (src_heap,
  file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_10_gather_predictor_tables__output__all.Rdata")
 
