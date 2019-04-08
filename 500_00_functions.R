@@ -2,7 +2,7 @@
 #' ---
 #' title: "Helper functions for R scripts"
 #' author: "Paul Czechowski"
-#' date: "April 12th, 2018"
+#' date: "April 05, 2019"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn

@@ -46,7 +46,7 @@ printf "Calculating tree...\n"
 #     --o-tree "$trpth"/"$urtpth" \
 #     --verbose 2>&1 | tee -a "$trpth"/"Zenodo/Qiime/105_18S_097_cl_tree_urt_log.txt"
     
-qiime phylogeny iqtree \
+  \
    --p-seed 1723 \
    --p-n-cores 0 \
    --p-n-runs 10 \

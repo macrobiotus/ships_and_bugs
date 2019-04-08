@@ -1,7 +1,7 @@
 #' ---
 #' title: "UNIFRAC value change in dependence of included samples."
 #' author: "Paul Czechowski"
-#' date: "Apr 04 2019"
+#' date: "Apr 05 2019"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn

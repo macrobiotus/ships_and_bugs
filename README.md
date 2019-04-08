@@ -689,6 +689,11 @@ Data will be included via manifest files and metadate files linked in at
        * old image shows more smoothing due to averages - `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/190404_500_05_UNIFRAC_behaviour_via_means_mad_(old).pdf`
        * new image is more realistic - keeping it this way - `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/190405_500_05_UNIFRAC_behaviour_via_medians_mad.pdf`
      * commit
+* **05.04.2019** - continued to work on R scripts, included rarefaction analysis
+     * adjusted and ran `/Users/paul/Documents/CU_combined/Github/122_alpha_rarefaction_curves.sh` - test ok 
+     * committed
+     * starting full analysis - pending 
+
 
 
 ## Todo
