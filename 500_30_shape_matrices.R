@@ -1,7 +1,7 @@
 #' ---
 #' title: "Format Predictor Data and matrices"
 #' author: "Paul Czechowski"
-#' date: "April 19th, 2017"
+#' date: "April 08, 2019"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
