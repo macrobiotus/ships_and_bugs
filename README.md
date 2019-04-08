@@ -745,15 +745,17 @@ Data will be included via manifest files and metadate files linked in at
 
 
 ## Todo
-* _08.04.2019_ - ***re run analysis with correct mapping file** - 
-   * needs extension anyways and minus and underscores
-   * otherwise use `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata_checked.tsv` with hash `c1ca7209941aa96ee9ce9f843b629f98`
-   * correct identifier `H2O-0026`
-   * check `cut -c 1-2 /Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata_checked.tsv | sort | uniq`
-* _05.04.2019_ - keep in mind that matrix "lumping" of different sample pair Unifrac distances now done using `median` and not `mean`
+* _08.04.2019_ - **keep in mind**
+   * * ***re run analysis with correct mapping file** 
+     * needs extension anyways and minus and underscores
+     * otherwise use `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata_checked.tsv` with hash `c1ca7209941aa96ee9ce9f843b629f98`
+     * correct identifier `H2O-0026`
+     * check `cut -c 1-2 /Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata_checked.tsv | sort | uniq`
+     * keeping some old files as hashes not always match up (could be version bump)
+* _05.04.2019_ - **keep in mind** that matrix "lumping" of different sample pair Unifrac distances now done using `median` and not `mean`
    * check 1st commit 05.05.2019 - done in function `get_distance_matrix_means_current_port_matrix_at_sample_count` of `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
    * check 2nd commit 05.05.2019 - done in function `fill_collapsed_responses_matrix` of `/Users/paul/Documents/CU_combined/Github/500_00_functions.R`
-* _04.04.2019_ - keep in mind that in `#SampleID` mapping file  **must** start with two letter abbrivation, needed for R code!
+* _04.04.2019_ - **keep in mind** that in `#SampleID` mapping file  **must** start with two letter abbrivation, needed for R code!
 
 
 ## Known issues and bugs
@@ -766,64 +768,4 @@ Data will be included via manifest files and metadate files linked in at
 * _02.05.2018_ - **unconfirmed** - `/Users/paul/Documents/CU_combined/Github/500_35_shape_overlap_matrices.R`
   * Kulczynski distances may be unsuitable to describe overlap between ports, both for all overlap or dual overlap.
 * _10.05.2018_ - **confirmed** - `/Users/paul/Documents/CU_combined/Github/500_35_shape_overlap_matrices.R`
-  * plotting code does not label nor draw all connections - rewrite (?) 
-
-### Shell scripts - miscellaneous suggestions
-* Qiime forum - `decontam` 
-* split Singapore
-* include `decontam` close to script `220...` or bolt in R package `https://github.com/benjjneb/decontam`
-* include `evaluate-composition` close to script `220..`(?) to check mock samples
-* improve logging during clustering script (see AAD data 26.03.2018 - clustering script usage of `tee`)
-
-### R analysis - miscellaneous suggestions
-* also see `/Users/paul/Box\ Sync/CU_NIS-WRAPS/170728_external_presentations/171128_wcmb/180429_wcmb_practice_talk/180429_wcmb_practice_talk.md`
-* test eulerr with unclustered data (?)
-* correct OTU numbers (?) - use 97% for now - address both issues though
-* stats test - pull quantities from eulerr (?)
-* erase `/Users/paul/Documents/CU_combined_BUP` once `/Users/paul/Documents/CU_combined` is processed.
-* improve modelling 
-* plot env list relationship - 
-* check overlap - vs UNIFRAC - 
-* plot on env against taxa - 
-* include Arctic data and routes from Zhaojun 
-* include HON distance matrix
-* implement `glm()` between defined samples
-  * between Unifrac distances
-  * and `500_30_shape_matrices__output__mat_env_dist_full.Rdata`
-  * and `500_30_shape_matrices__output__mat_risks_full.Rdata` or `500_30_shape_matrices__output_mat_trips_full.Rdata` ?
-  * checked script - `500_30_shape_matrices__output__mat_env_dist_full.Rdata` seem ok
-
-## Miscellaneous Notes
-* alignment masking does not remove sequences, so filtering the repset in `script 100` is not necessary
-* but also calling `qiime phylogeny filter-table` in `script 100` doesn't change the data, so can be left in 
-* clustering-free analysis after cluster-based analysis
-* review related files in and compress, erase after publication.
-
-## Relevant Repository contents:
-
-### Folders
-* `CU_combined/Github` - analysis scripts
-* `CU_combined/Transport` - cluster transport scripts
-* `CU_combined/Zenodo` -  data and metadata for upload
-* `CU_combined/Zenodo/Scratch` - useful scripts from previous analysis iterations and draft analyses
-
-### Scripts (likley not up to date)
-* `065_merge_data.sh` -  merging sequences and rep.-sequence sets from multiple runs
-* `070_merge_metdata.sh` - merging of metadata files
-* `075_smr_features_and_table.sh` - get feature table summaries of merged data created above
-* `080_re_cut_adapt_and_filter.sh` - removing adapter remnants and COI data that uses the same barcodes as 18S data
-* `085_smr_features_and_table.sh` - get feature table summaries of merged and cleaned data created above
-* `090_align_repseqs.sh` - self explanatory 
-* `095_mask_alignment.sh` - self explanatory
-* `100_build_tree.sh` - self explanatory
-* `110_get_core_metrics.sh` - creates varies distance measures describing the diversity of the samples
-* `120_train_classifier.sh` - discard unnecessary reference data by feeding primers to the reference database
-* `130_classify_reads.sh` - get SILVA identifications for the unclustered Amplicon Variants
-* `140_show_classification.sh` - show SILVA identifications for the unclustred Amplicon Variants
-* `200_cluster_sequences.sh` - analysis of overlap across samples needs clustering, here done for several treshholds
-* `210_filter_samples.sh` - among clusters seperate controls from actual data
-* `220_classify_clusters.sh` - compare clusters again to reference database, since cluster ID could have changed, create taxonomy visualisations
-* `230_summarize_clusters.sh` - get visualisations (in table form) for sequences in clusters and sequences in each samples
-* `240_convert_clusters.sh` - get `.biom` files for R import and Cytoscape (can be collapsed in R)
-* `250_get_bi_networks.sh` - (via Qiime 1) - get bipartite network files for Cytoscape (can be collapsed in Cytoscape)
-* `260_blast_clusters.sh` - (via Qiime 1) - get blast IDs for clusters, in case SILVA is not good enough
+  * plotting code does not label nor draw all connections - rewrite (?)
