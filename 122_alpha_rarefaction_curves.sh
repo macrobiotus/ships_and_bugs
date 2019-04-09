@@ -53,32 +53,25 @@ for ((i=1;i<=1;i++)); do
     --i-phylogeny "$trpth"/"${mptpth[$i]}" \
     --m-metadata-file "$trpth"/"${map_txt[$i]}" \
     --p-min-depth 1 \
-    --p-metrics mcintosh_e \
-    --p-metrics michaelis_menten_fit \
-    --p-metrics shannon \
-    --p-metrics faith_pd \
-    --p-metrics menhinick \
-    --p-metrics margalef \
-    --p-metrics simpson_e \
-    --p-metrics dominance \
-    --p-metrics lladser_pe \
-    --p-metrics enspie \
-    --p-metrics brillouin_d \
-    --p-metrics singles \
-    --p-metrics observed_otus \
-    --p-metrics pielou_e \
-    --p-metrics berger_parker_d \
-    --p-metrics gini_index \
-    --p-metrics chao1 \
-    --p-metrics doubles \
-    --p-metrics goods_coverage \
-    --p-metrics mcintosh_d \
-    --p-metrics simpson \
-    --p-metrics heip_e \
-    --p-metrics robbins \
-    --p-metrics fisher_alpha \
     --p-steps 100 \
     --p-iterations 10 \
     --o-visualization "$trpth"/"${tax_crv[$i]}" \
+    --p-metrics shannon \
+    --p-metrics faith_pd \
+    --p-metrics goods_coverage \
+    --p-metrics observed_otus \
     --verbose 2>&1 | tee -a "$trpth"/"Zenodo/Qiime/122_18S_097_cl_tree_curves_log.txt"
 done
+
+
+#     --p-metrics pielou_e \
+#     --p-metrics berger_parker_d \
+#     --p-metrics gini_index \
+#     --p-metrics chao1 \
+#     --p-metrics doubles \
+#     --p-metrics mcintosh_d \
+#     --p-metrics simpson \
+#     --p-metrics heip_e \
+#     --p-metrics robbins \
+#     --p-metrics fisher_alpha \
+

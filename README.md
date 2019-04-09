@@ -740,6 +740,7 @@ Data will be included via manifest files and metadate files linked in at
          * `MD5 (/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output_predictor_data.Rdata) = 3c07b79451199a2cdd3840c9fe24e72a`
   * continue manuscript and `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R`
 * **09.04.2019** - continue to work on R scripts
+  * restarted `/Users/paul/Documents/CU_combined/Github/122_alpha_rarefaction_curves.sh` requesting less parameters (after crash)
   * starting to revise `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R`
     * error - Rotterdam not included in `/Users/paul/Documents/CU_combined/Github/500_30_shape_matrices.R`
       * re run and re-render `/Users/paul/Documents/CU_combined/Github/500_30_shape_matrices.R`

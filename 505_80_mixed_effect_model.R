@@ -226,15 +226,23 @@ model_data
 #   and Chaudhary, C. (2017) “Marine biogeographic realms and species endemicity,” 
 #   Nature Communications. Springer US, 8(1), p. 1057. doi: 10.1038/s41467-017-01121-2..
 #   write as function !!!!!!!!
-#   here using REALMS, there are 12 Realms listed in the paper
+#   here using REALMS, there are 30 Realms listed in the paper (Fig 1, Fig2b)
+#   09-April-2019 ("BA" and "HN" missing after subsampling)
+#   here "PH" "SW" "SY" "AD" "CH" "BT" "HN" "HT" "LB" "MI"
+#        "AW" "CB" "NA" "NO" "OK" "PL" "PM" "RC" "RT" "VN"
+
 
 model_data <- model_data %>% add_column("ECO_PORT" = NA)
+
 model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("HN", "PH"), "17", model_data$"ECO_PORT"))
-model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("SY"), "13", model_data$"ECO_PORT"))
-model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("SW"), "13", model_data$"ECO_PORT"))
+model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("SY", "SW"), "13", model_data$"ECO_PORT"))
 model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("AD"), "26", model_data$"ECO_PORT"))
-model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("CH","BT","MI", "HT"), "11", model_data$"ECO_PORT"))
-model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("LB"), "7", model_data$"ECO_PORT"))
+model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("CH","BT","MI", "HT", "NO"), "11", model_data$"ECO_PORT"))
+model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("LB", "CB", "OK", "PL", "RC", "VN"), "7", model_data$"ECO_PORT"))
+model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("PM"), "24", model_data$"ECO_PORT"))
+model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("AW", "RT"), "3", model_data$"ECO_PORT"))
+
+# <-- continue here
 
 model_data <- model_data %>% add_column("ECO_DEST" = NA)
 model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("HN", "PH"), "17", model_data$"ECO_DEST"))
