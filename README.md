@@ -755,7 +755,9 @@ Data will be included via manifest files and metadate files linked in at
   * moving R renders to Results folder via `/Users/paul/Documents/CU_combined/Github/move_preliminary_documentation.sh`
   * script `/Users/paul/Documents/CU_combined/Github/122_alpha_rarefaction_curves.sh* still throws errors` - use new metadata?`
   * commit
-  * in `/Users/paul/Documents/CU_combined/Github/500_00_functions.R` cahnging matix lumping back to `mean` - commit
+  * in `/Users/paul/Documents/CU_combined/Github/500_00_functions.R` changing matrix lumping back to `mean` - commit
+  * re-running `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R`
+  * in `/Users/paul/Documents/CU_combined/Github/500_00_functions.R` changing matrix lumping back to `median` - commit
 
 ## Todo
 * _09.04.2019_ - **keep in mind**
