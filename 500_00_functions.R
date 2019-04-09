@@ -173,8 +173,8 @@ fill_collapsed_responses_matrix <- function(r_mat_clpsd = NULL, r_mat = NULL){
                                                              # per port.
       }
     
-    slctd_ave <- median(slctd_mat, na.rm = TRUE) # na.rm = TRUE for edge cases, those will otherwise be NA
-                                               #  but they do have a signal so can't NA
+    slctd_ave <- mean(slctd_mat, na.rm = TRUE) # na.rm = TRUE for edge cases, those will otherwise be NA
+                                                 #  but they do have a signal so can't NA
     # debugging only 
     #  print(slctd_ave)
     
