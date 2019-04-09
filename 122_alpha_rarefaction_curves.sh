@@ -56,14 +56,13 @@ for ((i=1;i<=1;i++)); do
     --p-steps 100 \
     --p-iterations 10 \
     --o-visualization "$trpth"/"${tax_crv[$i]}" \
-    --p-metrics shannon \
-    --p-metrics faith_pd \
-    --p-metrics goods_coverage \
-    --p-metrics observed_otus \
     --verbose 2>&1 | tee -a "$trpth"/"Zenodo/Qiime/122_18S_097_cl_tree_curves_log.txt"
 done
 
-
+#    --p-metrics shannon \
+#     --p-metrics faith_pd \
+#    --p-metrics goods_coverage \
+#    --p-metrics observed_otus \
 #     --p-metrics pielou_e \
 #     --p-metrics berger_parker_d \
 #     --p-metrics gini_index \

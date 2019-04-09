@@ -211,15 +211,23 @@ df_list <- lapply (mat_list, function(x) data.frame(x)  %>%
                              melt(., id.vars = "PORT"))
 
 # join dataframes and name columns - "NA" (Nanaimo) becomes "NA." to not be R's "NA"
+#  also one column isn't a factor variable - correcting this
 model_data_raw <- df_list %>% reduce(inner_join, by = c("PORT", "variable")) %>%
                           setNames(c("PORT", "DEST", toupper(names(mat_list))))
 class(model_data_raw)
+
+levels(model_data_raw$DEST)[ which (levels(model_data_raw$DEST) == "NA.")] <- "NX"
+model_data_raw$PORT <- as.factor(model_data_raw$PORT)
+levels(model_data_raw$PORT)[ which (levels(model_data_raw$PORT) == "NA")] <- "NX"
+
+# check this table carefully for consistent column names
+model_data_raw
 
 # remove incomplete cases - only ignoring lower half of matrix, otherwise remove 
 #  column selector
 model_data <- model_data_raw %>% filter(complete.cases(.))
 class(model_data)
-model_data 
+model_data
 
 # add ecoregion as per:  # <-- continue here
 #   @Costello, M. J., Tsai, P., Wong, P. S., Cheung, A. K. L., Basher, Z. 
@@ -233,39 +241,63 @@ model_data
 
 
 model_data <- model_data %>% add_column("ECO_PORT" = NA)
-
 model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("HN", "PH"), "17", model_data$"ECO_PORT"))
 model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("SY", "SW"), "13", model_data$"ECO_PORT"))
 model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("AD"), "26", model_data$"ECO_PORT"))
 model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("CH","BT","MI", "HT", "NO"), "11", model_data$"ECO_PORT"))
-model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("LB", "CB", "OK", "PL", "RC", "VN"), "7", model_data$"ECO_PORT"))
+model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("LB", "CB", "OK", "PL", "RC", "VN", "NX"), "7", model_data$"ECO_PORT"))
 model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("PM"), "24", model_data$"ECO_PORT"))
 model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("AW", "RT"), "3", model_data$"ECO_PORT"))
 
-# <-- continue here
-
 model_data <- model_data %>% add_column("ECO_DEST" = NA)
 model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("HN", "PH"), "17", model_data$"ECO_DEST"))
-model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("SY"), "13", model_data$"ECO_DEST"))
-model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("SW"), "13", model_data$"ECO_DEST"))
+model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("SY", "SW"), "13", model_data$"ECO_DEST"))
 model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("AD"), "26", model_data$"ECO_DEST"))
-model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("CH","BT","MI", "HT"), "11", model_data$"ECO_DEST"))
-model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("LB"), "7", model_data$"ECO_DEST"))
+model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("CH","BT","MI", "HT", "NO"), "11", model_data$"ECO_DEST"))
+model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("LB", "CB", "OK", "PL", "RC", "VN", "NX"), "7", model_data$"ECO_DEST"))
+model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("PM"), "24", model_data$"ECO_DEST"))
+model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("AW", "RT"), "3", model_data$"ECO_DEST"))
 
 model_data <- model_data %>% add_column("ECO_DIFF" = NA)
 model_data <- model_data %>% mutate (ECO_DIFF = ifelse(ECO_PORT == ECO_DEST , FALSE, TRUE))
 
 write.csv(model_data, file = "/Users/paul/Documents/CU_combined/Zenodo/Results/505_80_mixed_effect_model__output__model_input.csv")
 
+# Checking response and predictor variable distributions
+
+## Responses
+ggplot(model_data,aes (x=RESP_UNIFRAC))+ 
+  geom_density()+
+  facet_grid(~ECO_DIFF)+
+  theme_bw()
+
+# differences are tiny
+aggregate(model_data$RESP_UNIFRAC~model_data$ECO_DIFF, FUN=mean)
+
+ggplot(model_data,aes (x=PRED_ENV))+ 
+  geom_density()+
+  facet_grid(~ECO_DIFF)+
+  theme_bw()
+
+# differences are a bit better
+aggregate(model_data$PRED_ENV~model_data$ECO_DIFF, FUN=mean)
+
+## Pedictors
+ggplot(model_data,aes (x=PRED_TRIPS))+ 
+  geom_density()+
+  facet_grid(~ECO_DIFF)+
+  theme_bw()
+
+# more trips within ecoregions in data - not surprising
+aggregate(model_data$PRED_TRIPS~model_data$ECO_DIFF, FUN=mean)
+
+
 #'
 #' <!-- #################################################################### -->
 #'
 #' <!-- #################################################################### -->
 #'
 
-# quick and dirty - improves model (apparently) - move elsewhere
-model_data$PRED_TRIPS <- model_data$PRED_TRIPS
-model_data
 
 # model_data <- model_data %>%  mutate_if(is.numeric, scale(.,scale = FALSE))
 pairs(RESP_UNIFRAC ~ PRED_ENV * PRED_TRIPS, data=model_data, main="Simple Scatterplot Matrix")
@@ -277,16 +309,14 @@ model_data$PORT <- as.factor(model_data$PORT)
 model_data$DEST <- as.factor(model_data$DEST)
 model_data$ECO_DIFF <- as.factor(model_data$ECO_DIFF)
 
+# reordering columns for model
 vars <- model_data %>% select(RESP_UNIFRAC, PORT, DEST, ECO_DIFF, PRED_ENV, PRED_TRIPS)
-
-
-# filter PH to get rid of coverage differences
-# vars <- model_data %>% filter(PORT != "PH") %>% filter(DEST != "PH") %>%  droplevels %>% select(RESP_UNIFRAC, PORT, DEST, ECO_DIFF, PRED_ENV, PRED_TRIPS)
 
 #' ## Full Model and checking 
 vars_model_full <- lmer(RESP_UNIFRAC ~ PRED_ENV + PRED_TRIPS + ECO_DIFF + (1 | PORT) + (1 | DEST), data=vars, REML=FALSE)
 
 #' ### Model Summary
+vars_model_full
 summary(vars_model_full)
 coef(vars_model_full) #intercept for each level
 
