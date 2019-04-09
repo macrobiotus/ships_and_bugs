@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 08.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 09.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Generate interactive alpha rarefaction curves by computing rarefactions
 #   between `min_depth` and `max_depth`. The number of intermediate depths to
@@ -77,8 +77,8 @@ for ((i=1;i<=1;i++)); do
     --p-metrics heip_e \
     --p-metrics robbins \
     --p-metrics fisher_alpha \
-    --p-steps 50 \
-    --p-iterations 100 \
+    --p-steps 100 \
+    --p-iterations 10 \
     --o-visualization "$trpth"/"${tax_crv[$i]}" \
     --verbose 2>&1 | tee -a "$trpth"/"Zenodo/Qiime/122_18S_097_cl_tree_curves_log.txt"
 done

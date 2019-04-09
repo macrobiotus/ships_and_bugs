@@ -1,7 +1,7 @@
 #' ---
 #' title: "Compare Response and Predictor Matrices using Mixed Effect Models"
 #' author: "Paul Czechowski"
-#' date: "Oct 23th, 2018"
+#' date: "April 9th, 2019"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -14,20 +14,8 @@
 #' fewer the ports which have environmental distances available. (All ports 
 #' with measurements have environmental distances available.)
 #'
-#' In preparation for the meeting in Fort Collins the following may be implemented below.
-#' If you want to go back to an earlier version check commit before 2018-07-20 13:00.
-#'  - Removal of Singapore samples. Singapore samples need to be divided in the next data
-#'    import iteration. This is potentially time consuming and requires large rewrites
-#'    so that it only makes sense when more data is imported, as well.
-#'  - PCoA of Unifrac matrix. This is done in order to make up for a inaccurate Qiime 2
-#'    PCoA (which still includes the Singapore data)
-#'  - Simplification. There is a lot of clutter in here, which should be removed for
-#'    reasons of simplicity.
-#'  - Singapore samples removed in script 500, writes files with dates 20.07.2018
-#'  - Singapore samples included in script 505, writes files with dates 23.07.2018
-#'
 #' This code commentary is included in the R code itself and can be rendered at
-#' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_80_mixed_effect_model.R")`.
+#' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R")`.
 #' Please check the session info at the end of the document for further 
 #' notes on the coding environment.
 #' 
@@ -66,10 +54,10 @@ source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")
 #' (Risk Formula is currently `(log(src_heap$ROUT$TRIPS) + 1) * (1 / src_heap$ROUT$EDST)`
 #' as defined in `500_30_shape_matrices.R`. Using voyages only for now)
 
-# loading matrix with trips (not risks), not loading "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output__mat_risks_full.Rdata")
+# loading matrix with trips (not risks), not loading "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output__mat_risks_full.Rdata"
 load("/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output_mat_trips_full.Rdata")
 
-# checking 
+# checking - see debugging notes: row- and colnames are undefined
 mat_trips[35:50, 35:50]
 
 #' ## Predictors 2 of 2: Environmental Distances
@@ -77,7 +65,9 @@ mat_trips[35:50, 35:50]
 #' This data is available for many ports (more ports then shipping routes)
 load("/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output__mat_env_dist_full.Rdata")
 
-# checking -- see debugging notes: some port numbers in row-/colnames are not unique
+# checking - see debugging notes: some port numbers in row-/colnames are not unique
+#          - see debugging notes: row- and colnames are undefined, bu seemingly consitent with above
+#             so likley less problematic
 mat_env_dist_full[35:50, 35:50]
 
 #'
@@ -86,23 +76,14 @@ mat_env_dist_full[35:50, 35:50]
 #' ## Responses 1 of 3: Unifrac distance matrix as produced by Qiime 2
 #'
 
-# this path should match the parameter combination of the Euler script
-resp_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/155_18S_097_cl_meta_mat/distance-matrix.tsv"
+# this path should match the parameter combination of the Euler script (which isn't used anymore) <-- continue here
+resp_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/125_18S_metazoan_unweighted_unifrac_distance_matrix/distance-matrix.tsv"
 resp_mat <- read.table(file = resp_path, sep = '\t', header = TRUE)
 
 # checking import and format
 resp_mat[35:50, 35:50]
+resp_mat[01:10, 01:10]
 class(resp_mat)
-
-#' ## Responses 2 of 3: Kulczynski distances between ports if all overlap is considered - COMMENTED OUT
-# kulczynski_mat_all_path <- "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_35_shape_overlap_matrices__output__97_overlap_kulczynski_mat_all.Rdata"
-# load(kulczynski_mat_all_path)
-# kulczynski_mat_all
-
-#' ## Responses  3 of 3:  Kulczynski distances between ports if pairwise overlap is considered - COMMENTED OUT
-# kulczynski_mat_ovrlp_path <- "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_35_shape_overlap_matrices__output__97_overlap_kulczynski_mat_dual.Rdata"
-# load(kulczynski_mat_ovrlp_path)
-# kulczynski_mat_ovrlp
 
 #' <!-- #################################################################### -->
 #'
@@ -113,13 +94,13 @@ class(resp_mat)
 #' 
 #' ## Responses 1 of 3: Unifrac distance matrix as produced by Qiime 2
 #'
-#' Need to be done before the predictors: Matrix fields need to be averaged
+#' Need to be done before the predictors: Matrix fields need to be averaged (09-Apr-2019: using median)
 #' across replicates. The resulting ports descriptors are then used to shape
 #' predictor data. **NOT** Inverting Unifrac distances to closeness in order to match 
 #' `(1 / src_heap$ROUT$EDST)`, which also is a measure of closeness.
 
 # substitute dots `.` in column headers with minus `-` to match row names
-colnames(resp_mat) <- gsub( '\\.' , '-', colnames(resp_mat)) 
+colnames(resp_mat) <- gsub( '\\.' , '-', colnames(resp_mat))
 
 # set data frame row-names correctly 
 rownames(resp_mat) <- resp_mat$X; resp_mat$X <- NULL
@@ -127,39 +108,13 @@ rownames(resp_mat) <- resp_mat$X; resp_mat$X <- NULL
 # check data frame row and column formatting - better to have them equal 
 any(colnames(resp_mat) == rownames(resp_mat))
 
-
 # Create empty receiving matrix from data frame ...
 r_mat_clpsd <- get_collapsed_responses_matrix(resp_mat)
 
 # ... and fill empty receiving matrix. 
 r_mat_clpsd <- fill_collapsed_responses_matrix(r_mat_clpsd, resp_mat)
+write.csv(r_mat_clpsd, file = "/Users/paul/Documents/CU_combined/Zenodo/Results/505_80_mixed_effect_model__output__collapsed_matrix.csv")
 
-# BEGIN OMISSION
-# convert matrix from dissimilarity to similarity ( dissim(x,y) = 1 - sim(x,y))
-#  this also requires moving lower triangle to upper triangle, and resetting the
-#  lower tiangle. 
-# r_mat_clpsd <- apply (r_mat_clpsd, 1, function(x) 1-x)
-# 
-# upperTriangle(r_mat_clpsd) <- lowerTriangle(r_mat_clpsd, byrow=TRUE)
-# END OMMISION 
-# 
-# r_mat_clpsd[lower.tri(r_mat_clpsd, diag = FALSE)] <- NA
-# 
-# ' Finished matrix - Unifrac distance
-# r_mat_clpsd # SP needs to be removed here
-# 
-# ' ## Responses 2 of 3: Kulczynski distances between ports if all overlap is considered
-# '
-# kulczynski_mat_all
-# kulczynski_mat_all[lower.tri(kulczynski_mat_all, diag = FALSE)] <- NA
-# kulczynski_mat_all
-# 
-# ' ## Responses  3 of 3:  Kulczynski distances between ports if pairwise overlap is considered
-# '
-# kulczynski_mat_ovrlp
-# kulczynski_mat_ovrlp[lower.tri(kulczynski_mat_ovrlp, diag = FALSE)] <- NA
-# kulczynski_mat_ovrlp
-# 
 #'
 #' <!-- -------------------------------------------------------------------- -->
 #'      
@@ -168,15 +123,31 @@ r_mat_clpsd <- fill_collapsed_responses_matrix(r_mat_clpsd, resp_mat)
 
 # to save memory: discard completely undefined rows and columns (shrinks from
 #  6651 * 6651 to 2332 * 2332
+dim(mat_trips)
 mat_trips <- mat_trips[rowSums(is.na(mat_trips))!=ncol(mat_trips), colSums(is.na(mat_trips))!=nrow(mat_trips) ]
+dim(mat_trips) 
 
 # quick and dirty - manual lookup for subsetting
-#   use order  of response matrix (!!!)
-#   here "PH","SP","AD","CH", "BT", "HN", "HT", "LB", "MI"
-#   improve (!!!) this. Manual lookup via:
-#   `open /Users/paul/Dropbox/NSF\ NIS-WRAPS\ Data/raw\ data\ for\ Mandana/PlacesFile_updated_Aug2017.xlsx -a "Microsoft Excel"`
-mat_trips <- mat_trips[c("2503","1165", "1165", "3110", "2907", "854", "2503", "2331", "7597", "4899"),
-                       c("2503","1165", "1165", "3110", "2907", "854", "2503", "2331", "7597", "4899")] 
+#   improve this. Manual lookup via:
+#   `open  -a "Microsoft Excel" "/Users/paul/Dropbox/NSF NIS-WRAPS Data/raw data for Mandana/PlacesFile_updated_Aug2017.xlsx"`
+colnames(r_mat_clpsd)
+
+# also see `/Users/paul/Documents/CU_combined/Github/500_30_shape_matrices.R`
+# test 08.04.2019 - AD AW BA BT CB CH HN HS HT LB MI 
+#                   NA NO OK PH PL PM RC RT SW SY VN
+#
+# "3110" "576"  "2729" "854" "2141" "2907" "2503" "3367" "2331" "7597" "4899"
+# "3108"  "3381" "7598" "2503" "234" "193" "4777" "1165" "1165" "311" 
+#
+#   use order  of response matrix (!!!) 09-April-2019 ("BA" and "HN" missing after subsampling)
+#   here "PH" "SW" "SY" "AD" "CH" "BT" "HN" "HT" "LB" "MI"
+#        "AW" "CB" "NA" "NO" "OK" "PL" "PM" "RC" "RT" "VN"
+
+
+mat_trips <- mat_trips[c("2503", "1165", "1165", "3110", "2907", "854", "2503", "2331", "7597", "4899",
+                          "576", "2141", "3108", "3381", "7598", "238",  "193", "4777",  "830", "311"),
+                       c("2503", "1165", "1165", "3110", "2907", "854", "2503", "2331", "7597", "4899",
+                          "576", "2141", "3108", "3381", "7598", "238",  "193", "4777",  "830", "311")] 
 
 # Keep lower triangle
 mat_trips[lower.tri(mat_trips, diag = FALSE)] <- NA
@@ -198,8 +169,10 @@ mat_trips
 #   improve (!!!) this. Manual lookup via:
 #   `open /Users/paul/Dropbox/NSF\ NIS-WRAPS\ Data/raw\ data\ for\ Mandana/PlacesFile_updated_Aug2017.xlsx -a "Microsoft Excel"`
 
-mat_env_dist <- mat_env_dist_full[c("2503","1165", "1165", "3110", "2907", "854", "2503", "2331", "7597", "4899"),
-                                  c("2503","1165", "1165", "3110", "2907", "854", "2503", "2331", "7597", "4899")] 
+mat_env_dist <- mat_env_dist_full[c("2503", "1165", "1165", "3110", "2907", "854", "2503", "2331", "7597", "4899",
+                                     "576", "2141", "3108", "3381", "7598", "238",  "193", "4777",  "830", "311"),
+                                  c("2503", "1165", "1165", "3110", "2907", "854", "2503", "2331", "7597", "4899",
+                                     "576", "2141", "3108", "3381", "7598", "238",  "193", "4777",  "830", "311")] 
 
 mat_env_dist[lower.tri(mat_env_dist, diag = FALSE)] <- NA
 
@@ -207,11 +180,8 @@ mat_env_dist[lower.tri(mat_env_dist, diag = FALSE)] <- NA
 colnames(mat_env_dist) <- colnames(r_mat_clpsd)
 rownames(mat_env_dist) <- rownames(r_mat_clpsd)
 
-#' Convert distances to closeness in order to comply with formula part `(1 / src_heap$ROUT$EDST)`
-# mat_env_dist <- 1/mat_env_dist
 
-
-#' Finished matrix - Inverted environmental distances. Needs to be filtered
+#' Finished matrix -
 #' to match predictors influenced by available voyages before analysis.
 mat_env_dist
 
@@ -240,7 +210,7 @@ df_list <- lapply (mat_list, function(x) data.frame(x)  %>%
                              rownames_to_column("PORT") %>%
                              melt(., id.vars = "PORT"))
 
-# join dataframes and name columns
+# join dataframes and name columns - "NA" (Nanaimo) becomes "NA." to not be R's "NA"
 model_data_raw <- df_list %>% reduce(inner_join, by = c("PORT", "variable")) %>%
                           setNames(c("PORT", "DEST", toupper(names(mat_list))))
 class(model_data_raw)
@@ -249,39 +219,14 @@ class(model_data_raw)
 #  column selector
 model_data <- model_data_raw %>% filter(complete.cases(.))
 class(model_data)
-model_data
+model_data 
 
-#     # add ecoregion as per:
-#     #   @1. Spalding, M. D. et al. Marine Ecoregions of the World: A Bioregionalization 
-#     #    of Coastal and Shelf Areas. Bioscience 57, 573@583 (2007).
-#     # write as function !!!!!!!!
-#     # here using REALMS, there are 12 Realms listed in the paper
-# 
-#     model_data <- model_data %>% add_column("ECO_PORT" = NA)
-#     model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("HN", "PH"), "EIP", model_data$"ECO_PORT"))
-#     model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("SY"), "CIP", model_data$"ECO_PORT"))
-#     model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("SW"), "CIP", model_data$"ECO_PORT"))
-#     model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("AD"), "TAA", model_data$"ECO_PORT"))
-#     model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("CH","BT","MI", "HT"), "TNA", model_data$"ECO_PORT"))
-#     model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("LB"), "TNP", model_data$"ECO_PORT"))
-# 
-#     model_data <- model_data %>% add_column("ECO_DEST" = NA)
-#     model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("HN", "PH"), "EIP", model_data$"ECO_DEST"))
-#     model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("SY"), "CIP", model_data$"ECO_DEST"))
-#     model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("SW"), "CIP", model_data$"ECO_DEST"))
-#     model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("AD"), "TAA", model_data$"ECO_DEST"))
-#     model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("CH","BT","MI", "HT"), "TNA", model_data$"ECO_DEST"))
-#     model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("LB"), "TNP", model_data$"ECO_DEST"))
-# 
-#     model_data <- model_data %>% add_column("ECO_DIFF" = NA)
-#     model_data <- model_data %>% mutate (ECO_DIFF = ifelse(ECO_PORT == ECO_DEST , FALSE, TRUE))
-
-# add ecoregion as per:
+# add ecoregion as per:  # <-- continue here
 #   @Costello, M. J., Tsai, P., Wong, P. S., Cheung, A. K. L., Basher, Z. 
 #   and Chaudhary, C. (2017) “Marine biogeographic realms and species endemicity,” 
-# Nature Communications. Springer US, 8(1), p. 1057. doi: 10.1038/s41467-017-01121-2..
-# write as function !!!!!!!!
-# here using REALMS, there are 12 Realms listed in the paper
+#   Nature Communications. Springer US, 8(1), p. 1057. doi: 10.1038/s41467-017-01121-2..
+#   write as function !!!!!!!!
+#   here using REALMS, there are 12 Realms listed in the paper
 
 model_data <- model_data %>% add_column("ECO_PORT" = NA)
 model_data <- model_data %>% mutate (ECO_PORT = ifelse( .$"PORT"  %in% c("HN", "PH"), "17", model_data$"ECO_PORT"))
@@ -302,6 +247,7 @@ model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("LB"), 
 model_data <- model_data %>% add_column("ECO_DIFF" = NA)
 model_data <- model_data %>% mutate (ECO_DIFF = ifelse(ECO_PORT == ECO_DEST , FALSE, TRUE))
 
+write.csv(model_data, file = "/Users/paul/Documents/CU_combined/Zenodo/Results/505_80_mixed_effect_model__output__model_input.csv")
 
 #'
 #' <!-- #################################################################### -->
