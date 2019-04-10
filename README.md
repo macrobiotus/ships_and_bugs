@@ -759,6 +759,14 @@ Data will be included via manifest files and metadate files linked in at
   * re-running `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R`
   * in `/Users/paul/Documents/CU_combined/Github/500_00_functions.R` changing matrix lumping back to `median` - commit
   * finished successfully `/Users/paul/Documents/CU_combined/Github/122_alpha_rarefaction_curves.sh`
+  * results inconclusive - back to drawing board
+    * (include data currently on the sequencer - 2 ports)
+    * improve taxonomic classification by means of iterating a analysis concerning the mock samples - we need more then half the data assigned with at least some deeper taxonomy
+    * improve alignment
+    * improve tree calculation
+    * re-run Mixed effect Model on Voyage counts (although I do not think this will improve much) 
+    * include HON adjacency values from Mandana instead of trips.
+
 
 ## Todo
 * _09.04.2019_ - **keep in mind**
@@ -775,7 +783,6 @@ Data will be included via manifest files and metadate files linked in at
   * check 1st commit 05.05.2019 - done in function `get_distance_matrix_means_current_port_matrix_at_sample_count` of `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
   * check 2nd commit 05.05.2019 - done in function `fill_collapsed_responses_matrix` of `/Users/paul/Documents/CU_combined/Github/500_00_functions.R`
 * _04.04.2019_ - **keep in mind** that in `#SampleID` mapping file  **must** start with two letter abbrivation, needed for R code!
-
 
 ## Known issues and bugs
 
