@@ -766,9 +766,30 @@ Data will be included via manifest files and metadate files linked in at
     * improve tree calculation
     * re-run Mixed effect Model on Voyage counts (although I do not think this will improve much) 
     * include HON adjacency values from Mandana instead of trips.
+* _10.04.2019_ get hashes of DB files - for test in `CU_mock` today
+ * consistent with `CU_mock`: `/Users/paul/Documents/CU_combined/Zenodo/References/Silva128_extract_extended/99_otus_18S.fasta` `05c54da004175a5f6220f5f4439f8a8d`
+ * consistent with `CU_mock`: `/Users/paul/Documents/CU_combined/Zenodo/References/Silva128_extract_extended/majority_taxonomy_7_levels.txt` `7c765f8a740c07def24922c1ef8cee20`
+ * check classification
+   * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/105_18S_097_cl_cntrl_barplot.qzv`
+   * `iime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/105_18S_097_cl_edna_barplot.qzv`
+   * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/105_18S_097_cl_metzn_barplot.qzv`
+   * created images
+     * controls - unassigned and found reference sequences 
+       * `/Users/paul/Documents/CU_combined/Zenodo/Results/190410_controls_clustered_level-7-bars.svg`
+       * `/Users/paul/Documents/CU_combined/Zenodo/Results/190410_controls_clustered_level-7-legend.svg`
+     * eDNA - unassigned and found metazoans
+       * `/Users/paul/Documents/CU_combined/Zenodo/Results/190410_metazoans_clustered_level-4-bars.svg`
+       * `/Users/paul/Documents/CU_combined/Zenodo/Results/190410_metazoans_clustered_level-4-legend.svg`
+     * metazoans - unassigned and 5 most common phyla - ecluding the most abundant group of copepods 
+       * `/Users/paul/Documents/CU_combined/Zenodo/Results/190410_metazoans_clustered_level-5-bars.svg`
+       * `/Users/paul/Documents/CU_combined/Zenodo/Results/190410_metazoans_clustered_level-5-legend.svg`
+   * committing to save README
+
 
 
 ## Todo
+
+
 * _09.04.2019_ - **keep in mind**
   * in future versions Nanaimo should be named not `NA` but `NX` so as to omit correction code in `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R`
   *  sript `/Users/paul/Documents/CU_combined/Github/122_alpha_rarefaction_curves.sh* still throws errors` - use new metadata?`
