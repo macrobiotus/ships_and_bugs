@@ -786,6 +786,16 @@ Data will be included via manifest files and metadate files linked in at
    * committing to save README
 
 
+* **_11.04.2019_**
+
+* exporting (and viewing) data for manual inspection - files are likely editaed manually
+  * `qiime tools export --input-path /Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_097_cl_seq_taxonomic_assigmnets.qza --output-path /Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_097_cl_seq_taxonomic_assigmnets`
+  * `qiime tools export --input-path /Users/paul/Documents/CU_combined/Zenodo/Qiime/100_18S_097_cl_metzn_seq.qza --output-path /Users/paul/Documents/CU_combined/Zenodo/Qiime/100_18S_097_cl_metzn_seq`
+  * `qiime tools export --input-path /Users/paul/Documents/CU_combined/Zenodo/Qiime/100_18S_097_cl_metzn_tab.qza --output-path /Users/paul/Documents/CU_combined/Zenodo/Qiime/100_18S_097_cl_metzn_tab`
+  * `biom convert -i /Users/paul/Documents/CU_combined/Zenodo/Qiime/100_18S_097_cl_metzn_tab/feature-table.biom -o /Users/paul/Documents/CU_combined/Zenodo/Qiime/100_18S_097_cl_metzn_tab/feature-table.from_biom_w_taxonomy.txt --to-tsv --header-key taxonomy`
+  * `qiime tools view ../Zenodo/Qiime/105_18S_097_cl_metzn_tab.qzv`
+  * `qiime tools view ../Zenodo/Qiime/105_18S_097_cl_metzn_seq.qzv`
+
 
 ## Todo
 
