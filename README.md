@@ -784,7 +784,7 @@ Data will be included via manifest files and metadate files linked in at
        * `/Users/paul/Documents/CU_combined/Zenodo/Results/190410_metazoans_clustered_level-5-bars.svg`
        * `/Users/paul/Documents/CU_combined/Zenodo/Results/190410_metazoans_clustered_level-5-legend.svg`
    * committing to save README
-* **_11.04.2019_**  manual inspection
+* **11.04.2019**  manual inspection
   * exporting (and viewing) data for manual inspection - files are likely edited manually
     * `qiime tools export --input-path /Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_097_cl_seq_taxonomic_assigmnets.qza --output-path /Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_097_cl_seq_taxonomic_assigmnets`
     * `qiime tools export --input-path /Users/paul/Documents/CU_combined/Zenodo/Qiime/100_18S_097_cl_metzn_seq.qza --output-path /Users/paul/Documents/CU_combined/Zenodo/Qiime/100_18S_097_cl_metzn_seq`
@@ -792,13 +792,15 @@ Data will be included via manifest files and metadate files linked in at
     * `biom convert -i /Users/paul/Documents/CU_combined/Zenodo/Qiime/100_18S_097_cl_metzn_tab/feature-table.biom -o /Users/paul/Documents/CU_combined/Zenodo/Qiime/100_18S_097_cl_metzn_tab/feature-table.from_biom_w_taxonomy.txt --to-tsv --header-key taxonomy`
     * `qiime tools view ../Zenodo/Qiime/105_18S_097_cl_metzn_tab.qzv`
     * `qiime tools view ../Zenodo/Qiime/105_18S_097_cl_metzn_seq.qzv`
-  * from now on use Vsearch parameters as established today in CU_mock with Qiime 2019.11
-  * if possible include  include new data denosed with Qiime 2018-11 for consitency
- 
+  * from now on use Vsearch parameters as established today in CU_mock with Qiime 2019.1
+  * if possible include  include new data denoised with Qiime 2018-11 for consistency
+
+* **12.04.2019**  break
+  * returning to analysis re-iteration once all data from `/Users/paul/Documents/CU_WL_GH_ZEE` is included - committed
 
 ## Todo
 * _11.04.2019_ - **keep in mind**
-  * from now on use Vsearch parameters as established today in CU_mock with Qiime 2019.11
+  * from now on use Vsearch parameters as established today in `CU_mock with Qiime 2019.11`
 * _09.04.2019_ - **keep in mind**
   * in future versions Nanaimo should be named not `NA` but `NX` so as to omit correction code in `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R`
   *  sript `/Users/paul/Documents/CU_combined/Github/122_alpha_rarefaction_curves.sh* still throws errors` - use new metadata?`
