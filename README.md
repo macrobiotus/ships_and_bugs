@@ -808,6 +808,14 @@ Data will be included via manifest files and metadate files linked in at
        * place names have underscores, not minuses (in case soem shell work is required)
        * added column `RID` for with two letter abbreviations for R, if needed later
   * adjusted and run `/Users/paul/Documents/CU_combined/Github/075_smr_features_and_table.sh`
+  * omitting clustering and summarizing again, may be done later
+    * `mv /Users/paul/Documents/CU_combined/Github/085_cluster_sequences.sh /Users/paul/Documents/CU_combined/Scratch/Shell/`
+    * `mv /Users/paul/Documents/CU_combined/Github/090_smr_features_and_table.sh  /Users/paul/Documents/CU_combined/Scratch/Shell/`
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/080_classify_reads.sh`
+    * use extended reference data - ok
+    * use assignment as established in `CU_mock` - ok
+    * commit
+    * upload to cluster and run
 
 
 ## Todo
