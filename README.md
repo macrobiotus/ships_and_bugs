@@ -814,6 +814,7 @@ Data will be included via manifest files and metadate files linked in at
   * adjusting and running `/Users/paul/Documents/CU_combined/Github/080_classify_reads.sh`
     * use extended reference data - ok
     * use assignment as established in `CU_mock` - ok
+    * checking and committing transport scripts
     * commit
     * upload to cluster and run
 
