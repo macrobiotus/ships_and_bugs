@@ -30,10 +30,11 @@ tab[3]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_26.tsv'  
 tab[4]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_29.tsv'              # 701c19009b5765a49abd1d7a97db5103
 tab[5]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_34.tsv'              # 096040394156041a5316aff9457c9b3e
 tab[6]='/Users/paul/Documents/CU_US_ports_a/Zenodo/Manifest/05_18S_merged_metadata.tsv'     # ba096cf526b694f540e090fb4c5f7d1e
+tab[6]='/Users/paul/Documents/CU_WL_GH_ZEE/Zenodo/Manifest/05_18S_mapping_file_run_10414227_full.txt' # c090127193c521b27e8cdc96c616fe3d
 
 # define output locations
 # -----------------------
-otpth_tab='Zenodo/Manifest/05_18S_merged_metadata.tsv' # unrevised file b43365a014d7ac27ea712520e54aca78
+otpth_tab='Zenodo/Manifest/05_18S_merged_metadata.tsv' # unrevised file: 5325e6833c8734edab6cfe570eff5039
 
 # run script
 # ----------

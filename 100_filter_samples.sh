@@ -7,6 +7,8 @@
 #  feature-table filter-features`). Control evaluation cann then be done via 
 #  (`decontam` Qiime plugin or R package and `evaluate-composition`)
 
+
+############ FILTER OUT MILNE INLET ######################
 # For debugging only
 # ------------------ 
 # set -x
