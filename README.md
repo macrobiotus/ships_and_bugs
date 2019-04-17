@@ -799,12 +799,15 @@ Data will be included via manifest files and metadate files linked in at
 * **17.04.2019** - data from `/Users/paul/Documents/CU_WL_GH_ZEE` ready to be included - see commit history and README there
   * adjusting and running `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh` - committed afterwards
   * adjusted and running `/Users/paul/Documents/CU_combined/Github/070_merge_metadata.sh` - ok.
-  * check mapping file manually
+    * raw file `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata_preliminary.tsv` 
+      * hashes to `1a18bd7bfd966c2438a92a76830b09b2`
+      * check mapping file manually
     * in revised file `/Users/paul/Documents/CU_combined/Zenodo/Manifest/06_18S_merged_metadata.tsv`
-       * with hash `b16888550ab997736253f741eaec47b`
+       * with hash `42968ca85ed88b695eafff5d16ef8f2`
        * erased salinity and temperature values
        * place names have underscores, not minuses (in case soem shell work is required)
        * added column `RID` for with two letter abbreviations for R, if needed later
+  * adjusted and run `/Users/paul/Documents/CU_combined/Github/075_smr_features_and_table.sh`
 
 
 ## Todo

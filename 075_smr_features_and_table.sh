@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 28.03.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 17.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Visualising reads after denoising and merging procedure.
 
@@ -22,9 +22,7 @@ fi
 
 # define relative input and output locations
 # ---------------------------------
-
-inpth_map='Zenodo/Manifest/05_18S_merged_metadata_checked.tsv' # (should be  `c1ca7209941aa96ee9ce9f843b629f98`)
-                                                               # (correction: `9704c8ce6cf9f8acbd08c88d124b4a5b`)
+inpth_map='Zenodo/Manifest/06_18S_merged_metadata.tsv' # (should be  `b16888550ab997736253f741eaec47b`)
 
 inpth_tab='Zenodo/Qiime/065_18S_merged_tab.qza'
 inpth_rep='Zenodo/Qiime/065_18S_merged_seq.qza'
