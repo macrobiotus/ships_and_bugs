@@ -4,6 +4,13 @@
 # ========================================================
 # https://docs.qiime2.org/2017.11/tutorials/moving-pictures/
 
+# activate Qiime manually 
+# -----------------------
+# export LC_ALL=en_US.utf-8
+# export LANG=en_US.utf-8
+# export PATH=/programs/miniconda3/bin:$PATH
+# source activate qiime2-2019.1
+
 # For debugging only
 # ------------------ 
 # set -x

@@ -817,6 +817,8 @@ Data will be included via manifest files and metadate files linked in at
     * checking and committing transport scripts
     * commit
     * upload to cluster and run
+    * files arrived on cluster - possibly need to change some comments in assigmnet script  - commit once local again
+    * started tax assignment on cluster - committed on cluster - results pending
 
 
 ## Todo
