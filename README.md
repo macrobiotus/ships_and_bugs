@@ -792,11 +792,14 @@ Data will be included via manifest files and metadate files linked in at
     * `biom convert -i /Users/paul/Documents/CU_combined/Zenodo/Qiime/100_18S_097_cl_metzn_tab/feature-table.biom -o /Users/paul/Documents/CU_combined/Zenodo/Qiime/100_18S_097_cl_metzn_tab/feature-table.from_biom_w_taxonomy.txt --to-tsv --header-key taxonomy`
     * `qiime tools view ../Zenodo/Qiime/105_18S_097_cl_metzn_tab.qzv`
     * `qiime tools view ../Zenodo/Qiime/105_18S_097_cl_metzn_seq.qzv`
-  * from now on use Vsearch parameters as established today in CU_mock with Qiime 2019.1
+  * from now on use Vsearch parameters as established today in `CU_mock` with `qiime 2019.1`.
   * if possible include  include new data denoised with Qiime 2018-11 for consistency
-
-* **12.04.2019**  break
+* **12.04.2019** - break
   * returning to analysis re-iteration once all data from `/Users/paul/Documents/CU_WL_GH_ZEE` is included - committed
+* **17.04.2019** - data from `/Users/paul/Documents/CU_WL_GH_ZEE` ready to be included - see commit history and README there
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh` - committed afterwards
+
+
 
 ## Todo
 * _11.04.2019_ - **keep in mind**
