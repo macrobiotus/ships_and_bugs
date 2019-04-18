@@ -819,6 +819,8 @@ Data will be included via manifest files and metadate files linked in at
     * upload to cluster and run
     * files arrived on cluster - possibly need to change some comments in assigmnet script  - commit once local again
     * started tax assignment on cluster - committed on cluster - results pending
+  * evening - remotely
+    * tax assignment was completed after 3 hours on 64 cores - pull to macmini via remote - continue with filtering, alignmnet etc.
 
 
 ## Todo
