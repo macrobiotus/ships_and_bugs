@@ -23,13 +23,15 @@ fi
 # define relative input and output locations
 # ---------------------------------
 inpth_map='Zenodo/Manifest/06_18S_merged_metadata.tsv' # (should be  `b16888550ab997736253f741eaec47b`)
-inpth_tab='Zenodo/Qiime/065_18S_merged_tab.qza'
-inpth_seq='Zenodo/Qiime/065_18S_merged_seq.qza'
-inpth_tax='Zenodo/Qiime/075_18S_merged_seq_taxonomy_assignment.qza'
+inpth_tax='Zenodo/Qiime/075_18S_denoised_seq_taxonomy_assignment.qza'
 
-otpth_tabv='Zenodo/Qiime/080_18S_merged_tab_vis.qzv'
-otpth_seqv='Zenodo/Qiime/080_18S_merged_seq_vis.qzv'
-otpth_bplv='Zenodo/Qiime/080_18S_merged_tax_vis.qzv'
+
+inpth_tab='Zenodo/Qiime/065_18S_denoised_tab.qza'
+inpth_seq='Zenodo/Qiime/065_18S_denoised_seq.qza'
+
+otpth_tabv='Zenodo/Qiime/080_18S_denoised_tab_vis.qzv'
+otpth_seqv='Zenodo/Qiime/080_18S_denoised_seq_vis.qzv'
+otpth_bplv='Zenodo/Qiime/080_18S_denoised_tax_vis.qzv'
 
 # run script
 # ----------
@@ -51,4 +53,3 @@ qiime taxa barplot \
   --m-metadata-file "$trpth"/"$inpth_map" \
   --o-visualization "$trpth"/"$otpth_bplv" \
   --verbose
-

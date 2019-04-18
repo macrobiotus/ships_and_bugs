@@ -844,6 +844,17 @@ Data will be included via manifest files and metadate files linked in at
   * creating initial summary script with `/Users/paul/Documents/CU_combined/Github/080_smr_features_and_table.sh`
   * taxonomy assignment failed - error in `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh`
      * commit
+     * erasing all files in `/Users/paul/Documents/CU_combined/Zenodo/Qiime`
+     * correcting `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh`
+     * keeping `/Users/paul/Documents/CU_combined/Github/070_merge_metadata.sh`
+       * and thus `/Users/paul/Documents/CU_combined/Zenodo/Manifest/06_18S_merged_metadata.tsv`
+  * ran `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh`
+  * no need to run `/Users/paul/Documents/CU_combined/Github/070_merge_metadata.sh`
+  * adjusting `/Users/paul/Documents/CU_combined/Github/075_classify_reads.sh` - not yet run
+  * adjusting `/Users/paul/Documents/CU_combined/Github/080_smr_features_and_table.sh` - not yet run
+  * next: 
+    * commit - move to cluster - order and update scripts
+    * on cluster executing `/Users/paul/Documents/CU_combined/Github/075_classify_reads.sh`
 
 
 ## Todo

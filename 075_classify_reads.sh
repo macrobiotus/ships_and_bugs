@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 17.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 18.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # https://docs.qiime2.org/2017.11/tutorials/moving-pictures/
 
@@ -42,14 +42,13 @@ qiime_import_tax="Zenodo/Qiime/075_Silva128_Qiime_taxonomy_import.qza"
 # --------------------------
 
 # check these sequences against reference data
-query="Zenodo/Qiime/065_18S_merged_seq.qza"
+query="Zenodo/Qiime/065_18S_denoised_seq.qza"
 
 # write taxonomic assignments to this file
-tax_assignemnts='Zenodo/Qiime/075_18S_merged_seq_taxonomy_assignment.qza'
+tax_assignemnts='Zenodo/Qiime/075_18S_denoised_seq_taxonomy_assignment.qza'
 
 # rolling log
-qiime_assign_log="Zenodo/Qiime/075
-_18S_merged_seq_taxonomy_assignments_log.txt"
+qiime_assign_log="Zenodo/Qiime/075_18S_denoised_seq_taxonomy_assignment.txt"
 
 # Run scripts
 # ------------

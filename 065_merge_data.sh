@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 17.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 18.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # https://docs.qiime2.org/2017.10/tutorials/moving-pictures/
 # merging data from different runs, after denoising
@@ -30,7 +30,7 @@ tab[3]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Qiime/050_18S_29_paired-end-tab
 tab[4]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Qiime/050_18S_34_paired-end-tab.qza'       #  29K Mar 26 21:55 be9c9e4a551ed482dfa5cbacb34a7296
 tab[5]='/Users/paul/Documents/CU_US_ports_a/Zenodo/Qiime/050_18S_paired-end-tab.qza'        # 493K Mar 12 03:15 eef7f558305ffbbf6af9dfd179f7d5c9
 tab[6]='/Users/paul/Documents/CU_RT_AN/Zenodo/Qiime/050_18S_10410623-tab.qza'               # 406K Mar  7 22:46 024a90ddce5149c9b0f9f86c6d5c6094
-tab[7]='/Users/paul/Documents/CU_WL_GH_ZEE/Zenodo/Qiime/050_18S_10410628_mini_trimmed-tab.qza'  # 73K Apr 16 11:24 ad15ab31765d9656bc16fa32629ddf2               
+tab[7]='/Users/paul/Documents/CU_WL_GH_ZEE/Zenodo/Qiime/050_18S_10414227_full_trimmed-tab.qza'  # 177K Apr 17 00:03 c308ca068f2e39858d2f297ee9cdb402               
 
 seq[1]='/Users/paul/Documents/CU_Pearl_Harbour/Zenodo/Qiime/060_18S_PH_rep_seq.qza'   # 263K Mar  9 07:33   9414b3dc3902360560827571a2c7f068
 seq[2]='/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Qiime/050_18S_26_paired-end-rep.qza' #  96K Mar 27 04:24   b1055e7c7930edbe159508fff97ff659
@@ -40,8 +40,8 @@ seq[5]='/Users/paul/Documents/CU_US_ports_a/Zenodo/Qiime/050_18S_paired-end-rep.
 seq[6]='/Users/paul/Documents/CU_RT_AN/Zenodo/Qiime/050_18S_10410623-seq.qza'         # 949K Mar  7 22:46   5da8a6144085bca357e6e824107bbde3
 seq[7]='/Users/paul/Documents/CU_WL_GH_ZEE/Zenodo/Qiime/050_18S_10414227_full_trimmed-seq.qza' # 337K Apr 17 00:03  05f643ce5ff7c3afb40b8dd1ba309bbe 
 
-otpth_tab='Zenodo/Qiime/065_18S_merged_tab.qza'
-otpth_seq='Zenodo/Qiime/065_18S_merged_seq.qza'
+otpth_tab='Zenodo/Qiime/065_18S_denoised_tab.qza'
+otpth_seq='Zenodo/Qiime/065_18S_denoised_seq.qza'
 
 # run script
 # -----------
@@ -64,3 +64,4 @@ qiime feature-table merge-seqs \
   --i-data "${seq[6]}" \
   --i-data "${seq[7]}" \
   --o-merged-data "$trpth"/"$otpth_seq"
+  
