@@ -59,21 +59,20 @@ qiime feature-table filter-seqs \
   --o-filtered-data "$trpth"/"${out_seq[1]}" \
   --verbose
 
-# printf "Isolating eDNA features...\n"
-# qiime feature-table filter-samples \
-#   --i-table "$trpth"/"${in_tab[1]}" \
-#   --m-metadata-file "$trpth"/"${map[1]}" \
-#   --p-min-frequency '1' \
-#   --p-min-features '1' \
-#   --p-no-exclude-ids \
-#   --p-where "Type IN ('eDNA')" \
-#   --o-filtered-table "$trpth"/"${out_tab[2]}" \
-#   --verbose
-# 
-# printf "Isolating eDNA sequences...\n"
-# qiime feature-table filter-seqs \
-#   --i-data "$trpth"/"${in_seq[1]}" \
-#   --i-table "$trpth"/"${out_tab[2]}" \
-#   --p-where "Type IN ('eDNA')" \
-#   --o-filtered-data "$trpth"/"${out_seq[2]}" \
-#   --verbose
+printf "Isolating eDNA features...\n"
+qiime feature-table filter-samples \
+  --i-table "$trpth"/"${in_tab[1]}" \
+  --m-metadata-file "$trpth"/"${map[1]}" \
+  --p-min-frequency '1' \
+  --p-min-features '1' \
+  --p-no-exclude-ids \
+  --p-where "Type IN ('eDNA')" \
+  --o-filtered-table "$trpth"/"${out_tab[2]}" \
+  --verbose
+
+printf "Isolating eDNA sequences...\n"
+qiime feature-table filter-seqs \
+  --i-data "$trpth"/"${in_seq[1]}" \
+  --i-table "$trpth"/"${out_tab[2]}" \
+  --o-filtered-data "$trpth"/"${out_seq[2]}" \
+  --verbose

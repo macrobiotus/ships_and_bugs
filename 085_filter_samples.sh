@@ -60,7 +60,6 @@ printf "Isolating Arctic sequences...\n"
 qiime feature-table filter-seqs \
   --i-data "$trpth"/"${in_seq[1]}" \
   --i-table "$trpth"/"${out_tab[1]}" \
-  --p-where "Port IN ('Milne_Inlet')" \
   --p-no-exclude-ids \
   --o-filtered-data "$trpth"/"${out_seq[1]}" \
   --verbose
@@ -81,8 +80,5 @@ printf "Isolating project sequences...\n"
 qiime feature-table filter-seqs \
   --i-data "$trpth"/"${in_seq[2]}" \
   --i-table "$trpth"/"${out_tab[2]}" \
-  --p-exclude-ids \
-  --p-where "Port IN ('Milne_Inlet','unknown','nowhere')" \
   --o-filtered-data "$trpth"/"${out_seq[2]}" \
   --verbose
-

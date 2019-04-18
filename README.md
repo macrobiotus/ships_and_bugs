@@ -827,6 +827,8 @@ Data will be included via manifest files and metadate files linked in at
     * isolate Arctic features and sequences (for spin-offs)
   * creating `/Users/paul/Documents/CU_combined/Github/090_isolate_controls.sh` to:
     * isolate control features
+    * isolate eDNA samples
+  * all script finally ran, commit (0even though there is still some rubbish in the folder)
 
 
 
