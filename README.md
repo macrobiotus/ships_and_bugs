@@ -821,6 +821,22 @@ Data will be included via manifest files and metadate files linked in at
     * started tax assignment on cluster - committed on cluster - results pending
   * evening - remotely
     * tax assignment was completed after 3 hours on 64 cores - pull to macmini via remote - continue with filtering, alignmnet etc.
+* **18.04.2019** - sample filtering, alignment, tree - se pictures of todays meeting
+  * creating `/Users/paul/Documents/CU_combined/Github/085_filter_samples.sh` to:
+    * isolate project features and sequences
+    * isolate Arctic features and sequences (for spin-offs)
+  * creating `/Users/paul/Documents/CU_combined/Github/090_isolate_controls.sh` to:
+    * isolate control features
+
+
+
+
+    
+  * creating  `/Users/paul/Documents/CU_combined/Github/090_cluster_sequences.sh`
+    * as collaborators want clustering done, as well
+
+
+
 
 
 ## Todo
