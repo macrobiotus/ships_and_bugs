@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 17.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 18.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Visualising reads after denoising and merging procedure.
 
@@ -23,21 +23,32 @@ fi
 # define relative input and output locations
 # ---------------------------------
 inpth_map='Zenodo/Manifest/06_18S_merged_metadata.tsv' # (should be  `b16888550ab997736253f741eaec47b`)
-
 inpth_tab='Zenodo/Qiime/065_18S_merged_tab.qza'
-inpth_rep='Zenodo/Qiime/065_18S_merged_seq.qza'
+inpth_seq='Zenodo/Qiime/065_18S_merged_seq.qza'
+inpth_tax='Zenodo/Qiime/075_18S_merged_seq_taxonomy_assignment.qza'
 
-otpth_tab='Zenodo/Qiime/075_18S_sum_feat_tab.qzv'
-otpth_rep='Zenodo/Qiime/075_18S_sum_repr_seq.qzv'
+otpth_tabv='Zenodo/Qiime/080_18S_merged_tab_vis.qzv'
+otpth_seqv='Zenodo/Qiime/080_18S_merged_seq_vis.qzv'
+otpth_bplv='Zenodo/Qiime/080_18S_merged_tax_vis.qzv'
 
 # run script
 # ----------
   
 qiime feature-table summarize \
  --i-table "$trpth"/"$inpth_tab" \
- --o-visualization "$trpth"/"$otpth_tab" \
- --m-sample-metadata-file "$trpth"/"$inpth_map"
-
+ --m-sample-metadata-file "$trpth"/"$inpth_map" \
+ --o-visualization "$trpth"/"$otpth_tabv" \
+ --verbose
+ 
 qiime feature-table tabulate-seqs \
-  --i-data "$trpth"/"$inpth_rep" \
-  --o-visualization "$trpth"/"$otpth_rep"
+  --i-data "$trpth"/"$inpth_seq" \
+  --o-visualization "$trpth"/"$otpth_seqv" \
+  --verbose
+
+qiime taxa barplot \
+  --i-table "$trpth"/"$inpth_tab" \
+  --i-taxonomy "$trpth"/"$inpth_tax" \
+  --m-metadata-file "$trpth"/"$inpth_map" \
+  --o-visualization "$trpth"/"$otpth_bplv" \
+  --verbose
+

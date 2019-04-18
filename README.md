@@ -831,9 +831,19 @@ Data will be included via manifest files and metadate files linked in at
   * creating  `/Users/paul/Documents/CU_combined/Github/095_cluster_sequences.sh`
     * as collaborators want clustering done, as well
     * filtering is buggy
-  * next plot intermediate results by todays scripts using `/Users/paul/Documents/CU_combined/Github/100_sumr_filtered_data_sets.sh`
-  * improve filtering so that clustering can be run
-  * finalize `/Users/paul/Documents/CU_combined/Github/100_sumr_filtered_data_sets.sh`
+  * next 
+    * plot intermediate results by todays scripts using `/Users/paul/Documents/CU_combined/Github/100_sumr_filtered_data_sets.sh`
+    * improve filtering so that clustering can be run
+    * finalize `/Users/paul/Documents/CU_combined/Github/100_sumr_filtered_data_sets.sh`
+  * improving approach
+    * resetting x- flags
+    * script order is now (path in script are adjusted)
+      * `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh`
+      * `/Users/paul/Documents/CU_combined/Github/070_merge_metadata.sh`
+      * `/Users/paul/Documents/CU_combined/Github/075_classify_reads.sh`
+  * creating initial summary script with `/Users/paul/Documents/CU_combined/Github/080_smr_features_and_table.sh`
+  * taxonomy assignment failed - error in `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh`
+     * commit
 
 
 ## Todo

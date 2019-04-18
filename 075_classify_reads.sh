@@ -34,8 +34,8 @@ refdbseq="Zenodo/References/Silva128_extract_extended/99_otus_18S.fasta"
 refdbtax="Zenodo/References/Silva128_extract_extended/majority_taxonomy_7_levels.txt"
 
 # export to 
-qiime_import_seq="Zenodo/Qiime/080_Silva128_Qiime_sequence_import.qza"
-qiime_import_tax="Zenodo/Qiime/080_Silva128_Qiime_taxonomy_import.qza"
+qiime_import_seq="Zenodo/Qiime/075_Silva128_Qiime_sequence_import.qza"
+qiime_import_tax="Zenodo/Qiime/075_Silva128_Qiime_taxonomy_import.qza"
 
 
 # query and assignment files
@@ -45,10 +45,11 @@ qiime_import_tax="Zenodo/Qiime/080_Silva128_Qiime_taxonomy_import.qza"
 query="Zenodo/Qiime/065_18S_merged_seq.qza"
 
 # write taxonomic assignments to this file
-tax_assignemnts='Zenodo/Qiime/080_18S_merged_seq_taxonomy_assignment.qza'
+tax_assignemnts='Zenodo/Qiime/075_18S_merged_seq_taxonomy_assignment.qza'
 
 # rolling log
-qiime_assign_log="Zenodo/Qiime/080_18S_merged_seq_taxonomy_assignments_log.txt"
+qiime_assign_log="Zenodo/Qiime/075
+_18S_merged_seq_taxonomy_assignments_log.txt"
 
 # Run scripts
 # ------------
