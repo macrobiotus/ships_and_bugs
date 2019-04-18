@@ -821,24 +821,19 @@ Data will be included via manifest files and metadate files linked in at
     * started tax assignment on cluster - committed on cluster - results pending
   * evening - remotely
     * tax assignment was completed after 3 hours on 64 cores - pull to macmini via remote - continue with filtering, alignmnet etc.
-* **18.04.2019** - sample filtering, alignment, tree - se pictures of todays meeting
-  * creating `/Users/paul/Documents/CU_combined/Github/085_filter_samples.sh` to:
+* **18.04.2019** - sample filtering, alignment, tree - see pictures of todays meeting
+  * creating `/Users/paul/Documents/CU_combined/Github/085_filter_project.sh`
     * isolate project features and sequences
     * isolate Arctic features and sequences (for spin-offs)
-  * creating `/Users/paul/Documents/CU_combined/Github/090_isolate_controls.sh` to:
+  * creating `/Users/paul/Documents/CU_combined/Github/090_filter_controls.sh`
     * isolate control features
     * isolate eDNA samples
-  * all script finally ran, commit (0even though there is still some rubbish in the folder)
-
-
-
-
-    
-  * creating  `/Users/paul/Documents/CU_combined/Github/090_cluster_sequences.sh`
+  * creating  `/Users/paul/Documents/CU_combined/Github/095_cluster_sequences.sh`
     * as collaborators want clustering done, as well
-
-
-
+    * filtering is buggy
+  * next plot intermediate results by todays scripts using `/Users/paul/Documents/CU_combined/Github/100_sumr_filtered_data_sets.sh`
+  * improve filtering so that clustering can be run
+  * finalize `/Users/paul/Documents/CU_combined/Github/100_sumr_filtered_data_sets.sh`
 
 
 ## Todo

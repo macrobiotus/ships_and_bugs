@@ -33,38 +33,32 @@ fi
 
 # Define input and output locations
 # ---------------------------------
-
-in_seq='Zenodo/Qiime/065_18S_merged_seq.qza'
-in_tab='Zenodo/Qiime/065_18S_merged_tab.qza'
-
-# re-cust script is buggy - so these files can't be used yet
-# in_seq='Zenodo/Qiime/080_18S_merged_seq.qza'
-# in_tab='Zenodo/Qiime/080_18S_merged_tab.qza' # corrected sample id's for Singapore
+in_tab='Zenodo/Qiime/090_18S_eDNA_samples_tab.qza'
+in_seq='Zenodo/Qiime/090_18S_eDNA_samples_seq.qza'
 
 cluster[1]='0.99'
 cluster[2]='0.97'
 cluster[3]='0.90'
 
-clust_tab[1]='Zenodo/Qiime/085_18S_099_cl_tab.qza'
-clust_tab[2]='Zenodo/Qiime/085_18S_097_cl_tab.qza'
-clust_tab[3]='Zenodo/Qiime/085_18S_090_cl_tab.qza'
+clust_seq[1]='Zenodo/Qiime/095_18S_eDNA_samples_seq_099_cl.qza'
+clust_seq[2]='Zenodo/Qiime/095_18S_eDNA_samples_seq_097_cl.qza'
+clust_seq[3]='Zenodo/Qiime/095_18S_eDNA_samples_seq_090_cl.qza'
 
-clust_seq[1]='Zenodo/Qiime/085_18S_099_cl_seq.qza'
-clust_seq[2]='Zenodo/Qiime/085_18S_097_cl_seq.qza'
-clust_seq[3]='Zenodo/Qiime/085_18S_090_cl_seq.qza'
+clust_tab[1]='Zenodo/Qiime/095_18S_eDNA_samples_tab_099_cl.qza'
+clust_tab[2]='Zenodo/Qiime/095_18S_eDNA_samples_tab_097_cl_qza'
+clust_tab[3]='Zenodo/Qiime/095_18S_eDNA_samples_tab_090_cl.qza'
 
-log[1]='Zenodo/Qiime/085_18S_099_cl_log.txt'
-log[2]='Zenodo/Qiime/085_18S_097_cl_log.txt'
-log[3]='Zenodo/Qiime/085_18S_090_cl_log.txt'
-
+log[1]='Zenodo/Qiime/095_18S_log_099_cl.txt'
+log[2]='Zenodo/Qiime/095_18S_log_097_cl.txt'
+log[3]='Zenodo/Qiime/095_18S_log_090_cl.txt'
 
 # Run scripts
 # ------------
-for ((i=2;i<=2;i++)); do
+for ((i=1;i<=3;i++)); do
   qiime vsearch cluster-features-de-novo \
     --p-threads "$cores" \
-    --i-sequences "$trpth"/"$in_seq" \
     --i-table "$trpth"/"$in_tab" \
+    --i-sequences "$trpth"/"$in_seq" \
     --p-perc-identity "${cluster[$i]}" \
     --o-clustered-table "$trpth"/"${clust_tab[$i]}" \
     --o-clustered-sequences "$trpth"/"${clust_seq[$i]}" \

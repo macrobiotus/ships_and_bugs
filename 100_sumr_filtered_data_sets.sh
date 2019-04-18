@@ -23,30 +23,25 @@ fi
 
 # input files
 # ------------
-query_seq[1]='Zenodo/Qiime/100_18S_097_cl_cntrl_seq.qza'
-query_seq[2]='Zenodo/Qiime/100_18S_097_cl_edna_seq.qza'
-query_seq[3]='Zenodo/Qiime/100_18S_097_cl_metzn_seq.qza'
+query_seq[1]='Zenodo/Qiime/085_18S_all_samples_seq.qza'
 
-query_tab[1]='Zenodo/Qiime/100_18S_097_cl_cntrl_tab.qza'
-query_tab[2]='Zenodo/Qiime/100_18S_097_cl_edna_tab.qza'
-query_tab[3]='Zenodo/Qiime/100_18S_097_cl_metzn_tab.qza'
+query_tab[1]='Zenodo/Qiime/085_18S_all_samples_seq.qza'
 
-map_txt='Zenodo/Manifest/05_18S_merged_metadata.tsv'
-tax_agn='Zenodo/Qiime/095_18S_097_cl_seq_taxonomic_assigmnets.qza'
+
+# checked mapping file
+map='Zenodo/Manifest/06_18S_merged_metadata.tsv' 
+
+# taxonomic assignments
+tax_assignemnts='Zenodo/Qiime/080_18S_merged_seq_taxonomy_assignment.qza'
+
 
 # output files
 # ------------
 tabv[1]='Zenodo/Qiime/105_18S_097_cl_cntrl_tab.qzv'
-tabv[2]='Zenodo/Qiime/105_18S_097_cl_edna_tab.qzv'
-tabv[3]='Zenodo/Qiime/105_18S_097_cl_metzn_tab.qzv'
 
 seqv[1]='Zenodo/Qiime/105_18S_097_cl_cntrl_seq.qzv'
-seqv[2]='Zenodo/Qiime/105_18S_097_cl_edna_seq.qzv'
-seqv[3]='Zenodo/Qiime/105_18S_097_cl_metzn_seq.qzv'
 
 plot[1]='Zenodo/Qiime/105_18S_097_cl_cntrl_barplot'
-plot[2]='Zenodo/Qiime/105_18S_097_cl_edna_barplot'
-plot[3]='Zenodo/Qiime/105_18S_097_cl_metzn_barplot'
 
 # Run scripts
 # ------------
