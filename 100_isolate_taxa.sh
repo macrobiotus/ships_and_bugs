@@ -33,8 +33,8 @@ in_seq[1]='Zenodo/Qiime/085_18S_all_samples_seq.qza'
 in_tab[1]='Zenodo/Qiime/085_18S_all_samples_tab.qza'
 
 # input table and sequences - clustered eDNA samples
-in_seq[2]='Zenodo/Qiime/085_18S_all_samples_seq.qza'
-in_tab[2]='Zenodo/Qiime/085_18S_all_samples_tab.qza'
+in_seq[2]='Zenodo/Qiime/090_18S_eDNA_samples_seq.qza'
+in_tab[2]='Zenodo/Qiime/090_18S_eDNA_samples_tab.qza'
 
 in_seq[3]='Zenodo/Qiime/095_18S_eDNA_samples_seq_090_cl.qza'
 in_tab[3]='Zenodo/Qiime/095_18S_eDNA_samples_tab_090_cl.qza'

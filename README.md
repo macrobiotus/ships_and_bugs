@@ -870,12 +870,13 @@ Data will be included via manifest files and metadate files linked in at
   * started on `/Users/paul/Documents/CU_combined/Github/100_isolate_taxa.sh`
     * complicated committed draft stage - commit `a03dbe93d6c5481b7ae1857961d8435aa8cad691`
     * completed - filters unclustered and all clustered and control data by three taxa
-    * many output files (n = 2 x 15)- can be identified by `*100*.qza`
+    * many output files (n = 2 x 6 x 3 = 36)- can be identified by `*100*.qza`
     * ran successfully - commit `30e489568b7e2cbca6cf8d2c2bd9fb152eda3375`
   * drafted on `/Users/paul/Documents/CU_combined/Github/105_smr_filtered_data_sets.sh`
     * commit `e8e377aed57b84047b38fc42ef7b494c79ecf03`
-    * many output files (n = 3 x 15 for sequence, table, and barplot summary)- can be identified by `*105*vis.qzv`
-    * commit 
+    * many output files (n = 3 x 6 x 3 = 54 for sequence, table, and barplot visualisation)- can be identified by `*105*vis.qzv`
+    * commit `8e25e3a3498cf964608d51af64e201e1e722fde`
+  * corrected file call in script `100`, re-ran scripts `100` and `105`, commit
     
 
 
