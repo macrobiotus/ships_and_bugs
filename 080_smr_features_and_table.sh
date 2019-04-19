@@ -25,9 +25,8 @@ fi
 inpth_map='Zenodo/Manifest/06_18S_merged_metadata.tsv' # (should be  `b16888550ab997736253f741eaec47b`)
 inpth_tax='Zenodo/Qiime/075_18S_denoised_seq_taxonomy_assignment.qza'
 
-
-inpth_tab='Zenodo/Qiime/065_18S_denoised_tab.qza'
 inpth_seq='Zenodo/Qiime/065_18S_denoised_seq.qza'
+inpth_tab='Zenodo/Qiime/065_18S_denoised_tab.qza'
 
 otpth_tabv='Zenodo/Qiime/080_18S_denoised_tab_vis.qzv'
 otpth_seqv='Zenodo/Qiime/080_18S_denoised_seq_vis.qzv'

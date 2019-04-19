@@ -32,11 +32,11 @@ map='Zenodo/Manifest/06_18S_merged_metadata.tsv'
 
 # Define output paths 
 # -------------------
-out_tab[1]='Zenodo/Qiime/090_18S_controls_tab.qza'
 out_seq[1]='Zenodo/Qiime/090_18S_controls_seq.qza'
+out_tab[1]='Zenodo/Qiime/090_18S_controls_tab.qza'
 
-out_tab[2]='Zenodo/Qiime/090_18S_eDNA_samples_tab.qza'
 out_seq[2]='Zenodo/Qiime/090_18S_eDNA_samples_seq.qza'
+out_tab[2]='Zenodo/Qiime/090_18S_eDNA_samples_tab.qza'
 
 # Run scripts 
 # -----------

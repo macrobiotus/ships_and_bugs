@@ -854,7 +854,22 @@ Data will be included via manifest files and metadate files linked in at
   * adjusting `/Users/paul/Documents/CU_combined/Github/080_smr_features_and_table.sh` - not yet run
   * next: 
     * commit - move to cluster - order and update scripts
-    * on cluster executing `/Users/paul/Documents/CU_combined/Github/075_classify_reads.sh`
+  * on cluster executing `/Users/paul/Documents/CU_combined/Github/075_classify_reads.sh` - ok
+    * per `/Users/paul/Documents/CU_combined/Zenodo/Qiime/075_18S_denoised_seq_taxonomy_assignment.txt`:
+    * **Matching query sequences: 12035 of 28383 (42.40%)**
+  * pulled to local
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/080_smr_features_and_table.sh`
+    * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/080_18S_denoised_tax_vis.qzv`
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/085_split_projects.sh`
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/090_split_controls.sh`
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/095_cluster_sequences.sh`
+    * now running - check for counts the following files - done
+      * less `/Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_log_090_cl.txt`
+      * less `/Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_log_097_cl.txt`
+      * less `/Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_log_099_cl.txt`
+  * started on `/Users/paul/Documents/CU_combined/Github/100_isolate_taxa.sh`
+    * complicated committed draft stage    
+    
 
 
 ## Todo

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 28.03.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 18.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 #   "Given a feature table and the associated feature sequences, cluster the
 #   features based on user-specified percent identity threshold of their
@@ -28,13 +28,15 @@ if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     printf "This script needs at least qiime2-2018.08. Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
-    cores="$(nproc --all)"
+    # cores="$(nproc --all)"
+    cores=1
 fi
 
 # Define input and output locations
 # ---------------------------------
-in_tab='Zenodo/Qiime/090_18S_eDNA_samples_tab.qza'
 in_seq='Zenodo/Qiime/090_18S_eDNA_samples_seq.qza'
+in_tab='Zenodo/Qiime/090_18S_eDNA_samples_tab.qza'
+
 
 cluster[1]='0.99'
 cluster[2]='0.97'
@@ -45,7 +47,7 @@ clust_seq[2]='Zenodo/Qiime/095_18S_eDNA_samples_seq_097_cl.qza'
 clust_seq[3]='Zenodo/Qiime/095_18S_eDNA_samples_seq_090_cl.qza'
 
 clust_tab[1]='Zenodo/Qiime/095_18S_eDNA_samples_tab_099_cl.qza'
-clust_tab[2]='Zenodo/Qiime/095_18S_eDNA_samples_tab_097_cl_qza'
+clust_tab[2]='Zenodo/Qiime/095_18S_eDNA_samples_tab_097_cl.qza'
 clust_tab[3]='Zenodo/Qiime/095_18S_eDNA_samples_tab_090_cl.qza'
 
 log[1]='Zenodo/Qiime/095_18S_log_099_cl.txt'

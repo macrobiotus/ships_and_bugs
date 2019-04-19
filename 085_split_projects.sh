@@ -24,19 +24,19 @@ fi
 # define more arrays for other files if needed
 
 # input table and sequences
-in_tab='Zenodo/Qiime/065_18S_merged_tab.qza'
-in_seq='Zenodo/Qiime/065_18S_merged_seq.qza'
+in_seq='Zenodo/Qiime/065_18S_denoised_seq.qza'
+in_tab='Zenodo/Qiime/065_18S_denoised_tab.qza'
 
 # checked mapping files
 map='Zenodo/Manifest/06_18S_merged_metadata.tsv' 
 
 # Define output paths 
 # -------------------
-out_tab[1]='Zenodo/Qiime/085_18S_Milne_Inlet_tab.qza'
 out_seq[1]='Zenodo/Qiime/085_18S_Milne_Inlet_seq.qza'
+out_tab[1]='Zenodo/Qiime/085_18S_Milne_Inlet_tab.qza'
 
-out_tab[2]='Zenodo/Qiime/085_18S_all_samples_tab.qza'
 out_seq[2]='Zenodo/Qiime/085_18S_all_samples_seq.qza'
+out_tab[2]='Zenodo/Qiime/085_18S_all_samples_tab.qza'
 
 # Run scripts 
 # -----------
