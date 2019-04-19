@@ -871,7 +871,9 @@ Data will be included via manifest files and metadate files linked in at
     * complicated committed draft stage - commit `a03dbe93d6c5481b7ae1857961d8435aa8cad691`
     * completed - filters unclustered and all clustered and control data by three taxa
     * many output files (n = 2 x 15)- can be identified by `*100*.qza`
-    * ran successfully - commit
+    * ran successfully - commit `30e489568b7e2cbca6cf8d2c2bd9fb152eda3375`
+  * drafted on `/Users/paul/Documents/CU_combined/Github/105_smr_filtered_data_sets.sh`
+    * commit
     
 
 
