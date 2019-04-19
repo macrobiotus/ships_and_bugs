@@ -36,8 +36,8 @@ in_tab[1]='Zenodo/Qiime/085_18S_all_samples_tab.qza'
 in_seq[2]='Zenodo/Qiime/085_18S_all_samples_seq.qza'
 in_tab[2]='Zenodo/Qiime/085_18S_all_samples_tab.qza'
 
-in_seq[3]='Zenodo/Qiime/095_18S_eDNA_samples_tab_090_cl.qza'
-in_tab[3]='Zenodo/Qiime/095_18S_eDNA_samples_seq_090_cl.qza'
+in_seq[3]='Zenodo/Qiime/095_18S_eDNA_samples_seq_090_cl.qza'
+in_tab[3]='Zenodo/Qiime/095_18S_eDNA_samples_tab_090_cl.qza'
 
 in_seq[4]='Zenodo/Qiime/095_18S_eDNA_samples_seq_097_cl.qza'
 in_tab[4]='Zenodo/Qiime/095_18S_eDNA_samples_tab_097_cl.qza'
@@ -46,8 +46,8 @@ in_seq[5]='Zenodo/Qiime/095_18S_eDNA_samples_seq_099_cl.qza'
 in_tab[5]='Zenodo/Qiime/095_18S_eDNA_samples_tab_099_cl.qza'
 
 # controls
-in_seq[6]='/Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_seq.qza'
-in_tab[6]='/Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_tab.qza'
+in_seq[6]='Zenodo/Qiime/090_18S_controls_seq.qza'
+in_tab[6]='Zenodo/Qiime/090_18S_controls_tab.qza'
 
 # Define filtering strings
 # -----------------------
@@ -64,91 +64,56 @@ taxon[3]='Metazoa'
 
 
 # for file name
-string[1]='Unassigned'
-string[2]='Eukaryotes'
-string[3]='Metazoans'
+string[1]='100_Unassigned'
+string[2]='100_Eukaryotes'
+string[3]='100_Metazoans'
 
 # loop over filtering parameters, and corresponding file name names additions
 for i in "${!string[@]}"; do
   
   # print diagnostic message
-  printf "\nFiltering for ${string[$i]}...\n"
+  printf "\nFiltering for ${taxon[$i]}...\n"
   
   # loop over input files
   for k in "${!in_seq[@]}"; do
     
+    
+    # uncomment for debugging or redesign
     # get input sequence file name  
-    echo "${in_seq[$k]}"
+    # echo "${in_seq[$k]}"
     
     # get input table file name  
-    echo "${in_tab[$k]}"
+    # echo "${in_tab[$k]}"
     
     # get filter string
-    echo "${taxon[$i]}"
+    # echo "${taxon[$i]}"
     
     # get output sequence file name  
     extension="${in_seq[$k]##*.}"                 # get the extension
     filename="${in_seq[$k]%.*}"                   # get the filename
     out_seq[$k]="${filename}_${string[$i]}.${extension}" # get name string    
-    echo "${out_seq[$k]}"
-
+    # echo "${out_seq[$k]}"
     
     # get output table file name  
     extension="${in_tab[$k]##*.}"                 # get the extension
     filename="${in_tab[$k]%.*}"                   # get the filename
     out_tab[$k]="${filename}_${string[$i]}.${extension}" # get name string    
-    echo "${out_tab[$k]}"
-    
+    # echo "${out_tab[$k]}"
+       
+    # actual filtering
+    qiime taxa filter-seqs \
+      --i-taxonomy "$trpth"/"$inpth_tax" \
+      --i-sequences "$trpth"/"${in_seq[$k]}" \
+      --o-filtered-sequences "$trpth"/"${out_seq[$k]}" \
+      --p-include  "${taxon[$i]}"
+
     qiime taxa filter-table \
-      --i-table table.qza \
-      --i-taxonomy taxonomy.qza \
-      --p-exclude "k__Bacteria; p__Proteobacteria; c__Alphaproteobacteria; o__Rickettsiales; f__mitochondria" \
-      --o-filtered-table table-no-mitochondria-exact.qza
-  
+      --i-taxonomy "$trpth"/"$inpth_tax" \
+      --i-table "$trpth"/"${in_tab[$k]}" \
+      --o-filtered-table "$trpth"/"${out_tab[$k]}" \
+      --p-include  "${taxon[$i]}"
   
   done
 
-
 done
 
-
-
-
-# Run scripts 
-# -----------
-# 
-# printf "Isolating control features...\n"
-# qiime feature-table filter-samples \
-#   --i-table "$trpth"/"$in_tab" \
-#   --m-metadata-file "$trpth"/"$map" \
-#   --p-min-frequency '1' \
-#   --p-min-features '1' \
-#   --p-exclude-ids \
-#   --p-where "Type IN ('eDNA')" \
-#   --o-filtered-table "$trpth"/"${out_tab[1]}" \
-#   --verbose
-# 
-# printf "Isolating control sequences...\n"
-# qiime feature-table filter-seqs \
-#   --i-data "$trpth"/"$in_seq" \
-#   --i-table "$trpth"/"${out_tab[1]}" \
-#   --o-filtered-data "$trpth"/"${out_seq[1]}" \
-#   --verbose
-# 
-# printf "Isolating eDNA features...\n"
-# qiime feature-table filter-samples \
-#   --i-table "$trpth"/"$in_tab" \
-#   --m-metadata-file "$trpth"/"$map" \
-#   --p-min-frequency '1' \
-#   --p-min-features '1' \
-#   --p-no-exclude-ids \
-#   --p-where "Type IN ('eDNA')" \
-#   --o-filtered-table "$trpth"/"${out_tab[2]}" \
-#   --verbose
-# 
-# printf "Isolating eDNA sequences...\n"
-# qiime feature-table filter-seqs \
-#   --i-data "$trpth"/"$in_seq" \
-#   --i-table "$trpth"/"${out_tab[2]}" \
-#   --o-filtered-data "$trpth"/"${out_seq[2]}" \
-#   --verbose

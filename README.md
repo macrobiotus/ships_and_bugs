@@ -868,7 +868,10 @@ Data will be included via manifest files and metadate files linked in at
       * less `/Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_log_097_cl.txt`
       * less `/Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_log_099_cl.txt`
   * started on `/Users/paul/Documents/CU_combined/Github/100_isolate_taxa.sh`
-    * complicated committed draft stage    
+    * complicated committed draft stage - commit `a03dbe93d6c5481b7ae1857961d8435aa8cad691`
+    * completed - filters unclustered and all clustered and control data by three taxa
+    * many output files (n = 2 x 15)- can be identified by `*100*.qza`
+    * ran successfully - commit
     
 
 
