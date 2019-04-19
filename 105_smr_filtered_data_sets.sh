@@ -117,22 +117,21 @@ for i in "${!inpth_seq[@]}"; do
     # echo "$plot_file_vis_path"
     
     # Qiime calls
-    echo qiime feature-table tabulate-seqs \
-      --i-data "$seq_file_name" \
+    qiime feature-table tabulate-seqs \
+      --i-data "${inpth_seq[$i]}" \
       --o-visualization "$seq_file_vis_path" \
       --verbose
 
-    echo qiime feature-table summarize \
+    qiime feature-table summarize \
       --m-sample-metadata-file "$trpth"/"$inpth_map" \
-      --i-table "$tab_file_name" \
+      --i-table "${inpth_tab[$i]}" \
       --o-visualization "$tab_file_vis_path" \
       --verbose
  
-
-    echo qiime taxa barplot \
+    qiime taxa barplot \
       --m-metadata-file "$trpth"/"$inpth_map" \
       --i-taxonomy "$trpth"/"$inpth_tax" \
-      --i-table "$tab_file_name" \
+      --i-table "${inpth_tab[$i]}" \
       --o-visualization "$plot_file_vis_path" \
       --verbose
 

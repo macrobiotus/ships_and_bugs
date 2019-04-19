@@ -873,7 +873,9 @@ Data will be included via manifest files and metadate files linked in at
     * many output files (n = 2 x 15)- can be identified by `*100*.qza`
     * ran successfully - commit `30e489568b7e2cbca6cf8d2c2bd9fb152eda3375`
   * drafted on `/Users/paul/Documents/CU_combined/Github/105_smr_filtered_data_sets.sh`
-    * commit
+    * commit `e8e377aed57b84047b38fc42ef7b494c79ecf03`
+    * many output files (n = 3 x 15 for sequence, table, and barplot summary)- can be identified by `*105*vis.qzv`
+    * commit 
     
 
 
