@@ -882,11 +882,9 @@ Data will be included via manifest files and metadate files linked in at
   * drafted `/Users/paul/Documents/CU_combined/Github/115_seq_align_mask.sh`
   * drafted `/Users/paul/Documents/CU_combined/Github/120_seq_align_tree.sh`
   * commit `3e65c33034b323273f964508cd192cd974f5f183`
-  * tested scripts with subset (restrcited through `find` query) - seem to be working - commit
-  
-
-
-
+  * tested scripts with subset (restricted through `find` query) - seem to be working - commit `223fbfd54311024500b01bf75bf5dcb5b23246a8`
+  * widened script scope (through `find` query) - commit - uploading to cluster for daisy chaining 
+  * return pending
 
 ## Todo
 * _11.04.2019_ - **keep in mind**

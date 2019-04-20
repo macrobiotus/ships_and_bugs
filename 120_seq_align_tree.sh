@@ -33,7 +33,7 @@ fi
 inpth_seq_unsorted=()
 while IFS=  read -r -d $'\0'; do
     inpth_seq_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" -name '???_18S_controls*_seq_*_115_masked.qza' -print0)
+done < <(find "$trpth/Zenodo/Qiime" -name '???_18S_*_seq_*_115_masked.qza' -print0)
 
 # Sort array 
 # (https://stackoverflow.com/questions/7442417/how-to-sort-an-array-in-bash)
