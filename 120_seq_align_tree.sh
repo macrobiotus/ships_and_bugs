@@ -33,7 +33,7 @@ fi
 inpth_seq_unsorted=()
 while IFS=  read -r -d $'\0'; do
     inpth_seq_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" -name '???_18S_*_seq_*_115_masked*.qza' -print0)
+done < <(find "$trpth/Zenodo/Qiime" -name '???_18S_controls*_seq_*_115_masked.qza' -print0)
 
 # Sort array 
 # (https://stackoverflow.com/questions/7442417/how-to-sort-an-array-in-bash)
@@ -119,13 +119,13 @@ done
 
 for k in "${!inpth_seq[@]}"; do
   
-  printf '%s\n'
-  printf "Calculating tree...\n"  
-  echo  qiime phylogeny iqtree-ultrafast-bootstrap \
+  printf "\n"
+  printf "Calculating tree ${inpth_seq[$k]}...\n"
+  qiime phylogeny iqtree-ultrafast-bootstrap \
     --i-alignment "${inpth_seq[$k]}" \
     --o-tree "${otpth_tree[$k]}" \
     --p-seed 42 \
-    --p-n-cores "$thrds" \
+    --p-n-cores 0 \
     --p-n-runs 20 \
     --p-bootstrap-replicates 5000 \
     --p-allnni \
@@ -136,7 +136,8 @@ for k in "${!inpth_seq[@]}"; do
     --p-safe \
     --verbose  2>&1 | tee -a "${otpth_log[$k]}"
   
-  printf "Rooting at midpoint...\n"  
+  printf "\n"
+  printf "Midpoint-rooting "${otpth_tree[$k]}"...\n"  
   qiime phylogeny midpoint-root \
     --i-tree "${otpth_tree[$k]}" \
     --o-rooted-tree "${otpth_rtree[$k]}"

@@ -881,7 +881,9 @@ Data will be included via manifest files and metadate files linked in at
   * drafted `/Users/paul/Documents/CU_combined/Github/110_seq_align.sh`
   * drafted `/Users/paul/Documents/CU_combined/Github/115_seq_align_mask.sh`
   * drafted `/Users/paul/Documents/CU_combined/Github/120_seq_align_tree.sh`
-  * commit
+  * commit `3e65c33034b323273f964508cd192cd974f5f183`
+  * tested scripts with subset (restrcited through `find` query) - seem to be working - commit
+  
 
 
 

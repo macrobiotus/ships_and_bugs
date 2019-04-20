@@ -33,7 +33,7 @@ fi
 inpth_seq_unsorted=()
 while IFS=  read -r -d $'\0'; do
     inpth_seq_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" -name '???_18S_*_seq_*110_alignment*.qza' -print0)
+done < <(find "$trpth/Zenodo/Qiime" -name '???_18S_controls*_seq_*_110_alignment.qza' -print0)
 
 # Sort array 
 # (https://stackoverflow.com/questions/7442417/how-to-sort-an-array-in-bash)
@@ -96,12 +96,12 @@ done
 
 for k in "${!inpth_seq[@]}"; do
   
-  printf '%s\n'
+  printf "Masking alignment file ${inpth_seq[$k]}...\n"
   qiime alignment mask \
-  --i-alignment "${inpth_seq[$k]}" \
-  --o-masked-alignment "${otpth_seq[$k]}" \
-  --p-min-conservation 0.5 \
-  --p-max-gap-frequency 0.0 \
-  --verbose 2>&1 | tee -a "${otpth_log[$k]}"
+    --i-alignment "${inpth_seq[$k]}" \
+    --o-masked-alignment "${otpth_seq[$k]}" \
+    --p-min-conservation 0.5 \
+    --p-max-gap-frequency 0.0 \
+    --verbose 2>&1 | tee -a "${otpth_log[$k]}"
 
 done
