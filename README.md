@@ -876,8 +876,14 @@ Data will be included via manifest files and metadate files linked in at
     * commit `e8e377aed57b84047b38fc42ef7b494c79ecf03`
     * many output files (n = 3 x 6 x 3 = 54 for sequence, table, and barplot visualisation)- can be identified by `*105*vis.qzv`
     * commit `8e25e3a3498cf964608d51af64e201e1e722fde`
-  * corrected file call in script `100`, re-ran scripts `100` and `105`, commit
-    
+  * corrected file call in script `100`, re-ran scripts `100` and `105`, commit `de1b3276efa59a4d415ef759514584b76ae649d`
+* **20.04.2019** - alignment, tree - see pictures of Thursday's meeting
+  * drafted `/Users/paul/Documents/CU_combined/Github/110_seq_align.sh`
+  * drafted `/Users/paul/Documents/CU_combined/Github/115_seq_align_mask.sh`
+  * drafted `/Users/paul/Documents/CU_combined/Github/120_seq_align_tree.sh`
+  * commit
+
+
 
 
 ## Todo
