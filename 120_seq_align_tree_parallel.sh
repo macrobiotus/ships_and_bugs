@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 20.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 21.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Visualising reads after denoising and merging procedure.
 

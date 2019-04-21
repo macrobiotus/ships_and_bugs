@@ -884,11 +884,39 @@ Data will be included via manifest files and metadate files linked in at
   * commit `3e65c33034b323273f964508cd192cd974f5f183`
   * tested scripts with subset (restricted through `find` query) - seem to be working - commit `223fbfd54311024500b01bf75bf5dcb5b23246a8`
   * widened script scope (through `find` query) - commit - uploading to cluster for daisy chaining 
-  * return pending
+  * return pending - on cluster:
+    * calling `./110_seq_align.sh && ./115_seq_align_mask.sh && ./120_seq_align_tree.sh`
+    * **do overwrite local home afterwards** (and then reorder script names a local home)
+    * **check logfiles** - Unassigned sequences could not be put in in masked alignments 
+* **21.04.2019** - tree calculation ongoing
+  * on cluster - tree calculation takes very long -
+  * after aligning and masking restricted scope of files entering tree calculation to only consider eDNA samples at various taxonomic levesls - otherwise takes too long - also tree of controls isn't necessary
+  * ***Update, and not overwrite local home**
+  * preparing results meeting
+    * preparing script `/Users/paul/Documents/CU_combined/Github/145_alignment_export.sh` to export Qiime alignment files to fasta - ok
+      * for sanity getting has values of current fasta exports
+        * `MD5 (/Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_eDNA_samples_seq_099_cl_100_Metazoans_110_alignment_115_masked.fasta) = 602b651222bf83dc0c0c02a100011bfe`
+        * `MD5 (/Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_eDNA_samples_seq_099_cl_100_Eukaryotes_110_alignment_115_masked.fasta) = 9988767dff0346f1a7d810737ff47ee4`
+        * `MD5 (/Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_eDNA_samples_seq_097_cl_100_Metazoans_110_alignment_115_masked.fasta) = f77b69b7062bdcafbd99c2bc7c847f23`
+        * `MD5 (/Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_eDNA_samples_seq_097_cl_100_Eukaryotes_110_alignment_115_masked.fasta) = 782cae00f1f386ba02ef6affc54ef8ce`
+        * `MD5 (/Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_eDNA_samples_seq_090_cl_100_Metazoans_110_alignment_115_masked.fasta) = a95791ecbab2bc03f68dbee4f6047dfe`
+        * `MD5 (/Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_eDNA_samples_seq_090_cl_100_Eukaryotes_110_alignment_115_masked.fasta) = 827653882d29bd2013359a6037d07d76`
+        * `MD5 (/Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_eDNA_samples_seq_100_Metazoans_110_alignment_115_masked.fasta) = 74021e7b165190ec1f18c76d522b470e`
+        * `MD5 (/Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_eDNA_samples_seq_100_Eukaryotes_110_alignment_115_masked.fasta) = 1aa1ad4c034176e8a71324f90b755343`
+        * `MD5 (/Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_seq_100_Metazoans_110_alignment_115_masked.fasta) = 5c8b479a6c95007134c3f43b7446bbe7`
+        * `MD5 (/Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_seq_100_Eukaryotes_110_alignment_115_masked.fasta) = d1e1507bdb9e68cb8d76411d02529afc`
+        * `MD5 (/Users/paul/Documents/CU_combined/Zenodo/Qiime/085_18S_all_samples_seq_100_Metazoans_110_alignment_115_masked.fasta) = bb3766df4edbf2a1f8156518e7dfc30e`
+        * `MD5 (/Users/paul/Documents/CU_combined/Zenodo/Qiime/085_18S_all_samples_seq_100_Eukaryotes_110_alignment_115_masked.fasta) = 070f203376c1b70a8654dc78e99b1dd9`
+    * prepare command line for plot inspection - ok 
+    * sync to laptop and adjust paths (not shown here) - ok 
+  * tree calculation crashed  **crashed - see both logfiles**
+  * next:
+    * trouble-shoot tree calculation
+    * generate Unifrac graphs
+    * prepare rarefaction curves
+  * commit
 
 ## Todo
-* _11.04.2019_ - **keep in mind**
-  * from now on use Vsearch parameters as established today in `CU_mock with Qiime 2019.11`
 * _09.04.2019_ - **keep in mind**
   * in future versions Nanaimo should be named not `NA` but `NX` so as to omit correction code in `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R`
   *  sript `/Users/paul/Documents/CU_combined/Github/122_alpha_rarefaction_curves.sh* still throws errors` - use new metadata?`
@@ -923,5 +951,3 @@ Data will be included via manifest files and metadate files linked in at
   * possible unconfirmed reason: blast OTU list shorter the OTU list in Phyloseq object - perhaps blast is dropping queries ?
 * _02.05.2018_ - **unconfirmed** - `/Users/paul/Documents/CU_combined/Github/500_35_shape_overlap_matrices.R`
   * Kulczynski distances may be unsuitable to describe overlap between ports, both for all overlap or dual overlap.
-
-
