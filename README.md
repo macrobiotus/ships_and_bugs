@@ -915,6 +915,18 @@ Data will be included via manifest files and metadate files linked in at
     * generate Unifrac graphs
     * prepare rarefaction curves
   * commit
+* **22.04.2019**
+  * after meeting, next steps:
+     * get better taxonomy assignment treshhold via unclustered sequences 
+       * doing this in different repository now
+       * doing alter after coming back
+         * repeat taxonomic analysis with more the one treshhold as determined
+         * get better alignment
+         * trouble-shoot tree calculation https://www.gnu.org/software/parallel/parallel_cheat.pdf
+         * generate Unifrac graphs
+         * prepare rarefaction curves
+         * get modelling framework
+  * committed repository
 
 ## Todo
 * _09.04.2019_ - **keep in mind**
