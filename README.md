@@ -922,11 +922,15 @@ Data will be included via manifest files and metadate files linked in at
        * doing alter after coming back
          * repeat taxonomic analysis with more the one treshhold as determined
          * get better alignment
-         * trouble-shoot tree calculation https://www.gnu.org/software/parallel/parallel_cheat.pdf
+         * trouble-shoot tree calculation `https://www.gnu.org/software/parallel/parallel_cheat.pdf`
          * generate Unifrac graphs
          * prepare rarefaction curves
          * get modelling framework
   * committed repository
+*  **23.04.2019**
+  * in addition to what is noted yesterday, perhaps revise naming conventions to maintain consecutive script numbers
+    * see also `Users/paul/Documents/CU_tx_test/Github/095_isolate_taxa.sh` (commit `05513af98dea68b4556ef072f8217acdee89ca46`)
+
 
 ## Todo
 * _09.04.2019_ - **keep in mind**
