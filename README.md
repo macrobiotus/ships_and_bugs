@@ -930,9 +930,18 @@ Data will be included via manifest files and metadate files linked in at
 *  **23.04.2019**
   * in addition to what is noted yesterday, perhaps revise naming conventions to maintain consecutive script numbers
     * see also `Users/paul/Documents/CU_tx_test/Github/095_isolate_taxa.sh` (commit `05513af98dea68b4556ef072f8217acdee89ca46`)
-
+*  **06.05.2019**
+  * latest backup before the following changes is `/Volumes/Time Machine Backups/Backups.backupdb/macmini/2019-05-06-144701`
+  * in `075_classify_reads.sh` setting `--p-perc-identity` from `0.97` to `0.86` as per `~/Documents/CU_tx_test/Github/README.md`
+  * redoing taxonomic classification with new settings
+    * keeping backup copy until next talk with Jose: `/Users/paul/Documents/CU_combined/Zenodo/190509_Qiime.zip`
+    * in `/Users/paul/Documents/CU_combined/Zenodo/Qiime` erasing all files with script numbers `075` or higher
+    * after local commit uploading to cluster to run `~/Documents/CU_combined/Github/075_classify_reads.sh` and subsequent scripts
+    * return pending
 
 ## Todo
+* _06.05.2019_ - **keep in mind**
+  * erase backup copy `/Users/paul/Documents/CU_combined/Zenodo/190509_Qiime.zip`
 * _09.04.2019_ - **keep in mind**
   * in future versions Nanaimo should be named not `NA` but `NX` so as to omit correction code in `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R`
   *  sript `/Users/paul/Documents/CU_combined/Github/122_alpha_rarefaction_curves.sh* still throws errors` - use new metadata?`

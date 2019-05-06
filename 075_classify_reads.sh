@@ -72,7 +72,7 @@ printf "Running Vsearch Classifier...\n"
     --i-reference-reads    "$trpth"/"$qiime_import_seq" \
     --i-reference-taxonomy "$trpth"/"$qiime_import_tax" \
     --p-maxaccepts 1 \
-    --p-perc-identity 0.97 \
+    --p-perc-identity 0.86 \
     --p-min-consensus 0.51 \
     --p-query-cov 0.9 \
     --p-threads "$cores" \
