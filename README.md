@@ -950,7 +950,7 @@ Data will be included via manifest files and metadate files linked in at
   * running `100_isolate_taxa.sh` - ok
   * running `105_smr_filtered_data_sets.sh` - ok
   * running `110_seq_align.sh` - ok
-  * running `115_seq_align_mask.sh` - ok
+  * running `115_seq_align_mask.sh` - pending
 
 ## Todo
 * _06.05.2019_ - **keep in mind**
