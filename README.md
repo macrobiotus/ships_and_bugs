@@ -10,7 +10,7 @@ runs are processed individually until the denoising step and then merged here.
 Data will be included via manifest files and metadate files linked in at 
 `065_merge_data.sh`. Current samples include:
    * data of Singapore, Adelaide, Chicago, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
-   * data of Pearl Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
+7   * data of Pearl Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
 
 
 ## History and progress notes
@@ -930,7 +930,7 @@ Data will be included via manifest files and metadate files linked in at
 *  **23.04.2019**
   * in addition to what is noted yesterday, perhaps revise naming conventions to maintain consecutive script numbers
     * see also `Users/paul/Documents/CU_tx_test/Github/095_isolate_taxa.sh` (commit `05513af98dea68b4556ef072f8217acdee89ca46`)
-*  **06.05.2019**
+* **06.05.2019**
   * latest backup before the following changes is `/Volumes/Time Machine Backups/Backups.backupdb/macmini/2019-05-06-144701`
   * in `075_classify_reads.sh` setting `--p-perc-identity` from `0.97` to `0.86` as per `~/Documents/CU_tx_test/Github/README.md`
   * redoing taxonomic classification with new settings
@@ -938,6 +938,19 @@ Data will be included via manifest files and metadate files linked in at
     * in `/Users/paul/Documents/CU_combined/Zenodo/Qiime` erasing all files with script numbers `075` or higher
     * after local commit uploading to cluster to run `~/Documents/CU_combined/Github/075_classify_reads.sh` and subsequent scripts
     * return pending
+       * files arrived on cluster
+       * on cluster running updated `075_classify_reads.sh`
+       * needed to restart after adjusting parameter from `0.86` to `0.875` so as to match `CU_tx_test`
+       * commit once on local
+* **07.05.2019** continuing to re-run pipeline on cluster
+  * running `080_smr_features_and_table.sh` - ok 
+  * running `085_split_projects.sh` - ok
+  * running `090_split_controls.sh` - ok
+  * running `095_cluster_sequences.sh` - ok
+  * running `100_isolate_taxa.sh` - ok
+  * running `105_smr_filtered_data_sets.sh` - ok
+  * running `110_seq_align.sh` - ok
+  * running `115_seq_align_mask.sh` - ok
 
 ## Todo
 * _06.05.2019_ - **keep in mind**

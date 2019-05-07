@@ -102,7 +102,7 @@ for k in "${!inpth_seq[@]}"; do
     --i-alignment "${inpth_seq[$k]}" \
     --o-masked-alignment "${otpth_seq[$k]}" \
     --p-min-conservation 0.5 \
-    --p-max-gap-frequency 0.0 \
+    --p-max-gap-frequency 0.1 \
     --verbose 2>&1 | tee -a "${otpth_log[$k]}"
 
 done
