@@ -27,7 +27,6 @@ fi
 map='Zenodo/Manifest/06_18S_merged_metadata.tsv' 
 inpth_tax='Zenodo/Qiime/075_18S_denoised_seq_taxonomy_assignment.qza'
 
-
 # input table and sequences - unclustered eDNA samples
 in_seq[1]='Zenodo/Qiime/085_18S_all_samples_seq.qza'
 in_tab[1]='Zenodo/Qiime/085_18S_all_samples_tab.qza'
@@ -52,6 +51,12 @@ in_tab[6]='Zenodo/Qiime/090_18S_controls_tab.qza'
 # Define filtering strings
 # -----------------------
 
+# for file name
+string[1]='100_Unassigned'
+string[2]='100_Eukaryotes'
+string[3]='100_Metazoans'
+string[4]='100_Eukaryote_non_Metazoans'
+
 # for filtering
 # for '--p-mode exact \'
 # taxon[1]='Unassigned'
@@ -61,13 +66,6 @@ in_tab[6]='Zenodo/Qiime/090_18S_controls_tab.qza'
 taxon[1]='Unassigned'
 taxon[2]='Eukaryota'
 taxon[3]='Metazoa'
-
-# for file name
-string[1]='100_Unassigned'
-string[2]='100_Eukaryotes'
-string[3]='100_Metazoans'
-filter[4]='100_Eukaryote_non_Metazoans'
-
 
 # loop over input files
 for k in "${!in_seq[@]}"; do  
