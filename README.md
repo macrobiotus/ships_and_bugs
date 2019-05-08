@@ -961,8 +961,10 @@ Data will be included via manifest files and metadate files linked in at
     * `rm *100_Eukaryotes*`
     * `rm *100_Metazoans*`
   * adjusted `/Users/paul/Documents/CU_combined/Github/100_isolate_taxa.sh` with additional filtering - committed
-  * running `/Users/paul/Documents/CU_combined/Github/100_isolate_taxa.sh` with additional filtering - pending
-
+  * running `/Users/paul/Documents/CU_combined/Github/100_isolate_taxa.sh` with additional filtering - working
+  * updated flags and script order **adjust all scripts for which x-flags are unset** - committed
+  * daisy chaining all scripts on local:
+     * `./100_isolate_taxa.sh && ./105_smr_filtered_data_sets.sh && ./110_seq_align.sh && ./115_seq_align_mask.sh && ./120_alignment_export.sh` 
 
 
 ## Todo
