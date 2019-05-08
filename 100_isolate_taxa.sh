@@ -152,14 +152,14 @@ for k in "${!in_seq[@]}"; do
       --i-taxonomy "$trpth"/"$inpth_tax" \
       --i-sequences "$trpth"/"${in_seq[$k]}" \
       --o-filtered-sequences "$trpth"/"${out_seq[$k]}" \
-      --p-include  "${taxon[2]}"
+      --p-include  "${taxon[2]}" \
       --p-exclude "${taxon[3]}"
 
     qiime taxa filter-table \
       --i-taxonomy "$trpth"/"$inpth_tax" \
       --i-table "$trpth"/"${in_tab[$k]}" \
       --o-filtered-table "$trpth"/"${out_tab[$k]}" \
-      --p-include  "${taxon[2]}"
+      --p-include  "${taxon[2]}" \
       --p-exclude "${taxon[3]}"
   done
 
