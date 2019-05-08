@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 20.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 08.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Visualising reads after denoising and merging procedure.
 
@@ -60,7 +60,7 @@ for i in "${!otpth_tree[@]}"; do
   extension=".qza"
   
   # reconstruct string
-  otpth_tree["$i"]="$directory/$tree_file_name_in"_120_tree"$extension"
+  otpth_tree["$i"]="$directory/$tree_file_name_in"_125_tree"$extension"
 done
 
 # for debugging -  print output filenames

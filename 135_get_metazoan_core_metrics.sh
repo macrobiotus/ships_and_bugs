@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 03.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 08.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Qiime biodiversity core analyses
 # https://docs.qiime2.org/2017.11/tutorials/moving-pictures/

@@ -52,7 +52,7 @@ unset IFS
 # printf '%s\n' "${inpth_seq[@]}"
 
 # define relative input locations - feature tables
-# -----------------------------------------------------------
+# ------------------------------------------------
 
 # Fill table array using find 
 inpth_tab_unsorted=()

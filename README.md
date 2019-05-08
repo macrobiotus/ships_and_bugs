@@ -968,8 +968,14 @@ Data will be included via manifest files and metadate files linked in at
      *  continue at `./110_seq_align.sh && ./115_seq_align_mask.sh && ./120_alignment_export.sh` 
 * **07.05.2019** - continuing to re-run pipeline on cluster
   * removed update flags in Transport overwrite scripts
-  * pushing data to cluster, on cluster running `./110_seq_align.sh && ./115_seq_align_mask.sh && ./120_alignment_export.sh`
-  * on local adjusting oe tree calculation script - **update on pull**
+  * pushing data to cluster, on cluster running `./110_seq_align.sh && ./115_seq_align_mask.sh && ./120_alignment_export.sh` - pending
+  * on local adjusting **update on pull**
+    * tree calculation script
+      * `/Users/paul/Documents/CU_combined/Github/125_seq_align_tree_iqtree.sh`- logically correct but crashed last time
+      * `/Users/paul/Documents/CU_combined/Github/126_seq_align_tree_fasttree.sh` -  FastTree used for better parallel execution 
+    * rarefaction script - needs tree
+      * started `/Users/paul/Documents/CU_combined/Github/130_alpha_rarefaction_curves.sh`
+
   
 ## Todo
 * _06.05.2019_ - **keep in mind**

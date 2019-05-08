@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 21.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 08.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Visualising reads after denoising and merging procedure.
 
@@ -60,7 +60,7 @@ for i in "${!otpth_tree[@]}"; do
   extension=".qza"
   
   # reconstruct string
-  otpth_tree["$i"]="$directory/$tree_file_name_in"_120_tree"$extension"
+  otpth_tree["$i"]="$directory/$tree_file_name_in"_126_tree"$extension"
 done
 
 # for debugging -  print output filenames
@@ -121,19 +121,10 @@ for k in "${!inpth_seq[@]}"; do
   
   printf "\n"
   printf "Calculating tree ${inpth_seq[$k]}...\n"
-  qiime phylogeny iqtree-ultrafast-bootstrap \
+  qiime phylogeny fasttree \
     --i-alignment "${inpth_seq[$k]}" \
+    --p-n-threads "$thrds"
     --o-tree "${otpth_tree[$k]}" \
-    --p-seed 42 \
-    --p-n-cores 0 \
-    --p-n-runs 20 \
-    --p-bootstrap-replicates 5000 \
-    --p-allnni \
-    --p-alrt 2000 \
-    --p-abayes \
-    --p-lbp 2000 \
-    --p-bnni \
-    --p-safe \
     --verbose  2>&1 | tee -a "${otpth_log[$k]}"
   
   printf "\n"
