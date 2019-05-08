@@ -942,7 +942,7 @@ Data will be included via manifest files and metadate files linked in at
        * on cluster running updated `075_classify_reads.sh`
        * needed to restart after adjusting parameter from `0.86` to `0.875` so as to match `CU_tx_test`
        * commit once on local
-* **07.05.2019** continuing to re-run pipeline on cluster
+* **07.05.2019** - continuing to re-run pipeline on cluster
   * running `080_smr_features_and_table.sh` - ok 
   * running `085_split_projects.sh` - ok
   * running `090_split_controls.sh` - ok
@@ -963,10 +963,14 @@ Data will be included via manifest files and metadate files linked in at
   * adjusted `/Users/paul/Documents/CU_combined/Github/100_isolate_taxa.sh` with additional filtering - committed
   * running `/Users/paul/Documents/CU_combined/Github/100_isolate_taxa.sh` with additional filtering - working
   * updated flags and script order **adjust all scripts for which x-flags are unset** - committed
-  * daisy chaining all scripts on local:
-     * `./100_isolate_taxa.sh && ./105_smr_filtered_data_sets.sh && ./110_seq_align.sh && ./115_seq_align_mask.sh && ./120_alignment_export.sh` 
-
-
+  * daisy chaining all scripts on local (starting 22:57 overnight):
+     * `./100_isolate_taxa.sh && ./105_smr_filtered_data_sets.sh` abort due to power outage 
+     *  continue at `./110_seq_align.sh && ./115_seq_align_mask.sh && ./120_alignment_export.sh` 
+* **07.05.2019** - continuing to re-run pipeline on cluster
+  * removed update flags in Transport overwrite scripts
+  * pushing data to cluster, on cluster running `./110_seq_align.sh && ./115_seq_align_mask.sh && ./120_alignment_export.sh`
+  * on local adjusting oe tree calculation script - **update on pull**
+  
 ## Todo
 * _06.05.2019_ - **keep in mind**
   * erase backup copy `/Users/paul/Documents/CU_combined/Zenodo/190509_Qiime.zip`

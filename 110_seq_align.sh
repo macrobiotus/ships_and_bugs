@@ -23,7 +23,6 @@ elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     thrds='2'
 fi
 
-
 # define input locations - sequence files
 # ----------------------------------------
 
