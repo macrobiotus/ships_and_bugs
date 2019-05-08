@@ -71,7 +71,7 @@ taxon[3]='Metazoa'
 for k in "${!in_seq[@]}"; do  
   
   # loop over filtering parameters, and corresponding file name names additions
-  for i in ((i=1;i<=3;i++)); do
+  for ((i=1;i<=3;i++)); do
   
     # print diagnostic message
     printf "\nFiltering for ${taxon[$i]}...\n"
@@ -120,7 +120,7 @@ for k in "${!in_seq[@]}"; do
   #   Note restricted loop, and hard pointers to index positions in Qiime 
   #   filtering commands.
     
-  for i in ((i=4;i<=4;i++)); do
+  for ((i=4;i<=4;i++)); do
   
     # print diagnostic message
     printf "Filtering of special case.\n"

@@ -961,6 +961,7 @@ Data will be included via manifest files and metadate files linked in at
     * `rm *100_Eukaryotes*`
     * `rm *100_Metazoans*`
   * adjusted `/Users/paul/Documents/CU_combined/Github/100_isolate_taxa.sh` with additional filtering - committed
+  * running `/Users/paul/Documents/CU_combined/Github/100_isolate_taxa.sh` with additional filtering - pending
 
 
 
