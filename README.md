@@ -950,11 +950,19 @@ Data will be included via manifest files and metadate files linked in at
   * running `100_isolate_taxa.sh` - ok
   * running `105_smr_filtered_data_sets.sh` - ok
   * running `110_seq_align.sh` - ok
-  * running `115_seq_align_mask.sh` - finished
+  * running `115_seq_align_mask.sh` - ok
+  * running `145_alignment_export.sh`
   * todo next
     * filter out non-metazoan Eukaryotes
     * create distance matrices
-    * ccreate PCoA plot with Bray Curtis
+    * create PCoA plot with Bray Curtis
+  * removing files generated after `095_cluster_sequences.sh`
+    * `rm *100_Unassigned*`
+    * `rm *100_Eukaryotes*`
+    * `rm *100_Metazoans*`
+  * adjusted `/Users/paul/Documents/CU_combined/Github/100_isolate_taxa.sh` with additional filtering - committed
+
+
 
 ## Todo
 * _06.05.2019_ - **keep in mind**

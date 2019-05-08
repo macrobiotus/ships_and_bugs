@@ -62,22 +62,22 @@ taxon[1]='Unassigned'
 taxon[2]='Eukaryota'
 taxon[3]='Metazoa'
 
-
 # for file name
 string[1]='100_Unassigned'
 string[2]='100_Eukaryotes'
 string[3]='100_Metazoans'
+filter[4]='100_Eukaryote_non_Metazoans'
 
-# loop over filtering parameters, and corresponding file name names additions
-for i in "${!string[@]}"; do
+
+# loop over input files
+for k in "${!in_seq[@]}"; do  
   
-  # print diagnostic message
-  printf "\nFiltering for ${taxon[$i]}...\n"
+  # loop over filtering parameters, and corresponding file name names additions
+  for i in ((i=1;i<=3;i++)); do
   
-  # loop over input files
-  for k in "${!in_seq[@]}"; do
-    
-    
+    # print diagnostic message
+    printf "\nFiltering for ${taxon[$i]}...\n"
+  
     # uncomment for debugging or redesign
     # get input sequence file name  
     # echo "${in_seq[$k]}"
@@ -112,7 +112,57 @@ for i in "${!string[@]}"; do
       --i-table "$trpth"/"${in_tab[$k]}" \
       --o-filtered-table "$trpth"/"${out_tab[$k]}" \
       --p-include  "${taxon[$i]}"
+  done
   
+  
+  # loop over fourth filtering strings
+  #   Was added on 07.05.2019 after we decided to also want all Eukaryotes 
+  #   that are not Metazoans. Syntax is shameless copied from above to
+  #   mitigate regressions. Crossing fingers that it works.
+  #   Note restricted loop, and hard pointers to index positions in Qiime 
+  #   filtering commands.
+    
+  for i in ((i=4;i<=4;i++)); do
+  
+    # print diagnostic message
+    printf "Filtering of special case.\n"
+  
+    # uncomment for debugging or redesign
+    # get input sequence file name  
+    # echo "${in_seq[$k]}"
+    
+    # get input table file name  
+    # echo "${in_tab[$k]}"
+    
+    # get filter string
+    # echo "${taxon[$i]}"
+    
+    # get output sequence file name  
+    extension="${in_seq[$k]##*.}"                 # get the extension
+    filename="${in_seq[$k]%.*}"                   # get the filename
+    out_seq[$k]="${filename}_${string[$i]}.${extension}" # get name string    
+    # echo "${out_seq[$k]}"
+    
+    # get output table file name  
+    extension="${in_tab[$k]##*.}"                 # get the extension
+    filename="${in_tab[$k]%.*}"                   # get the filename
+    out_tab[$k]="${filename}_${string[$i]}.${extension}" # get name string    
+    # echo "${out_tab[$k]}"
+       
+    # actual filtering
+    qiime taxa filter-seqs \
+      --i-taxonomy "$trpth"/"$inpth_tax" \
+      --i-sequences "$trpth"/"${in_seq[$k]}" \
+      --o-filtered-sequences "$trpth"/"${out_seq[$k]}" \
+      --p-include  "${taxon[2]}"
+      --p-exclude "${taxon[3]}"
+
+    qiime taxa filter-table \
+      --i-taxonomy "$trpth"/"$inpth_tax" \
+      --i-table "$trpth"/"${in_tab[$k]}" \
+      --o-filtered-table "$trpth"/"${out_tab[$k]}" \
+      --p-include  "${taxon[2]}"
+      --p-exclude "${taxon[3]}"
   done
 
 done
