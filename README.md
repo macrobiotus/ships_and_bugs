@@ -966,15 +966,18 @@ Data will be included via manifest files and metadate files linked in at
   * daisy chaining all scripts on local (starting 22:57 overnight):
      * `./100_isolate_taxa.sh && ./105_smr_filtered_data_sets.sh` abort due to power outage 
      *  continue at `./110_seq_align.sh && ./115_seq_align_mask.sh && ./120_alignment_export.sh` 
-* **07.05.2019** - continuing to re-run pipeline on cluster
+* **08.05.2019** - continuing to re-run pipeline on cluster
   * removed update flags in Transport overwrite scripts
   * pushing data to cluster, on cluster running `./110_seq_align.sh && ./115_seq_align_mask.sh && ./120_alignment_export.sh` - pending
-  * on local adjusting **update on pull**
+  * on local adjusting **update on pull** - ok 
     * tree calculation script
       * `/Users/paul/Documents/CU_combined/Github/125_seq_align_tree_iqtree.sh`- logically correct but crashed last time
       * `/Users/paul/Documents/CU_combined/Github/126_seq_align_tree_fasttree.sh` -  FastTree used for better parallel execution 
     * rarefaction script - needs tree
       * started `/Users/paul/Documents/CU_combined/Github/130_alpha_rarefaction_curves.sh`
+  * updated tree calculation scripts arrived on cluster - commit - **overwrite on pull** - ok
+  * synced masked alignments and masked alignments exports to local - commit - sync to cluster
+  * running tree calculation on cluster - pending
 
   
 ## Todo
