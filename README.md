@@ -978,6 +978,21 @@ Data will be included via manifest files and metadate files linked in at
   * updated tree calculation scripts arrived on cluster - commit - **overwrite on pull** - ok
   * synced masked alignments and masked alignments exports to local - commit - sync to cluster
   * running tree calculation on cluster - pending
+  * todo afterwards
+    * susbet tables to features in trees  
+    * rarefaction
+* **08.05.2019** - continuing to re-develoop pipeline
+  * touched `/Users/paul/Documents/CU_combined/Github/127_filter_data_to_match_trees.sh`
+  * touched `/Users/paul/Documents/CU_combined/Github/128_smr_matched_data_sets.sh`
+  * starting to draft `/Users/paul/Documents/CU_combined/Github/127_filter_data_to_match_trees.sh`
+    * reading in sequence files
+    * reading in trees
+    * reading in feature tables
+    * omitting filtering alignments and masked alignments as those are not needed downstream.
+    * done - very complicated but running
+  * ran successfully `/Users/paul/Documents/CU_combined/Github/127_filter_data_to_match_trees.sh`
+  * starting to draft `/Users/paul/Documents/CU_combined/Github/127_filter_data_to_match_trees.sh`
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/128_smr_matched_data_sets.sh`
 
   
 ## Todo

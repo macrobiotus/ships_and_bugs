@@ -2,8 +2,7 @@
 
 # 08.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
-# Visualising reads after denoising and merging procedure.
-
+# Calculating trees from masked alignments using FastTree - which uses multiple cores well.
 
 # for debugging only
 # ------------------ 
@@ -123,7 +122,7 @@ for k in "${!inpth_seq[@]}"; do
   printf "Calculating tree ${inpth_seq[$k]}...\n"
   qiime phylogeny fasttree \
     --i-alignment "${inpth_seq[$k]}" \
-    --p-n-threads "$thrds"
+    --p-n-threads "$thrds" \
     --o-tree "${otpth_tree[$k]}" \
     --verbose  2>&1 | tee -a "${otpth_log[$k]}"
   
