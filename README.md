@@ -1004,7 +1004,7 @@ Data will be included via manifest files and metadate files linked in at
       * `depth` setting `3000` for Metazoans to the total exclusion of `Haines`.
       * `depth` setting `500` for Unassigned to the total exclusion of `Chicago`.
       * `depth` setting `50000` for Non-Metazoan Eukaryotes to the total exclusion of `Chicago`.
-    * commit and run
+    * commit (`c93e204112c60f53e6bdc9465a1dd20d8b537f86`) and run.
       
 
   
