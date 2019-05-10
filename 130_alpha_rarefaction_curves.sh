@@ -14,10 +14,15 @@ if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
     thrds="$(nproc --all)"
+    bold=$(tput bold)
+    normal=$(tput sgr0)
+
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
     thrds='2'
+    bold=$(tput bold)
+    normal=$(tput sgr0)
 fi
 
 # define relative input locations - Qiime files
@@ -31,11 +36,7 @@ inpth_map='Zenodo/Manifest/06_18S_merged_metadata.tsv' # (should be  `b16888550a
 inpth_tab_unsorted=()
 while IFS=  read -r -d $'\0'; do
     inpth_tab_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" -name '???_18S_*_tab_*100*.qza' -print0)
-
-# for debugging -  print unsorted tables
-# printf '%s\n'
-# printf '%s\n' "${inpth_tab_unsorted[@]}"
+done < <(find "$trpth/Zenodo/Qiime" -name '127_18S_eDNA_samples_*_features.qza' -print0)
 
 # Sort array 
 IFS=$'\n' inpth_tab=($(sort <<<"${inpth_tab_unsorted[*]}"))
@@ -43,101 +44,73 @@ unset IFS
 
 # for debugging -  print sorted tables - ok!
 # printf '%s\n'
-# printf '%s\n' "${inpth_tab[@]}"
+# printf '%s\n' "$(basename ${inpth_tab[@]})"
+
+# define relative input locations - tree files
+# ------------------------------------------------
+
+# Fill table array using find 
+inpth_tree_unsorted=()
+while IFS=  read -r -d $'\0'; do
+    inpth_tree_unsorted+=("$REPLY")
+done < <(find "$trpth/Zenodo/Qiime" -name '127_18S_eDNA_samples_*_tree.qza' -print0)
+
+# Sort array 
+IFS=$'\n' inpth_tree=($(sort <<<"${inpth_tree_unsorted[*]}"))
+unset IFS
+
+# for debugging -  print sorted tables - ok!
+# printf '%s\n'
+# printf '%s\n' "$(basename ${inpth_tree[@]})"
 
 
-# loop over input tables
+# feature tables (an trees)
+
 for i in "${!inpth_tab[@]}"; do
 
-  # get input sequence file name - for debugging 
-  # echo "${inpth_seq[$i]}"
-   
-  # get input table file name  - for debugging
-  # echo "${inpth_tab[$i]}"
-    
-  directory="$(dirname "$inpth_tab[$i]")"
-  tab_file_name="$(basename "${inpth_tab[$i]%.*}")"
-  extension=".qzv"
-    
-  # check string construction - for debugging
-  # echo "$seq_file_name"
-  # echo "$tab_file_name"
-  # echo "$plot_file_name"
-    
-  plot_file_vis_path="$directory/$plot_file_name"_105_plot_vis"$extension"
+  # check if files can be matched otherwise abort script because it would do more harm then good
+  tabstump="$(basename "${inpth_tab[$i]//_features/}")"
+  treestump="$(basename "${inpth_tree[$i]//_tree/}")"
   
-  ##### continue here #####
+  # echo "$tabstump"
+  # echo "$treestump"
+  
+  if [ "$tabstump" == "$treestump" ]; then
+  
+    # diagnostic only 
+    echo "Tree- and feature files have been matched, continuing..."
     
-    # check string construction - for debugging
-    # echo "$seq_file_vis_path"
-    # echo "$tab_file_vis_path"
-    # echo "$plot_file_vis_path"
+    # get input tree file name - for debugging 
+    # echo "${inpth_tree[$i]}"
     
-    # Qiime calls
-    qiime feature-table tabulate-seqs \
-      --i-data "${inpth_seq[$i]}" \
-      --o-visualization "$seq_file_vis_path" \
-      --verbose
-
-    qiime feature-table summarize \
-      --m-sample-metadata-file "$trpth"/"$inpth_map" \
+    # get input table file name  - for debugging
+    # echo "${inpth_tab[$i]}"
+    
+    
+    # create output file names
+    plot_vis_name="$(dirname "${inpth_tab[$i]}")"/130_"${treestump:4:-4}"_curves.qzv
+   
+    # echo "$plot_vis_name"
+    
+    # Qiime calls   
+    printf "${bold}$(date):${normal} Starting analysis of \"$(basename "${inpth_tab[$i]}")\"...\n"
+    qiime diversity alpha-rarefaction \
       --i-table "${inpth_tab[$i]}" \
-      --o-visualization "$tab_file_vis_path" \
+      --i-phylogeny "${inpth_tree[$i]}" \
+      --m-metadata-file "$trpth"/"${map_txt[$i]}" \
+      --p-max-depth 10000 \
+      --p-min-depth 1 \
+      --p-steps 100 \
+      --p-iterations 10 \
+      --o-visualization "$plot_vis_name" \
       --verbose
- 
-    qiime taxa barplot \
-      --m-metadata-file "$trpth"/"$inpth_map" \
-      --i-taxonomy "$trpth"/"$inpth_tax" \
-      --i-table "${inpth_tab[$i]}" \
-      --o-visualization "$plot_file_vis_path" \
-      --verbose
-
+    printf "${bold}$(date):${normal} ...finished analysis of \"$(basename "${inpth_tab[$i]}")\".\n"
+  
   else
   
-    echo "Sequence- and table files can't be matched, aborting."
+    echo "Tree- and table files can't be matched, aborting."
     exit
   
   fi
   
 done
-
-
-#### old code ####
-
-# define input and output locations
-# =================================
-
-# input files
-# ------------
-query_tab[1]='Zenodo/Qiime/100_18S_097_cl_metzn_tab.qza'
-map_txt[1]='Zenodo/Manifest/05_18S_merged_metadata.tsv'
-
-
-# output files
-# ------------
-tax_crv[1]='Zenodo/Qiime/122_18S_097_cl_rarefaction_curves.qzv'
-
-# set call parameters
-# -------------------
-
-depth[1]='2500' # see README and `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/190403_rarefaction_depth.png`
-               # "Retained 467,500 (7.35%) sequences in 187 (78.57%) samples at the specifed sampling depth."
-               # default should be the same value as in /Users/paul/Documents/CU_combined/Github/120_get_metazoan_core_metrics.sh 
-mptpth[1]='Zenodo/Qiime/115_18S_097_cl_tree_mid.qza' 
-               # default should be the same value as in /Users/paul/Documents/CU_combined/Github/120_get_metazoan_core_metrics.sh 
-
-# Run scripts
-# ------------
-for ((i=1;i<=1;i++)); do
-  qiime diversity alpha-rarefaction \
-    --i-table "$trpth"/"${query_tab[$i]}" \
-    --p-max-depth "${depth[$i]}" \
-    --i-phylogeny "$trpth"/"${mptpth[$i]}" \
-    --m-metadata-file "$trpth"/"${map_txt[$i]}" \
-    --p-min-depth 1 \
-    --p-steps 100 \
-    --p-iterations 10 \
-    --o-visualization "$trpth"/"${tax_crv[$i]}" \
-    --verbose 2>&1 | tee -a "$trpth"/"Zenodo/Qiime/122_18S_097_cl_tree_curves_log.txt"
-done
-

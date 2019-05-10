@@ -981,7 +981,8 @@ Data will be included via manifest files and metadate files linked in at
   * todo afterwards
     * susbet tables to features in trees  
     * rarefaction
-* **08.05.2019** - continuing to re-develoop pipeline
+* **09.05.2019** - continuing to re-develop pipeline
+  * **Note**: Naming conventions change - prepending script number again, instead of appending.  
   * touched `/Users/paul/Documents/CU_combined/Github/127_filter_data_to_match_trees.sh`
   * touched `/Users/paul/Documents/CU_combined/Github/128_smr_matched_data_sets.sh`
   * starting to draft `/Users/paul/Documents/CU_combined/Github/127_filter_data_to_match_trees.sh`
@@ -993,6 +994,12 @@ Data will be included via manifest files and metadate files linked in at
   * ran successfully `/Users/paul/Documents/CU_combined/Github/127_filter_data_to_match_trees.sh`
   * starting to draft `/Users/paul/Documents/CU_combined/Github/127_filter_data_to_match_trees.sh`
   * adjusting and running `/Users/paul/Documents/CU_combined/Github/128_smr_matched_data_sets.sh`
+* **10.05.2019** - continuing to re-develop pipeline
+  * adjusting `/Users/paul/Documents/CU_combined/Github/130_alpha_rarefaction_curves.sh`
+    * depth is manually set to `10000` as per `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/128_18S_eDNA_samples_100_Metazoans_features.qzv`
+    * for later scripts adjusted as required using rarefaction plots 
+    
+    
 
   
 ## Todo
