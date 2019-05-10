@@ -16,7 +16,6 @@ if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     thrds="$(nproc --all)"
     bold=$(tput bold)
     normal=$(tput sgr0)
-
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
@@ -97,10 +96,10 @@ for i in "${!inpth_tab[@]}"; do
     qiime diversity alpha-rarefaction \
       --i-table "${inpth_tab[$i]}" \
       --i-phylogeny "${inpth_tree[$i]}" \
-      --m-metadata-file "$trpth"/"${inpth_map[$i]}" \
+      --m-metadata-file "$trpth"/"$inpth_map" \
       --p-max-depth 10000 \
       --p-min-depth 1 \
-      --p-steps 250 \
+      --p-steps 400 \
       --p-iterations 10 \
       --o-visualization "$plot_vis_name" \
       --verbose

@@ -85,6 +85,7 @@ for i in "${!inpth_tab[@]}"; do
         
     # create output file names
     output_name="$(dirname "${inpth_tab[$i]}")/135_${tabstump:4:-4}_core_metrics"
+    output_log="$(dirname "${inpth_tab[$i]}")/135_${tabstump:4:-4}_core_metrics_log.txt"
      
     echo "$output_name" 
     
@@ -122,10 +123,10 @@ for i in "${!inpth_tab[@]}"; do
     qiime diversity core-metrics-phylogenetic \
       --i-phylogeny "${inpth_tree[$i]}" \
       --i-table "${inpth_tab[$i]}" \
-      --m-metadata-file "$trpth"/"${inpth_map[$i]}" \
+      --m-metadata-file "$trpth"/"$inpth_map" \
       --output-dir "$output_name" \
       --p-sampling-depth "$depth" \
-      --verbose
+      --verbose 2>&1 | tee -a "$output_log"
 
     printf "${bold}$(date):${normal} ...finished analysis of \"$(basename "${inpth_tab[$i]}")\".\n"
   
