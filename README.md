@@ -997,9 +997,15 @@ Data will be included via manifest files and metadate files linked in at
 * **10.05.2019** - continuing to re-develop pipeline
   * adjusting `/Users/paul/Documents/CU_combined/Github/130_alpha_rarefaction_curves.sh`
     * depth is manually set to `10000` as per `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/128_18S_eDNA_samples_100_Metazoans_features.qzv`
-    * for later scripts adjusted as required using rarefaction plots 
-    
-    
+    * for later scripts adjusted as required using rarefaction plots.
+  * adjusting `/Users/paul/Documents/CU_combined/Github/135_get_core_metrics.sh` 
+    * check feature table visualizations created by `/Users/paul/Documents/CU_combined/Github/128_smr_matched_data_sets.sh`
+      * `depth` setting `50000` for Eukaryotes to the total exclusion of `Chicago`.
+      * `depth` setting `3000` for Metazoans to the total exclusion of `Haines`.
+      * `depth` setting `500` for Unassigned to the total exclusion of `Chicago`.
+      * `depth` setting `50000` for Non-Metazoan Eukaryotes to the total exclusion of `Chicago`.
+    * commit and run
+      
 
   
 ## Todo

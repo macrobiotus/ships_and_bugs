@@ -2,11 +2,8 @@
 
 # 08.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
-# Generate interactive alpha rarefaction curves by computing rarefactions
-#   between `min_depth` and `max_depth`. The number of intermediate depths to
-#   compute is controlled by the `steps` parameter, with n `iterations` being
-#   computed at each rarefaction depth. If sample metadata is provided,
-#   samples may be grouped based on distinct values within a metadata column.
+# Applies a collection of diversity metrics (both phylogenetic and non-
+#   phylogenetic) to a feature table.
 
 # paths need to be adjusted for remote execution
 # ----------------------------------------------
@@ -85,25 +82,51 @@ for i in "${!inpth_tab[@]}"; do
     
     # get input table file name  - for debugging
     # echo "${inpth_tab[$i]}"
-    
-    
+        
     # create output file names
-    plot_vis_name="$(dirname "${inpth_tab[$i]}")"/130_"${treestump:4:-4}"_curves.qzv
-   
-    # echo "$plot_vis_name"
+    output_name="$(dirname "${inpth_tab[$i]}")/135_${tabstump:4:-4}_core_metrics"
+     
+    echo "$output_name" 
+    
+    # setting depths
+    case "${inpth_tab[$i]}" in
+      *"100_Unassigned"* )
+        depth=500
+        echo "${bold}Depth set to $depth for Unassigned...${normal}"
+        ;;
+      *"100_Eukaryotes"* )
+        depth=50000
+        echo "${bold}Depth set to $depth for Eukaryotes...${normal}"
+        ;;
+      *"100_Metazoans"* )
+        depth=3000
+        echo "${bold}Depth set to $depth for Metazoans...${normal}"
+        ;;
+      *"100_Eukaryote_non_Metazoans"* )
+        depth=50000
+        echo "${bold}Depth set to $depth for Non-Metazoan Eukaryotes...${normal}"
+        ;;
+      *"100_Unassigned"* )
+        depth=500
+        echo "${bold}Depth set to $depth for Unassigned...${normal}"
+      ;;
+      *)
+        echo "Depth setting error in case statemnet, aborting."
+        exit
+        ;;
+    esac
     
     # Qiime calls   
     printf "${bold}$(date):${normal} Starting analysis of \"$(basename "${inpth_tab[$i]}")\"...\n"
-    qiime diversity alpha-rarefaction \
-      --i-table "${inpth_tab[$i]}" \
+    
+    qiime diversity core-metrics-phylogenetic \
       --i-phylogeny "${inpth_tree[$i]}" \
+      --i-table "${inpth_tab[$i]}" \
       --m-metadata-file "$trpth"/"${inpth_map[$i]}" \
-      --p-max-depth 10000 \
-      --p-min-depth 1 \
-      --p-steps 250 \
-      --p-iterations 10 \
-      --o-visualization "$plot_vis_name" \
+      --output-dir "$output_name" \
+      --p-sampling-depth "$depth" \
       --verbose
+
     printf "${bold}$(date):${normal} ...finished analysis of \"$(basename "${inpth_tab[$i]}")\".\n"
   
   else
