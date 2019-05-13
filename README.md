@@ -1016,15 +1016,8 @@ Data will be included via manifest files and metadate files linked in at
 ## Todo
 * _09.04.2019_ - **keep in mind**
   * in future versions Nanaimo should be named not `NA` but `NX` so as to omit correction code in `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R`
-  *  sript `/Users/paul/Documents/CU_combined/Github/122_alpha_rarefaction_curves.sh* still throws errors` - use new metadata?`
-* _08.04.2019_ - **keep in mind**
-  * * ***re run analysis with correct mapping file** 
-    * needs extension anyways and minus and underscores
-    * otherwise use `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata_checked.tsv` with hash `c1ca7209941aa96ee9ce9f843b629f98`
-    * correct identifier `H2O-0026`
-    * check `cut -c 1-2 /Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata_checked.tsv | sort | uniq`
-    * keeping some old files as hashes not always match up (could be version bump)
-* _05.04.2019_ - **keep in mind** that matrix "lumping" of different sample pair Unifrac distances now done using `median` and not `mean`
+  * script `/Users/paul/Documents/CU_combined/Github/122_alpha_rarefaction_curves.sh* still throws errors` - use new metadata?`
+* _05.04.2019_ - **keep in mind** that needs to be reverted that matrix "lumping" of different sample pair Unifrac distances now done using `median` and not `mean`
   * check 1st commit 05.05.2019 - done in function `get_distance_matrix_means_current_port_matrix_at_sample_count` of `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
   * check 2nd commit 05.05.2019 - done in function `fill_collapsed_responses_matrix` of `/Users/paul/Documents/CU_combined/Github/500_00_functions.R`
 * _04.04.2019_ - **keep in mind** that in `#SampleID` mapping file  **must** start with two letter abbrivation, needed for R code!

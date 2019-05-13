@@ -77,7 +77,7 @@ for i in "${!inpth_matrix[@]}"; do
     
     # create path for output directory
     results_tmp="$(dirname "${inpth_matrix[$i]}")"
-    results_dir="$trpth/Zenodo/Qiime/140_"$(basename "$results_tmp" _core_metrics)"_export"
+    results_dir="$trpth/Zenodo/Qiime/140_"$(basename "$results_tmp" _core_metrics)"_distance_artefacts"
     # echo "$results_dir"
     mkdir -p "$results_dir"
     
