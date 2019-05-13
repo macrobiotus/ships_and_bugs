@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 03.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 13.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Getting UNIFRAC matrices from eDNA samples
 
@@ -11,31 +11,110 @@
 # paths need to be adjusted for remote execution
 # ----------------------------------------------
 if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
-  trpth="/workdir/pc683/CU_combined"
+    printf "Execution on remote...\n"
+    trpth="/workdir/pc683/CU_combined"
+    thrds="$(nproc --all)"
+    bold=$(tput bold)
+    normal=$(tput sgr0)
+
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
-  trpth="/Users/paul/Documents/CU_combined"
+    printf "Execution on local...\n"
+    trpth="/Users/paul/Documents/CU_combined"
+    thrds='2'
+    bold=$(tput bold)
+    normal=$(tput sgr0)
 fi
 
 # define relative input and output locations
 # ==========================================
 
-inpth_mat[1]='Zenodo/Qiime/120_18S_metazoan_core_metrics/unweighted_unifrac_distance_matrix.qza'
-inpth_pcoa[1]='Zenodo/Qiime/120_18S_metazoan_core_metrics/unweighted_unifrac_pcoa_results.qza'
+# Find all distance matrices and put into array
+inpth_matrix_unsorted=()
+while IFS=  read -r -d $'\0'; do
+    inpth_matrix_unsorted+=("$REPLY")
+done < <(find "$trpth/Zenodo/Qiime" -name 'unweighted_unifrac_distance_matrix.qza' -print0)
 
-otpth_mat[1]='Zenodo/Qiime/125_18S_metazoan_unweighted_unifrac_distance_matrix'
-otpth_pcoa[1]='Zenodo/Qiime/125_18S_metazoan_unweighted_unifrac_pcoa_results'
+# Sort array 
+IFS=$'\n' inpth_matrix=($(sort <<<"${inpth_matrix_unsorted[*]}"))
+unset IFS
+
+# for debugging -  print sorted tables - ok!
+# printf '%s\n'
+# printf '%s\n' "${inpth_matrix[@]}"
+
+# Find all pcoa result files and put into array
+inpth_pcoa_unsorted=()
+while IFS=  read -r -d $'\0'; do
+    inpth_pcoa_unsorted+=("$REPLY")
+done < <(find "$trpth/Zenodo/Qiime" -name 'unweighted_unifrac_pcoa_results.qza' -print0)
+
+# Sort array 
+IFS=$'\n' inpth_pcoa=($(sort <<<"${inpth_pcoa_unsorted[*]}"))
+unset IFS
+
+# for debugging -  print sorted tables - ok!
+# printf '%s\n'
+# printf '%s\n' "${inpth_pcoa[@]}"
+
+# exit
 
 # run script
 # ==========
 
-for ((i=1;i<=1;i++)); do
+for i in "${!inpth_matrix[@]}"; do
 
-  qiime tools export \
-    --input-path  "$trpth"/"${inpth_mat[$i]}" \
-    --output-path "$trpth"/"${otpth_mat[$i]}"
+  # check if files can be matched otherwise abort script because it would do more harm then good
+  matxstump="$(dirname "${inpth_matrix[$i]}")"
+  pcoastump="$(dirname "${inpth_pcoa[$i]}")"
+  
+  # echo "$matxstump"
+  # echo "$pcoastump"
+  
+  if [ "$matxstump" == "$pcoastump" ]; then
 
-  qiime tools export \
-    --input-path  "$trpth"/"${inpth_pcoa[$i]}" \
-    --output-path "$trpth"/"${otpth_pcoa[$i]}"
+    # diagnostic only 
+    echo "Matrix- and PCOA files have been matched, continuing..."
+    
+    # create path for output directory
+    results_tmp="$(dirname "${inpth_matrix[$i]}")"
+    results_dir="$trpth/Zenodo/Qiime/140_"$(basename "$results_tmp" _core_metrics)"_export"
+    # echo "$results_dir"
+    mkdir -p "$results_dir"
+    
+    # create output filenames - pcoa
+    tmp_pcoa="${inpth_pcoa[$i]:0:-4}"
+    results_pcoa="140_"$(basename "$tmp_pcoa")".txt"
+    
+    # create output filenames - matrix
+    tmp_matx="${inpth_matrix[$i]:0:-4}"
+    results_matx="140_"$(basename "$tmp_matx")".tsv"
+    
+    printf "${bold}$(date):${normal} Exporting \"$(basename "${inpth_pcoa[$i]}")\".\n"
+    # erase possibly existing temp files
+    rm -f "$TMPDIR"ordination.txt
+    # export to temp file
+    qiime tools export \
+      --input-path  "${inpth_pcoa[$i]}" \
+      --output-path "$TMPDIR"
+    # move temp file in place
+    mv "$TMPDIR"ordination.txt "$results_dir"/"$results_pcoa"
 
+    printf "${bold}$(date):${normal} Exporting \"$(basename "${inpth_matrix[$i]}")\".\n"
+    # erase possibly existing temp files
+    rm -f "$TMPDIR"distance-matrix.tsv 
+    # export to temp file
+    qiime tools export \
+      --input-path  "${inpth_matrix[$i]}" \
+      --output-path "$TMPDIR"
+    # move temp file in place
+    mv "$TMPDIR"distance-matrix.tsv "$results_dir"/"$results_matx"
+    
+
+  else
+
+    echo "Matrix- and PCOA files can't be  matched, aborting."
+    exit
+
+  fi
+  
 done

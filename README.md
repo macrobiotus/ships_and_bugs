@@ -1005,17 +1005,15 @@ Data will be included via manifest files and metadate files linked in at
       * `depth` setting `500` for Unassigned to the total exclusion of `Chicago`.
       * `depth` setting `50000` for Non-Metazoan Eukaryotes to the total exclusion of `Chicago`.
    * commit (`c93e204112c60f53e6bdc9465a1dd20d8b537f86`) and run.
-   * syntax corrections and re-run of
+   * syntax corrections and re-run of `0c21fd1bf061036971198e52519e65ddaef82e4c`
      * `/Users/paul/Documents/CU_combined/Github/135_get_core_metrics.sh` (check log files for warnings) and
      *  `/Users/paul/Documents/CU_combined/Github/130_alpha_rarefaction_curves.sh` - finish pending
-   * commit
+   * commit `0c21fd1bf061036971198e52519e65ddaef82e4c`
+* **13.05.2019** - continuing to re-develop pipeline
+  * wrote and ran successfully `/Users/paul/Documents/CU_combined/Github/140_isolate_unifrac_results.sh`
     
-      
-
   
 ## Todo
-* _06.05.2019_ - **keep in mind**
-  * erase backup copy `/Users/paul/Documents/CU_combined/Zenodo/190509_Qiime.zip`
 * _09.04.2019_ - **keep in mind**
   * in future versions Nanaimo should be named not `NA` but `NX` so as to omit correction code in `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R`
   *  sript `/Users/paul/Documents/CU_combined/Github/122_alpha_rarefaction_curves.sh* still throws errors` - use new metadata?`
