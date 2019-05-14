@@ -1010,8 +1010,12 @@ Data will be included via manifest files and metadate files linked in at
      *  `/Users/paul/Documents/CU_combined/Github/130_alpha_rarefaction_curves.sh` - finish pending
    * commit `0c21fd1bf061036971198e52519e65ddaef82e4c`
 * **13.05.2019** - continuing to re-develop pipeline
-  * wrote and ran successfully `/Users/paul/Documents/CU_combined/Github/140_isolate_unifrac_results.sh`
-    
+  * wrote, corrected, and ran successfully `/Users/paul/Documents/CU_combined/Github/140_export_distance_artefacts.sh`
+  * wrote, and ran successfully `/Users/paul/Documents/CU_combined/Github/145_convert_qiime_artifacts.sh` - committed
+* **14.05.2019** - continuing to re-develop pipeline
+  * adjusted, and ran successfully `/Users/paul/Documents/CU_combined/Github/145_convert_qiime_artifacts.sh` - committed
+  * wrote, and run successfully `/Users/paul/Documents/CU_combined/Github/150_parse_otu_tables.R`
+
   
 ## Todo
 * _09.04.2019_ - **keep in mind**

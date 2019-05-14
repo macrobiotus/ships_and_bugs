@@ -76,9 +76,12 @@ for i in "${!inpth_matrix[@]}"; do
     echo "Matrix- and PCOA files have been matched, continuing..."
     
     # create path for output directory
-    results_tmp="$(dirname "${inpth_matrix[$i]}")"
-    results_dir="$trpth/Zenodo/Qiime/140_"$(basename "$results_tmp" _core_metrics)"_distance_artefacts"
+    results_tmp=$(dirname "${inpth_matrix[$i]}")
+    results_tmp=$(basename "$results_tmp")
+    results_tmp=${results_tmp:4:-13}
+    results_dir="$trpth/Zenodo/Qiime/140_"$results_tmp"_distance_artefacts"
     # echo "$results_dir"
+    
     mkdir -p "$results_dir"
     
     # create output filenames - pcoa
