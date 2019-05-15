@@ -1014,9 +1014,13 @@ Data will be included via manifest files and metadate files linked in at
   * wrote, and ran successfully `/Users/paul/Documents/CU_combined/Github/145_convert_qiime_artifacts.sh` - committed
 * **14.05.2019** - continuing to re-develop pipeline
   * adjusted, and ran successfully `/Users/paul/Documents/CU_combined/Github/145_convert_qiime_artifacts.sh` - committed
-  * wrote, and run successfully `/Users/paul/Documents/CU_combined/Github/150_parse_otu_tables.R`
+  * wrote, and run successfully `/Users/paul/Documents/CU_combined/Github/150_parse_otu_tables.R`\
+* **15.05.2019** - continuing to re-develop pipeline
+  * wrote and ran successfully `/Users/paul/Documents/CU_combined/Github/147_check_qiime_artifacts.sh`
+  * wrote and ran successfully `/Users/paul/Documents/CU_combined/Github/133_beta_rarefaction_pcoa.sh`
 
-  
+
+
 ## Todo
 * _09.04.2019_ - **keep in mind**
   * in future versions Nanaimo should be named not `NA` but `NX` so as to omit correction code in `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R`
