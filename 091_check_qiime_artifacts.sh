@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 15.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 17.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Export of Qiime artifacts for the purpose of checking feature counts 
 # at rarefaction depth used for Unifrac analysis 
@@ -39,7 +39,7 @@ tax_assignemnts='Zenodo/Qiime/075_18S_denoised_seq_taxonomy_assignment.qza'
 inpth_features_unsorted=()
 while IFS=  read -r -d $'\0'; do
     inpth_features_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" -name '127_18S_eDNA_samples_*_features.qza' -print0)
+done < <(find "$trpth/Zenodo/Qiime" -name '090_18S_eDNA_samples_tab.qza' -print0)
 
 # Sort array 
 IFS=$'\n' inpth_features=($(sort <<<"${inpth_features_unsorted[*]}"))
@@ -50,21 +50,10 @@ unset IFS
 inpth_sequences_unsorted=()
 while IFS=  read -r -d $'\0'; do
     inpth_sequences_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" -name '127_18S_eDNA_samples_*_sequences.qza' -print0)
+done < <(find "$trpth/Zenodo/Qiime" -name '090_18S_eDNA_samples_seq.qza' -print0)
 
 # Sort array 
 IFS=$'\n' inpth_sequences=($(sort <<<"${inpth_sequences_unsorted[*]}"))
-unset IFS
-
-# Find all tree tables and put into array
-# ------------------------------------------
-inpth_tree_unsorted=()
-while IFS=  read -r -d $'\0'; do
-    inpth_tree_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" -name '127_18S_eDNA_samples_*_tree.qza' -print0)
-
-# Sort array 
-IFS=$'\n' inpth_tree=($(sort <<<"${inpth_tree_unsorted[*]}"))
 unset IFS
 
 # print all sorted arrays (debugging)
@@ -74,74 +63,31 @@ unset IFS
 # printf '%s\n' "${inpth_features[@]}"
 # printf '%s\n'
 # printf '%s\n' "${inpth_sequences[@]}"
-# printf '%s\n'
-# printf '%s\n' "${inpth_tree[@]}"
 
-for i in "${!inpth_tree[@]}"; do
+for i in "${!inpth_features[@]}"; do
 
   # check if files can be matched otherwise abort script because it would do more harm then good
-  tabstump=$(basename "${inpth_features[$i]//_features.qza/}")
-  seqstump=$(basename "${inpth_sequences[$i]//_sequences.qza/}")
-  trestump=$(basename "${inpth_tree[$i]//_tree.qza/}")
+  tabstump=$(basename "${inpth_features[$i]//_tab.qza/}")
+  seqstump=$(basename "${inpth_sequences[$i]//_seq.qza/}")
   
   # echo "$tabstump"
   # echo "$seqstump"
-  # echo "$trestump"
   
-  if [ "$seqstump" == "$tabstump" -a "$seqstump" == "$trestump" -a "$tabstump" == "$trestump" ]; then
+  if [ "$seqstump" == "$tabstump" ]; then
   
     # diagnostic only 
-    echo "Sequence-, feature-, and tree files have been matched, continuing..."
+    echo "Sequence-, and feature files have been matched, continuing..."
     
     # create path for output directory
     results_tmp=$(basename "${inpth_features[$i]}".qza)
-    results_tmp=${results_tmp:4:-9}
-    results_dir="$trpth/Zenodo/Qiime/147_"$results_tmp"_qiime_feature_check"
+    results_tmp=${results_tmp:4:-12}
+    results_dir="$trpth/Zenodo/Qiime/091_"$results_tmp"_qiime_feature_check"
     # echo "$results_dir"
     mkdir -p "$results_dir"
     
-    # create path for Qiime output file
-    results_file="$results_dir"/$(basename  "${inpth_features[$i]}" .qza)_rarefied.qza
-    
-    # Rarefying Qiime 2 files - setting depth
-    case "${inpth_features[$i]}" in
-      *"100_Unassigned"* )
-        depth=500
-        echo "${bold}Depth set to $depth for Unassigned...${normal}"
-        ;;
-      *"100_Eukaryotes"* )
-        depth=50000
-        echo "${bold}Depth set to $depth for Eukaryotes...${normal}"
-        ;;
-      *"100_Metazoans"* )
-        depth=3000
-        echo "${bold}Depth set to $depth for Metazoans...${normal}"
-        ;;
-      *"100_Eukaryote_non_Metazoans"* )
-        depth=50000
-        echo "${bold}Depth set to $depth for Non-Metazoan Eukaryotes...${normal}"
-        ;;
-      *"100_Unassigned"* )
-        depth=500
-        echo "${bold}Depth set to $depth for Unassigned...${normal}"
-      ;;
-      *)
-        echo "Depth setting error in case statemnet, aborting."
-        exit
-        ;;
-    esac
-    
-    # Rarefying Qiime 2 files - setting depth
-    qiime feature-table rarefy \
-      --i-table "${inpth_features[$i]}" \
-      --p-sampling-depth "$depth" \
-      --p-no-with-replacement \
-      --o-rarefied-table  "$results_file" \
-    
     # Exporting Qiime 2 files
     printf "${bold}$(date):${normal} Exporting Qiime 2 files...\n"
-    qiime tools export --input-path "$results_file" --output-path "$results_dir" && \
-    qiime tools export --input-path "${inpth_tree[$i]}" --output-path "$results_dir" && \
+    qiime tools export --input-path "${inpth_features[$i]}" --output-path "$results_dir" && \
     qiime tools export --input-path "${inpth_sequences[$i]}" --output-path "$results_dir" && \
     qiime tools export --input-path "$trpth"/"$tax_assignemnts" --output-path "$results_dir" || \
     { echo "${bold}$(date):${normal} Qiime export failed" ; exit 1; }

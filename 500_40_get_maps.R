@@ -1,7 +1,7 @@
 #' ---
 #' title: "Mapping Samples for Conference Presentation(s)"
 #' author: "Paul Czechowski"
-#' date: "October 3, 2018"
+#' date: "May 16, 2019"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -86,20 +86,22 @@ smpld_PORT <- append(smpld_PORT, c("Adelaide", "Chicago", "Singapore",
 # [22] "Zeebrugge"              "Ghent"                  "Antwerp"                "Rotterdam"              "Buenos Aires"           "Puerto Madryn"          "Iqaluit"               
 
 # Correct names. "*": Nearest port in port database chosen for actual location.
-smpld_PORT <- c("Haines", "Coos Bay", "Guam Apra", "Nanaimo", "Long Beach", "Vancouver", "Pearl Harbor*",
-                "Honolulu",  "Portland", "Churchill", "Oakland", "Richmond", "Wilmington", "New_Orleans",
-                "Miami", "Houston", "Baltimore", "Milne Inlet*", "Adelaide", "Chicago", "Singapore",
-                "Zeebrugge", "Ghent", "Antwerp", "Rotterdam", "Buenos Aires", "Puerto Madryn", "Iqaluit")               
+# Correct names. "**": No route information or data below standard.
+smpld_PORT <- c("Haines",  "Nanaimo", "Long Beach", "Vancouver", "Pearl Harbor",
+                "Honolulu", "Portland", "Churchill**", "Oakland", "Richmond", "Wilmington", "New_Orleans",
+                "Miami", "Houston", "Baltimore", "Milne Inlet**", "Adelaide", "Chicago", "Singapore",
+                "Zeebrugge", "Ghent", "Antwerp", "Rotterdam", "Buenos Aires", "Puerto Madryn", "Iqaluit**")               
 
-
-smpld_PID <- c("3367", "2141", "2111", "3108", "7597", "311", "2503",
+smpld_PID <- c("3367", "3108", "7597", "311", "2503",
                "2503",  "238", "4021", "7598", "7976", "7975", "3381",
                "4899", "2331",  "854", "3371", "3110", "2907", "1165",
                "1675", "4538",  "576",  "830", "2729", "193", "5362")
 
 # create concise inventory tibble 
- # 23.08.2017 duplicate harbour ID "2503" does not appear to be a problem
-
+# 23.08.2017 duplicate harbour ID "2503" does not appear to be a problem
+# 16.05.2019 - removed from abaove:
+# "Guam Apra", "2111",
+# "Coos Bay", "2141",
 smpld <- data_frame (PORT = smpld_PORT, PTID = smpld_PID)
 
 # this filename is variable and based on the script name 
@@ -326,10 +328,12 @@ available_samples <- smpld_PID [smpld_PID %!in% selected_samples]
 
 # 2.10.2018 not using mutate anymore, too complicated, using manual lookup 
 
-points_all$COLOR <- as.character("skyblue")
-points_all$COLOR[which (points_all$PORT %in% c("Honolulu", "Singapore",
-  "Adelaide", "Chicago", "Baltimore", "Houston", "Long Beach", "Miami"))] <- as.character("green")
+points_all$COLOR <- as.character("green")
+points_all$COLOR[which (points_all$PORT %in% c("Churchill"))] <- as.character("orange")
 
+# 16.05.2019
+# "Milne Inlet" "Iqaluit**"
+# "Churchill**" should be marked orange
 
 #' ## Prepare base layer 
 #' 

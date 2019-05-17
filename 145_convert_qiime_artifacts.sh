@@ -102,7 +102,7 @@ for i in "${!inpth_tree[@]}"; do
     # Exporting Qiime 2 files
     printf "${bold}$(date):${normal} Exporting Qiime 2 files...\n"
     qiime tools export --input-path "${inpth_features[$i]}" --output-path "$results_dir" && \
-    qiime tools export --input-path "${inpth_sequences[$i]}" --output-path "$results_dir" && \
+    qiime tools export --input-path "${inpth_tree[$i]}" --output-path "$results_dir" && \
     qiime tools export --input-path "${inpth_sequences[$i]}" --output-path "$results_dir" && \
     qiime tools export --input-path "$trpth"/"$tax_assignemnts" --output-path "$results_dir" || \
     { echo "${bold}$(date):${normal} Qiime export failed" ; exit 1; }

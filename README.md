@@ -1018,6 +1018,22 @@ Data will be included via manifest files and metadate files linked in at
 * **15.05.2019** - continuing to re-develop pipeline
   * wrote and ran successfully `/Users/paul/Documents/CU_combined/Github/147_check_qiime_artifacts.sh`
   * wrote and ran successfully `/Users/paul/Documents/CU_combined/Github/133_beta_rarefaction_pcoa.sh`
+* **15.05.2019** - preparing talk(s) for next weeks project meeting
+  * adjusted slightly and ran `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R`
+  * started working on file `/Users/paul/Box Sync/CU_NIS-WRAPS/170724_internal_meetings/190516_meeting_Ithaca/190516_slides_draft.md`
+* **16.05.2019** - preparing talk(s) for next weeks project meeting
+  * re-running `/Users/paul/Documents/CU_combined/Github/145_convert_qiime_artifacts.sh` - wasn't exporting trees
+  * re-running `/Users/paul/Documents/CU_combined/Github/147_check_qiime_artifacts.sh` - wasn't exporting trees
+  * to check unfiltered files creating and running `/Users/paul/Documents/CU_combined/Github/091_check_qiime_artifacts.sh` - ok
+  * to create summary of raw counts and eDNA counts using:
+    * ```qiime feature-table summarize \
+           --m-sample-metadata-file "/Users/paul/Documents/CU_combined/Zenodo/Manifest/06_18S_merged_metadata.tsv" \
+           --i-table /Users/paul/Documents/CU_combined/Zenodo/Qiime/085_18S_all_samples_tab.qza \
+           --o-visualization /Users/paul/Documents/CU_combined/Zenodo/Qiime/085_18S_all_samples_tab_vis.qzv```
+    * ```qiime feature-table summarize \
+           --m-sample-metadata-file "/Users/paul/Documents/CU_combined/Zenodo/Manifest/06_18S_merged_metadata.tsv" \
+           --i-table /Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_eDNA_samples_tab.qza \
+           --o-visualization /Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_eDNA_samples_tab_vis.qzv```
 
 
 
