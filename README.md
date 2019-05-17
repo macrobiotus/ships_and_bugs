@@ -1034,7 +1034,9 @@ Data will be included via manifest files and metadate files linked in at
            --m-sample-metadata-file "/Users/paul/Documents/CU_combined/Zenodo/Manifest/06_18S_merged_metadata.tsv" \
            --i-table /Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_eDNA_samples_tab.qza \
            --o-visualization /Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_eDNA_samples_tab_vis.qzv```
- * started `/Users/paul/Documents/CU_combined/Github/160_parse_otu_tables_phyloseq.R` - unfinished - commit
+ * started `/Users/paul/Documents/CU_combined/Github/160_parse_otu_tables_phyloseq.R` - unfinished - commit `5353db8fc326a9670eeb1c37627b2ca88597612b`
+
+
 
 ## Todo
 * _09.04.2019_ - **keep in mind**
