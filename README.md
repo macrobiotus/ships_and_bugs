@@ -1034,9 +1034,10 @@ Data will be included via manifest files and metadate files linked in at
            --m-sample-metadata-file "/Users/paul/Documents/CU_combined/Zenodo/Manifest/06_18S_merged_metadata.tsv" \
            --i-table /Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_eDNA_samples_tab.qza \
            --o-visualization /Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_eDNA_samples_tab_vis.qzv```
- * started `/Users/paul/Documents/CU_combined/Github/160_parse_otu_tables_phyloseq.R` - unfinished - commit `5353db8fc326a9670eeb1c37627b2ca88597612b`
-
-
+  * started `/Users/paul/Documents/CU_combined/Github/160_parse_otu_tables_phyloseq.R` - unfinished - commit `5353db8fc326a9670eeb1c37627b2ca88597612b`
+* **20.05.2019** - preparing talk(s) for this weeks project meeting
+  * modified `/Users/paul/Documents/CU_combined/Github/160_parse_otu_tables_phyloseq.R` - simple bar plot
+  * continued to work on `/Users/paul/Box Sync/CU_NIS-WRAPS/170724_internal_meetings/190516_meeting_Ithaca/190516_slides_draft.md`
 
 ## Todo
 * _09.04.2019_ - **keep in mind**

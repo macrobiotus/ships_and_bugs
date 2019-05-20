@@ -31,6 +31,10 @@ path_feat <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/147_18S_eDNA_sample
 path_sequ <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/147_18S_eDNA_samples_100_Metazoans_feature_qiime_feature_check/dna-sequences.fasta"
 path_tree <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/147_18S_eDNA_samples_100_Metazoans_feature_qiime_feature_check/tree.nwk"
 
+# path_feat <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/145_18S_eDNA_samples_100_Metazoans_feature_qiime_artefacts/features-tax-meta.biom"
+# path_sequ <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/145_18S_eDNA_samples_100_Metazoans_feature_qiime_artefacts/dna-sequences.fasta"
+# path_tree <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/145_18S_eDNA_samples_100_Metazoans_feature_qiime_artefacts/tree.nwk"
+
 # read data into R 
 feat <- import_biom(path_feat)
 sequ <- Biostrings::readDNAStringSet(path_sequ)  
@@ -39,20 +43,17 @@ tree <- ape::read.tree(path_tree)
 # create Phyloseq object
 physeq <- merge_phyloseq(feat, sequ, tree)
 
+## agglomerate one level below Eukaryotes
+physeq_glom = tax_glom(physeq, "Rank5")
+
+## barplot
+plot_bar(physeq_glom, x="Port", fill="Rank5") + theme_bw() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
 # do stuff with Phyloseq object - e.g. melting it for plotting
 mdf <- psmelt(physeq)
 class(mdf)
 head(mdf, 20)
 names(mdf)
-
-ggplot(head(mdf, 30), aes(x=OTU, y=Abundance, fill=Rank5 )) +
-    geom_bar(position="dodge", stat="identity") +
-    facet_grid(. ~ Port, scales="free") +
-    xlab("ASV Hashes and Ports (Aggregated from Samples)") +
-    ylab("Amplicon Sequence Variance Count") +
-    ggtitle("Molten Rarefied Data (first 20 lines)") +
-    scale_fill_manual(values=wes_palette(n=4, name="Zissou1")) + 
-    theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 
 
