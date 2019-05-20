@@ -1,7 +1,7 @@
 #' ---
 #' title: "Format Predictor Data and matrices"
 #' author: "Paul Czechowski"
-#' date: "April 08, 2019"
+#' date: "May 20, 2019"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -224,9 +224,12 @@ sum(is.na(src_heap$ROUT$EDST)) / length (src_heap$ROUT$EDST)
 
 # test 19.04.2018 - are test sample in the route table?
 # test 24.04.2018 - are test sample in the route table?
-# test 08.04.2018 - are test sample in the route table?
-test_samples = c("3110", "576", "2729", "854", "2141", "2907", "2503", "3367", "2331", "7597", "4899", 
-                 "3108", "3381", "7598", "2503", "234", "193", "4777", "830", "1165", "1165", "311") 
+# test 08.04.2019 - are test sample in the route table?
+# test 20.05.2019 - are test sample in the route table?
+test_samples = c("3367", "3108", "7597", "311", "2503",
+               "2503",  "238", "4021", "7598", "7976", "7975", "3381",
+               "4899", "2331",  "854", "3371", "3110", "2907", "1165",
+               "1675", "4538",  "576",  "830", "2729", "193", "5362") 
 
 src_heap$ROUT %>% filter (PRTA %in% test_samples & PRTB %in% test_samples) 
 src_heap$ROUT %>% filter (PRTB %in% test_samples & PRTA %in% test_samples)

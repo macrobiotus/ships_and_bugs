@@ -1038,6 +1038,17 @@ Data will be included via manifest files and metadate files linked in at
 * **20.05.2019** - preparing talk(s) for this weeks project meeting
   * modified `/Users/paul/Documents/CU_combined/Github/160_parse_otu_tables_phyloseq.R` - simple bar plot
   * continued to work on `/Users/paul/Box Sync/CU_NIS-WRAPS/170724_internal_meetings/190516_meeting_Ithaca/190516_slides_draft.md`
+  * starting to work on FON
+    * running and rendering `/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R` - no manual handling necessary
+    * running and rendering `/Users/paul/Documents/CU_combined/Github/500_20_get_predictor_euklidian_distances.R` - no manual handling necessary
+    * running and rendering `/Users/paul/Documents/CU_combined/Github/500_30_shape_matrices.R` - no manual handling necessary
+    * running and rendering `/Users/paul/Documents/CU_combined/Github/500_30_shape_matrices.R` - no manual handling necessary
+    * running and rendering `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R` - manual port lookup necessary
+    * exporting UNIFRAC matrix for R ingestion `qiime tools export --input-path /Users/paul/Documents/CU_combined/Zenodo/Qiime/135_18S_eDNA_samples_100_Metazoans_core_metrics/unweighted_unifrac_distance_matrix.qza --output-path /Users/paul/Documents/CU_combined/Zenodo/Qiime/135_18S_eDNA_samples_100_Metazoans_core_metrics/190520_unweighted_unifrac_distance_matrix.qza`
+    * running and rendering `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R` - manual port lookup necessary - no significant changes
+      * 24 Ports in Unifrac Matrix are `PH SW SY AD CH BT HN HT LB MI AW BA CB NA NO OK PL PM RC RT VN GH WL ZB`
+      * added comment to `~/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R` - conflation still based on median, should be mean
+      * in `/Users/paul/Documents/CU_combined/Github/500_00_functions.R` function `fill_collapsed_responses_matrix` used mean again for matrix conflation     
 
 ## Todo
 * _09.04.2019_ - **keep in mind**

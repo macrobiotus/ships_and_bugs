@@ -16,6 +16,8 @@
 #' Please check the session info at the end of the document for further 
 #' notes on the coding environment. Check `README.md` for further documentation.
 #' Code was developed in `/Users/paul/Documents/CU_cmbd_rf_test` around Oct 02 2018.
+#''
+#' NEED to use mean again in matrix conflation, as in `fill_collapsed_responses_matrix` of `/Users/paul/Documents/CU_combined/Github/500_00_functions.R`
 #'
 #' # Prepare Environment
 #'
