@@ -191,6 +191,55 @@ fill_collapsed_responses_matrix <- function(r_mat_clpsd = NULL, r_mat = NULL){
   return(r_mat_clpsd)
 
 }
+
+#' ## Fill empty response matrix with matrix field averages of full matrix, return full matrix (HON data isn't half)
+#' 
+fill_collapsed_responses_matrix_full <- function(r_mat_clpsd = NULL, r_mat = NULL){
+  
+  # store row and column names for indexing 
+  rnclpsd <- rownames(r_mat_clpsd)
+  cnclpsd <- colnames(r_mat_clpsd)
+  
+  # loop over collapsed matrix and fill with contents of full input matrix 
+  for (i in 1:nrow(r_mat_clpsd)){
+    for (j in 1:ncol(r_mat_clpsd)){
+    
+      # debugging only 
+      #  print(rnclpsd[i])
+      #  print(cnclpsd[j])
+    
+      # average across matrix elements
+      slctd_rows <- which ( substr (rownames (r_mat), start = 1, stop = 2) %in% rnclpsd[i]) # 
+      slctd_cols <- which ( substr (colnames (r_mat), start = 1, stop = 2) %in% cnclpsd[j]) # 
+      slctd_mat <- as.matrix(r_mat[c(slctd_rows), c(slctd_cols)]) # necessary for vectorisation
+    
+      # edge case - use only upper triangle for matrix calculation if source ports are the same
+      if (rnclpsd[i] == cnclpsd[j]){
+         slctd_mat[lower.tri(slctd_mat, diag = TRUE)] <- NA  # although diagonal is defined with 
+                                                             # "0" distance also setting diag to TRUE
+                                                             # (excluded) so that average isn't
+                                                             # lowered by the number of replicates
+                                                             # per port.
+      }
+    
+    slctd_ave <- mean(slctd_mat, na.rm = TRUE) # na.rm = TRUE for edge cases, those will otherwise be NA
+                                                 #  but they do have a signal so can't NA
+    # debugging only 
+    #  print(slctd_ave)
+    
+    # fill collapsed matrix 
+    r_mat_clpsd[rnclpsd[i], cnclpsd[j]] <- slctd_ave
+    
+    }
+  }
+
+  #   ...keep only upper triangle of matrix...
+  # r_mat_clpsd[lower.tri(r_mat_clpsd,diag = FALSE)] <- NA 
+
+  #   ...return filled receiving matrix.  
+  return(r_mat_clpsd)
+
+}
                         
 #' ## Correlate between two permuted vectors
 #' 
