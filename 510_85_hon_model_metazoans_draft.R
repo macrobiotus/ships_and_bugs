@@ -15,7 +15,7 @@
 #' with measurements have environmental distances available.)
 #'
 #' This code commentary is included in the R code itself and can be rendered at
-#' any stage using `rmarkdown::render ("/Users/paulczechowski/Documents/CU_combined/Github/505_80_mixed_effect_model.R")`.
+#' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R")`.
 #' Please check the session info at the end of the document for further 
 #' notes on the coding environment.
 #' 
@@ -41,7 +41,7 @@ library ("vegan")     # metaMDS
 # functions
 # ==========
 # Loaded from helper script:
-source("/Users/paulczechowski/Documents/CU_combined/Github/500_00_functions.R")
+source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")
 
 #'
 #' <!-- #################################################################### -->
@@ -51,13 +51,13 @@ source("/Users/paulczechowski/Documents/CU_combined/Github/500_00_functions.R")
 #' ## Predictors 1 of 2: HON Voyages
 #'
 #' Bolting in ob 20.05.2019 - Importing mandans HON data
-mat_trips_hon<-read.csv("/Users/paulczechowski/Box Sync/CU_NIS-WRAPS/190208_hon_data/hon_matrix.csv", sep=",", row.names=1)
+mat_trips_hon<-read.csv("/Users/paul/Box Sync/CU_NIS-WRAPS/190208_hon_data/hon_matrix.csv", sep=",", row.names=1)
 mat_trips_hon <- as.matrix(mat_trips_hon)
 
 #' ## Predictors 2 of 2: Environmental Distances
 #'
 #' This data is available for many ports (more ports then shipping routes)
-load("/Users/paulczechowski/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output__mat_env_dist_full.Rdata")
+load("/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output__mat_env_dist_full.Rdata")
 
 # checking - see debugging notes: some port numbers in row-/colnames are not unique
 #          - see debugging notes: row- and colnames are undefined, bu seemingly consitent with above
@@ -68,7 +68,7 @@ mat_env_dist_full[35:50, 35:50]
 #'
 
 # this path should match the parameter combination of the Euler script (which isn't used anymore) <-- continue here
-resp_path <- "/Users/paulczechowski/Documents/CU_combined/Zenodo/Qiime/135_18S_eDNA_samples_100_Eukaryotes_core_metrics/unweighted_unifrac_distance_matrix/distance-matrix.tsv"
+resp_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/135_18S_eDNA_samples_100_Metazoans_core_metrics/190520_unweighted_unifrac_distance_matrix.qza/distance-matrix.tsv"
 resp_mat <- read.table(file = resp_path, sep = '\t', header = TRUE)
 
 # checking import and format
@@ -159,10 +159,11 @@ r_mat_clpsd <- fill_collapsed_responses_matrix_full(r_mat_clpsd, resp_mat)
 colnames(r_mat_clpsd) # "PH" "SW" "SY" "AD" "CH" "BT" "HN" "HT" "LB" "MI" "AW" "BA" "CB" "NA" "NO" "OK" "PL" "PM" "RC" "RT" "VN" "GH" "WL" "ZB"
 rownames(r_mat_clpsd) # "PH" "SW" "SY" "AD" "CH" "BT" "HN" "HT" "LB" "MI" "AW" "BA" "CB" "NA" "NO" "OK" "PL" "PM" "RC" "RT" "VN" "GH" "WL" "ZB"
 
+
 r_mat_clpsd <- r_mat_clpsd[colnames(mat_trips_hon), ]
 r_mat_clpsd <- r_mat_clpsd[, colnames(mat_trips_hon)]
 
-write.csv(r_mat_clpsd, file = "/Users/paulczechowski/Documents/CU_combined/Zenodo/Results/510_85_hon_model_1__output__collapsed_matrix_full.csv")
+write.csv(r_mat_clpsd, file = "/Users/paul/Documents/CU_combined/Zenodo/Results/510_85_hon_model_1__output__collapsed_matrix_full.csv")
 
 #'
 #' ## Predictors 2 of 2: Environmental distances
@@ -171,7 +172,7 @@ write.csv(r_mat_clpsd, file = "/Users/paulczechowski/Documents/CU_combined/Zenod
 #   use order  of response matrix (!!!)
 #   here "PH","SP","AD","CH", "BT", "HN", "HT", "LB", "MI"
 #   improve (!!!) this. Manual lookup via:
-#   `open /Users/paulczechowski/Dropbox/NSF\ NIS-WRAPS\ Data/raw\ data\ for\ Mandana/PlacesFile_updated_Aug2017.xlsx -a "Microsoft Excel"`
+#   `open /Users/paul/Dropbox/NSF\ NIS-WRAPS\ Data/raw\ data\ for\ Mandana/PlacesFile_updated_Aug2017.xlsx -a "Microsoft Excel"`
 
 mat_env_dist <- mat_env_dist_full[c("3110", "576", "2729", "854", "2141", "4538", "2503", "2331", "7597", "4899", "3108", "3381", "7598", "4777", "830", "1165", "311", "7975", "1675"), 
                                   c("3110", "576", "2729", "854", "2141", "4538", "2503", "2331", "7597", "4899", "3108", "3381", "7598", "4777", "830", "1165", "311", "7975", "1675")] 
@@ -264,7 +265,7 @@ model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("AW", "
 model_data <- model_data %>% add_column("ECO_DIFF" = NA)
 model_data <- model_data %>% mutate (ECO_DIFF = ifelse(ECO_PORT == ECO_DEST , FALSE, TRUE))
 
-write.csv(model_data, file = "/Users/paulczechowski/Documents/CU_combined/Zenodo/Results/505_80_mixed_effect_model__output__model_input.csv")
+write.csv(model_data, file = "/Users/paul/Documents/CU_combined/Zenodo/Results/505_80_mixed_effect_model__output__model_input.csv")
 
 # Checking response and predictor variable distributions
 

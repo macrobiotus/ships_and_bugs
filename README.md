@@ -1044,7 +1044,7 @@ Data will be included via manifest files and metadate files linked in at
     * running and rendering `/Users/paul/Documents/CU_combined/Github/500_30_shape_matrices.R` - no manual handling necessary
     * running and rendering `/Users/paul/Documents/CU_combined/Github/500_30_shape_matrices.R` - no manual handling necessary
     * running and rendering `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R` - manual port lookup necessary
-    * exporting UNIFRAC matrix for R ingestion `qiime tools export --input-path /Users/paul/Documents/CU_combined/Zenodo/Qiime/135_18S_eDNA_samples_100_Metazoans_core_metrics/unweighted_unifrac_distance_matrix.qza --output-path /Users/paul/Documents/CU_combined/Zenodo/Qiime/135_18S_eDNA_samples_100_Metazoans_core_metrics/190520_unweighted_unifrac_distance_matrix.qza`
+    * exporting UNIFRAC matrix for R ingestion `qiime tools export --input-path /Users/paul/Documents/CU_combined/Zenodo/Qiime/135_18S_eDNA_samples_100_Metazoans_core_metrics/unweighted_unifrac_distance_matrix.qza --output-path /Users/paul/Documents/CU_combined/Zenodo/Qiime/135_18S_eDNA_samples_100_Metazoans_core_metrics/190520_unweighted_unifrac_distance_matrix.txt`
     * running and rendering `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R` - manual port lookup necessary - no significant changes
       * 24 Ports in Unifrac Matrix are `PH SW SY AD CH BT HN HT LB MI AW BA CB NA NO OK PL PM RC RT VN GH WL ZB`
       * added comment to `~/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R` - conflation still based on median, should be mean
@@ -1057,6 +1057,22 @@ Data will be included via manifest files and metadate files linked in at
     * adding `function fill_collapsed_responses_matrix_full` to `/Users/paul/Documents/CU_combined/Github/500_00_functions.R` which doesn't half matrices
     * code in `/Users/paul/Documents/CU_combined/Github/510_85_hon_model.R` is draft stage and needs thorough re-coding
     * commit
+* **21.05.2019** - meeting - working on Macbook Pro
+  * created copies of modeling script - check names
+  * starting to adjust FON modeling script for eukaryotes
+    * file is `/Users/paulczechowski/Documents/CU_combined/Github/505_80_mixed_effect_model.R`
+    * 24 Ports in UNIFRAC Matrix should be `PH SW SY AD CH BT HN HT LB MI AW BA CB NA NO OK PL PM RC RT VN GH WL ZB`
+    * exporting UNIFRAC matrix for R ingestion `qiime tools export --input-path /Users/paulczechowski/Documents/CU_combined/Zenodo/Qiime/135_18S_eDNA_samples_100_Eukaryotes_core_metrics/unweighted_unifrac_distance_matrix.qza --output-path /Users/paulczechowski/Documents/CU_combined/Zenodo/Qiime/135_18S_eDNA_samples_100_Eukaryotes_core_metrics/unweighted_unifrac_distance_matrix` 
+    * modelling on Eukaryotes improves model
+    * model is presumed to become more then slightly significant if HON network is incorporated
+    * but, check effect of random UNIFRAC data
+  * starting to adjust HON modeling script for eukaryotes
+    * `/Users/paulczechowski/Documents/CU_combined/Github/510_85_hon_model.R`
+    * results preliminary
+  * slides in `/Users/paulczechowski/Box Sync/CU_NIS-WRAPS/170724_internal_meetings/190516_meeting_Ithaca/190520_slides.md`
+    * have UNIFRAC PCoA and reafaction curves of metazoan data
+    * have simple random effect model based on Eukaryotes
+
 
 ## Todo
 * _09.04.2019_ - **keep in mind**
