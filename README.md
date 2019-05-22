@@ -1072,6 +1072,8 @@ Data will be included via manifest files and metadate files linked in at
   * slides in `/Users/paulczechowski/Box Sync/CU_NIS-WRAPS/170724_internal_meetings/190516_meeting_Ithaca/190520_slides.md`
     * have UNIFRAC PCoA and reafaction curves of metazoan data
     * have simple random effect model based on Eukaryotes
+    * modelling script both have eukaryotes included, but / and check for filnames and read in sections
+    * commit*
 
 
 ## Todo
