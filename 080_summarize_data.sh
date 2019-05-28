@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-# 18.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 28.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Visualising reads after denoising and merging procedure.
 
 # for debugging only
 # ------------------ 
-set -x
+# set -x
 
 # paths need to be adjusted for remote execution
 # ----------------------------------------------
@@ -28,9 +28,9 @@ inpth_tax='Zenodo/Qiime/075_18S_denoised_seq_taxonomy_assignment.qza'
 inpth_seq='Zenodo/Qiime/065_18S_denoised_seq.qza'
 inpth_tab='Zenodo/Qiime/065_18S_denoised_tab.qza'
 
-otpth_tabv='Zenodo/Qiime/080_18S_denoised_tab_vis.qzv'
-otpth_seqv='Zenodo/Qiime/080_18S_denoised_seq_vis.qzv'
-otpth_bplv='Zenodo/Qiime/080_18S_denoised_tax_vis.qzv'
+otpth_tabv='Zenodo/Qiime/080_18S_denoised_tab.qzv'
+otpth_seqv='Zenodo/Qiime/080_18S_denoised_seq.qzv'
+otpth_bplv='Zenodo/Qiime/080_18S_denoised_barplot.qzv'
 
 # run script
 # ----------

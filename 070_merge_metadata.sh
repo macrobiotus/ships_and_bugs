@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 
-# 17.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 28.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
-# merging metadata
 
 # for debugging only
 # ------------------ 
-set -x
+# set -x
 
 # paths need to be adjusted for remote execution
 # ----------------------------------------------

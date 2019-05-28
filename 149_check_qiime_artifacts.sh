@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 17.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 28.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Export of Qiime artifacts for the purpose of checking feature counts 
 # at rarefaction depth used for Unifrac analysis 

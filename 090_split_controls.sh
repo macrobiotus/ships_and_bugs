@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-# 18.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 28.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 #  Retain only samples needed for analysis 
 
 # For debugging only
 # ------------------ 
-set -x
+# set -x
 
 # Paths need to be adjusted for remote execution
 # ----------------------------------------------
@@ -58,6 +58,7 @@ qiime feature-table filter-seqs \
   --i-table "$trpth"/"${out_tab[1]}" \
   --o-filtered-data "$trpth"/"${out_seq[1]}" \
   --verbose
+
 
 printf "Isolating eDNA features...\n"
 qiime feature-table filter-samples \

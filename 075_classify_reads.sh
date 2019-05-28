@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
-# 18.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 28.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
-# https://docs.qiime2.org/2017.11/tutorials/moving-pictures/
 
 # activate Qiime manually 
 # -----------------------

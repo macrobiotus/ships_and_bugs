@@ -1073,10 +1073,19 @@ Data will be included via manifest files and metadate files linked in at
     * have UNIFRAC PCoA and reafaction curves of metazoan data
     * have simple random effect model based on Eukaryotes
     * modelling script both have eukaryotes included, but / and check for filnames and read in sections
-    * commit*
-
+    * commit
+* **28.05.2019** - starting final pipeline revision
+  * compressing backup copy for later deletion `/Users/paul/Documents/CU_combined/Zenodo/190528_qiime_bup.zip`
+  * erasing older files in `/Users/paul/Documents/CU_combined/Zenodo/Qiime`
+  * loading `qiime2-2019.4`
+  * running `/Users/paul/Documents/CU_combined/Github/085_split_projects.sh` - ok 
+  * running `/Users/paul/Documents/CU_combined/Github/090_split_controls.sh` - ok
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/095_summarize_data.sh` - ok
+  * adjusting flags and commit
 
 ## Todo
+*  _28.05.2019_ - **keep in mind**
+  * delete `/Users/paul/Documents/CU_combined/Zenodo/190528_qiime_bup.zip`
 * _09.04.2019_ - **keep in mind**
   * in future versions Nanaimo should be named not `NA` but `NX` so as to omit correction code in `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R`
   * script `/Users/paul/Documents/CU_combined/Github/122_alpha_rarefaction_curves.sh* still throws errors` - use new metadata?`
