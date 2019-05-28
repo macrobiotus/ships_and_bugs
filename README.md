@@ -1082,6 +1082,17 @@ Data will be included via manifest files and metadate files linked in at
   * running `/Users/paul/Documents/CU_combined/Github/090_split_controls.sh` - ok
   * adjusting and running `/Users/paul/Documents/CU_combined/Github/095_summarize_data.sh` - ok
   * adjusting flags and commit
+  * implementing control data subtraction via `/Users/paul/Documents/CU_combined/Github/100_subtract_controls.sh`
+    * running manually ` qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_controls_tab.qzv`
+    * exporting lower frequency table: `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_features.csv`
+    * converting: `echo "feature-id	frequency" | cat - /Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_features.csv | tr "," "\\t" > /Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_features.tsv`
+  * running `/Users/paul/Documents/CU_combined/Github/105_summarize_data.sh`
+  * comparing counts before and after control removal via
+    * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_preliminary_eDNA_samples_tab.qzv`
+    * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/105_18S_eDNA_samples_tab.qzv`
+  * commit for today
+
+The new feat
 
 ## Todo
 *  _28.05.2019_ - **keep in mind**

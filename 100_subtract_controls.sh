@@ -24,55 +24,36 @@ fi
 # define more arrays for other files if needed
 
 # input table and sequences
-in_tab='Zenodo/Qiime/085_18S_all_samples_tab.qza'
-in_seq='Zenodo/Qiime/085_18S_all_samples_seq.qza'
+in_seq[1]='Zenodo/Qiime/090_18S_preliminary_eDNA_samples_seq.qza'
+in_tab[1]='Zenodo/Qiime/090_18S_preliminary_eDNA_samples_tab.qza'
+
+in_seq[2]='Zenodo/Qiime/090_18S_controls_seq.qza'
+in_tab[2]='Zenodo/Qiime/090_18S_controls_tab.qza'
 
 # checked mapping files
 map='Zenodo/Manifest/06_18S_merged_metadata.tsv' 
+seq='Zenodo/Qiime/090_18S_controls_features.tsv'
 
 # Define output paths 
 # -------------------
-out_seq[1]='Zenodo/Qiime/090_18S_controls_seq.qza'
-out_tab[1]='Zenodo/Qiime/090_18S_controls_tab.qza'
-
-out_seq[2]='Zenodo/Qiime/090_18S_eDNA_samples_seq.qza'
-out_tab[2]='Zenodo/Qiime/090_18S_eDNA_samples_tab.qza'
+out_seq[2]='Zenodo/Qiime/100_18S_eDNA_samples_seq.qza'
+out_tab[2]='Zenodo/Qiime/100_18S_eDNA_samples_tab.qza'
 
 # Run scripts 
 # -----------
 
-printf "Isolating control features...\n"
-qiime feature-table filter-samples \
-  --i-table "$trpth"/"$in_tab" \
-  --m-metadata-file "$trpth"/"$map" \
-  --p-min-frequency '1' \
-  --p-min-features '1' \
+printf "Subtracting control sequences from sequences...\n"
+qiime feature-table filter-seqs \
+  --i-data "$trpth"/"${in_seq[1]}" \
+  --m-metadata-file "$trpth"/"$seq" \
   --p-exclude-ids \
-  --p-where "Type IN ('eDNA')" \
-  --o-filtered-table "$trpth"/"${out_tab[1]}" \
-  --verbose
-
-printf "Isolating control sequences...\n"
-qiime feature-table filter-seqs \
-  --i-data "$trpth"/"$in_seq" \
-  --i-table "$trpth"/"${out_tab[1]}" \
-  --o-filtered-data "$trpth"/"${out_seq[1]}" \
-  --verbose
-
-printf "Isolating eDNA features...\n"
-qiime feature-table filter-samples \
-  --i-table "$trpth"/"$in_tab" \
-  --m-metadata-file "$trpth"/"$map" \
-  --p-min-frequency '1' \
-  --p-min-features '1' \
-  --p-no-exclude-ids \
-  --p-where "Type IN ('eDNA')" \
-  --o-filtered-table "$trpth"/"${out_tab[2]}" \
-  --verbose
-
-printf "Isolating eDNA sequences...\n"
-qiime feature-table filter-seqs \
-  --i-data "$trpth"/"$in_seq" \
-  --i-table "$trpth"/"${out_tab[2]}" \
   --o-filtered-data "$trpth"/"${out_seq[2]}" \
+  --verbose
+
+printf "Subtracting control sequences from table...\n"
+qiime feature-table filter-features \
+  --i-table "$trpth"/"${in_tab[1]}" \
+  --m-metadata-file "$trpth"/"$seq" \
+  --p-exclude-ids \
+  --o-filtered-table "$trpth"/"${out_tab[2]}" \
   --verbose

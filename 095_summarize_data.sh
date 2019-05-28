@@ -90,7 +90,6 @@ for i in "${!inpth_seq[@]}"; do
   # echo "$seqtest"
   # echo "$tabtest"
   
-  
   if [ "$seqtest" == "$tabtest" ]; then
     echo "Sequence- and table files have been matched, continuing..."
   
@@ -123,9 +122,9 @@ for i in "${!inpth_seq[@]}"; do
     plot_file_vis_path="$directory/095_$plot_file_name"_barplot"$extension"
     
     # check string construction - for debugging
-    echo "$seq_file_vis_path"
-    echo "$tab_file_vis_path"
-    echo "$plot_file_vis_path"
+    # echo "$seq_file_vis_path"
+    # echo "$tab_file_vis_path"
+    # echo "$plot_file_vis_path"
     
     # Qiime calls
     qiime feature-table tabulate-seqs \

@@ -39,7 +39,7 @@ inpth_tax='Zenodo/Qiime/075_18S_denoised_seq_taxonomy_assignment.qza'
 inpth_seq_unsorted=()
 while IFS=  read -r -d $'\0'; do
     inpth_seq_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" \( -name '085_18S_*_seq.qza' -o -name '090_18S_*_seq.qza' \) -print0)
+done < <(find "$trpth/Zenodo/Qiime" \( -name '100_18S_*_seq.qza' \) -print0)
 
 # for debugging - print unsorted sequences
 # printf '%s\n'
@@ -60,7 +60,7 @@ unset IFS
 inpth_tab_unsorted=()
 while IFS=  read -r -d $'\0'; do
     inpth_tab_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" \( -name '085_18S_*_tab.qza' -o -name '090_18S_*_tab.qza' \) -print0)
+done < <(find "$trpth/Zenodo/Qiime" \( -name '100_18S_*_tab.qza' \) -print0)
 
 # for debugging -  print unsorted tables
 # printf '%s\n'
@@ -118,14 +118,14 @@ for i in "${!inpth_seq[@]}"; do
     # echo "$tab_file_name"
     # echo "$plot_file_name"
     
-    seq_file_vis_path="$directory/095_$seq_file_name""$extension"
-    tab_file_vis_path="$directory/095_$tab_file_name""$extension"
-    plot_file_vis_path="$directory/095_$plot_file_name"_barplot"$extension"
+    seq_file_vis_path="$directory/105_$seq_file_name""$extension"
+    tab_file_vis_path="$directory/105_$tab_file_name""$extension"
+    plot_file_vis_path="$directory/105_$plot_file_name"_barplot"$extension"
     
     # check string construction - for debugging
-    echo "$seq_file_vis_path"
-    echo "$tab_file_vis_path"
-    echo "$plot_file_vis_path"
+    # echo "$seq_file_vis_path"
+    # echo "$tab_file_vis_path"
+    # echo "$plot_file_vis_path"
     
     # Qiime calls
     qiime feature-table tabulate-seqs \

@@ -35,8 +35,8 @@ map='Zenodo/Manifest/06_18S_merged_metadata.tsv'
 out_seq[1]='Zenodo/Qiime/090_18S_controls_seq.qza'
 out_tab[1]='Zenodo/Qiime/090_18S_controls_tab.qza'
 
-out_seq[2]='Zenodo/Qiime/090_18S_eDNA_samples_seq.qza'
-out_tab[2]='Zenodo/Qiime/090_18S_eDNA_samples_tab.qza'
+out_seq[2]='Zenodo/Qiime/090_18S_preliminary_eDNA_samples_seq.qza'
+out_tab[2]='Zenodo/Qiime/090_18S_preliminary_eDNA_samples_tab.qza'
 
 # Run scripts 
 # -----------
@@ -58,7 +58,6 @@ qiime feature-table filter-seqs \
   --i-table "$trpth"/"${out_tab[1]}" \
   --o-filtered-data "$trpth"/"${out_seq[1]}" \
   --verbose
-
 
 printf "Isolating eDNA features...\n"
 qiime feature-table filter-samples \
