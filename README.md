@@ -1091,8 +1091,9 @@ Data will be included via manifest files and metadate files linked in at
     * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_preliminary_eDNA_samples_tab.qzv`
     * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/105_18S_eDNA_samples_tab.qzv`
   * commit for today
-
-The new feat
+* **28.05.2019** - continuing final pipeline revision
+  * adjusting script numbers
+  * adjusting, committing, and running `/Users/paul/Documents/CU_combined/Github/110_cluster_sequences.sh`
 
 ## Todo
 *  _28.05.2019_ - **keep in mind**
