@@ -65,8 +65,8 @@ for i in "${!otpth_seq[@]}"; do
 done
 
 # for debugging -  print output filenames
-printf '%s\n'
-printf '%s\n' "${otpth_seq[@]}"
+# printf '%s\n'
+# printf '%s\n' "${otpth_seq[@]}"
 # exit
 
 
