@@ -23,6 +23,7 @@ elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     bold=$(tput bold)
     normal=$(tput sgr0)
 fi
+
 # Define input paths 
 # ------------------
 # define more arrays for other files if needed
@@ -36,18 +37,18 @@ in_seq[1]='Zenodo/Qiime/100_18S_eDNA_samples_seq.qza'
 in_tab[1]='Zenodo/Qiime/100_18S_eDNA_samples_tab.qza'
 
 # clustered data
-in_seq[3]='Zenodo/Qiime/110_18S_eDNA_samples_clustered99_seq.qza'
-in_tab[3]='Zenodo/Qiime/110_18S_eDNA_samples_clustered99_tab.qza'
+in_seq[2]='Zenodo/Qiime/110_18S_eDNA_samples_clustered99_seq.qza'
+in_tab[2]='Zenodo/Qiime/110_18S_eDNA_samples_clustered99_tab.qza'
 
 in_seq[3]='Zenodo/Qiime/110_18S_eDNA_samples_clustered97_seq.qza'
 in_tab[3]='Zenodo/Qiime/110_18S_eDNA_samples_clustered97_tab.qza'
 
-in_seq[3]='Zenodo/Qiime/110_18S_eDNA_samples_clustered90_seq.qza'
-in_tab[3]='Zenodo/Qiime/110_18S_eDNA_samples_clustered90_tab.qza'
+in_seq[4]='Zenodo/Qiime/110_18S_eDNA_samples_clustered90_seq.qza'
+in_tab[4]='Zenodo/Qiime/110_18S_eDNA_samples_clustered90_tab.qza'
 
 # controls
-in_seq[6]='Zenodo/Qiime/090_18S_controls_seq.qza'
-in_tab[6]='Zenodo/Qiime/090_18S_controls_tab.qza'
+in_seq[5]='Zenodo/Qiime/090_18S_controls_seq.qza'
+in_tab[5]='Zenodo/Qiime/090_18S_controls_tab.qza'
 
 # Define filtering strings
 # -----------------------

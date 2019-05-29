@@ -1095,6 +1095,7 @@ Data will be included via manifest files and metadate files linked in at
   * adjusting script numbers
   * adjusting, committing, and running `/Users/paul/Documents/CU_combined/Github/110_cluster_sequences.sh`
   * adjusting, committing, and running `/Users/paul/Documents/CU_combined/Github/115_isolate_taxa.sh`
+
 ## Todo
 *  _28.05.2019_ - **keep in mind**
   * delete `/Users/paul/Documents/CU_combined/Zenodo/190528_qiime_bup.zip`

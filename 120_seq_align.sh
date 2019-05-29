@@ -1,26 +1,27 @@
 #!/usr/bin/env bash
 
-# 20.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 29.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Visualising reads after denoising and merging procedure.
-
 
 # for debugging only
 # ------------------ 
 # set -x
 
-
-# paths need to be adjusted for remote execution
+# Paths need to be adjusted for remote execution
 # ----------------------------------------------
 if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
     thrds="$(nproc --all)"
-    export PATH=/programs/parallel/bin:$PATH
+    bold=$(tput bold)
+    normal=$(tput sgr0)
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
     thrds='2'
+    bold=$(tput bold)
+    normal=$(tput sgr0)
 fi
 
 # define input locations - sequence files
@@ -32,7 +33,7 @@ fi
 inpth_seq_unsorted=()
 while IFS=  read -r -d $'\0'; do
     inpth_seq_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" -name '???_18S_*_seq_*100*.qza' -print0)
+done < <(find "$trpth/Zenodo/Qiime" -name '115_18S_*_seq_*.qza' -print0)
 
 # Sort array 
 # (https://stackoverflow.com/questions/7442417/how-to-sort-an-array-in-bash)
@@ -42,7 +43,8 @@ unset IFS
 
 # for debugging -  print sorted input filenames
 # printf '%s\n' "${inpth_seq[@]}"
-
+# debugging only 
+# exit
 
 # define output locations - sequence files
 # ----------------------------------------
@@ -55,20 +57,21 @@ for i in "${!otpth_seq[@]}"; do
  
   # deconstruct string
   directory="$(dirname "$otpth_seq[$i]")"
-  seq_file_name_in="$(basename "${otpth_seq[$i]%.*}")"
-  extension=".qza"
-  
-  # reconstruct string
-  otpth_seq["$i"]="$directory/$seq_file_name_in"_110_alignment"$extension"
+  seq_file_tmp="$(basename "${otpth_seq[$i]%.*}")"
+  seq_file_name="120_${seq_file_tmp:4}"
+  extension="${otpth_seq[$i]##*.}"                          # get the extension
+  otpth_seq[$i]="$directory"/"${seq_file_name}_alignment.${extension}" # get name string    
+
 done
 
 # for debugging -  print output filenames
-# printf '%s\n'
-# printf '%s\n' "${otpth_seq[@]}"
+printf '%s\n'
+printf '%s\n' "${otpth_seq[@]}"
+# exit
 
 
 # define output locations - log files
-# ----------------------------------------
+# ------------------------------------
 
 # copy previous array to create array for output file names
 otpth_log=("${otpth_seq[@]}")
@@ -78,25 +81,24 @@ for i in "${!otpth_log[@]}"; do
  
   # deconstruct string
   directory="$(dirname "$otpth_log[$i]")"
-  seq_file_name_in="$(basename "${otpth_log[$i]%.*}")"
-  extension=".txt"
-  
-  # reconstruct string
-  otpth_log["$i"]="$directory/$seq_file_name_in"_log"$extension"
+  log_file_tmp="$(basename "${otpth_log[$i]%.*}")"
+  log_file_name="120_${log_file_tmp:4}"
+  extension="txt"                          # get the extension
+  otpth_log[$i]="$directory"/"${log_file_name}_log.${extension}" # get name string    
+
 done
 
 # for debugging -  print output filenames
 # printf '%s\n'
 # printf '%s\n' "${otpth_log[@]}"
-
+# exit
 
 # Run scripts
 # ------------
 
 for k in "${!inpth_seq[@]}"; do
   
-  printf "\n"
-  printf "Alignining file ${inpth_seq[$k]}...\n"
+  printf "\n${bold}$(date):${normal} Alignining file ${inpth_seq[$k]}...\n"
   qiime alignment mafft \
     --i-sequences "${inpth_seq[$k]}" \
     --o-alignment "${otpth_seq[$k]}" \
