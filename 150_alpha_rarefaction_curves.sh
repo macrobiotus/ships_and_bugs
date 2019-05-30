@@ -35,7 +35,7 @@ inpth_map='Zenodo/Manifest/06_18S_merged_metadata.tsv' # (should be  `b16888550a
 inpth_tab_unsorted=()
 while IFS=  read -r -d $'\0'; do
     inpth_tab_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" -name '127_18S_eDNA_samples_*_features.qza' -print0)
+done < <(find "$trpth/Zenodo/Qiime" -name '140_*_features.qza' -print0)
 
 # Sort array 
 IFS=$'\n' inpth_tab=($(sort <<<"${inpth_tab_unsorted[*]}"))
@@ -52,7 +52,7 @@ unset IFS
 inpth_tree_unsorted=()
 while IFS=  read -r -d $'\0'; do
     inpth_tree_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" -name '127_18S_eDNA_samples_*_tree.qza' -print0)
+done < <(find "$trpth/Zenodo/Qiime" -name '140_*_tree.qza' -print0)
 
 # Sort array 
 IFS=$'\n' inpth_tree=($(sort <<<"${inpth_tree_unsorted[*]}"))
@@ -80,16 +80,18 @@ for i in "${!inpth_tab[@]}"; do
     echo "Tree- and feature files have been matched, continuing..."
     
     # get input tree file name - for debugging 
-    # echo "${inpth_tree[$i]}"
+    echo "${inpth_tree[$i]}"
     
     # get input table file name  - for debugging
-    # echo "${inpth_tab[$i]}"
-    
+    echo "${inpth_tab[$i]}"
     
     # create output file names
-    plot_vis_name="$(dirname "${inpth_tab[$i]}")"/130_"${treestump:4:-4}"_curves.qzv
+    plot_vis_name="$(dirname "${inpth_tab[$i]}")"/150_"${treestump:4:-4}"_curves.qzv
    
-    # echo "$plot_vis_name"
+    # get output file file name  - for debugging
+    echo "$plot_vis_name"
+    
+    #  continue
     
     # Qiime calls   
     printf "${bold}$(date):${normal} Starting analysis of \"$(basename "${inpth_tab[$i]}")\"...\n"
@@ -97,10 +99,10 @@ for i in "${!inpth_tab[@]}"; do
       --i-table "${inpth_tab[$i]}" \
       --i-phylogeny "${inpth_tree[$i]}" \
       --m-metadata-file "$trpth"/"$inpth_map" \
-      --p-max-depth 10000 \
+      --p-max-depth 100000 \
       --p-min-depth 1 \
-      --p-steps 400 \
-      --p-iterations 10 \
+      --p-steps 1000 \
+      --p-iterations 5 \
       --o-visualization "$plot_vis_name" \
       --verbose
     printf "${bold}$(date):${normal} ...finished analysis of \"$(basename "${inpth_tab[$i]}")\".\n"

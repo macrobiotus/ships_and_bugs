@@ -14,19 +14,19 @@ Data will be included via manifest files and metadate files linked in at
 
 
 ## History and progress notes
-*  **24.01.2018** - creating and adjusting folder structure and contents
+*  **24.01.2018** - creating and adjusted folder structure and contents
    * removed unneeded files from previous analysis
    * adjusted pathnames in work scripts: `find /Users/paul/Documents/CU_combined/Github -name '*.sh' -exec sed -i 's|CU_Pearl_Harbour|CU_combined|g' {} \;`
    * adjusted pathnames in transport scripts: `find /Users/paul/Documents/CU_combined/Transport -name '*.sh' -exec sed -i 's|CU_Pearl_Harbour|CU_combined|g' {} \;`
    * copy manifest files from Adelaide, Singapore data `cp ~/Documents/CU_inter_intra/Zenodo/Manifest/05_manifest_local.txt ~/Documents/CU_combined/Zenodo/Manifest/05_manifest_ADL_SNG_CHC.txt`
-   * adjusting manifest files
+   * adjusted manifest files
       * `05_manifest_local.txt` includes paths to all `fastq` files (PH, CG, SH)
       * `05_metadata.tsv` is draft version only (PH, CG, SH)
       * `05_barcode.tsv` contains PH info only, likely not needed soon.
    * getting files to local:
        * creating dir `mkdir -p /Users/paul/Sequences/Raw/180111_CU_Lodge_lab/`
        * copy files from remote `rsync -avzuin pc683@cbsulogin2.tc.cornell.edu:/home/pc683/Sequences/180109_M01032_0565_000000000-BHB4G/demultiplexed/ /Users/paul/Sequences/Raw/180111_CU_Lodge_lab`
-   * adjusting and running import script `/Users/paul/Documents/CU_combined/Github/040_imp_qiime.sh`
+   * adjusted and running import script `/Users/paul/Documents/CU_combined/Github/040_imp_qiime.sh`
    * tried adapter trimming on local 
        * `/042_cut_adapt.sh > ../Zenodo/Qiime/042_cutlog.txt`
        * throws error - move all to cluster - hopefully only low RAM error
@@ -44,8 +44,8 @@ Data will be included via manifest files and metadate files linked in at
    * split `05_manifest_local` in three to allow importing and denoising on a per-run basis as recommended.
    * doing the same for `05_metadata_??.tsv`
    * renaming `05_barcode.tsv` to `05_barcode_PH.tsv`, others don't have barcode file
-   * adjusting and running `040_imp_qiime.sh` to process individual _runs_.
-   * adjusting and running `042_cut_adapt.sh` to process individual _runs_.
+   * adjusted and running `040_imp_qiime.sh` to process individual _runs_.
+   * adjusted and running `042_cut_adapt.sh` to process individual _runs_.
 * **15.02.2018**
    * erased files created by `042_cut_adapt.sh`, as this is failing
    * creating manifest and `.tsv` metadata file for Singapore Yacht Club
@@ -88,8 +88,8 @@ Data will be included via manifest files and metadate files linked in at
    * created `080_re_cut_adapt_and_filter.sh` to clean primer remnants from set of representative sequences. This can also be used to clean repset by blast using Qiime 1 features as per `https://forum.qiime2.org/t/removing-non-target-dna-from-representative-sequences/772/3`.
    * there are still 3' adapter in there, which could be removed? I am setting `-n 2` in cutadapt for a second pass. I don't think the matches are random, is is improbable. Makes few (20?) sequences very short (~50 bp)
    * created and ran `085_smr_features_and_table.sh` (copy for filtered data)
-   * adjusting and running `090_align_repseqs.sh`
-   * adjusting and running `100_build_tree.sh`
+   * adjusted and running `090_align_repseqs.sh`
+   * adjusted and running `100_build_tree.sh`
    * script `110` complains because underscores of sample names needed to be removed for script `65`
        * putting underscores back in `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata.tsv` as per error dump
        * re-run `/Users/paul/Documents/CU_combined/Github/070_merge_metdata.sh` to undo this
@@ -112,7 +112,7 @@ Data will be included via manifest files and metadate files linked in at
    * according to YY COI reads can be removed using COI primers:
       * mlCOI (Leray et al. 2013): `GGWACWGGWTGAACWGTWTAYCCYCC`
       * jgHCOI (Geller et al. 2013)`TAIACYTCIGGRTGICCRAARAAYCA`
-   * adjusting `/Users/paul/Documents/CU_combined/Github/080_re_cut_adapt_and_filter.sh`
+   * adjusted `/Users/paul/Documents/CU_combined/Github/080_re_cut_adapt_and_filter.sh`
       * now filtering (in the correct orientation - checked) - 18S and COI reads  
       * erasing all old output past this acript in folder `Qiime`
    * re-running scripts starting from script `085...`, using 11626 sequences at cut-off (CH-34-23)
@@ -295,13 +295,13 @@ Data will be included via manifest files and metadate files linked in at
   * commit
 * **03.05.2018** - data addition and shell scripting
   * new data is available in `/Users/paul/Documents/CU_US_ports_a` , check that project `README.md`
-  * adjusting and running (marked green):
+  * adjusted and running (marked green):
      * `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh`
      * `/Users/paul/Documents/CU_combined/Github/070_merge_metdata.sh`
      * `/Users/paul/Documents/CU_combined/Github/075_smr_features_and_table.sh`
      * `/Users/paul/Documents/CU_combined/Github/080_re_cut_adapt_and_filter.sh`
      * `/Users/paul/Documents/CU_combined/Github/085_smr_features_and_table.sh`
-  * adjusting and running on cluster after commit (marked purple):
+  * adjusted and running on cluster after commit (marked purple):
      * **OVERWRITING CLUSTER DATA PREVIOUS PROJECT FILES ON CLUSTER ARE DELETED**
      * `/Users/paul/Documents/CU_combined/Github/090_align_repseqs.sh`
      * `/Users/paul/Documents/CU_combined/Github/095_mask_alignment.sh`
@@ -319,7 +319,7 @@ Data will be included via manifest files and metadate files linked in at
        * won't accept `Zenodo/Qiime/100_18S_merged_tab.qza` - features without tree tips removed and not matching with seq file anymore (?)
        * possible solution: using `Zenodo/Qiime/080_18S_merged_tab.qz` or filtering sequence table by feature table `100`
        * adjusted and ran `/Users/paul/Documents/CU_combined/Github/100_build_tree.sh` to generate `/Users/paul/Documents/CU_combined/Zenodo/Qiime/100_18S_merged_seq.qza`, the latter being 1 MB larger then the input file - metadata / Qiime 2 magic (?)
-       * adjusting `200_cluster_sequences.sh` to **use**
+       * adjusted `200_cluster_sequences.sh` to **use**
           * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/100_18S_merged_seq.qza`
           * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/100_18S_merged_tab.qza`
           * **not using** `/Users/paul/Documents/CU_combined/Zenodo/Qiime/080_18S_merged_seq.qza` anymore
@@ -336,8 +336,8 @@ Data will be included via manifest files and metadate files linked in at
         * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/105_18S_sum_repr_seq.qzv`
         * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/085_18S_sum_repr_seq.qzv`
         * seems to be all good
-    * adjusting `/Users/paul/Documents/CU_combined/Github/130_classify_reads.sh`
-    * adjusting `/Users/paul/Documents/CU_combined/Github/220_classify_clusters.sh`
+    * adjusted `/Users/paul/Documents/CU_combined/Github/130_classify_reads.sh`
+    * adjusted `/Users/paul/Documents/CU_combined/Github/220_classify_clusters.sh`
     * commit and daisy chain both script above overnight - last backup before startin 19:29 - 5 minutes ago
 * **04.05.2018** - data addition and shell scripting
    * running adjusted `/Users/paul/Documents/CU_combined/Github/140_show_classification.sh`
@@ -419,15 +419,15 @@ Data will be included via manifest files and metadate files linked in at
     * tested `qiime2r` on Github but decided to stick with adjusted shell solution: `./155...`
     * committed script folder for tomorrows R run
 * ***02.10.2018** - R scripting
-    * adjusting and running `/Users/paul/Documents/CU_combined/Github/155_get_unifrac_mat.sh`
-    * adjusting and running `/Users/paul/Documents/CU_combined/Github/160_convert_artifact.sh`
+    * adjusted and running `/Users/paul/Documents/CU_combined/Github/155_get_unifrac_mat.sh`
+    * adjusted and running `/Users/paul/Documents/CU_combined/Github/160_convert_artifact.sh`
     * last backup 11:21, 12:05 erasing old output files in
        * `/Users/paul/Documents/CU_combined/Zenodo/Qiime`
        * running `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R` and saving results (`Results`) and R.data files `R_Objects`
     * checking scripts and `Rdata` files of:
        * `/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R`
        * `/Users/paul/Documents/CU_combined/Github/500_20_get_predictor_euklidian_distances.R`
-    * adjusting and running `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R`
+    * adjusted and running `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R`
     * moving to scratch `/Users/paul/Documents/CU_combined/Github/500_80_mixed_effect_model.R`
     * committing after running modeling
     * moved more files to `Scratch`: 
@@ -495,7 +495,7 @@ Data will be included via manifest files and metadate files linked in at
   * committing all repositories, refreshing `CU_US_ports_a` on cluster before starting to work on it
   * `CU_US_ports_a` currently denoising on cluster
 * **20.03.2019** - preparing data merging, incl. manifests
-  * checking, adjusting, and running  `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh` - ok
+  * checking, adjusted, and running  `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh` - ok
 * **21.03.2019** - continuing data combination
   * revising mapping files to encode for run origin, creating mapping file for last run (from sample sheets)
     * encode for sequencing run - ok
@@ -526,7 +526,7 @@ Data will be included via manifest files and metadate files linked in at
       * `/Users/paul/Documents/CU_US_ports_a/Zenodo/Manifest/05_18S_merged_metadata.xlsx` - as source file
       * `/Users/paul/Documents/CU_US_ports_a/Zenodo/Manifest/05_18S_merged_metadata.tsv` - for script
 * **25.03.2019** - continuing preliminary data combination and analysis
-   * checking, adjusting, and running `/Users/paul/Documents/CU_combined/Github/070_merge_metdata.sh` - 
+   * checking, adjusted, and running `/Users/paul/Documents/CU_combined/Github/070_merge_metdata.sh` - 
    * created `/Users/paul/Documents/CU_US_ports_a/Zenodo/Manifest/05_18S_merged_metadata.tsv`
    * created backup copy `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata.xlsx`
    * commit after running script `/Users/paul/Documents/CU_combined/Github/085_cluster_sequences.sh`
@@ -577,15 +577,15 @@ Data will be included via manifest files and metadate files linked in at
       * created `/Users/paul/Documents/CU_US_ports_a/Zenodo/Manifest/05_18S_merged_metadata.tsv`
   * committing all directories centrally to commit all up-to-date `README`s
   * switching to `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh`
-  * adjusting, committing and running `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh`
+  * adjusted, committing and running `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh`
     * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/065_18S_merged_seq.qza` hash: `2c5ddd2d41d3b1a5c196350dfb1127fa`
     * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/065_18S_merged_tab.qza` hash: `66ab218cfa3c7b29db4641b9e485a0ad`
-  * adjusting, committing and running `/Users/paul/Documents/CU_combined/Github/070_merge_metadata.sh`
+  * adjusted, committing and running `/Users/paul/Documents/CU_combined/Github/070_merge_metadata.sh`
   * checking for consistency and resorting `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata.tsv` (`b43365a014d7ac27ea712520e54aca78`)
   * sorted file is `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata_checked.tsv` (`c1ca7209941aa96ee9ce9f843b629f98`)
     * ND indices missing
     * salinity values inconsistent
-  * adjusting running `/Users/paul/Documents/CU_combined/Github/075_smr_features_and_table.sh` - ok, commit
+  * adjusted running `/Users/paul/Documents/CU_combined/Github/075_smr_features_and_table.sh` - ok, commit
     * checking manually `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/075_18S_sum_feat_tab.qzv`
     * checking manually `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/075_18S_sum_repr_seq.qzv` - see this file for stats!
     * exporting fasta `/Users/paul/Documents/CU_combined/Zenodo/Qiime/075_18S_sum_repr_seq.fasta.gz` (`cc624f993c7f95d408bc15e625662d53`), noting hash in Geneious import - available in Geneious
@@ -654,7 +654,7 @@ Data will be included via manifest files and metadate files linked in at
     * export (and un-nest)`qiime tools export --input-path /Users/paul/Documents/CU_combined/Zenodo/Qiime/115_18S_097_cl_tree_mid.qza --output-path /Users/paul/Documents/CU_combined/Zenodo/Qiime/115_18S_097_cl_tree_mid.nwk`
     * get hash `md5 /Users/paul/Documents/CU_combined/Zenodo/Qiime/115_18S_097_cl_tree_mid.nwk`- `03f5934a0467b5b1b6809925c5d31ef4`
     * tree `03f5934a0467b5b1b6809925c5d31ef4` imported to Geneious - not yet prefect
-  * adjusting `/Users/paul/Documents/CU_combined/Github/120_get_metazoan_core_metrics.sh`
+  * adjusted `/Users/paul/Documents/CU_combined/Github/120_get_metazoan_core_metrics.sh`
     * checking sampling depth of `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/105_18S_097_cl_metzn_tab.qzv`
     * settling on 2500 seqs, excluding Buenos Aires and others, but keeping at least 4 samples per port
     * for exported screenshot `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/190403_rarefaction_depth.png`
@@ -664,7 +664,7 @@ Data will be included via manifest files and metadate files linked in at
     * as per `https://forum.qiime2.org/t/unweighted-vs-weighted-unifrac-explanation/2206/3`
     * low count OTU's would be most important
     * saved video as `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/190403_120_18S_metazoan_core_metrics_Unweihted_unifrac.mov`
- * adjusting and running `/Users/paul/Documents/CU_combined/Github/125_isolate_unifrac_results.sh` - ok, after some fighting, needed to add more explicit commands
+ * adjusted and running `/Users/paul/Documents/CU_combined/Github/125_isolate_unifrac_results.sh` - ok, after some fighting, needed to add more explicit commands
  * later - ready to run R scripts
 * **04.04.2019** - starting to work on R scripts
   * adjust and run  `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
@@ -797,7 +797,7 @@ Data will be included via manifest files and metadate files linked in at
 * **12.04.2019** - break
   * returning to analysis re-iteration once all data from `/Users/paul/Documents/CU_WL_GH_ZEE` is included - committed
 * **17.04.2019** - data from `/Users/paul/Documents/CU_WL_GH_ZEE` ready to be included - see commit history and README there
-  * adjusting and running `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh` - committed afterwards
+  * adjusted and running `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh` - committed afterwards
   * adjusted and running `/Users/paul/Documents/CU_combined/Github/070_merge_metadata.sh` - ok.
     * raw file `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata_preliminary.tsv` 
       * hashes to `1a18bd7bfd966c2438a92a76830b09b2`
@@ -811,7 +811,7 @@ Data will be included via manifest files and metadate files linked in at
   * omitting clustering and summarizing again, may be done later
     * `mv /Users/paul/Documents/CU_combined/Github/085_cluster_sequences.sh /Users/paul/Documents/CU_combined/Scratch/Shell/`
     * `mv /Users/paul/Documents/CU_combined/Github/090_smr_features_and_table.sh  /Users/paul/Documents/CU_combined/Scratch/Shell/`
-  * adjusting and running `/Users/paul/Documents/CU_combined/Github/080_classify_reads.sh`
+  * adjusted and running `/Users/paul/Documents/CU_combined/Github/080_classify_reads.sh`
     * use extended reference data - ok
     * use assignment as established in `CU_mock` - ok
     * checking and committing transport scripts
@@ -850,19 +850,19 @@ Data will be included via manifest files and metadate files linked in at
        * and thus `/Users/paul/Documents/CU_combined/Zenodo/Manifest/06_18S_merged_metadata.tsv`
   * ran `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh`
   * no need to run `/Users/paul/Documents/CU_combined/Github/070_merge_metadata.sh`
-  * adjusting `/Users/paul/Documents/CU_combined/Github/075_classify_reads.sh` - not yet run
-  * adjusting `/Users/paul/Documents/CU_combined/Github/080_smr_features_and_table.sh` - not yet run
+  * adjusted `/Users/paul/Documents/CU_combined/Github/075_classify_reads.sh` - not yet run
+  * adjusted `/Users/paul/Documents/CU_combined/Github/080_smr_features_and_table.sh` - not yet run
   * next: 
     * commit - move to cluster - order and update scripts
   * on cluster executing `/Users/paul/Documents/CU_combined/Github/075_classify_reads.sh` - ok
     * per `/Users/paul/Documents/CU_combined/Zenodo/Qiime/075_18S_denoised_seq_taxonomy_assignment.txt`:
     * **Matching query sequences: 12035 of 28383 (42.40%)**
   * pulled to local
-  * adjusting and running `/Users/paul/Documents/CU_combined/Github/080_smr_features_and_table.sh`
+  * adjusted and running `/Users/paul/Documents/CU_combined/Github/080_smr_features_and_table.sh`
     * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/080_18S_denoised_tax_vis.qzv`
-  * adjusting and running `/Users/paul/Documents/CU_combined/Github/085_split_projects.sh`
-  * adjusting and running `/Users/paul/Documents/CU_combined/Github/090_split_controls.sh`
-  * adjusting and running `/Users/paul/Documents/CU_combined/Github/095_cluster_sequences.sh`
+  * adjusted and running `/Users/paul/Documents/CU_combined/Github/085_split_projects.sh`
+  * adjusted and running `/Users/paul/Documents/CU_combined/Github/090_split_controls.sh`
+  * adjusted and running `/Users/paul/Documents/CU_combined/Github/095_cluster_sequences.sh`
     * now running - check for counts the following files - done
       * less `/Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_log_090_cl.txt`
       * less `/Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_log_097_cl.txt`
@@ -940,7 +940,7 @@ Data will be included via manifest files and metadate files linked in at
     * return pending
        * files arrived on cluster
        * on cluster running updated `075_classify_reads.sh`
-       * needed to restart after adjusting parameter from `0.86` to `0.875` so as to match `CU_tx_test`
+       * needed to restart after adjusted parameter from `0.86` to `0.875` so as to match `CU_tx_test`
        * commit once on local
 * **07.05.2019** - continuing to re-run pipeline on cluster
   * running `080_smr_features_and_table.sh` - ok 
@@ -969,7 +969,7 @@ Data will be included via manifest files and metadate files linked in at
 * **08.05.2019** - continuing to re-run pipeline on cluster
   * removed update flags in Transport overwrite scripts
   * pushing data to cluster, on cluster running `./110_seq_align.sh && ./115_seq_align_mask.sh && ./120_alignment_export.sh` - pending
-  * on local adjusting **update on pull** - ok 
+  * on local adjusted **update on pull** - ok 
     * tree calculation script
       * `/Users/paul/Documents/CU_combined/Github/125_seq_align_tree_iqtree.sh`- logically correct but crashed last time
       * `/Users/paul/Documents/CU_combined/Github/126_seq_align_tree_fasttree.sh` -  FastTree used for better parallel execution 
@@ -993,12 +993,12 @@ Data will be included via manifest files and metadate files linked in at
     * done - very complicated but running
   * ran successfully `/Users/paul/Documents/CU_combined/Github/127_filter_data_to_match_trees.sh`
   * starting to draft `/Users/paul/Documents/CU_combined/Github/127_filter_data_to_match_trees.sh`
-  * adjusting and running `/Users/paul/Documents/CU_combined/Github/128_smr_matched_data_sets.sh`
+  * adjusted and running `/Users/paul/Documents/CU_combined/Github/128_smr_matched_data_sets.sh`
 * **10.05.2019** - continuing to re-develop pipeline
-  * adjusting `/Users/paul/Documents/CU_combined/Github/130_alpha_rarefaction_curves.sh`
+  * adjusted `/Users/paul/Documents/CU_combined/Github/130_alpha_rarefaction_curves.sh`
     * depth is manually set to `10000` as per `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/128_18S_eDNA_samples_100_Metazoans_features.qzv`
     * for later scripts adjusted as required using rarefaction plots.
-  * adjusting `/Users/paul/Documents/CU_combined/Github/135_get_core_metrics.sh` 
+  * adjusted `/Users/paul/Documents/CU_combined/Github/135_get_core_metrics.sh` 
     * check feature table visualizations created by `/Users/paul/Documents/CU_combined/Github/128_smr_matched_data_sets.sh`
       * `depth` setting `50000` for Eukaryotes to the total exclusion of `Chicago`.
       * `depth` setting `3000` for Metazoans to the total exclusion of `Haines`.
@@ -1050,7 +1050,7 @@ Data will be included via manifest files and metadate files linked in at
       * added comment to `~/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R` - conflation still based on median, should be mean
       * in `/Users/paul/Documents/CU_combined/Github/500_00_functions.R` function `fill_collapsed_responses_matrix` used mean again for matrix conflation
   * starting to work on HON
-    * adjusting `/Users/paul/Documents/CU_combined/Github/510_85_hon_model.R`
+    * adjusted `/Users/paul/Documents/CU_combined/Github/510_85_hon_model.R`
     * copying Mandana's data over:
       * `cp "/Users/paul/Box Sync/CU_NIS-WRAPS/190208_hon_data/"* "/Users/paul/Documents/CU_combined/Zenodo/HON_predictors"`
       * data is assymetrical - both lower and upper halves need to be kept
@@ -1080,8 +1080,8 @@ Data will be included via manifest files and metadate files linked in at
   * loading `qiime2-2019.4`
   * running `/Users/paul/Documents/CU_combined/Github/085_split_projects.sh` - ok 
   * running `/Users/paul/Documents/CU_combined/Github/090_split_controls.sh` - ok
-  * adjusting and running `/Users/paul/Documents/CU_combined/Github/095_summarize_data.sh` - ok
-  * adjusting flags and commit
+  * adjusted and running `/Users/paul/Documents/CU_combined/Github/095_summarize_data.sh` - ok
+  * adjusted flags and commit
   * implementing control data subtraction via `/Users/paul/Documents/CU_combined/Github/100_subtract_controls.sh`
     * running manually ` qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_controls_tab.qzv`
     * exporting lower frequency table: `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_features.csv`
@@ -1092,14 +1092,22 @@ Data will be included via manifest files and metadate files linked in at
     * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/105_18S_eDNA_samples_tab.qzv`
   * commit for today
 * **29.05.2019** - continuing final pipeline revision
-  * adjusting script numbers
-  * adjusting, committing, and running `/Users/paul/Documents/CU_combined/Github/110_cluster_sequences.sh` - ok 
-  * adjusting, committing, and running `/Users/paul/Documents/CU_combined/Github/115_isolate_taxa.sh` - ok 
-  * adjusting, committing, and running `/Users/paul/Documents/CU_combined/Github/120_seq_align.sh` - ok 
+  * adjusted script numbers
+  * adjusted, committing, and running `/Users/paul/Documents/CU_combined/Github/110_cluster_sequences.sh` - ok 
+  * adjusted, committing, and running `/Users/paul/Documents/CU_combined/Github/115_isolate_taxa.sh` - ok 
+  * adjusted, committing, and running `/Users/paul/Documents/CU_combined/Github/120_seq_align.sh` - ok 
   * opening for adjustments `/Users/paul/Documents/CU_combined/Github/125_seq_align_mask.sh` - ok
 * **30.05.2019** - continuing final pipeline revision
-  * adjusting, and running `/Users/paul/Documents/CU_combined/Github/125_seq_align_mask.sh` - pending
+  * adjusted, and running `/Users/paul/Documents/CU_combined/Github/125_seq_align_mask.sh` - pending
   * updated file script order and committed
+  * adjusted and ran `/Users/paul/Documents/CU_combined/Github/130_alignment_export.sh` - ok
+  * adjusted and ran `/Users/paul/Documents/CU_combined/Github/135_calculate_fasttree.sh` - ok
+  * adjusted and ran `/Users/paul/Documents/CU_combined/Github/140_filter_data_to_match_trees.sh` - ok
+  * adjusted and ran `/Users/paul/Documents/CU_combined/Github/145_summarize_data.sh` - ok
+  * adjusting for cluster usage `/Users/paul/Documents/CU_combined/Github/150_alpha_rarefaction_curves.sh` - ok
+  * commit and upload to cluster
+  * on cluster running `/Users/paul/Documents/CU_combined/Github/150_alpha_rarefaction_curves.sh` - pending 
+
 
 ## Todo
 *  _29.05.2019_ - **keep in mind**
