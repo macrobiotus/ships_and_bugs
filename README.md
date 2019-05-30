@@ -1091,13 +1091,19 @@ Data will be included via manifest files and metadate files linked in at
     * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_preliminary_eDNA_samples_tab.qzv`
     * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/105_18S_eDNA_samples_tab.qzv`
   * commit for today
-* **28.05.2019** - continuing final pipeline revision
+* **29.05.2019** - continuing final pipeline revision
   * adjusting script numbers
-  * adjusting, committing, and running `/Users/paul/Documents/CU_combined/Github/110_cluster_sequences.sh`
-  * adjusting, committing, and running `/Users/paul/Documents/CU_combined/Github/115_isolate_taxa.sh`
-  * adjusting, committing, and running `/Users/paul/Documents/CU_combined/Github/120_seq_align.sh`
+  * adjusting, committing, and running `/Users/paul/Documents/CU_combined/Github/110_cluster_sequences.sh` - ok 
+  * adjusting, committing, and running `/Users/paul/Documents/CU_combined/Github/115_isolate_taxa.sh` - ok 
+  * adjusting, committing, and running `/Users/paul/Documents/CU_combined/Github/120_seq_align.sh` - ok 
+  * opening for adjustments `/Users/paul/Documents/CU_combined/Github/125_seq_align_mask.sh` - ok
+* **30.05.2019** - continuing final pipeline revision
+  * adjusting, and running `/Users/paul/Documents/CU_combined/Github/125_seq_align_mask.sh` - pending
+  * updated file script order and committed
 
 ## Todo
+*  _29.05.2019_ - **keep in mind**
+  * `/Users/paul/Documents/CU_combined/Github/115_isolate_taxa.sh` may need to be repositioned.
 *  _28.05.2019_ - **keep in mind**
   * delete `/Users/paul/Documents/CU_combined/Zenodo/190528_qiime_bup.zip`
 * _09.04.2019_ - **keep in mind**
