@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 30.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 31.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Visualising reads after denoising and merging procedure.
 
@@ -39,7 +39,7 @@ inpth_tax='Zenodo/Qiime/075_18S_denoised_seq_taxonomy_assignment.qza'
 inpth_seq_unsorted=()
 while IFS=  read -r -d $'\0'; do
     inpth_seq_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" \( -name '140_*_sequences.qza' \) -print0)
+done < <(find "$trpth/Zenodo/Qiime" \( -name '115_*_seq_*.qza' \) -print0)
 
 # for debugging - print unsorted sequences
 # printf '%s\n'
@@ -60,7 +60,7 @@ unset IFS
 inpth_tab_unsorted=()
 while IFS=  read -r -d $'\0'; do
     inpth_tab_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" \( -name '140_*_features.qza' \) -print0)
+done < <(find "$trpth/Zenodo/Qiime" \( -name '115_*_tab_*.qza' \) -print0)
 
 # for debugging -  print unsorted tables
 # printf '%s\n'
@@ -83,8 +83,8 @@ unset IFS
 for i in "${!inpth_seq[@]}"; do
 
   # check if files can be mathced otherwise abort script because it would do more harm then good
-  seqtest="$(basename "${inpth_seq[$i]//_sequences/}")"
-  tabtest="$(basename "${inpth_tab[$i]//_features/}")"
+  seqtest="$(basename "${inpth_seq[$i]//_seq/}")"
+  tabtest="$(basename "${inpth_tab[$i]//_tab/}")"
   
   # for debugging
   # echo "$seqtest"
@@ -107,7 +107,7 @@ for i in "${!inpth_seq[@]}"; do
     tab_file_tmp="$(basename "${inpth_tab[$i]%.*}")"
     tab_file_name="${tab_file_tmp:4}"
     
-    plot_file_temp="$(basename "${inpth_seq[$i]//_sequences/}")"
+    plot_file_temp="$(basename "${inpth_seq[$i]//_seq/}")"
     plot_file_temp="${plot_file_temp:4}"
     plot_file_name="${plot_file_temp%.*}"
     
@@ -118,9 +118,9 @@ for i in "${!inpth_seq[@]}"; do
     # echo "$tab_file_name"
     # echo "$plot_file_name"
     
-    seq_file_vis_path="$directory/145_$seq_file_name""$extension"
-    tab_file_vis_path="$directory/145_$tab_file_name""$extension"
-    plot_file_vis_path="$directory/145_$plot_file_name"_barplot"$extension"
+    seq_file_vis_path="$directory/120_$seq_file_name""$extension"
+    tab_file_vis_path="$directory/120_$tab_file_name""$extension"
+    plot_file_vis_path="$directory/120_$plot_file_name"_barplot"$extension"
     
     # check string construction - for debugging
     # echo "$seq_file_vis_path"
