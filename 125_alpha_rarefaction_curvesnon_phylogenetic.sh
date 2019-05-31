@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 08.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 30.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Generate interactive alpha rarefaction curves by computing rarefactions
 #   between `min_depth` and `max_depth`. The number of intermediate depths to
@@ -77,19 +77,19 @@ for i in "${!inpth_tab[@]}"; do
   if [ "$tabstump" == "$treestump" ]; then
   
     # diagnostic only 
-    echo "Tree- and feature files have been matched, continuing..."
+    # echo "Tree- and feature files have been matched, continuing..."
     
     # get input tree file name - for debugging 
-    echo "${inpth_tree[$i]}"
+    # echo "${inpth_tree[$i]}"
     
     # get input table file name  - for debugging
-    echo "${inpth_tab[$i]}"
+    # echo "${inpth_tab[$i]}"
     
     # create output file names
     plot_vis_name="$(dirname "${inpth_tab[$i]}")"/150_"${treestump:4:-4}"_curves.qzv
    
     # get output file file name  - for debugging
-    echo "$plot_vis_name"
+    # echo "$plot_vis_name"
     
     #  continue
     

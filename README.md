@@ -1106,7 +1106,10 @@ Data will be included via manifest files and metadate files linked in at
   * adjusted and ran `/Users/paul/Documents/CU_combined/Github/145_summarize_data.sh` - ok
   * adjusting for cluster usage `/Users/paul/Documents/CU_combined/Github/150_alpha_rarefaction_curves.sh` - ok
   * commit and upload to cluster
-  * on cluster running `/Users/paul/Documents/CU_combined/Github/150_alpha_rarefaction_curves.sh` - pending 
+  * on cluster running `/Users/paul/Documents/CU_combined/Github/150_alpha_rarefaction_curves.sh` - aborted
+* **30.05.2019** - continuing final pipeline revision
+  * need to rearrange pipeline to account for sequence removal after tree building
+  * adjusting script order and erasing superflous files, and commit
 
 
 ## Todo
