@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 29.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 31.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Visualising reads after denoising and merging procedure.
 
@@ -19,7 +19,7 @@ if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
-    thrds='2'
+    thrds='1'
     bold=$(tput bold)
     normal=$(tput sgr0)
 fi
@@ -58,7 +58,7 @@ for i in "${!otpth_seq[@]}"; do
   # deconstruct string
   directory="$(dirname "$otpth_seq[$i]")"
   seq_file_tmp="$(basename "${otpth_seq[$i]%.*}")"
-  seq_file_name="120_${seq_file_tmp:4}"
+  seq_file_name="135_${seq_file_tmp:4}"
   extension="${otpth_seq[$i]##*.}"                          # get the extension
   otpth_seq[$i]="$directory"/"${seq_file_name}_alignment.${extension}" # get name string    
 
@@ -82,7 +82,7 @@ for i in "${!otpth_log[@]}"; do
   # deconstruct string
   directory="$(dirname "$otpth_log[$i]")"
   log_file_tmp="$(basename "${otpth_log[$i]%.*}")"
-  log_file_name="120_${log_file_tmp:4}"
+  log_file_name="135_${log_file_tmp:4}"
   extension="txt"                          # get the extension
   otpth_log[$i]="$directory"/"${log_file_name}_log.${extension}" # get name string    
 

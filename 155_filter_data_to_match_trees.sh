@@ -32,7 +32,7 @@ fi
 inpth_tree_unsorted=()
 while IFS=  read -r -d $'\0'; do
     inpth_tree_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" -name '135_18S_*_alignment_masked_tree_rooted.qza' -print0)
+done < <(find "$trpth/Zenodo/Qiime" -name '150_18S_*_alignment_masked_tree_rooted.qza' -print0)
 
 # Sort array 
 IFS=$'\n' inpth_tree=($(sort <<<"${inpth_tree_unsorted[*]}"))
@@ -120,9 +120,9 @@ for i in "${!inpth_tree[@]}"; do
     
     # create output file names
     
-    tre_file_name="$(dirname "${inpth_tree[$i]}")"/140_"${trestump:4:-4}"_tree.qza
-    seq_file_name="$(dirname "${inpth_seq[$i]}")"/140_"${seqstump:4:-4}"_sequences.qza
-    tab_file_name="$(dirname "${inpth_tab[$i]}")"/140_"${tabstump:4:-4}"_features.qza
+    tre_file_name="$(dirname "${inpth_tree[$i]}")"/155_"${trestump:4:-4}"_tree.qza
+    seq_file_name="$(dirname "${inpth_seq[$i]}")"/155_"${seqstump:4:-4}"_sequences_tree-matched.qza
+    tab_file_name="$(dirname "${inpth_tab[$i]}")"/155_"${tabstump:4:-4}"_features_tree-matched.qza
     
     # echo "$tre_file_name"
     # echo "$seq_file_name"

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 30.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 01.06.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Calculating trees from masked alignments using FastTree - which uses multiple cores well.
 
@@ -35,7 +35,7 @@ fi
 inpth_seq_unsorted=()
 while IFS=  read -r -d $'\0'; do
     inpth_seq_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" -name '125_18S_*_alignment_masked.qza' -print0)
+done < <(find "$trpth/Zenodo/Qiime" -name '140_18S_*_alignment_masked.qza' -print0)
 
 # Sort array 
 # (https://stackoverflow.com/questions/7442417/how-to-sort-an-array-in-bash)
@@ -58,8 +58,8 @@ for i in "${!otpth_tree[@]}"; do
   # deconstruct string
   directory="$(dirname "$otpth_tree[$i]")"
   tree_file_tmp="$(basename "${otpth_tree[$i]%.*}")"
-  tree_file_name="135_${tree_file_tmp:4}"
-  extension="${otpth_tree[$i]##*.}"                                   # get the extension
+  tree_file_name="150_${tree_file_tmp:4}"
+  extension="${otpth_tree[$i]##*.}"                                 # get the extension
   otpth_tree[$i]="$directory"/"${tree_file_name}_tree.${extension}" # get name string
  
 done
@@ -81,8 +81,8 @@ for i in "${!otpth_rtree[@]}"; do
   # deconstruct string
   directory="$(dirname "$otpth_rtree[$i]")"
   rtree_file_tmp="$(basename "${otpth_rtree[$i]%.*}")"
-  rtree_file_name="135_${rtree_file_tmp:4}"
-  extension="${otpth_rtree[$i]##*.}"                                   # get the extension
+  rtree_file_name="150_${rtree_file_tmp:4}"
+  extension="${otpth_rtree[$i]##*.}"                                    # get the extension
   otpth_rtree[$i]="$directory"/"${rtree_file_name}_rooted.${extension}" # get name string
 
 done
@@ -103,8 +103,8 @@ for i in "${!otpth_log[@]}"; do
   # deconstruct string
   directory="$(dirname "$otpth_log[$i]")"
   log_file_tmp="$(basename "${otpth_log[$i]%.*}")"
-  log_file_name="135_${log_file_tmp:4}"
-  extension="txt"                                                       # get the extension
+  log_file_name="150_${log_file_tmp:4}"
+  extension="txt"                                                # get the extension
   otpth_log[$i]="$directory"/"${log_file_name}_log.${extension}" # get name string
 
 done

@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-# 30.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 01.06.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Visualising reads after denoising and merging procedure.
-
 
 # for debugging only
 # ------------------ 
@@ -34,7 +33,7 @@ fi
 inpth_seq_unsorted=()
 while IFS=  read -r -d $'\0'; do
     inpth_seq_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" -name '120_18S_*_seq_*_alignment.qza' -print0)
+done < <(find "$trpth/Zenodo/Qiime" -name '135_18S_*_seq_*_alignment.qza' -print0)
 
 # Sort array 
 # (https://stackoverflow.com/questions/7442417/how-to-sort-an-array-in-bash)
@@ -58,7 +57,7 @@ for i in "${!otpth_seq[@]}"; do
   # deconstruct string
   directory="$(dirname "$otpth_seq[$i]")"
   seq_file_tmp="$(basename "${otpth_seq[$i]%.*}")"
-  seq_file_name="125_${seq_file_tmp:4}"
+  seq_file_name="140_${seq_file_tmp:4}"
   extension="${otpth_seq[$i]##*.}"                                  # get the extension
   otpth_seq[$i]="$directory"/"${seq_file_name}_masked.${extension}" # get name string
 
@@ -80,7 +79,7 @@ for i in "${!otpth_log[@]}"; do
   # deconstruct string
   directory="$(dirname "$otpth_log[$i]")"
   seq_file_tmp="$(basename "${otpth_log[$i]%.*}")"
-  seq_file_name="125_${seq_file_tmp:4}"
+  seq_file_name="140_${seq_file_tmp:4}"
   extension=".txt"                                               # get the extension
   otpth_log[$i]="$directory"/"${seq_file_name}_log${extension}" # get name string    
   

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 30.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 01.06.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Export alignments, e.g. for pretty printing
 
@@ -35,7 +35,7 @@ fi
 inpth_seq_unsorted=()
 while IFS=  read -r -d $'\0'; do
     inpth_seq_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" -name '125_18S_*_alignment_masked.qza' -print0)
+done < <(find "$trpth/Zenodo/Qiime" -name '140_18S_*_alignment_masked.qza' -print0)
 
 # Sort array 
 # (https://stackoverflow.com/questions/7442417/how-to-sort-an-array-in-bash)
@@ -54,7 +54,7 @@ for k in "${!inpth_seq[@]}"; do
   # deconstruct string
   directory="$(dirname "$inpth_seq[$k]")"
   input_qza_tmp="$(basename "${inpth_seq[$k]%.*}")"
-  input_qza="130_${input_qza_tmp:4}"
+  input_qza="145_${input_qza_tmp:4}"
   extension=".fasta"
   
   # reconstruct string

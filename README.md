@@ -1107,20 +1107,34 @@ Data will be included via manifest files and metadate files linked in at
   * adjusting for cluster usage `/Users/paul/Documents/CU_combined/Github/150_alpha_rarefaction_curves.sh` - ok
   * commit and upload to cluster
   * on cluster running `/Users/paul/Documents/CU_combined/Github/150_alpha_rarefaction_curves.sh` - aborted
-* **30.05.2019** - continuing final pipeline revision
+* **31.05.2019** - continuing final pipeline revision
   * need to rearrange pipeline to account for sequence removal after tree building
   * adjusting script order and erasing superflous files, and commit - ok.
   * update todo
   * adjusted and ran: `/Users/paul/Documents/CU_combined/Github/120_summarize_data_non_phylogenetic.sh` - ok
-  * adjusted, commit, and running on cluster: `/Users/paul/Documents/CU_combined/Github/125_alpha_rarefaction_curves_non_phylogenetic.sh`
-    * **ATTENTION: update on pull**
-    * continuing to work locally util rarefaction is done
-
-
-
-
+  * adjusted, commit, and **running on cluster**: `/Users/paul/Documents/CU_combined/Github/125_alpha_rarefaction_curves_non_phylogenetic.sh` - ok
+  * adjusted `/Users/paul/Documents/CU_combined/Github/130_get_core_metrics_non_phylogenetic.sh` - **not run**
+    * **run depending on rarefaction results**
+    * set rarefaction depth per curves and visualisations in files beginning with number 120
+      * Unassigned - 650 - Retained 102,700 (12.37%) features in 158 (67.23%) samples at the specifed sampling depth.
+      * Metazoans - 3500 - Retained 731,500 (9.88%) features in 209 (82.61%) samples at the specified sampling depth.
+      * Eukaryotes - 75000 - Retained 11,250,000 (39.55%) features in 150 (59.29%) samples at the specifed sampling depth.
+      * Eukaryote-non-metazoans - 50000 - Retained 6,100,000 (29.00%) features in 122 (48.22%) samples at the specifed sampling depth.
+  * adjusted and run `/Users/paul/Documents/CU_combined/Github/135_seq_align.sh` - ok
+  * adjusted and run `/Users/paul/Documents/CU_combined/Github/140_seq_align_mask.sh` - ok
+* **01.06.2019** - continuing final pipeline revision
+  * adjusted and run `/Users/paul/Documents/CU_combined/Github/145_alignment_export.sh` - ok
+  * adjusted and run `/Users/paul/Documents/CU_combined/Github/150_calculate_fasttree.sh` - ok
+  * adjusted and run `/Users/paul/Documents/CU_combined/Github/155_filter_data_to_match_trees.sh` - ok
+  * finished running `/Users/paul/Documents/CU_combined/Github/120_summarize_data_non_phylogenetic.sh`
+    * next: check results, run core metrics and next rarefaction script - commit
 
 ## Todo
+
+### Upo in queue
+* get rarefaction results
+* run core metrics
+* run subsequent scripts
 
 ### More Important 
   * Jacquard index matrix shouldn't use filtered alignments - refer to image file link to continue analysis
@@ -1128,6 +1142,7 @@ Data will be included via manifest files and metadate files linked in at
     * **not yet done** in function `get_distance_matrix_means_current_port_matrix_at_sample_count` of `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
     * done in function `fill_collapsed_responses_matrix` of `/Users/paul/Documents/CU_combined/Github/500_00_functions.R`
   * **keep in mind** that in `#SampleID` mapping file  **must** start with two letter abbrivation, needed for R code!
+  * does higher rarefaction depth keep samples only in ports with more trips?
 
 ### Less Important 
   * delete `/Users/paul/Documents/CU_combined/Zenodo/190528_qiime_bup.zip`

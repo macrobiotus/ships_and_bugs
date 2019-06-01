@@ -62,8 +62,8 @@ for i in "${!inpth_tab[@]}"; do
   
   
   # get output file file name  - for debugging
-  echo "$plot_vis_name"    
-  continue
+  # echo "$plot_vis_name"    
+  # continue
     
   # Qiime calls   
   printf "${bold}$(date):${normal} Starting analysis of \"$(basename "${inpth_tab[$i]}")\"...\n"
