@@ -1128,6 +1128,8 @@ Data will be included via manifest files and metadate files linked in at
   * adjusted and run `/Users/paul/Documents/CU_combined/Github/155_filter_data_to_match_trees.sh` - ok
   * finished running `/Users/paul/Documents/CU_combined/Github/120_summarize_data_non_phylogenetic.sh`
     * next: check results, run core metrics and next rarefaction script - commit
+  * adjusted for cluster run `~/Documents/CU_combined/Github/160_alpha_rarefaction_curves_phylogenetic.sh`
+    * commit, upload to cluster, and running - return pending
 
 ## Todo
 
