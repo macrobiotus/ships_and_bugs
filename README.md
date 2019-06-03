@@ -1154,6 +1154,11 @@ Data will be included via manifest files and metadate files linked in at
   * running `/Users/paul/Documents/CU_combined/Github/130_get_core_metrics_non_phylogenetic.sh` - ok - but throws warnings check logfiles
   * running `/Users/paul/Documents/CU_combined/Github/165_get_core_metrics_phylogenetic.sh` - - ok - but throws warnings check logfiles
   * commit for today
+  * adjusted and ran `/Users/paul/Documents/CU_combined/Github/175_export_all_qiime_artifacts_phylogenetic.sh`
+  * adjusted and ran `/Users/paul/Documents/CU_combined/Github/180_export_all_qiime_artifacts_non_phylogenetic.sh`
+  * pending
+    * check PCOAs of UNIFRAC and Jacquard indices
+    * export UNIFRAC and Jacquard distance matrices
     
 
 ## Todo
