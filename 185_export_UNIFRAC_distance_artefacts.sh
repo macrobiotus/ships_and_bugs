@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 13.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 03.06.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Getting UNIFRAC matrices from eDNA samples
 
@@ -79,18 +79,19 @@ for i in "${!inpth_matrix[@]}"; do
     results_tmp=$(dirname "${inpth_matrix[$i]}")
     results_tmp=$(basename "$results_tmp")
     results_tmp=${results_tmp:4:-13}
-    results_dir="$trpth/Zenodo/Qiime/140_"$results_tmp"_distance_artefacts"
+    results_dir="$trpth/Zenodo/Qiime/185_"$results_tmp"_unweighted_UNIFRAC_distance_artefacts"
     # echo "$results_dir"
+    # exit
     
     mkdir -p "$results_dir"
     
     # create output filenames - pcoa
     tmp_pcoa="${inpth_pcoa[$i]:0:-4}"
-    results_pcoa="140_"$(basename "$tmp_pcoa")".txt"
+    results_pcoa="185_"$(basename "$tmp_pcoa")".txt"
     
     # create output filenames - matrix
     tmp_matx="${inpth_matrix[$i]:0:-4}"
-    results_matx="140_"$(basename "$tmp_matx")".tsv"
+    results_matx="185_"$(basename "$tmp_matx")".tsv"
     
     printf "${bold}$(date):${normal} Exporting \"$(basename "${inpth_pcoa[$i]}")\".\n"
     # erase possibly existing temp files

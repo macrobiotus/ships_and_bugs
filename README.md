@@ -1153,19 +1153,21 @@ Data will be included via manifest files and metadate files linked in at
     * run core metric scripts
   * running `/Users/paul/Documents/CU_combined/Github/130_get_core_metrics_non_phylogenetic.sh` - ok - but throws warnings check logfiles
   * running `/Users/paul/Documents/CU_combined/Github/165_get_core_metrics_phylogenetic.sh` - - ok - but throws warnings check logfiles
-  * commit for today
+  * commit `d20641079f14bac850428f46f4470b367e18d360`
   * adjusted and ran `/Users/paul/Documents/CU_combined/Github/175_export_all_qiime_artifacts_phylogenetic.sh`
   * adjusted and ran `/Users/paul/Documents/CU_combined/Github/180_export_all_qiime_artifacts_non_phylogenetic.sh`
-  * pending
-    * check PCOAs of UNIFRAC and Jacquard indices
-    * export UNIFRAC and Jacquard distance matrices
+  * commit `36030bd3351e065fc41ad51720ad46af03dfac6a`
+  * adjusted and ran `/Users/paul/Documents/CU_combined/Github/185_export_UNIFRAC_distance_artefacts.sh` - ok
+  * adjusted and ran `/Users/paul/Documents/CU_combined/Github/190_export_JAQUARD_distance_artefacts.sh` - ok
+    * **exports both tree-filtered and tree-unfiltered Jacquard results**
+ 
     
-
 ## Todo
 
 ### Upo in queue
-* run core metrics
-* run subsequent scripts
+  * check PCOAs of UNIFRAC and Jacquard indices
+  * get number sand display items
+  * adjust R pipline
 
 ### More Important 
   * Jacquard index matrix shouldn't use filtered alignments - refer to image file link to continue analysis
