@@ -1130,11 +1130,35 @@ Data will be included via manifest files and metadate files linked in at
     * next: check results, run core metrics and next rarefaction script - commit
   * adjusted for cluster run `~/Documents/CU_combined/Github/160_alpha_rarefaction_curves_phylogenetic.sh`
     * commit, upload to cluster, and running - return pending
+* **03.06.2019** - continuing final pipeline revision
+  * pulled results from cluster of `~/Documents/CU_combined/Github/160_alpha_rarefaction_curves_phylogenetic.sh`
+  * adjusted and ran `/Users/paul/Documents/CU_combined/Github/165_summarize_data_phylogenetic.sh`
+  * adjusting rarefaction depths
+    * in `/Users/paul/Documents/CU_combined/Github/130_get_core_metrics_non_phylogenetic.sh`
+      * set rarefaction depths - checking `120_*.qzv`
+        * Unassigned - 650 - Retained 102,700 (12.37%) features in 158 (67.23%) samples at the specifed sampling depth - **ok**
+        * Eukaryotes - 65000 - Retained 11,245,000 (39.53%) features in 173 (68.38%) samples at the specifed sampling depth. - **ok**
+        * Eukaryote-non-metazoans - 40000 - Retained 6,320,000 (30.04%) features in 158 (62.45%) samples at the specifed sampling depth. - **ok**
+        * Metazoans - 3500 - Retained 731,500 (9.88%) features in 209 (82.61%) samples at the specified sampling depth. - **ok**
+    * and `/Users/paul/Documents/CU_combined/Github/165_get_core_metrics_phylogenetic.sh`
+      * set rarefaction depths - checking `165_*.qzv` - seems to be identical to above - all features are also tree tip identifiers?
+        * Unassigned - 650 - Retained 102,700 (12.37%) features in 158 (67.23%) samples at the specifed sampling depth. - **ok**
+        * Eukaryotes - 65000 - Retained 11,245,000 (39.53%) features in 173 (68.38%) samples at the specifed sampling depth - **ok**
+        * Eukaryote-non-metazoans - Retained 6,320,000 (30.04%) features in 158 (62.45%) samples at the specifed sampling depth. - **ok**
+        * Metazoans - 3500 - Retained 731,500 (9.88%) features in 209 (82.61%) samples at the specifed sampling depth - **ok**
+    * compare numbers of Eukaryotic sequences:
+      * unfiltered: 17586 -  `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/120_18S_eDNA_samples_seq_Eukaryotes.qzv`
+      * alignment: 17586 -  `gzcat /Users/paul/Documents/CU_combined/Zenodo/Qiime/145_18S_eDNA_samples_seq_Eukaryotes_alignment_masked.fasta.gz | grep ">" | wc`
+      * filtered: 17586 -  `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/165_eDNA_samples_Eukaryotes_sequences_tree-matched.qzv`.
+    * run core metric scripts
+  * running `/Users/paul/Documents/CU_combined/Github/130_get_core_metrics_non_phylogenetic.sh` - ok - but throws warnings check logfiles
+  * running `/Users/paul/Documents/CU_combined/Github/165_get_core_metrics_phylogenetic.sh` - - ok - but throws warnings check logfiles
+  * commit for today
+    
 
 ## Todo
 
 ### Upo in queue
-* get rarefaction results
 * run core metrics
 * run subsequent scripts
 
@@ -1145,11 +1169,12 @@ Data will be included via manifest files and metadate files linked in at
     * done in function `fill_collapsed_responses_matrix` of `/Users/paul/Documents/CU_combined/Github/500_00_functions.R`
   * **keep in mind** that in `#SampleID` mapping file  **must** start with two letter abbrivation, needed for R code!
   * does higher rarefaction depth keep samples only in ports with more trips?
+  * check eigenvalues on core-metrics log files `130` and `170` 
 
 ### Less Important 
   * delete `/Users/paul/Documents/CU_combined/Zenodo/190528_qiime_bup.zip`
   * in future versions Nanaimo should be named not `NA` but `NX` so as to omit correction code in `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R`
-  * script `/Users/paul/Documents/CU_combined/Github/122_alpha_rarefaction_curves.sh* still throws errors` - use new metadata?`
+  * run rarefaction script with inclusion of Jacquard index?
 
 ## Known issues and bugs
 

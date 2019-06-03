@@ -59,8 +59,8 @@ for i in "${!inpth_tab[@]}"; do
   # echo "${inpth_tab[$i]}"
         
   # create output file names
-  output_name="$(dirname "${inpth_tab[$i]}")/140_${tabstump:4:-4}_core_metrics_non_phylogenetic"
-  output_log="$(dirname "${inpth_tab[$i]}")/140_${tabstump:4:-4}_core_metrics_non_phylogenetic_log.txt"
+  output_name="$(dirname "${inpth_tab[$i]}")/130_${tabstump:4:-4}_core_metrics_non_phylogenetic"
+  output_log="$(dirname "${inpth_tab[$i]}")/130_${tabstump:4:-4}_core_metrics_non_phylogenetic_log.txt"
      
   # echo "$output_name" 
     
@@ -71,16 +71,16 @@ for i in "${!inpth_tab[@]}"; do
       echo "${bold}Depth set to $depth for Unassigned...${normal}"
       ;;
     *"Eukaryotes"* )
-      depth=75000
+      depth=65000
       echo "${bold}Depth set to $depth for Eukaryotes...${normal}"
+      ;;
+    *"Eukaryote-non-metazoans"* )
+      depth=40000
+      echo "${bold}Depth set to $depth for Non-metazoan Eukaryotes...${normal}"
       ;;
     *"Metazoans"* )
       depth=3500
       echo "${bold}Depth set to $depth for Metazoans...${normal}"
-      ;;
-    *"Eukaryote-non-metazoans"* )
-      depth=50000
-      echo "${bold}Depth set to $depth for Non-metazoan Eukaryotes...${normal}"
       ;;
     *)
       echo "Depth setting error in case statement, aborting."
@@ -91,8 +91,7 @@ for i in "${!inpth_tab[@]}"; do
   # Qiime calls   
   printf "${bold}$(date):${normal} Starting analysis of \"$(basename "${inpth_tab[$i]}")\"...\n"
     
-  echo qiime diversity core-metrics-phylogenetic \
-    --i-phylogeny "${inpth_tree[$i]}" \
+  qiime diversity core-metrics \
     --i-table "${inpth_tab[$i]}" \
     --m-metadata-file "$trpth"/"$inpth_map" \
     --output-dir "$output_name" \

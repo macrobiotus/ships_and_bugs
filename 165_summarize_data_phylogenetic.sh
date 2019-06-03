@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 30.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 03.06.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Visualising reads after denoising and merging procedure.
 
@@ -39,7 +39,7 @@ inpth_tax='Zenodo/Qiime/075_18S_denoised_seq_taxonomy_assignment.qza'
 inpth_seq_unsorted=()
 while IFS=  read -r -d $'\0'; do
     inpth_seq_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" \( -name '140_*_sequences.qza' \) -print0)
+done < <(find "$trpth/Zenodo/Qiime" \( -name '155_*_sequences_tree-matched.qza' \) -print0)
 
 # for debugging - print unsorted sequences
 # printf '%s\n'
@@ -60,7 +60,7 @@ unset IFS
 inpth_tab_unsorted=()
 while IFS=  read -r -d $'\0'; do
     inpth_tab_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" \( -name '140_*_features.qza' \) -print0)
+done < <(find "$trpth/Zenodo/Qiime" \( -name '155_*_features_tree-matched.qza' \) -print0)
 
 # for debugging -  print unsorted tables
 # printf '%s\n'
@@ -83,8 +83,8 @@ unset IFS
 for i in "${!inpth_seq[@]}"; do
 
   # check if files can be mathced otherwise abort script because it would do more harm then good
-  seqtest="$(basename "${inpth_seq[$i]//_sequences/}")"
-  tabtest="$(basename "${inpth_tab[$i]//_features/}")"
+  seqtest="$(basename "${inpth_seq[$i]//_sequences_tree-matched/}")"
+  tabtest="$(basename "${inpth_tab[$i]//_features_tree-matched/}")"
   
   # for debugging
   # echo "$seqtest"
@@ -118,9 +118,9 @@ for i in "${!inpth_seq[@]}"; do
     # echo "$tab_file_name"
     # echo "$plot_file_name"
     
-    seq_file_vis_path="$directory/145_$seq_file_name""$extension"
-    tab_file_vis_path="$directory/145_$tab_file_name""$extension"
-    plot_file_vis_path="$directory/145_$plot_file_name"_barplot"$extension"
+    seq_file_vis_path="$directory/165_$seq_file_name""$extension"
+    tab_file_vis_path="$directory/165_$tab_file_name""$extension"
+    plot_file_vis_path="$directory/165_$plot_file_name"_barplot"$extension"
     
     # check string construction - for debugging
     # echo "$seq_file_vis_path"
