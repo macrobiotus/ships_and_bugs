@@ -1152,7 +1152,7 @@ Data will be included via manifest files and metadate files linked in at
       * filtered: 17586 -  `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/165_eDNA_samples_Eukaryotes_sequences_tree-matched.qzv`.
     * run core metric scripts
   * running `/Users/paul/Documents/CU_combined/Github/130_get_core_metrics_non_phylogenetic.sh` - ok - but throws warnings check logfiles
-  * running `/Users/paul/Documents/CU_combined/Github/165_get_core_metrics_phylogenetic.sh` - - ok - but throws warnings check logfiles
+  * running `/Users/paul/Documents/CU_combined/Github/165_get_core_metrics_phylogenetic.sh` - ok - but throws warnings check logfiles
   * commit `d20641079f14bac850428f46f4470b367e18d360`
   * adjusted and ran `/Users/paul/Documents/CU_combined/Github/175_export_all_qiime_artifacts_phylogenetic.sh`
   * adjusted and ran `/Users/paul/Documents/CU_combined/Github/180_export_all_qiime_artifacts_non_phylogenetic.sh`
@@ -1160,8 +1160,8 @@ Data will be included via manifest files and metadate files linked in at
   * adjusted and ran `/Users/paul/Documents/CU_combined/Github/185_export_UNIFRAC_distance_artefacts.sh` - ok
   * adjusted and ran `/Users/paul/Documents/CU_combined/Github/190_export_JAQUARD_distance_artefacts.sh` - ok
     * **exports both tree-filtered and tree-unfiltered Jacquard results**
- 
-    
+  * commit `c18c35ba6aedcca6e4531b2b944a8a2ffaac297d`
+
 ## Todo
 
 ### Upo in queue
