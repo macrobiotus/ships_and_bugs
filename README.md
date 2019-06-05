@@ -1161,13 +1161,21 @@ Data will be included via manifest files and metadate files linked in at
   * adjusted and ran `/Users/paul/Documents/CU_combined/Github/190_export_JAQUARD_distance_artefacts.sh` - ok
     * **exports both tree-filtered and tree-unfiltered Jacquard results**
   * commit `c18c35ba6aedcca6e4531b2b944a8a2ffaac297d`
+* **05.06.2019** - checking distance matrices and starting modelling
+  * PCOA of distance matrices 
+    * non-phylogenetic: `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/130_18S_eDNA_samples_Eukaryotes_core_metrics_non_phylogenetic/jaccard_emperor.qzv`
+    * phylogenetic: `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/170_eDNA_samples_Eukaryotes_core_metrics/unweighted_unifrac_emperor.qzv`
+  * distance matrices for R import
+    * non-phylogenetic: `/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_Eukaryotes_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv`
+    * phylogenetic: `/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_Eukaryotes_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv`
+  * sorting scripts and commit
 
 ## Todo
 
-### Upo in queue
+### Next
   * check PCOAs of UNIFRAC and Jacquard indices
-  * get number sand display items
-  * adjust R pipline
+  * get numbers and display items
+  * adjust R pipeline
 
 ### More Important 
   * Jacquard index matrix shouldn't use filtered alignments - refer to image file link to continue analysis
