@@ -1163,28 +1163,28 @@ Data will be included via manifest files and metadate files linked in at
   * commit `c18c35ba6aedcca6e4531b2b944a8a2ffaac297d`
 * **05.06.2019** - checking distance matrices and starting modelling
   * PCOA of distance matrices 
-    * non-phylogenetic: `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/130_18S_eDNA_samples_Eukaryotes_core_metrics_non_phylogenetic/jaccard_emperor.qzv`
-    * phylogenetic: `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/170_eDNA_samples_Eukaryotes_core_metrics/unweighted_unifrac_emperor.qzv`
+    * non-phylogenetic, clustered: `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/130_18S_eDNA_samples_clustered90_Eukaryotes_core_metrics_non_phylogenetic/jaccard_emperor.qzv`
+    * phylogenetic, unclustered: `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/170_eDNA_samples_Eukaryotes_core_metrics/unweighted_unifrac_emperor.qzv`
   * distance matrices for R import
-    * non-phylogenetic: `/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_Eukaryotes_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv`
-    * phylogenetic: `/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_Eukaryotes_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv`
+    * non-phylogenetic, clustered: `/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_clustered90_Eukaryotes_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv`
+    * phylogenetic, unclustered: `/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_Eukaryotes_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv`
   * sorting scripts and commit
 * **06.06.2019** - working on FON of unweighted UNIFRAC and Jacquard indices
   * running and rendering `/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R` - no manual handling necessary
   * running and rendering `/Users/paul/Documents/CU_combined/Github/500_20_get_predictor_euklidian_distances.R` - no manual handling necessary
   * running and rendering `/Users/paul/Documents/CU_combined/Github/500_30_shape_matrices.R` - no manual handling necessary
-  * with UNIFRAC matrix rand and rendered `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R` - Env dist not significant - model significant 
-  * with JAQUARD matrix rand and rendered `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R` - JAQUARD dist not significant - model not significant 
-    * 23 Ports in Unifrac Matrix are `PH SW SY AD BT HN HT LB MI AW CB HS NA NO OK PL PM RC RT VN GH WL ZB`
+  * with UNIFRAC matrix of unclustered data ran and rendered `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R` - Env dist not significant - model significant 
+    * 23 Ports in Unifrac Matrix are  `PH SW SY AD BT HN HT LB MI AW CB HS NA NO OK PL PM RC RT VN GH WL ZB`
+  * with JAQUARD matrix of 90% clustered data ran and rendered `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R` - JAQUARD dist not significant - model not significant 
+    * 23 Ports in Jacquard Matrix are `PH SW SY AD BT HN HT LB MI AW CB HS NA NO OK PL PM RC RT VN GH WL ZB`
   * commit
-  * **not yet** run and rendered `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R` - manual port lookup necessary
-
     
 
 ## Todo
 
 ### Next
-  * adjust R pipeline
+  * get deeper-clustered-Jacquard matrices if valid - more clustering creates more overlap and would make makes model significant
+  * run and rendered `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R` - manual port lookup necessary
   * get numbers and display items
 
 ### More Important 

@@ -75,7 +75,7 @@ mat_env_dist_full[35:50, 35:50]
 #'      
 #' ## Response: A distance matrix as produced by Qiime 2 (UNIFRAC or Jacquard)
 #'
-resp_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_Eukaryotes_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv"
+resp_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_clustered90_Eukaryotes_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv"
 # resp_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_Eukaryotes_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv"
 
 resp_mat <- read.table(file = resp_path, sep = '\t', header = TRUE)
@@ -112,12 +112,8 @@ any(colnames(resp_mat) == rownames(resp_mat))
 r_mat_clpsd <- get_collapsed_responses_matrix(resp_mat)
 
 # Collapsed matrix should receive data for samples: 
-# Unifrac input:  PH SW SY AD BT HN HT LB MI AW CB HS NA NO OK PL PM RC RT VN GH WL ZB 
-# Jaquard input:  PH SW SY AD BT HN HT LB MI AW CB HS NA NO OK PL PM RC RT VN GH WL ZB
-
-# Older data examples:  
-# PH SW SY AD CH BT HN HT LB MI AW BA CB NA NO OK PL PM RC RT VN GH WL ZB
-# ... and fill empty receiving matrix. 
+# (unclustered) Unifrac input:  PH SW SY AD BT HN HT LB MI AW CB HS NA NO OK PL PM RC RT VN GH WL ZB 
+# (clustered)   Jaquard input:  PH SW SY AD BT HN HT LB MI AW CB HS NA NO OK PL PM RC RT VN GH WL ZB
 
 r_mat_clpsd <- fill_collapsed_responses_matrix(r_mat_clpsd, resp_mat)
 
@@ -145,6 +141,12 @@ colnames(r_mat_clpsd)
 # "CB" "HS" "NA" "NO" "OK"
 # "PL" "PM" "RC" "RT" "VN"
 # "GH" "WL" "ZB"
+#
+
+##### erase custom ports when necessary ##### 
+# r_mat_clpsd <- r_mat_clpsd[, colnames(r_mat_clpsd) != "CH"]
+# r_mat_clpsd <- r_mat_clpsd[rownames(r_mat_clpsd) != "CH", ]
+# 
 # 
 # "2503", "1165", "1165", "3110",  "854",
 # "2503", "2331", "7597", "4899",  "576",
@@ -153,12 +155,12 @@ colnames(r_mat_clpsd)
 # "4538", "7975", "1675"
 
 head(mat_trips)
-mat_trips <- mat_trips[c("2503","1165","1165","3110", "854",
+mat_trips <- mat_trips[c("2503","1165","1165","3110", "854", 
                          "2503","2331","7597","4899", "576",
                          "2141","3367","3108","3381","7598",
                           "238", "193","4777", "830", "311",
                          "4538","7975","1675"),
-                         c("2503","1165","1165","3110", "854",
+                         c("2503","1165","1165","3110", "854", 
                          "2503","2331","7597","4899", "576",
                          "2141","3367","3108","3381","7598",
                           "238", "193","4777", "830", "311",
