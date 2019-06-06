@@ -1184,6 +1184,8 @@ Data will be included via manifest files and metadate files linked in at
 
 ### Next
   * get deeper-clustered-Jacquard matrices if valid - more clustering creates more overlap and would make makes model significant
+    * adjust scripts `110`, `115`, `120`, `130` and possibly `125`, `180`, `190` and rerun
+    * re- run modelling 
   * run and rendered `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R` - manual port lookup necessary
   * get numbers and display items
 
