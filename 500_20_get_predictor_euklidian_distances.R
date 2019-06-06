@@ -1,7 +1,7 @@
 #' ---
 #' title: "Calculating environmental distances between samples"
 #' author: "Paul Czechowski"
-#' date: "May 20, 2019"
+#' date: "06-June-2019"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn

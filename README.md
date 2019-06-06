@@ -1169,16 +1169,25 @@ Data will be included via manifest files and metadate files linked in at
     * non-phylogenetic: `/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_Eukaryotes_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv`
     * phylogenetic: `/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_Eukaryotes_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv`
   * sorting scripts and commit
+* **06.06.2019** - working on FON of unweighted UNIFRAC and Jacquard indices
+  * running and rendering `/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R` - no manual handling necessary
+  * running and rendering `/Users/paul/Documents/CU_combined/Github/500_20_get_predictor_euklidian_distances.R` - no manual handling necessary
+  * running and rendering `/Users/paul/Documents/CU_combined/Github/500_30_shape_matrices.R` - no manual handling necessary
+  * with UNIFRAC matrix rand and rendered `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R` - Env dist not significant - model significant 
+  * with JAQUARD matrix rand and rendered `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R` - JAQUARD dist not significant - model not significant 
+    * 23 Ports in Unifrac Matrix are `PH SW SY AD BT HN HT LB MI AW CB HS NA NO OK PL PM RC RT VN GH WL ZB`
+  * commit
+  * **not yet** run and rendered `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R` - manual port lookup necessary
+
+    
 
 ## Todo
 
 ### Next
-  * check PCOAs of UNIFRAC and Jacquard indices
-  * get numbers and display items
   * adjust R pipeline
+  * get numbers and display items
 
 ### More Important 
-  * Jacquard index matrix shouldn't use filtered alignments - refer to image file link to continue analysis
   * matrix conflation of different sample pair Unifrac distances should be done using `mean` and not `median`
     * **not yet done** in function `get_distance_matrix_means_current_port_matrix_at_sample_count` of `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
     * done in function `fill_collapsed_responses_matrix` of `/Users/paul/Documents/CU_combined/Github/500_00_functions.R`
