@@ -1191,7 +1191,7 @@ Data will be included via manifest files and metadate files linked in at
     * Jacquard matrix of 87% clustered Eukaryote data
     * include in `/Users/paul/Documents/CU_combined/Github/500_80_mixed_effect_model.R`:
       * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_clustered87_Eukaryotes_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv`
-      * and deemed unnecessary
+      * and deemed unnecessary - keeping files but ignoring them
   * commit
   * **To brainstorm overlap analysis:**
     * Trying Procrustes analysis to transform UNIFRAC and Jacquard matrices:
