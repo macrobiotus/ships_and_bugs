@@ -65,17 +65,26 @@ for i in "${!inpth_tab[@]}"; do
   # echo "$plot_vis_name"    
   # continue
     
-  # Qiime calls   
-  printf "${bold}$(date):${normal} Starting analysis of \"$(basename "${inpth_tab[$i]}")\"...\n"
-  qiime diversity alpha-rarefaction \
-    --i-table "${inpth_tab[$i]}" \
-    --m-metadata-file "$trpth"/"$inpth_map" \
-    --p-max-depth 75000 \
-    --p-min-depth 1 \
-    --p-steps 1000 \
-    --p-iterations 5 \
-    --o-visualization "$plot_vis_name" \
-    --verbose
-  printf "${bold}$(date):${normal} ...finished analysis of \"$(basename "${inpth_tab[$i]}")\".\n"
+  if [ ! -f "$plot_vis_name" ]; then
+  
+    # Qiime calls   
+    printf "${bold}$(date):${normal} Starting analysis of \"$(basename "${inpth_tab[$i]}")\"...\n"
+    qiime diversity alpha-rarefaction \
+      --i-table "${inpth_tab[$i]}" \
+      --m-metadata-file "$trpth"/"$inpth_map" \
+      --p-max-depth 75000 \
+      --p-min-depth 1 \
+      --p-steps 1000 \
+      --p-iterations 5 \
+      --o-visualization "$plot_vis_name" \
+      --verbose
+    printf "${bold}$(date):${normal} ...finished analysis of \"$(basename "${inpth_tab[$i]}")\".\n"
+  
+  else
+
+    # diagnostic message
+    printf "${bold}$(date):${normal} File \"$(basename "$plot_vis_name")\" already available, skipping.\n"
+
+  fi
 
 done

@@ -1178,13 +1178,26 @@ Data will be included via manifest files and metadate files linked in at
   * **currently commented in**  with JAQUARD matrix of 90% clustered data ran and rendered `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R` - JAQUARD dist not significant - model not significant 
     * 23 Ports in Jacquard Matrix are `PH SW SY AD BT HN HT LB MI AW CB HS NA NO OK PL PM RC RT VN GH WL ZB`
   * commit
+* **07.06.2019** - adding data sets with more inclusive clustering threshold (possibly still marked in purple in finder view)
+  * saving compresses copy of project folder to `/Users/paul/Documents/CU_combined.zip` - erased already.
+  * adjusting files to skip readily available analyses:
+    * adjusting and running `/Users/paul/Documents/CU_combined/Github/110_cluster_sequences.sh` - ok 
+    * adjusting and running `/Users/paul/Documents/CU_combined/Github/115_isolate_taxa.sh` - ok 
+    * adjusting and running `/Users/paul/Documents/CU_combined/Github/120_summarize_data_non_phylogenetic.sh` - ok
+    * adjusted but did not yet run `/Users/paul/Documents/CU_combined/Github/125_alpha_rarefaction_curves_non_phylogenetic.sh` - run pending
+    * adjusted and ran `/Users/paul/Documents/CU_combined/Github/130_get_core_metrics_non_phylogenetic.sh` - ok
+    * adjusted and ran `/Users/paul/Documents/CU_combined/Github/190_export_JAQUARD_distance_artefacts.sh`
+  * minimal data set available for modelling juts trials:
+    * Jacquard matrix of 87% clustered Eukaryote data
+    * include in `/Users/paul/Documents/CU_combined/Github/500_80_mixed_effect_model.R`:
+      * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_clustered87_Eukaryotes_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv`
+      * and deemed unnecessary
+  * commit
 
 ## Todo
 
 ### Next
-  * get deeper-clustered-Jacquard matrices if valid - more clustering creates more overlap and would make make model significant
-    * adjust scripts `110`, `115`, `120`, `130` and possibly `125`, `180`, `190` and rerun
-    * re- run modelling 
+  * check overlap between UNIFRAC values and Jacquard distances
   * run and rendered `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R` - manual port lookup necessary
   * get numbers and display items
 

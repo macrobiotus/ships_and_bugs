@@ -88,16 +88,25 @@ for i in "${!inpth_tab[@]}"; do
       ;;
   esac
     
-  # Qiime calls   
-  printf "${bold}$(date):${normal} Starting analysis of \"$(basename "${inpth_tab[$i]}")\"...\n"
-    
-  qiime diversity core-metrics \
-    --i-table "${inpth_tab[$i]}" \
-    --m-metadata-file "$trpth"/"$inpth_map" \
-    --output-dir "$output_name" \
-    --p-sampling-depth "$depth" \
-    --verbose 2>&1 | tee -a "$output_log"
+  if [ ! -d "$output_name" ]; then
+  
+    # Qiime calls   
+    printf "${bold}$(date):${normal} Starting analysis of \"$(basename "${inpth_tab[$i]}")\"...\n"  
+  
+    qiime diversity core-metrics \
+      --i-table "${inpth_tab[$i]}" \
+      --m-metadata-file "$trpth"/"$inpth_map" \
+      --output-dir "$output_name" \
+      --p-sampling-depth "$depth" \
+      --verbose 2>&1 | tee -a "$output_log"
+  
+    printf "${bold}$(date):${normal} ...finished analysis of \"$(basename "${inpth_tab[$i]}")\".\n"
+  
+  else
 
-  printf "${bold}$(date):${normal} ...finished analysis of \"$(basename "${inpth_tab[$i]}")\".\n"
+    # diagnostic message
+    printf "${bold}$(date):${normal} Detected readily available results, skipping analysis of one file set.\n"
+
+  fi
 
 done

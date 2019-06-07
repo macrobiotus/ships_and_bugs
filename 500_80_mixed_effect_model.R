@@ -1,7 +1,7 @@
 #' ---
 #' title: "Compare Response and Predictor Matrices using Mixed Effect Models"
 #' author: "Paul Czechowski"
-#' date: "06-June-2019"
+#' date: "07-June-2019"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -75,7 +75,7 @@ mat_env_dist_full[35:50, 35:50]
 #'      
 #' ## Response: A distance matrix as produced by Qiime 2 (UNIFRAC or Jacquard)
 #'
-resp_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_clustered90_Eukaryotes_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv"
+resp_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_clustered99_Eukaryotes_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv"
 # resp_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_Eukaryotes_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv"
 
 resp_mat <- read.table(file = resp_path, sep = '\t', header = TRUE)
@@ -113,7 +113,7 @@ r_mat_clpsd <- get_collapsed_responses_matrix(resp_mat)
 
 # Collapsed matrix should receive data for samples: 
 # (unclustered) Unifrac input:  PH SW SY AD BT HN HT LB MI AW CB HS NA NO OK PL PM RC RT VN GH WL ZB 
-# (clustered)   Jaquard input:  PH SW SY AD BT HN HT LB MI AW CB HS NA NO OK PL PM RC RT VN GH WL ZB
+# (clustered)   Jaquard input:  PH SW SY AD BT HN HT LB MI AW CB HS NA NO OK PL PM RC RT VN GH WL ZB 
 
 r_mat_clpsd <- fill_collapsed_responses_matrix(r_mat_clpsd, resp_mat)
 
@@ -313,7 +313,6 @@ aggregate(model_data$PRED_TRIPS~model_data$ECO_DIFF, FUN=mean)
 #'
 #' <!-- #################################################################### -->
 #'
-
 
 # model_data <- model_data %>%  mutate_if(is.numeric, scale(.,scale = FALSE))
 pairs(RESP_UNIFRAC ~ PRED_ENV * PRED_TRIPS, data=model_data, main="Simple Scatterplot Matrix")

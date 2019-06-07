@@ -46,9 +46,12 @@ in_tab[3]='Zenodo/Qiime/110_18S_eDNA_samples_clustered97_tab.qza'
 in_seq[4]='Zenodo/Qiime/110_18S_eDNA_samples_clustered90_seq.qza'
 in_tab[4]='Zenodo/Qiime/110_18S_eDNA_samples_clustered90_tab.qza'
 
+in_seq[5]='Zenodo/Qiime/110_18S_eDNA_samples_clustered87_seq.qza'
+in_tab[5]='Zenodo/Qiime/110_18S_eDNA_samples_clustered87_tab.qza'
+
 # controls
-in_seq[5]='Zenodo/Qiime/090_18S_controls_seq.qza'
-in_tab[5]='Zenodo/Qiime/090_18S_controls_tab.qza'
+in_seq[6]='Zenodo/Qiime/090_18S_controls_seq.qza'
+in_tab[6]='Zenodo/Qiime/090_18S_controls_tab.qza'
 
 # Define filtering strings
 # -----------------------
@@ -110,17 +113,30 @@ for k in "${!in_seq[@]}"; do
     # continue
     
     # actual filtering
-    qiime taxa filter-seqs \
-      --i-taxonomy "$trpth"/"$inpth_tax" \
-      --i-sequences "$trpth"/"${in_seq[$k]}" \
-      --o-filtered-sequences "$trpth"/"${out_seq[$k]}" \
-      --p-include  "${taxon[$i]}"
+    # continue only if output file isn't already there
+    if [ ! -f "$trpth"/"${out_seq[$k]}" ]; then
+  
+      qiime taxa filter-seqs \
+        --i-taxonomy "$trpth"/"$inpth_tax" \
+        --i-sequences "$trpth"/"${in_seq[$k]}" \
+        --o-filtered-sequences "$trpth"/"${out_seq[$k]}" \
+        --p-include  "${taxon[$i]}"
 
-    qiime taxa filter-table \
-      --i-taxonomy "$trpth"/"$inpth_tax" \
-      --i-table "$trpth"/"${in_tab[$k]}" \
-      --o-filtered-table "$trpth"/"${out_tab[$k]}" \
-      --p-include  "${taxon[$i]}"
+    elif [ ! -f "$trpth"/"${out_tab[$k]}" ]; then
+
+      qiime taxa filter-table \
+        --i-taxonomy "$trpth"/"$inpth_tax" \
+        --i-table "$trpth"/"${in_tab[$k]}" \
+        --o-filtered-table "$trpth"/"${out_tab[$k]}" \
+        --p-include  "${taxon[$i]}"
+    
+    else
+
+      # diagnostic message
+      printf "${bold}$(date):${normal} Analysis already done for \"$(basename "$trpth"/"${out_seq[$k]}")\" and \"$(basename "$trpth"/"${out_tab[$k]}")\"...\n"
+
+    fi
+    
   done
   
   
@@ -166,21 +182,35 @@ for k in "${!in_seq[@]}"; do
     
     # debugging only
     # continue
-       
+    
     # actual filtering
-    qiime taxa filter-seqs \
-      --i-taxonomy "$trpth"/"$inpth_tax" \
-      --i-sequences "$trpth"/"${in_seq[$k]}" \
-      --o-filtered-sequences "$trpth"/"${out_seq[$k]}" \
-      --p-include  "${taxon[2]}" \
-      --p-exclude "${taxon[3]}"
+    # continue only if output file isn't already there
+    if [ ! -f "$trpth"/"${out_seq[$k]}" ]; then
+  
+      # actual filtering
+      qiime taxa filter-seqs \
+        --i-taxonomy "$trpth"/"$inpth_tax" \
+        --i-sequences "$trpth"/"${in_seq[$k]}" \
+        --o-filtered-sequences "$trpth"/"${out_seq[$k]}" \
+        --p-include  "${taxon[2]}" \
+        --p-exclude "${taxon[3]}"
+    
+    elif [ ! -f "$trpth"/"${out_tab[$k]}" ]; then
 
-    qiime taxa filter-table \
-      --i-taxonomy "$trpth"/"$inpth_tax" \
-      --i-table "$trpth"/"${in_tab[$k]}" \
-      --o-filtered-table "$trpth"/"${out_tab[$k]}" \
-      --p-include  "${taxon[2]}" \
-      --p-exclude "${taxon[3]}"
+      qiime taxa filter-table \
+        --i-taxonomy "$trpth"/"$inpth_tax" \
+        --i-table "$trpth"/"${in_tab[$k]}" \
+        --o-filtered-table "$trpth"/"${out_tab[$k]}" \
+        --p-include  "${taxon[2]}" \
+        --p-exclude "${taxon[3]}"
+    
+    else
+
+      # diagnostic message
+      printf "${bold}$(date):${normal} Analysis already done for \"$(basename "$trpth"/"${out_seq[$k]}")\" and \"$(basename "$trpth"/"${out_tab[$k]}")\"...\n"
+
+    fi
+    
   done
 
 done

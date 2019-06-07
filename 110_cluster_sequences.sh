@@ -40,28 +40,44 @@ in_tab='Zenodo/Qiime/100_18S_eDNA_samples_tab.qza'
 cluster[1]='0.99'
 cluster[2]='0.97'
 cluster[3]='0.90'
+cluster[4]='0.875'
 
 clust_seq[1]='Zenodo/Qiime/110_18S_eDNA_samples_clustered99_seq.qza'
 clust_seq[2]='Zenodo/Qiime/110_18S_eDNA_samples_clustered97_seq.qza'
 clust_seq[3]='Zenodo/Qiime/110_18S_eDNA_samples_clustered90_seq.qza'
+clust_seq[4]='Zenodo/Qiime/110_18S_eDNA_samples_clustered87_seq.qza'
 
 clust_tab[1]='Zenodo/Qiime/110_18S_eDNA_samples_clustered99_tab.qza'
 clust_tab[2]='Zenodo/Qiime/110_18S_eDNA_samples_clustered97_tab.qza'
 clust_tab[3]='Zenodo/Qiime/110_18S_eDNA_samples_clustered90_tab.qza'
+clust_tab[4]='Zenodo/Qiime/110_18S_eDNA_samples_clustered87_tab.qza'
 
 log[1]='Zenodo/Qiime/110_18S_eDNA_samples_clustered99_log.txt'
 log[2]='Zenodo/Qiime/110_18S_eDNA_samples_clustered97_log.txt'
 log[3]='Zenodo/Qiime/110_18S_eDNA_samples_clustered90_log.txt'
+log[4]='Zenodo/Qiime/110_18S_eDNA_samples_clustered87_log.txt'
 
 # Run scripts
 # ------------
-for ((i=1;i<=3;i++)); do
-  qiime vsearch cluster-features-de-novo \
-    --p-threads "$cores" \
-    --i-table "$trpth"/"$in_tab" \
-    --i-sequences "$trpth"/"$in_seq" \
-    --p-perc-identity "${cluster[$i]}" \
-    --o-clustered-table "$trpth"/"${clust_tab[$i]}" \
-    --o-clustered-sequences "$trpth"/"${clust_seq[$i]}" \
-    --verbose 2>&1 | tee -a "$trpth"/"${log[$i]}"
+for ((i=1;i<=4;i++)); do
+  
+  # continue only if output file isn't already there
+  if [ ! -f "$trpth"/"${clust_tab[$i]}" ]; then
+
+    qiime vsearch cluster-features-de-novo \
+      --p-threads "$cores" \
+      --i-table "$trpth"/"$in_tab" \
+      --i-sequences "$trpth"/"$in_seq" \
+      --p-perc-identity "${cluster[$i]}" \
+      --o-clustered-table "$trpth"/"${clust_tab[$i]}" \
+      --o-clustered-sequences "$trpth"/"${clust_seq[$i]}" \
+      --verbose 2>&1 | tee -a "$trpth"/"${log[$i]}"
+      
+  else
+
+    # diagnostic message
+    printf "${bold}$(date):${normal} Analysis already done for \"$(basename "$trpth"/"$in_tab")\"...\n"
+
+  fi
+  
 done
