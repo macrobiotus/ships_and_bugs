@@ -1193,14 +1193,14 @@ Data will be included via manifest files and metadate files linked in at
       * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_clustered87_Eukaryotes_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv`
       * and deemed unnecessary
   * commit
-  * Trying Procrustes analysis to transform UNIFRAC and Jacquard matrices:
+  * **To brainstorm overlap analysis:** Trying Procrustes analysis to transform UNIFRAC and Jacquard matrices:
     * careful with folders
       * data set are both matching respective trees - not necessarily the same as in modelling script
          * because data need to be congruent for Procrustes test
          * because need not to be congruent in modelling script see **31.05.2019** (- but  in fact are see **03.06.2019**)
-      * clustering as currently read-in in modelling script 
+      * clustering as currently read-in in modelling script: 
   
-  ```
+```
     qiime diversity procrustes-analysis \
       --i-reference /Users/paul/Documents/CU_combined/Zenodo/Qiime/170_eDNA_samples_Eukaryotes_core_metrics/unweighted_unifrac_pcoa_results.qza \
       --i-other /Users/paul/Documents/CU_combined/Zenodo/Qiime/170_eDNA_samples_clustered99_Eukaryotes_core_metrics/jaccard_pcoa_results.qza \
@@ -1215,9 +1215,10 @@ Data will be included via manifest files and metadate files linked in at
       --m-metadata-file /Users/paul/Documents/CU_combined/Zenodo/Manifest/06_18S_merged_metadata.tsv \
       --p-no-ignore-missing-samples \
       --o-visualization /Users/paul/Documents/CU_combined/Zenodo/Qiime/190607_eukaryotes_asv_unifrac_vs_99otu_jaccquard_distanace_matrices.qzv \
-      --verbose
-    
-  ```
+      --verbose  
+```  
+  
+  * **To brainstorm overlap analysis:**: Checking actual overlap of tree-filtered `asv` data by reviving script `/Users/paul/Documents/CU_combined/Github/550_85_euler.R`
 
 ## Todo
 
