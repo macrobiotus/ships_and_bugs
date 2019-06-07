@@ -4,6 +4,8 @@
 # ========================================================
 # Applies a collection of diversity metrics (both phylogenetic and non-
 #   phylogenetic) to a feature table.
+# also see for an explanation of metrics
+#  https://forum.qiime2.org/t/alpha-and-beta-diversity-explanations-and-commands/2282
 
 # paths need to be adjusted for remote execution
 # ----------------------------------------------
