@@ -90,15 +90,22 @@ mat <- apply (df_ports, 2, as.logical)
 colnames(mat) <- colnames(df_ports)
 rownames(mat) <- rownames(df_ports)
 
+# for test purposes use only a subset 
+dim(df_ports)
+dim(mat)
+mat <- mat[1:12, 1:12] 
+dim(mat)
+
 # data analysis
 # =============
 
 # generate colour palette
-pal <- qualpal(n = ncol(df_ports), colorspace = "pretty", cvd = "deutan", cvd_severity = 0.8)
+pal <- qualpal(n = ncol(mat), colorspace = "pretty", cvd = "deutan", cvd_severity = 0.8)
 plot(pal) # one can check the colors here
 
 # fit plot
 fit2 <- euler(mat)
+
 
 # Cleveland dot plot of the residuals
 # dotchart(resid(fit2))

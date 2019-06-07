@@ -1193,12 +1193,13 @@ Data will be included via manifest files and metadate files linked in at
       * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_clustered87_Eukaryotes_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv`
       * and deemed unnecessary
   * commit
-  * **To brainstorm overlap analysis:** Trying Procrustes analysis to transform UNIFRAC and Jacquard matrices:
-    * careful with folders
-      * data set are both matching respective trees - not necessarily the same as in modelling script
-         * because data need to be congruent for Procrustes test
-         * because need not to be congruent in modelling script see **31.05.2019** (- but  in fact are see **03.06.2019**)
-      * clustering as currently read-in in modelling script: 
+  * **To brainstorm overlap analysis:**
+    * Trying Procrustes analysis to transform UNIFRAC and Jacquard matrices:
+      * careful with folders
+        * data set are both matching respective trees - not necessarily the same as in modelling script
+          * because data need to be congruent for Procrustes test
+          * because need not to be congruent in modelling script see **31.05.2019** (- but  in fact are see **03.06.2019**)
+        * clustering as currently read-in in modelling script: 
   
 ```
     qiime diversity procrustes-analysis \
@@ -1217,28 +1218,35 @@ Data will be included via manifest files and metadate files linked in at
       --o-visualization /Users/paul/Documents/CU_combined/Zenodo/Qiime/190607_eukaryotes_asv_unifrac_vs_99otu_jaccquard_distanace_matrices.qzv \
       --verbose  
 ```  
-  
-  * **To brainstorm overlap analysis:**: Checking actual overlap of tree-filtered `asv` data by reviving script `/Users/paul/Documents/CU_combined/Github/550_85_euler.R`
+   * kept sorted matrices but erased visualization file
+  * **To brainstorm overlap analysis:**: 
+    * Checking actual overlap of tree-filtered `asv` data by reviving script `/Users/paul/Documents/CU_combined/Github/550_85_euler.R`
+    * code doesn't scale well with large sample numbers
 
 ## Todo
 
 ### Next
-  * check overlap between UNIFRAC values and Jacquard distances
-  * run and rendered `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R` - manual port lookup necessary
-  * get numbers and display items
+  * adjust `/Users/paul/Documents/CU_combined/Github/550_85_euler.R`
+    * subset `df_ports` to generate sets of fasta files with pairs
+  * check correlation using Mantel test
+    * between UNIFRAC and Jacquard distance matrices
+    * using ASV and 99% clustered data
+  * formalize implementation of `/Users/paul/Documents/CU_combined/Github/500_80_mixed_effect_model.R`
+    * between UNIFRAC and Jacquard distances
+    * using ASV and 99% clustered data
+  * accommodate different rarefaction depths
 
 ### More Important 
   * matrix conflation of different sample pair Unifrac distances should be done using `mean` and not `median`
     * **not yet done** in function `get_distance_matrix_means_current_port_matrix_at_sample_count` of `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
     * done in function `fill_collapsed_responses_matrix` of `/Users/paul/Documents/CU_combined/Github/500_00_functions.R`
-  * **keep in mind** that in `#SampleID` mapping file  **must** start with two letter abbrivation, needed for R code!
-  * does higher rarefaction depth keep samples only in ports with more trips?
-  * check eigenvalues on core-metrics log files `130` and `170` 
 
 ### Less Important 
-  * delete `/Users/paul/Documents/CU_combined/Zenodo/190528_qiime_bup.zip`
-  * in future versions Nanaimo should be named not `NA` but `NX` so as to omit correction code in `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R`
-  * run rarefaction script with inclusion of Jacquard index?
+  * run and render `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R` - manual port lookup necessary
+  * get numbers and display items
+  * check eigenvalues on core-metrics log files `130` and `170` 
+  * **keep in mind** that in `#SampleID` mapping file  **must** start with two letter abbrivation, needed for R code!
+  * re-run `rf_test`
 
 ## Known issues and bugs
 
