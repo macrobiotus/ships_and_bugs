@@ -1222,6 +1222,11 @@ Data will be included via manifest files and metadate files linked in at
   * **To brainstorm overlap analysis:**: 
     * Checking actual overlap of tree-filtered `asv` data by reviving script `/Users/paul/Documents/CU_combined/Github/550_85_euler.R`
     * code doesn't scale well with large sample numbers
+* **10.06.2019** - scripting taxon overlap in R
+  * created copy of Euler script from scratch: `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa.R`
+  * worked on copy: `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa.R`
+  * started function to write fasta files, as well, not yet finished - commit for today.
+
 
 ## Todo
 
