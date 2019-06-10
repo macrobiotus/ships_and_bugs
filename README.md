@@ -1226,14 +1226,20 @@ Data will be included via manifest files and metadate files linked in at
   * created copy of Euler script from scratch: `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa.R`
   * worked on copy: `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa.R`
   * started function to write fasta files, as well, not yet finished - commit for today.
-  * finished and rendered `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa.R` - commit
-
+  * finished and rendered `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa.R` - commit `aeeb47b59992bc707c25ad91a14304a90c98b2fc`
+  * adjusting `/Users/paul/Documents/CU_combined/Github/200_fasta_blast.sh` to blast files - ok
+    * file written by `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa.R`
+    * written to `/Users/paul/Documents/CU_combined/Zenodo/Blast`
+  * adjusting `/Users/paul/Documents/CU_combined/Transport/350_sync_ncbi_nt_to_scratch.sh`
+  * prepare to run Blast on cluster
+    * call on cluster `/Users/paul/Documents/CU_combined/Transport/350_sync_ncbi_nt_to_scratch.sh` - pending 
+    * call on cluster `~/Documents/CU_combined/Github/200_fasta_blast.sh` - pending 
+    * commit
 
 ## Todo
 
 ### Next
-  * adjust `/Users/paul/Documents/CU_combined/Github/550_85_euler.R`
-    * subset `df_ports` to generate sets of fasta files with pairs
+  * Blast port overlap set
   * check correlation using Mantel test
     * between UNIFRAC and Jacquard distance matrices
     * using ASV and 99% clustered data
