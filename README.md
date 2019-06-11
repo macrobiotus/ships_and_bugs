@@ -1242,25 +1242,26 @@ Data will be included via manifest files and metadate files linked in at
     * can be read in using Megan from `/Users/paul/Documents/CU_combined/Zenodo/Blast`
   * formalizing Mantel test and Procrustes analyses
     * drafted `~/Documents/CU_combined/Github/205_compare_matrices.sh`
-    * commit 
+    * commit `e60770796a2e40e304855c7c8173b944de19e297`
+    * syntax corrections - ok 
+      * running unclustered Unifrac vs Jaccquard - ok
+      * running 99clustered Unifrac vs Jaccquard - ok
+    commit - pending
 
 ## Todo
 
-### Next
+### More Important 
   * Port Overlap Sets
-    * Blast
-    * check Blast results
-    * re-run R script and blast script so that there will be only  split based on 1 port and more then one port.  
+    * Blast - **done**
+    * check Blast results - **done**
   * check correlation using Mantel test
     * between UNIFRAC and Jacquard distance matrices
-    * using ASV and 99% clustered data
-    * include Procrustes visualization if desirable
+    * using ASV (**done**) and 99% clustered data - **not done**
+    * include Procrustes visualization if desirable - **done**
   * formalize implementation of `/Users/paul/Documents/CU_combined/Github/500_80_mixed_effect_model.R`
     * between UNIFRAC and Jacquard distances
     * using ASV and 99% clustered data
   * accommodate different Rarefaction depths
-
-### More Important 
   * matrix conflation of different sample pair Unifrac distances should be done using `mean` and not `median`
     * **not yet done** in function `get_distance_matrix_means_current_port_matrix_at_sample_count` of `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
     * done in function `fill_collapsed_responses_matrix` of `/Users/paul/Documents/CU_combined/Github/500_00_functions.R`
@@ -1289,5 +1290,3 @@ Data will be included via manifest files and metadate files linked in at
 ### Low Priority
 * _02.05.2018_ - **unconfirmed** - list output is sparse in `/Users/paul/Documents/CU_combined/Github/550_check_taxonomy.R`
   * possible unconfirmed reason: blast OTU list shorter the OTU list in Phyloseq object - perhaps blast is dropping queries ?
-* _02.05.2018_ - **unconfirmed** - `/Users/paul/Documents/CU_combined/Github/500_35_shape_overlap_matrices.R`
-  * Kulczynski distances may be unsuitable to describe overlap between ports, both for all overlap or dual overlap.
