@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 22.04.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 10.09.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Blast fasta file against locally installed copy of NCBI nt database. See
 #   https://stackoverflow.com/questions/45014279/running-locally-blastn-against-nt-db-thru-python-script.

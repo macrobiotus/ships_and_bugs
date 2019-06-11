@@ -1234,19 +1234,31 @@ Data will be included via manifest files and metadate files linked in at
   * prepare to run Blast on cluster
     * call on cluster `/Users/paul/Documents/CU_combined/Transport/350_sync_ncbi_nt_to_scratch.sh` - pending 
     * call on cluster `~/Documents/CU_combined/Github/200_fasta_blast.sh` - pending 
-    * commit
+    * commit (`5185e628172e16dff1a4abfea08b8b1d49bb66f`)
+* **10.06.2019** - formalizing Mantel test and Procrustes analyses
+  * retrieved yesterdays blast results
+    * subsetting selected fasta files and feature tables in `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa.R`
+    * blasting done using `/Users/paul/Documents/CU_combined/Github/200_fasta_blast.sh`
+    * can be read in using Megan from `/Users/paul/Documents/CU_combined/Zenodo/Blast`
+  * formalizing Mantel test and Procrustes analyses
+    * drafted `~/Documents/CU_combined/Github/205_compare_matrices.sh`
+    * commit 
 
 ## Todo
 
 ### Next
-  * Blast port overlap set
+  * Port Overlap Sets
+    * Blast
+    * check Blast results
+    * re-run R script and blast script so that there will be only  split based on 1 port and more then one port.  
   * check correlation using Mantel test
     * between UNIFRAC and Jacquard distance matrices
     * using ASV and 99% clustered data
+    * include Procrustes visualization if desirable
   * formalize implementation of `/Users/paul/Documents/CU_combined/Github/500_80_mixed_effect_model.R`
     * between UNIFRAC and Jacquard distances
     * using ASV and 99% clustered data
-  * accommodate different rarefaction depths
+  * accommodate different Rarefaction depths
 
 ### More Important 
   * matrix conflation of different sample pair Unifrac distances should be done using `mean` and not `median`

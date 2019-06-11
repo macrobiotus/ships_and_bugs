@@ -16,7 +16,6 @@ if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
     thrds="$(nproc --all)"
     bold=$(tput bold)
     normal=$(tput sgr0)
-
 elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
     printf "Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
