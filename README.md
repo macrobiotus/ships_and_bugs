@@ -1275,11 +1275,11 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * Blast - **done**
     * check Blast results - **done**
   * check correlation using Mantel test
-    * between UNIFRAC and Jacquard distance matrices
-    * using ASV (**done**) and 99% clustered data - **not done**
+    * between UNIFRAC and Jacquard distance matrices (**done**; and observed OTUs: **not done**)
+    * using ASV (**done**) and 99% clustered data - ** done**
     * include Procrustes visualization if desirable - **done**
   * formalize implementation of `/Users/paul/Documents/CU_combined/Github/500_80_mixed_effect_model.R`
-    * between UNIFRAC and Jacquard  distances (and observed OTUs?)
+    * between UNIFRAC and Jacquard distances (and observed OTUs?)
     * using ASV and 99% clustered data
   * accommodate different Rarefaction depths
   * check if diversity is depauperated in high-traffic ports
