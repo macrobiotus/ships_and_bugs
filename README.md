@@ -1,19 +1,38 @@
 # Analysing combined 18S data from all ports with available sequence data
 
-This folder was created 24.01.2018 by copying folder `/Users/paul/Documents/CU_Pearl_Harbour`.
-Folder was and last updated 23.03.2018. The `GitHub` and `Transport` folders are 
-version tracked, and they are copies from earlier repositories. 
+## Abstract
+We tested if the null hypothesis "Increasing shipping traffic does not
+homogenize overall eukaryotic biodiversity between shipping ports" can be
+rejected. To do so, we used used a linear random effect model. Considered
+parameters where 5-year-summed first order voyage counts between 24 ports, a
+compound variable calculated from salinity and temperature values, and the
+crossing of different ecoregions, while each unique route was assumed to have
+specific, random factors influencing survival of taxa potentially contained in
+ballast water pr on the hull. We find that changes in Unifrac distances indeed
+are positively and significantly correlated with increasing counts of Voyages.
+Consequently, high shipping traffic between the considered ecologically distant
+ports appear to be correlated with high similarity of their respective
+eukaryotic communities. It remains to be determined if the observed effect is
+caused by transport of organisms between ports, or the presence of depauperate
+communities in polluted port waters, or both.
 
-This folder will be used to combine all project data from individual runs. Sequence
-runs are processed individually until the denoising step and then merged here.
+## Notes
+This folder was created 24.01.2018 by copying folder
+`/Users/paul/Documents/CU_Pearl_Harbour`. Folder was and last updated
+23.03.2018. The `GitHub` and `Transport` folders are version tracked, and they
+are copies from earlier repositories.
 
-Data will be included via manifest files and metadate files linked in at 
-`065_merge_data.sh`. Current samples include:
-   * data of Singapore, Adelaide, Chicago, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
-7   * data of Pearl Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
+This folder will be used to combine all project data from individual runs.
+Sequence runs are processed individually until the denoising step and then
+merged here.
+
+Data will be included via manifest files and metadate files linked in at
+`065_merge_data.sh`. Current samples include: * data of Singapore, Adelaide,
+Chicago, sourced from `/Users/paul/Documents/CU_SP_AD_CH` 7   * data of Pearl
+Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
 
 
-## History and progress notes
+## History and Progress Notes
 *  **24.01.2018** - creating and adjusted folder structure and contents
    * removed unneeded files from previous analysis
    * adjusted pathnames in work scripts: `find /Users/paul/Documents/CU_combined/Github -name '*.sh' -exec sed -i 's|CU_Pearl_Harbour|CU_combined|g' {} \;`
@@ -1246,9 +1265,10 @@ Data will be included via manifest files and metadate files linked in at
     * syntax corrections - ok 
       * running unclustered Unifrac vs Jaccquard - ok
       * running 99clustered Unifrac vs Jaccquard - ok
-    commit - pending
+    commit - `1e19901da4e6811142671bb8a7ecfc4e6ad00c1a`
 
 ## Todo
+
 
 ### More Important 
   * Port Overlap Sets
@@ -1259,9 +1279,10 @@ Data will be included via manifest files and metadate files linked in at
     * using ASV (**done**) and 99% clustered data - **not done**
     * include Procrustes visualization if desirable - **done**
   * formalize implementation of `/Users/paul/Documents/CU_combined/Github/500_80_mixed_effect_model.R`
-    * between UNIFRAC and Jacquard distances
+    * between UNIFRAC and Jacquard  distances (and observed OTUs?)
     * using ASV and 99% clustered data
   * accommodate different Rarefaction depths
+  * check if diversity is depauperated in high-traffic ports
   * matrix conflation of different sample pair Unifrac distances should be done using `mean` and not `median`
     * **not yet done** in function `get_distance_matrix_means_current_port_matrix_at_sample_count` of `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
     * done in function `fill_collapsed_responses_matrix` of `/Users/paul/Documents/CU_combined/Github/500_00_functions.R`
