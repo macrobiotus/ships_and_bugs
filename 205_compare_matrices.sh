@@ -79,13 +79,13 @@ prc_vis[2]="Zenodo/Qiime/205_18S_eDNA_samples_clustered99_Eukaryotes_procrustes.
 
 for i in "${!dm_first[@]}"; do
 
-  if [ ! -f "$trpth"/"${prc_vis[$i]}" ]; then
+  if [ ! -f "$trpth"/"${mntl_vis[$i]}" ]; then
 
     printf "${bold}$(date):${normal} Mantel-testing \"$(basename ${dm_first[$i]})\" against \"$(basename ${dm_secnd[$i]})\"...\n"
     qiime diversity mantel \
       --i-dm1 "$trpth"/"${dm_first[$i]}" \
       --i-dm2 "$trpth"/"${dm_secnd[$i]}" \
-      --p-method 'spearman' \
+      --p-method 'pearson' \
       --p-permutations 9999 \
       --p-label1 "${lb_first[$i]}" \
       --p-label2 "${lb_secnd[$i]}" \
