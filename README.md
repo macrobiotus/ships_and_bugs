@@ -1272,10 +1272,11 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * was be read in using Megan from `/Users/paul/Documents/CU_combined/Zenodo/Blast`
     * read in OTU's found between 2 to 16 port
     * use in conjunction with `/Users/paul/Documents/CU_combined/Zenodo/Blast/500_85_18S_eDNA_samples_Eukaryotes_qiime_artefacts_non_phylogenetic_features_overlap.xlsx`
-
-
-
-
+  * formalizing model calls
+    * create and adjust shell script - not done
+      * created by copying `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R `
+      * commit, then, moving to scratch `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R `
+    * copy and adjust modelling script - not done
 ## Todo
 
 ### More Important 
@@ -1287,6 +1288,7 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
 
 #### Potentially large changes
   * Accommodate different Rarefaction depths
+  * Accomodate randomized matrices
   * Correlate identified invasives with high shipping traffic, for this isolate and inspect highly connected ports only.
 
 ### Less Important 
