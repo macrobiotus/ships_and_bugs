@@ -1274,9 +1274,14 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * use in conjunction with `/Users/paul/Documents/CU_combined/Zenodo/Blast/500_85_18S_eDNA_samples_Eukaryotes_qiime_artefacts_non_phylogenetic_features_overlap.xlsx`
   * formalizing model calls
     * create and adjust shell script - not done
-      * created by copying `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R `
-      * commit, then, moving to scratch `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R `
     * copy and adjust modelling script - not done
+      * created by copying `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R `
+      * commit (`72e9d86af6c4a5f24bae240c8ad7f77114c0b701`),  then
+      * moving file `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R ` to `/Users/paul/Documents/CU_combined/Scratch/R`
+      * variables to be re-defined in `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`:
+      * files to be erased in `/Users/paul/Documents/CU_combined/Zenodo/R_Objects`: 
+    
+
 ## Todo
 
 ### More Important 

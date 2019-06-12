@@ -1,3 +1,4 @@
+#!/usr/bin/env Rscript
 #' ---
 #' title: "Compare Response and Predictor Matrices using Mixed Effect Models"
 #' author: "Paul Czechowski"
@@ -20,13 +21,33 @@
 #' notes on the coding environment.
 #' 
 #' # Environment preparation
+#'
+#' Empty buffer.
 
-# empty buffer
-# ============
 rm(list=ls())
 
-# load packages
-# =============
+#' Automated call this script via `Rscript --vanilla foo.R input_foo.foo output_fara.fara`.
+
+args = commandArgs(trailingOnly=TRUE)
+
+#' Test if there is at least one argument: If not, return an error.
+
+if (length(args)==0) {
+  stop("At least one argument must be supplied (input file).\n", call.=FALSE)
+
+} else if (length(args)==1) {
+
+  # Definition of second default arguments
+  args[2] = ""
+
+  # Definition of third default arguments
+  args[3] = ""
+
+}
+
+
+#' Load Packages
+
 library ("ggplot2")   # for ggCaterpillar
 library ("ggbiplot")  # better PCoA plotting, get via `library(devtools); install_github("vqv/ggbiplot")`
                       # uses `plyr` and needs to be loaded before `dplyr` in `tidyverse` 
@@ -38,8 +59,8 @@ library ("lme4")      # mixed effect model - with plotting
 library ("vegan")     # metaMDS
 
 
-# functions
-# ==========
+#' Functions
+
 # Loaded from helper script:
 source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")
 
@@ -138,7 +159,17 @@ dim(mat_trips)
 # quick and dirty - manual lookup for subsetting
 #   improve this. Manual lookup via:
 #   `open  -a "Microsoft Excel" "/Users/paul/Dropbox/NSF NIS-WRAPS Data/raw data for Mandana/PlacesFile_updated_Aug2017.xlsx"`
-colnames(r_mat_clpsd)
+
+
+# 12-Jun-2019 for automatic calling a safety check to enable crude automatisation. 
+expected_colnames <- c("PH", "SW", "SY", "AD", "BT", "HN", "HT", "LB", "MI", 
+                       "AW", "CB", "HS", "NA", "NO", "OK", "PL", "PM", "RC",
+                       "RT", "VN", "GH", "WL", "ZB")
+
+if (! identical ( colnames(r_mat_clpsd), expected_colnames ) ) {
+  stop( "Port names do not match. Manual intervention is necessary.\n", call.=FALSE)
+}
+
 
 # "PH" "SW" "SY" "AD" "BT"
 # "HN" "HT" "LB" "MI" "AW"
