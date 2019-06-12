@@ -1275,10 +1275,11 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * formalizing model calls
     * create and adjust shell script - not done
     * copy and adjust modelling script - not done
-      * created by copying `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R `
+      * created by copying file to `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
       * commit (`72e9d86af6c4a5f24bae240c8ad7f77114c0b701`),  then
-      * moving file `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R ` to `/Users/paul/Documents/CU_combined/Scratch/R`
+      * moving template file `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R ` to `/Users/paul/Documents/CU_combined/Scratch/R`
       * variables to be re-defined in `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`:
+        * several - currently at `args[3] = ""` in line `57` and line `331`
       * files to be erased in `/Users/paul/Documents/CU_combined/Zenodo/R_Objects`: 
     
 

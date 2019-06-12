@@ -26,19 +26,32 @@
 
 rm(list=ls())
 
-#' Automated call this script via `Rscript --vanilla foo.R input_foo.foo output_fara.fara`.
+#' Call this script from other script using via `Rscript --vanilla foo.R input_foo.foo output_fara.fara`.
 
 args = commandArgs(trailingOnly=TRUE)
 
 #' Test if there is at least one argument: If not, return an error.
 
 if (length(args)==0) {
+  
+  # Definition of first argument `args[1]` will define `resp_path` down below and
+  #   must be Matrices containing biologic responses e.g.:
+  #   `resp_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_Eukaryotes_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv"`
+  #   `resp_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_clustered99_Eukaryotes_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv"`
+  #   `resp_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_Eukaryotes_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv"`
+  #   `resp_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_clustered99_Eukaryotes_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv"`
+
   stop("At least one argument must be supplied (input file).\n", call.=FALSE)
 
 } else if (length(args)==1) {
 
-  # Definition of second default arguments
-  args[2] = ""
+  # Definition of second argument: `args[2]` will define write path of collapsed 
+  #   response matrix down below in call `write.csv(r_mat_clpsd, file = args[2])`
+  #   this file name should be somewhat related to the input file name. Otherwise a 
+  #   generic name is assigned here, since the file contents are determined by the 
+  #   last-passed distance matrix file in `args[1]`.
+  # 
+  args[2] = "/Users/paul/Documents/CU_combined/Zenodo/Results/505_80_/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results__collapsed_distance_matrix.csv"
 
   # Definition of third default arguments
   args[3] = ""
@@ -96,14 +109,9 @@ mat_env_dist_full[35:50, 35:50]
 #'      
 #' ## Response: A distance matrix as produced by Qiime 2 (UNIFRAC or Jacquard)
 #'
-
-# resp_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_clustered99_Eukaryotes_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv"
-# resp_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_Eukaryotes_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv"
-
-# resp_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_clustered99_Eukaryotes_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv"
-resp_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_Eukaryotes_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv"
-
-resp_mat <- read.table(file = resp_path, sep = '\t', header = TRUE)
+#' First command line parameter
+resp_path <- args[1]
+resp_mat  <- read.table(file = resp_path, sep = '\t', header = TRUE)
 
 # checking import and format
 resp_mat[35:50, 35:50]
@@ -142,7 +150,7 @@ r_mat_clpsd <- get_collapsed_responses_matrix(resp_mat)
                                 
 r_mat_clpsd <- fill_collapsed_responses_matrix(r_mat_clpsd, resp_mat)
 
-write.csv(r_mat_clpsd, file = "/Users/paul/Documents/CU_combined/Zenodo/Results/505_80_mixed_effect_model__output__collapsed_matrix.csv")
+write.csv(r_mat_clpsd, file = args[2])
 dim(r_mat_clpsd)
 #'
 #' <!-- -------------------------------------------------------------------- -->
@@ -240,7 +248,10 @@ rownames(mat_env_dist) <- rownames(r_mat_clpsd)
 
 #' Finished matrix -
 #' to match predictors influenced by available voyages before analysis.
-mat_env_dist
+
+# 19-06-2019
+# commented out since no inspection necessary in automated execution
+# mat_env_dist
 
 #'
 #' <!-- #################################################################### -->
