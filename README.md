@@ -1266,29 +1266,32 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
       * running unclustered Unifrac vs Jaccquard - ok
       * running 99clustered Unifrac vs Jaccquard - ok
     commit - `1e19901da4e6811142671bb8a7ecfc4e6ad00c1a`
+* **11.06.2019** - parsing and saving copy of Blast results
+  * creating MEGAN 6 file `/Users/paul/Documents/CU_combined/Zenodo/Results/190612_18S_eDNA_samples_Eukaryotes_2-16_ports_overlap.rma6`
+    * blasting done using `/Users/paul/Documents/CU_combined/Github/200_fasta_blast.sh`
+    * was be read in using Megan from `/Users/paul/Documents/CU_combined/Zenodo/Blast`
+    * read in OTU's found between 2 to 16 port
+    * use in conjunction with `/Users/paul/Documents/CU_combined/Zenodo/Blast/500_85_18S_eDNA_samples_Eukaryotes_qiime_artefacts_non_phylogenetic_features_overlap.xlsx`
+
+
+
 
 ## Todo
 
-
 ### More Important 
-  * Port Overlap Sets
-    * Blast - **done**
-    * check Blast results - **done**
-  * check correlation using Mantel test
-    * between UNIFRAC and Jacquard distance matrices (**done**; and observed OTUs: **not done**)
-    * using ASV (**done**) and 99% clustered data - ** done**
-    * include Procrustes visualization if desirable - **done**
+
+#### Smaller Changes and Additions 
   * formalize implementation of `/Users/paul/Documents/CU_combined/Github/500_80_mixed_effect_model.R`
     * between UNIFRAC and Jacquard distances (and observed OTUs?)
     * using ASV and 99% clustered data
-  * accommodate different Rarefaction depths
-  * check if diversity is depauperated in high-traffic ports
-  * matrix conflation of different sample pair Unifrac distances should be done using `mean` and not `median`
-    * **not yet done** in function `get_distance_matrix_means_current_port_matrix_at_sample_count` of `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
-    * done in function `fill_collapsed_responses_matrix` of `/Users/paul/Documents/CU_combined/Github/500_00_functions.R`
+
+#### Potentially large changes
+  * Accommodate different Rarefaction depths
+  * Correlate identified invasives with high shipping traffic, for this isolate and inspect highly connected ports only.
 
 ### Less Important 
   * run and render `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R` - manual port lookup necessary
+  * extend `/Users/paul/Documents/CU_combined/Github/205_compare_matrices.sh` - include more diversity metrics
   * get numbers and display items
   * check eigenvalues on core-metrics log files `130` and `170` 
   * **keep in mind** that in `#SampleID` mapping file  **must** start with two letter abbrivation, needed for R code!
