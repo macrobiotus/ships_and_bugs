@@ -1298,8 +1298,12 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R` calling
     * `/Users/paul/Documents/CU_combined/Github/500_00_functions.R` and writing to
     * `/Users/paul/Documents/CU_combined/Zenodo/Results`
-  * commit 
-    
+  * commit `f7886d4b083240642d9d3115248809b411d0d004`
+  * adding to `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R``
+    * time stamp to avoid overwriting in case of identical file names ``/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
+    * needs matching with order of input files in `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh` - first files executed first
+  * commit
+
 ## Todo
 
 ### More Important 
@@ -1307,6 +1311,8 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
 #### Smaller Changes and Additions   
   * formalize implementation of `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
     * while doing so take care that matrix conflation is done using averages.
+  * adjust `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
+    * so that time stamp  to avoid overwriting in case of identical file names becomes something more meaningfule, sich as annalysis type  
 
 #### Potentially large changes
   * Accommodate different Rarefaction depths
@@ -1322,7 +1328,6 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * adjust `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh` to use more metrcis such as 
     * observed OTUs, if desirable
   
-
 ## Known issues and bugs
 
 ### High Priority
