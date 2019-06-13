@@ -1266,31 +1266,34 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
       * running unclustered Unifrac vs Jaccquard - ok
       * running 99clustered Unifrac vs Jaccquard - ok
     commit - `1e19901da4e6811142671bb8a7ecfc4e6ad00c1a`
-* **11.06.2019** - parsing and saving copy of Blast results
+* **12.06.2019** - parsing and saving copy of Blast results
   * creating MEGAN 6 file `/Users/paul/Documents/CU_combined/Zenodo/Results/190612_18S_eDNA_samples_Eukaryotes_2-16_ports_overlap.rma6`
     * blasting done using `/Users/paul/Documents/CU_combined/Github/200_fasta_blast.sh`
     * was be read in using Megan from `/Users/paul/Documents/CU_combined/Zenodo/Blast`
     * read in OTU's found between 2 to 16 port
     * use in conjunction with `/Users/paul/Documents/CU_combined/Zenodo/Blast/500_85_18S_eDNA_samples_Eukaryotes_qiime_artefacts_non_phylogenetic_features_overlap.xlsx`
+* **13.06.2019** - as done yesterday - formalizing model calls
   * formalizing model calls
-    * create and adjust shell script - not done
-    * copy and adjust modelling script - not done
-      * created by copying file to `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
-      * commit (`72e9d86af6c4a5f24bae240c8ad7f77114c0b701`),  then
-      * moving template file `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R ` to `/Users/paul/Documents/CU_combined/Scratch/R`
-      * variables to be re-defined in `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`:
-        * several - currently at `args[3] = ""` in line `57` and line `331`
-      * files to be erased in `/Users/paul/Documents/CU_combined/Zenodo/R_Objects`: 
+    * create and adjust shell script - **not done**
+    * revising modelling script: 
+      * created by copying file to `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R` - **ok**
+      * commit (`72e9d86af6c4a5f24bae240c8ad7f77114c0b701`) - **ok**
+      * moving template file `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R ` to `/Users/paul/Documents/CU_combined/Scratch/R` - **ok**
+      * variables to be re-defined in `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R` - **finished draft**
+      * commit
+    * code tested and debugged - **not done** 
+    * files to be erased in `/Users/paul/Documents/CU_combined/Zenodo/R_Objects`: **not checked yet**
     
-
 ## Todo
 
 ### More Important 
 
 #### Smaller Changes and Additions 
-  * formalize implementation of `/Users/paul/Documents/CU_combined/Github/500_80_mixed_effect_model.R`
+  * formalize implementation of `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
     * between UNIFRAC and Jacquard distances (and observed OTUs?)
     * using ASV and 99% clustered data
+  * formalize implementation of `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
+    * while doing so take care that matrix conflation is done using averages.
 
 #### Potentially large changes
   * Accommodate different Rarefaction depths

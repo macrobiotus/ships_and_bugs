@@ -131,6 +131,8 @@ dfs_overlap_sequences <- lapply(dfs_overlap_features, function(x)  sequ_table[wh
 #' Write files
 for (i  in seq(1:length(dfs_overlap_sequences))){
   
+  # One could use function `get_path()` as of 13-June-2019 here.
+  
   # define path
   path="/Users/paul/Documents/CU_combined/Zenodo/Blast/500_85_18S_eDNA_samples_Eukaryotes_qiime_artefacts_non_phylogenetic_seqeunces_overlap.fasta.gz"
   

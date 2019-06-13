@@ -2,7 +2,7 @@
 #' ---
 #' title: "Helper functions for R scripts"
 #' author: "Paul Czechowski"
-#' date: "April 05, 2019"
+#' date: "13-June-2019"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -15,7 +15,8 @@
 #' commentary is included in the R code itself and can be rendered at any stage
 #' using `rmarkdown::render ("./500_functions.R")`. Please check the
 #' session info at the end of the document for further notes on the coding environment.
-#' May contain unused functions and could be written up as a package for greater
+#' May contain unused functions (a.k.a cruft) and could be written up as a package
+#' for greater
 #' clarity.
 #'
 #' <!-- #################################################################### -->
@@ -281,6 +282,33 @@ shuffle_vectors <- function (rvec = NULL, pvec = NULL, perm = 10000){
   
   return (results)
 }
+
+#' ## create file paths from passed-in options 
+#' 
+#' Added 13-July-2019. 
+
+get_path = function(file_path = NULL, path_addition = NULL, path_suffix = NULL){
+  if (is.null(file_path)) {
+    stop("No file path provided by user or function, aborting.\n", call.=TRUE)
+  } else if (is.null(path_addition)) {
+    stop("No file path addition provided by user or function, aborting.\n", call.=TRUE)
+  } else if (is.null(path_suffix)) {
+    stop("No file path suffix provided by user or function, aborting.\n", call.=TRUE)
+  } 
+  
+  # get file path without extensions
+  prefix <- sub(pattern = "(.*?)\\..*$", replacement = "\\1", path)
+  
+  # create target file path
+  path <- paste0(prefix, "_", path_addition, path_suffix)
+  
+  # diagnostic message
+  message ("Writing current result to default path: \"", path , "\".")
+  
+  return(path)
+
+}
+
 
 #' # Session info
 #'
