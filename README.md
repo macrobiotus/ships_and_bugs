@@ -1273,29 +1273,38 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * read in OTU's found between 2 to 16 port
     * use in conjunction with `/Users/paul/Documents/CU_combined/Zenodo/Blast/500_85_18S_eDNA_samples_Eukaryotes_qiime_artefacts_non_phylogenetic_features_overlap.xlsx`
 * **13.06.2019** - as done yesterday - formalizing model calls
+  * `Rscript --vanilla` has been added to scripts:
+    * `/Users/paul/Documents/CU_combined/Github/175_export_all_qiime_artifacts_phylogenetic.sh` and
+    * `/Users/paul/Documents/CU_combined/Github/180_export_all_qiime_artifacts_non_phylogenetic.sh`
   * formalizing model calls
     * revising modelling script:
       * created by copying file to `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R` - **ok**
       * commit (`72e9d86af6c4a5f24bae240c8ad7f77114c0b701`) - **ok**
       * moving template file `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R ` to `/Users/paul/Documents/CU_combined/Scratch/R` - **ok**
       * variables to be re-defined in `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R` - **finished draft**
-      * commit (`897285e9429ea7c1005bab254e7e741045377ae`)
-    * code tested and debugged - **not done** 
-    * files to be erased in `/Users/paul/Documents/CU_combined/Zenodo/R_Objects`: **not checked yet**
-  * created draft version of `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh` - commit 
-  * `Rscript --vanilla` has been added to scripts:
-    * `/Users/paul/Documents/CU_combined/Github/175_export_all_qiime_artifacts_phylogenetic.sh` and
-    * `/Users/paul/Documents/CU_combined/Github/180_export_all_qiime_artifacts_non_phylogenetic.sh`
-  
+      * commit (`897285e9429ea7c1005bab254e7e741045377ae`) - **ok**
+      * **draft version finished - continuing below**
+  * created draft version of `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh`:
+    * commit (`3d328473f87c1188048284a2a86b8c73da385172`) including the following
+    * executed call is `Rscript --vanilla /Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R /Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_Eukaryotes_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv /Users/paul/Documents/CU_combined/Zenodo/Results/`
+  * updated function `get_path()` in `/Users/paul/Documents/CU_combined/Github/500_00_functions.R`
+    * `get_path = function(source_path = NULL, dest_path=NULL path_addition = NULL, path_suffix = NULL)`
+  * updated `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R` for new function `get_path()`
+    * testing code
+       * call: `./210_get_mixed_effect_model_results.sh`
+       * monitor: `/Users/paul/Documents/CU_combined/Zenodo/Results/`
+  * code is running and ran:
+    * `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh` calling
+    * `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R` calling
+    * `/Users/paul/Documents/CU_combined/Github/500_00_functions.R` and writing to
+    * `/Users/paul/Documents/CU_combined/Zenodo/Results`
+  * commit 
     
 ## Todo
 
 ### More Important 
 
-#### Smaller Changes and Additions 
-  * formalize implementation of `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
-    * between UNIFRAC and Jacquard distances (and observed OTUs?)
-    * using ASV and 99% clustered data
+#### Smaller Changes and Additions   
   * formalize implementation of `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
     * while doing so take care that matrix conflation is done using averages.
 
@@ -1310,7 +1319,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * get numbers and display items
   * check eigenvalues on core-metrics log files `130` and `170` 
   * **keep in mind** that in `#SampleID` mapping file  **must** start with two letter abbrivation, needed for R code!
-  * re-run `rf_test`
+  * adjust `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh` to use more metrcis such as 
+    * observed OTUs, if desirable
+  
 
 ## Known issues and bugs
 

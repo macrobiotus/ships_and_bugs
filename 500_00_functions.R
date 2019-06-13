@@ -287,7 +287,7 @@ shuffle_vectors <- function (rvec = NULL, pvec = NULL, perm = 10000){
 #' 
 #' Added 13-July-2019. 
 
-get_path = function(source_path = NULL, dest_path=NULL path_addition = NULL, path_suffix = NULL){
+get_path = function(source_path = NULL, dest_path=NULL, path_addition = NULL, path_suffix = NULL){
   
        if (is.null(source_path)) {
     
@@ -308,6 +308,9 @@ get_path = function(source_path = NULL, dest_path=NULL path_addition = NULL, pat
   
   } 
   
+  #
+  message("`get_path()` is using source path: \"", source_path, "\" and destination path: \"", dest_path, "\".\n")
+  
   # get file path without extensions
   file_name <- sub(pattern = "(.*?)\\..*$", replacement = "\\1", basename(source_path))
   
@@ -315,10 +318,10 @@ get_path = function(source_path = NULL, dest_path=NULL path_addition = NULL, pat
   file_name <- paste0(file_name, "_", path_addition, path_suffix)
   
   # create new target file path from old path
-  dest_path <- paste0( dirName(dest_path), file_name)
+  dest_path <- paste0(dest_path, file_name)
   
   # diagnostic message
-  message ("Writing current result to default path: \"", dest_path , "\".")
+  # message ("Writing current result to default path: \"", dest_path , "\".")
   
   return(dest_path)
 
