@@ -287,25 +287,40 @@ shuffle_vectors <- function (rvec = NULL, pvec = NULL, perm = 10000){
 #' 
 #' Added 13-July-2019. 
 
-get_path = function(file_path = NULL, path_addition = NULL, path_suffix = NULL){
-  if (is.null(file_path)) {
-    stop("No file path provided by user or function, aborting.\n", call.=TRUE)
+get_path = function(source_path = NULL, dest_path=NULL path_addition = NULL, path_suffix = NULL){
+  
+       if (is.null(source_path)) {
+    
+    stop("No source_path path provided by user or function, aborting.\n", call.=TRUE)
+  
+  } else if (is.null(dest_path)) {
+    
+    message("No destination path provided, using ", source_path ,".\n", call.=TRUE)
+    dest_path <- source_path 
+  
   } else if (is.null(path_addition)) {
+    
     stop("No file path addition provided by user or function, aborting.\n", call.=TRUE)
+  
   } else if (is.null(path_suffix)) {
+  
     stop("No file path suffix provided by user or function, aborting.\n", call.=TRUE)
+  
   } 
   
   # get file path without extensions
-  prefix <- sub(pattern = "(.*?)\\..*$", replacement = "\\1", path)
+  file_name <- sub(pattern = "(.*?)\\..*$", replacement = "\\1", basename(source_path))
   
-  # create target file path
-  path <- paste0(prefix, "_", path_addition, path_suffix)
+  # create new file name
+  file_name <- paste0(file_name, "_", path_addition, path_suffix)
+  
+  # create new target file path from old path
+  dest_path <- paste0( dirName(dest_path), file_name)
   
   # diagnostic message
-  message ("Writing current result to default path: \"", path , "\".")
+  message ("Writing current result to default path: \"", dest_path , "\".")
   
-  return(path)
+  return(dest_path)
 
 }
 

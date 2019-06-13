@@ -38,7 +38,7 @@ args = commandArgs(trailingOnly=TRUE)
 
 #' Test if there is at least one argument: If not, return an error.
 
-if (length(args)==0) {
+if (length(args)==1) {
   
   # Definition of first argument `args[1]` will define `resp_path` down below and
   #   must be Matrices containing biologic responses e.g.:
@@ -47,7 +47,7 @@ if (length(args)==0) {
   #   `resp_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_Eukaryotes_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv"`
   #   `resp_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_clustered99_Eukaryotes_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv"`
 
-  stop("At least one argument must be supplied (input file).\n", call.=TRUE)
+  stop("At least source file and destination wiil need to be specidied.\n", call.=TRUE)
 
 } else if (length(args)==1) {
 
@@ -56,7 +56,7 @@ if (length(args)==0) {
   #   this file name should be somewhat related to the input file name. Otherwise a 
   #   generic name is assigned here, since the file contents are determined by the 
   #   last-passed distance matrix file in `args[1]`. 
-  args[2] = get_path(args[1], "_collapsed_distance_matrix", ".csv")
+  args[2] =  get_path(args[1], "_collapsed_distance_matrix", ".csv")
 
   # Definition of third default arguments `args[3]` will define write path of readily formatted model data 
   #  call `write.csv(model_data, file = args[3])`

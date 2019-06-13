@@ -1274,15 +1274,19 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * use in conjunction with `/Users/paul/Documents/CU_combined/Zenodo/Blast/500_85_18S_eDNA_samples_Eukaryotes_qiime_artefacts_non_phylogenetic_features_overlap.xlsx`
 * **13.06.2019** - as done yesterday - formalizing model calls
   * formalizing model calls
-    * create and adjust shell script - **not done**
-    * revising modelling script: 
+    * revising modelling script:
       * created by copying file to `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R` - **ok**
       * commit (`72e9d86af6c4a5f24bae240c8ad7f77114c0b701`) - **ok**
       * moving template file `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R ` to `/Users/paul/Documents/CU_combined/Scratch/R` - **ok**
       * variables to be re-defined in `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R` - **finished draft**
-      * commit
+      * commit (`897285e9429ea7c1005bab254e7e741045377ae`)
     * code tested and debugged - **not done** 
     * files to be erased in `/Users/paul/Documents/CU_combined/Zenodo/R_Objects`: **not checked yet**
+  * created draft version of `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh` - commit 
+  * `Rscript --vanilla` has been added to scripts:
+    * `/Users/paul/Documents/CU_combined/Github/175_export_all_qiime_artifacts_phylogenetic.sh` and
+    * `/Users/paul/Documents/CU_combined/Github/180_export_all_qiime_artifacts_non_phylogenetic.sh`
+  
     
 ## Todo
 

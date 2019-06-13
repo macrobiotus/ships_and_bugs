@@ -143,7 +143,7 @@ for i in "${!inpth_tree[@]}"; do
      
     # Summarize exported OTU tables
     printf "${bold}$(date):${normal} Summarizing .tsv files...\n"
-    "$trpth/Github/195_parse_otu_tables.R" \
+    Rscript --vanilla "$trpth/Github/195_parse_otu_tables.R" \
       "$results_dir/features-tax-meta.tsv" \
       "$results_dir/features-tax-meta-feature-summary.txt" \
       "$results_dir/features-tax-meta-feature-histogram.png"
