@@ -1302,7 +1302,21 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * adding to `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R``
     * time stamp to avoid overwriting in case of identical file names ``/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
     * needs matching with order of input files in `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh` - first files executed first
-  * commit
+  * commit `f85d137c8a112f022fd5b5c41e2881708b685219`
+* **13.06.2019** - preparing slides for results meeting
+  * also updated todo with new ideas
+  * `.pdf` and Qiime exports for slide generation are copied to `/Users/paul/Box Sync/CU_NIS-WRAPS/170724_internal_meetings/190618_cu_lab_meeting/images/` from:
+    * `/Users/paul/Documents/CU_combined/Zenodo/Results/`
+    * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/`
+  * re-run  `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R`
+    * current map saved to  `/Users/paul/Documents/CU_combined/Zenodo/Results/190614_map.pdf`
+    * alongside `/Users/paul/Documents/CU_combined/Zenodo/Results/500_40_get_maps_output__current_routes_sorted.csv`
+  * `.md` slides and `.pdf` renders at
+    * `/Users/paul/Box Sync/CU_NIS-WRAPS/170724_internal_meetings/190618_cu_lab_meeting`
+  * `.pdf` renders also at
+    * `/Users/paul/Documents/CU_combined/Zenodo/Documentation/190618_slides.pdf`
+    * `/Users/paul/Documents/CU_combined/Zenodo/Documentation/190618_slides_compressed.pdf`
+  * commit (``)
 
 ## Todo
 
@@ -1313,6 +1327,8 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * while doing so take care that matrix conflation is done using averages.
   * adjust `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
     * so that time stamp  to avoid overwriting in case of identical file names becomes something more meaningfule, sich as annalysis type  
+  * redo Procrustes and Mantel tests with port-collapsed feature tables  
+  
 
 #### Potentially large changes
   * Accommodate different Rarefaction depths
@@ -1327,6 +1343,7 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * **keep in mind** that in `#SampleID` mapping file  **must** start with two letter abbrivation, needed for R code!
   * adjust `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh` to use more metrcis such as 
     * observed OTUs, if desirable
+  * Which Richmond is meant? Mapped is Richmond, California **as it should**, and not anymore Virginia. Other inconsistencies in data?
   
 ## Known issues and bugs
 

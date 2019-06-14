@@ -1,7 +1,7 @@
 #' ---
-#' title: "Mapping Samples for Conference Presentation(s)"
+#' title: "Mapping Samples for Many Presentation(s)"
 #' author: "Paul Czechowski"
-#' date: "May 16, 2019"
+#' date: "June 14, 2019"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -10,7 +10,7 @@
 #'
 #' # Preface
 #' 
-#' `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R")`.
+#' ` `.
 #' Please check the session info at the end of the document for further 
 #' notes on the coding environment.
 #'
@@ -87,15 +87,15 @@ smpld_PORT <- append(smpld_PORT, c("Adelaide", "Chicago", "Singapore",
 
 # Correct names. "*": Nearest port in port database chosen for actual location.
 # Correct names. "**": No route information or data below standard.
-smpld_PORT <- c("Haines",  "Nanaimo", "Long Beach", "Vancouver", "Pearl Harbor",
-                "Honolulu", "Portland", "Churchill**", "Oakland", "Richmond", "Wilmington", "New_Orleans",
-                "Miami", "Houston", "Baltimore", "Milne Inlet**", "Adelaide", "Chicago", "Singapore",
-                "Zeebrugge", "Ghent", "Antwerp", "Rotterdam", "Buenos Aires", "Puerto Madryn", "Iqaluit**")               
+smpld_PORT <- c("Pearl Harbour", "Singpore Woodlands", "Singopre Yacht Club", "Adelaide", "Baltimore", "Honolulu", "Houston", "Long Beach", "Miami", 
+                "Antwerp", "Coos Bay", "Haines", "Nanaimo", "New Orleans", "Oakland", "Portland", "Puerto Madryn", "Richmond",
+                "Rotterdam", "Vancouver", "Ghent", "Wilmington", "Zeebrugge")               
 
-smpld_PID <- c("3367", "3108", "7597", "311", "2503",
-               "2503",  "238", "4021", "7598", "7976", "7975", "3381",
-               "4899", "2331",  "854", "3371", "3110", "2907", "1165",
-               "1675", "4538",  "576",  "830", "2729", "193", "5362")
+smpld_PID <- c("2503","1165","1165","3110", "854", 
+               "2503","2331","7597","4899", "576",
+               "2141","3367","3108","3381","7598",
+                "238", "193","4777", "830", "311",
+               "4538","7975","1675")
 
 # create concise inventory tibble 
 # 23.08.2017 duplicate harbour ID "2503" does not appear to be a problem
