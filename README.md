@@ -1316,7 +1316,7 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * `.pdf` renders also at
     * `/Users/paul/Documents/CU_combined/Zenodo/Documentation/190618_slides.pdf`
     * `/Users/paul/Documents/CU_combined/Zenodo/Documentation/190618_slides_compressed.pdf`
-  * commit (``)
+  * commit (`41d1b4e8d2ce84e73ec9358658e8cac43df1d0a`)
 
 ## Todo
 

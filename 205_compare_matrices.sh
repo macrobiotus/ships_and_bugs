@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 11.06.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 17.06.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 #  Mantel test and Procrustes analysis of 
 #    * between UNIFRAC and Jacquard distance matrices

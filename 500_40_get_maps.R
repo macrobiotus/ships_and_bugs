@@ -155,7 +155,6 @@ names (srout)[names (srout) %in% c("PORT", "COUN")] <- c("PORTB", "COUNB")
 #' I am removing them here.
 srout <-  srout [ which (complete.cases (srout)), ] 
 
-
 #' ## Saving comnected routes
 #' 
 #' Routes that connect our samples are saved:
@@ -313,7 +312,7 @@ points_all <- dplyr::arrange(points_all, desc(ROUTE)) %>% print(n = nrow(.))
 # Correct port names
 points_all$PORT[points_all$PORT == "Wilmington(DE USA)"] <- "Wilmington"
 points_all$PORT[points_all$PORT == "Vancouver(CAN)"] <- "Vancouver"
-points_all$PORT[points_all$PORT == "Richmond(VA USA)"] <- "Richmond"
+points_all$PORT[points_all$PORT == "Richmond(CA USA)"] <- "Richmond"
 points_all$PORT[points_all$PORT == "Portland(OR USA)"] <- "Portland"
 
 #' ## Prepare points to be be mapped
