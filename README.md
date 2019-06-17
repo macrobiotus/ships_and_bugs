@@ -1318,7 +1318,7 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * `/Users/paul/Documents/CU_combined/Zenodo/Documentation/190618_slides_compressed.pdf`
   * commit (`41d1b4e8d2ce84e73ec9358658e8cac43df1d0a`)
 * **17.06.2019** - started Mantel test extension but aborted
-  * commit  
+  * commit `4ae98cb15e414f9c0517971c16e0b78701826db1`
 
 
 ## Todo
