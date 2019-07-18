@@ -1319,8 +1319,48 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * commit (`41d1b4e8d2ce84e73ec9358658e8cac43df1d0a`)
 * **17.06.2019** - started Mantel test extension but aborted
   * commit `4ae98cb15e414f9c0517971c16e0b78701826db1`
+* **17.07.2019** - **work pick-up at Otago University**
+  * **updated todo as far as comprehensible**
+    * re-run Blast so that Erin is happy (and environmental samples are excluded)
+    * modify Mantel test to run on port collapsed samples
+    * accommodate different rarefaction depth to check results
+    * see word document after updating it from the photographs
+  * re-starting to adjust `/Users/paul/Documents/CU_combined/Github/200_fasta_blast.sh`  to exclude environmental samples
+   * possible solution: 
+    * as per `https://bioinformatics.stackexchange.com/questions/7384/taxon-exclude-list-for-searching-local-blast-database-using-blastn`
+    * an as per: `https://ftp.ncbi.nlm.nih.gov/blast/db/v5/blastdbv5.pdf`
+      * `blast 2.9.0` running on local
+      * `blast 2.9.0` called in script used for cornell biohpc
+      * database version needs to be five or higher on local  (unchecked) and / or remote (unchecked) - assuming version are - downloaded after release notes
+* **18.07.2019**
+  * attempting to install NCBI's Edirect utilities as per `https://www.ncbi.nlm.nih.gov/books/NBK179288/`
+  * failed multiple times - requested help from NCBI, Erin & Jose
+  * exploring solution as per `https://github.com/bioconda/bioconda-recipes/issues/13415`
+    * `conda remove perl`
+    * `conda install -c bioconda entrez-direct` - (now removed)
+    * not working either - installed on second computer without Anaconda
+  * the query file should be able to be generated as per `https://ftp.ncbi.nlm.nih.gov/blast/db/v5/blastdbv5.pdf`
+  * creating files for inclusion of eukaryotic samples:
+    * on different machine running blast+'s `get_species_taxids.sh -t 2759` (Eukaryota) - saving to file ok.
+    * file with Eukaryotic tax ids can be found at: `/Users/paul/Documents/CU_combined/Zenodo/Blast/190718_gi_list_2759.txt`
+  * creating files for exclusion of environmental samples:
+    * searching for env. samples on NCBI: `https://www.ncbi.nlm.nih.gov/nuccore/?term=%22environmental%20samples%22%5Borganism%5D%20OR%20metagenomes%5Borgn%5D`
+    * (search query is "environmental samples"[organism] OR metagenomes[orgn])
+    * saving GI list in default order to `/Users/paul/Documents/CU_combined/Zenodo/Blast/190718_gi_list_environmental.txt`
+  * adjusting Blast script `/Users/paul/Documents/CU_combined/Github/200_fasta_blast.sh`
+    * adding to Blast call:
+      * `-taxidlist "$trpth"/Zenodo/Blast/190718_gi_list_2759.txt \` and
+      * `-negative_gilist "$trpth"/Zenodo/Blast/190718_gi_list_environmental.txt \`
+    * adjusting code that generates file names
+    * waiting for Gi list to finish downloading
+    * commit repository
+ 
+    
+      
+    
+  
 
-
+    
 ## Todo
 
 ### More Important 
@@ -1331,7 +1371,6 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * adjust `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
     * so that time stamp  to avoid overwriting in case of identical file names becomes something more meaningfule, sich as annalysis type  
   * redo Procrustes and Mantel tests with port-collapsed feature tables  
-  
 
 #### Potentially large changes
   * Accommodate different Rarefaction depths

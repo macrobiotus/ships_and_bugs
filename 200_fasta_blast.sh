@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 10.09.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 17.07.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Blast fasta file against locally installed copy of NCBI nt database. See
 #   https://stackoverflow.com/questions/45014279/running-locally-blastn-against-nt-db-thru-python-script.
@@ -17,17 +17,17 @@
 
 # paths need to be adjusted for remote execution
 # ----------------------------------------------
-if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
+if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]] || [[ "$HOSTNAME" != anat-dock-46.otago.ac.nz ]] ; then
     printf "Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
     cores="$(nproc --all)"
     # find parameters for cluster at
     #  https://biohpc.cornell.edu/lab/userguide.aspx?a=software&i=16#c
-    export PATH=/programs/ncbi-blast-2.3.0+/bin:$PATH
+    export PATH=/programs/ncbi-blast-2.9.0+/bin:$PATH
     dbpath="/workdir/pc683/BLAST_NCBI/nt"
     # files will be there after running "../Transport/350_sync_ncbi_nt_to_scratch.sh"
     #  on cluster
-elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
+elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]] || [[ "$HOSTNAME" == anat-dock-46.otago.ac.nz ]]  ; then
     printf "Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
     cores='3'
@@ -64,7 +64,10 @@ for fasta in "${inpth_seq[@]}";do
   filename=$(dirname "$fasta")
   src_dir=$(basename "$fasta")
   tmp_file="110${src_dir:3}"
-  tgt_file="${tmp_file%%.*}_blast_result.txt"
+  # old call using complete data:
+  # `tgt_file="${tmp_file%%.*}_blast_result.txt"`
+  # for adjusted blast call 18.07.2019 using
+  tgt_file="${tmp_file%%.*}_blast_result_euk_only_no_env.txt"
 
   # for debugging only 
   # printf "$fasta\n"
@@ -85,6 +88,8 @@ for fasta in "${inpth_seq[@]}";do
         -max_target_seqs 5 \
         -out "$trpth"/Zenodo/Blast/"$tgt_file" \
         -num_threads "$cores" && \
+        -taxidlist "$trpth"/Zenodo/Blast/190718_gi_list_2759.txt \
+        -negative_gilist "$trpth"/Zenodo/Blast/190718_gi_list_environmental.txt \
       printf "...on $(date) Blast finished writing to \"$trpth/Zenodo/Blast/$tgt_file\".\n" || \
       { printf "Blastn failed at $(date +"%T") on \"$fasta\". \n" ; exit 1; }
     printf "\nOn $(date) Compressing \"$trpth/Zenodo/Blast/$tgt_file\".\n"
