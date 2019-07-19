@@ -1353,12 +1353,12 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
       * `-negative_gilist "$trpth"/Zenodo/Blast/190718_gi_list_environmental.txt \`
     * adjusting code that generates file names
     * waiting for Gi list to finish downloading
-    * commit repository
- 
-    
-      
-    
-  
+    * commit repository - ok (`15e27bf9a22b28aada0b0327754ac8479d61b768`).
+* **19.07.2019** - re-run Blast so that environmental samples are excluded
+  * created `/Users/paul/Documents/CU_combined/Zenodo/Blast/README.md` to document Blast data sets
+  * calling `/200_overwrite_remote_push.sh` first time from New Zealand - finished ok. 
+  * testing `/Users/paul/Documents/CU_combined/Github/200_fasta_blast.sh` - on local machine - seems to be working
+  * commit locally - overwrite cluster - run on cluster - retrieve
 
     
 ## Todo
