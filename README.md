@@ -1358,9 +1358,29 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * created `/Users/paul/Documents/CU_combined/Zenodo/Blast/README.md` to document Blast data sets
   * calling `/200_overwrite_remote_push.sh` first time from New Zealand - finished ok. 
   * testing `/Users/paul/Documents/CU_combined/Github/200_fasta_blast.sh` - on local machine - seems to be working
-  * commit locally - overwrite cluster - run on cluster - retrieve
-
-    
+  * commit locally (`a3deb25d4020d7ad928a937998d534fa44dccbe3`) - overwrite cluster (ok)
+  * loaded blast db on `cbsumm22` (ok)
+  * removing command from blast call as incompatibe: `-taxidlist "$trpth"/Zenodo/Blast/190718_gi_list_2759.txt \ `
+  * run on cluster (ok) - retrieve (ok)
+* **23.07.2019** - obtaining Blast results - port-collapsing for Mantel test repetition
+  * started writing-up methods
+  * dowloaded new non-environmental Blast results
+  * updated `/Users/paul/Documents/CU_combined/Zenodo/Blast/README.md`
+  * results are here:
+    * all: `/Users/paul/Documents/CU_combined/Zenodo/Results/190612_18S_eDNA_samples_Eukaryotes_2-16_ports_overlap.rma6`
+    * non-environmental: `/Users/paul/Documents/CU_combined/Zenodo/Results/190723_18S_eDNA_samples_Eukaryotes_non_environmental_2-16_ports_overlap.rma6`
+  * checked summary file and mailed of
+  * for repetion of script functionality using port collapsed data
+    * inspecting original script `/Users/paul/Documents/CU_combined/Github/205_compare_matrices.sh`
+      * need to created collapsed matrices first 
+        * need to create modified versions of script `130` which collapses tables 
+        * need to create modified versions of script `170` which collapses tables
+        * need to create modified version of script `205`
+    * creating templates for new scripts - not adjusted yet
+      * `/Users/paul/Documents/CU_combined/Github/131_get_core_metrics_non_phylogenetic_collpased.sh`
+      * `/Users/paul/Documents/CU_combined/Github/171_get_core_metrics_phylogenetic_collapsed.sh`
+      * `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices.sh`
+      
 ## Todo
 
 ### More Important 

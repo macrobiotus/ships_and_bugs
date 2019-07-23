@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 17.07.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 19.07.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Blast fasta file against locally installed copy of NCBI nt database. See
 #   https://stackoverflow.com/questions/45014279/running-locally-blastn-against-nt-db-thru-python-script.
@@ -87,9 +87,8 @@ for fasta in "${inpth_seq[@]}";do
         -outfmt 5 \
         -max_target_seqs 5 \
         -out "$trpth"/Zenodo/Blast/"$tgt_file" \
-        -num_threads "$cores" && \
-        -taxidlist "$trpth"/Zenodo/Blast/190718_gi_list_2759.txt \
-        -negative_gilist "$trpth"/Zenodo/Blast/190718_gi_list_environmental.txt \
+        -num_threads "$cores" \
+        -negative_gilist "$trpth"/Zenodo/Blast/190718_gi_list_environmental.txt && \
       printf "...on $(date) Blast finished writing to \"$trpth/Zenodo/Blast/$tgt_file\".\n" || \
       { printf "Blastn failed at $(date +"%T") on \"$fasta\". \n" ; exit 1; }
     printf "\nOn $(date) Compressing \"$trpth/Zenodo/Blast/$tgt_file\".\n"
