@@ -1370,17 +1370,29 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * all: `/Users/paul/Documents/CU_combined/Zenodo/Results/190612_18S_eDNA_samples_Eukaryotes_2-16_ports_overlap.rma6`
     * non-environmental: `/Users/paul/Documents/CU_combined/Zenodo/Results/190723_18S_eDNA_samples_Eukaryotes_non_environmental_2-16_ports_overlap.rma6`
   * checked summary file and mailed of
-  * for repetion of script functionality using port collapsed data
+  * for repetion of Mantel/Procrustes script functionality using port collapsed data
     * inspecting original script `/Users/paul/Documents/CU_combined/Github/205_compare_matrices.sh`
       * need to created collapsed matrices first 
         * need to create modified versions of script `130` which collapses tables 
         * need to create modified versions of script `170` which collapses tables
-        * need to create modified version of script `205`
+        * need to create modified version of script `205` which uses collapsed tables
     * creating templates for new scripts - not adjusted yet
       * `/Users/paul/Documents/CU_combined/Github/131_get_core_metrics_non_phylogenetic_collpased.sh`
       * `/Users/paul/Documents/CU_combined/Github/171_get_core_metrics_phylogenetic_collapsed.sh`
       * `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices.sh`
-      
+      * commit `da7d3db01172a614229fae764004f9a8b7f18faf`
+* **24.07.2019** - continuing port-collapsing for Mantel test repetition
+  * keeping subsampling depth the same as in parent script to allow comparisons with parent script results
+  * created collapsed mapping file `/Users/paul/Documents/CU_combined/Zenodo/Manifest/07_18S_merged_metadata grouped.tsv`
+  * collapsed mapping file needs to be included
+  * adjusted `/Users/paul/Documents/CU_combined/Github/131_get_core_metrics_non_phylogenetic_collpased.sh`
+  * adjusted `/Users/paul/Documents/CU_combined/Github/171_get_core_metrics_phylogenetic_collapsed.sh`
+  * committed repositoery
+  * next
+    * adjust `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices.sh`
+    * test all scripts above
+
+
 ## Todo
 
 ### More Important 

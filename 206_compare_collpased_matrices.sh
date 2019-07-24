@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 17.06.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 24.07.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 #  Mantel test and Procrustes analysis of 
 #    * between UNIFRAC and Jacquard distance matrices
@@ -13,13 +13,13 @@
 
 # Paths need to be adjusted for remote execution
 # ----------------------------------------------
-if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
+if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]] && [[ "$HOSTNAME" != anat-dock-46.otago.ac.nz ]] ; then
     printf "Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
     thrds="$(nproc --all)"
     bold=$(tput bold)
     normal=$(tput sgr0)
-elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
+elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]] || [[ "$HOSTNAME" == anat-dock-46.otago.ac.nz ]]  ; then
     printf "Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
     thrds='2'
