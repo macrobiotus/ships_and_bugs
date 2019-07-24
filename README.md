@@ -1381,16 +1381,18 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
       * `/Users/paul/Documents/CU_combined/Github/171_get_core_metrics_phylogenetic_collapsed.sh`
       * `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices.sh`
       * commit `da7d3db01172a614229fae764004f9a8b7f18faf`
-* **24.07.2019** - continuing port-collapsing for Mantel test repetition
+* **24.07.2019** - continuing port-collapsing for Mantel and Procrustes test extensions
   * keeping subsampling depth the same as in parent script to allow comparisons with parent script results
-  * created collapsed mapping file `/Users/paul/Documents/CU_combined/Zenodo/Manifest/07_18S_merged_metadata grouped.tsv`
-  * collapsed mapping file needs to be included
-  * adjusted `/Users/paul/Documents/CU_combined/Github/131_get_core_metrics_non_phylogenetic_collpased.sh`
-  * adjusted `/Users/paul/Documents/CU_combined/Github/171_get_core_metrics_phylogenetic_collapsed.sh`
-  * committed repositoery
+  * collapsed mapping file needs to be created manually - created collapsed mapping file `/Users/paul/Documents/CU_combined/Zenodo/Manifest/07_18S_merged_metadata grouped.tsv`
+  * adjusted `/Users/paul/Documents/CU_combined/Github/131_get_core_metrics_non_phylogenetic_collpased.sh` - likely run ok (output not checked yet) 
+  * adjusted `/Users/paul/Documents/CU_combined/Github/171_get_core_metrics_phylogenetic_collapsed.sh` - likely run ok (output not checked yet) 
   * next
     * adjust `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices.sh`
-    * test all scripts above
+      * new in an out paths, new mapping file
+    * test and/or run all scripts above
+  * committed repository
+    * before running (`334f8aaf7e27cad593a0aa775bdb7328fbf1d75a`)
+    * and after running and adding comments to this section
 
 
 ## Todo

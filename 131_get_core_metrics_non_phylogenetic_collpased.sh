@@ -7,6 +7,8 @@
 # also see for an explanation of metrics
 #  https://forum.qiime2.org/t/alpha-and-beta-diversity-explanations-and-commands/2282
 
+# needed for /Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices.sh
+
 # paths need to be adjusted for remote execution
 # ----------------------------------------------
 if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]] && [[ "$HOSTNAME" != anat-dock-46.otago.ac.nz ]] ; then
@@ -26,6 +28,7 @@ fi
 # define relative input locations - Qiime files
 # --------------------------------------------------------
 inpth_map='Zenodo/Manifest/06_18S_merged_metadata.tsv' # (should be  `b16888550ab997736253f741eaec47b`)
+secnd_map='Zenodo/Manifest/07_18S_merged_metadata grouped.tsv'
 
 # define relative input locations - feature tables
 # ------------------------------------------------
@@ -121,7 +124,7 @@ for i in "${!inpth_tab[@]}"; do
   
     qiime diversity core-metrics \
       --i-table "$cllps_tab" \
-      --m-metadata-file "$trpth"/"$inpth_map" \
+      --m-metadata-file "$trpth"/"$secnd_map" \
       --output-dir "$output_name" \
       --p-sampling-depth "$depth" \
       --verbose 2>&1 | tee -a "$output_log"
