@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 24.07.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 25.07.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 #  Mantel test and Procrustes analysis of 
 #    * between UNIFRAC and Jacquard distance matrices
@@ -13,13 +13,13 @@
 
 # Paths need to be adjusted for remote execution
 # ----------------------------------------------
-if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]] && [[ "$HOSTNAME" != anat-dock-46.otago.ac.nz ]] ; then
+if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]] && [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]] ; then
     printf "Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
     thrds="$(nproc --all)"
     bold=$(tput bold)
     normal=$(tput sgr0)
-elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]] || [[ "$HOSTNAME" == anat-dock-46.otago.ac.nz ]]  ; then
+elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]] || [[ "$HOSTNAME" == "macmini.staff.uod.otago.ac.nz" ]]  ; then
     printf "Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
     thrds='2'
@@ -29,50 +29,65 @@ fi
 
 # Define input paths 
 # ------------------
-map='Zenodo/Manifest/06_18S_merged_metadata.tsv' 
+map='Zenodo/Manifest/07_18S_merged_metadata_grouped.tsv' 
 
 
-# asv data
-dm_first[1]="Zenodo/Qiime/170_eDNA_samples_Eukaryotes_core_metrics/unweighted_unifrac_distance_matrix.qza"
-dm_secnd[1]="Zenodo/Qiime/130_18S_eDNA_samples_Eukaryotes_core_metrics_non_phylogenetic/jaccard_distance_matrix.qza" 
+# ASV data (port-collapsed)
+# ==========================
 
-lb_first[1]="18S_eDNA_samples_Eukaryotes_unweighted_unifrac"
-lb_secnd[1]="18S_eDNA_samples_Eukaryotes_jaccquard_non-phylogenetic" 
-
-mntl_vis[1]="Zenodo/Qiime/205_18S_eDNA_samples_Eukaryotes_mantel-test.qzv"
-
-pcoa_first[1]="Zenodo/Qiime/170_eDNA_samples_Eukaryotes_core_metrics/unweighted_unifrac_pcoa_results.qza"
-pcoa_secnd[1]="Zenodo/Qiime/130_18S_eDNA_samples_Eukaryotes_core_metrics_non_phylogenetic/jaccard_pcoa_results.qza"
-
-
-# 99% otu data
-dm_first[2]="Zenodo/Qiime/170_eDNA_samples_clustered99_Eukaryotes_core_metrics/unweighted_unifrac_distance_matrix.qza"
-dm_secnd[2]="Zenodo/Qiime/130_18S_eDNA_samples_clustered99_Eukaryotes_core_metrics_non_phylogenetic/jaccard_distance_matrix.qza" 
-
-lb_first[2]="18S_eDNA_samples_clustered99_Eukaryotes_unweighted_unifrac"
-lb_secnd[2]="18S_eDNA_samples_clustered99_Eukaryotes_jaccquard_non-phylogenetic" 
-
-mntl_vis[2]="Zenodo/Qiime/205_18S_eDNA_samples_clustered99_Eukaryotes_mantel-test.qzv"
-
-pcoa_first[2]="Zenodo/Qiime/170_eDNA_samples_clustered99_Eukaryotes_core_metrics/unweighted_unifrac_pcoa_results.qza"
-pcoa_secnd[2]="Zenodo/Qiime/130_18S_eDNA_samples_clustered99_Eukaryotes_core_metrics_non_phylogenetic/jaccard_pcoa_results.qza"
-
-
-# Define output paths 
+# initial input paths
 # -------------------
 
-# asv data
-tr_pcoa_first[1]="Zenodo/Qiime/170_eDNA_samples_Eukaryotes_core_metrics/unweighted_unifrac_pcoa_results_transformed.qza"
-tr_pcoa_secnd[1]="Zenodo/Qiime/130_18S_eDNA_samples_Eukaryotes_core_metrics_non_phylogenetic/jaccard_pcoa_results_transformed.qza"
+dm_first[1]="Zenodo/Qiime/171_eDNA_samples_Eukaryotes_core_metrics_port-collapsed/unweighted_unifrac_distance_matrix.qza"
+dm_secnd[1]="Zenodo/Qiime/131_18S_eDNA_samples_Eukaryotes_core_metrics_non_phylogenetic_port-collapsed/jaccard_distance_matrix.qza" 
 
-prc_vis[1]="Zenodo/Qiime/205_18S_eDNA_samples_Eukaryotes_procrustes.qzv"
+pcoa_first[1]="Zenodo/Qiime/171_eDNA_samples_Eukaryotes_core_metrics_port-collapsed/unweighted_unifrac_pcoa_results.qza"
+pcoa_secnd[1]="Zenodo/Qiime/131_18S_eDNA_samples_Eukaryotes_core_metrics_non_phylogenetic_port-collapsed/jaccard_pcoa_results.qza"
 
-# 99% otu data
-tr_pcoa_first[2]="Zenodo/Qiime/170_eDNA_samples_clustered99_Eukaryotes_core_metrics/unweighted_unifrac_pcoa_results.qza"
-tr_pcoa_secnd[2]="Zenodo/Qiime/130_18S_eDNA_samples_clustered99_Eukaryotes_core_metrics_non_phylogenetic/jaccard_pcoa_results.qza"
+# intermediate output
+# -------------------
 
-prc_vis[2]="Zenodo/Qiime/205_18S_eDNA_samples_clustered99_Eukaryotes_procrustes.qzv"
+tr_pcoa_first[1]="Zenodo/Qiime/171_eDNA_samples_Eukaryotes_core_metrics_port-collapsed/unweighted_unifrac_pcoa_results_transformed.qza"
+tr_pcoa_secnd[1]="Zenodo/Qiime/131_18S_eDNA_samples_Eukaryotes_core_metrics_non_phylogenetic_port-collapsed/jaccard_pcoa_results_transformed.qza"
 
+
+
+
+
+# results files and labels therein
+# --------------------------------
+
+lb_first[1]="18S_eDNA_samples_Eukaryotes_unweighted_unifrac_prt_cllps"
+lb_secnd[1]="18S_eDNA_samples_Eukaryotes_jaccquard_non-phylogenetic_prt_cllps"
+
+mntl_vis[1]="Zenodo/Qiime/206_18S_eDNA_samples_Eukaryotes_mantel-test_prt-cllps.qzv"
+prc_vis[1]="Zenodo/Qiime/206_18S_eDNA_samples_Eukaryotes_procrustes_port-collapsed.qzv"
+
+# 99% OTU data (port-collapsed)
+# ==========================
+
+# initial input paths
+# -------------------
+
+dm_first[2]="Zenodo/Qiime/171_eDNA_samples_clustered99_Eukaryotes_core_metrics_port-collapsed/unweighted_unifrac_distance_matrix.qza"
+dm_secnd[2]="Zenodo/Qiime/131_18S_eDNA_samples_clustered99_Eukaryotes_core_metrics_non_phylogenetic_port-collapsed/jaccard_distance_matrix.qza" 
+
+pcoa_first[2]="Zenodo/Qiime/171_eDNA_samples_clustered99_Eukaryotes_core_metrics_port-collapsed/unweighted_unifrac_pcoa_results.qza"
+pcoa_secnd[2]="Zenodo/Qiime/131_18S_eDNA_samples_clustered99_Eukaryotes_core_metrics_non_phylogenetic_port-collapsed/jaccard_pcoa_results.qza"
+
+# intermediate output
+# -------------------
+tr_pcoa_first[2]="Zenodo/Qiime/171_eDNA_samples_clustered99_Eukaryotes_core_metrics_port-collapsed/unweighted_unifrac_pcoa_results.qza"
+tr_pcoa_secnd[2]="Zenodo/Qiime/131_18S_eDNA_samples_clustered99_Eukaryotes_core_metrics_non_phylogenetic_port-collapsed/jaccard_pcoa_results.qza"
+
+# results files and labels therein
+# --------------------------------
+
+lb_first[2]="18S_eDNA_samples_clustered99_Eukaryotes_unweighted_unifrac_prt_cllps"
+lb_secnd[2]="18S_eDNA_samples_clustered99_Eukaryotes_jaccquard_non-phylogenetic_prt_cllps" 
+
+mntl_vis[2]="Zenodo/Qiime/206_18S_eDNA_samples_clustered99_Eukaryotes_mantel-test_prt-cllps.qzv"
+prc_vis[2]="Zenodo/Qiime/206_18S_eDNA_samples_clustered99_Eukaryotes_procrustes_port-collapsed.qzv"
 
 # Run scripts 
 # -----------

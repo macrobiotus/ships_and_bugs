@@ -1392,8 +1392,19 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * test and/or run all scripts above
   * committed repository
     * before running (`334f8aaf7e27cad593a0aa775bdb7328fbf1d75a`)
-    * and after running and adding comments to this section
-
+    * and after running and adding comments to this section (`77fa0274c536d5d64359fde7b0f023524efe7f12`)
+  * started adjusting `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices.sh`
+* **25.07.2019** - encoding Mantel and Procrustes test extensions
+  * hostname has been set to `macmini.staff.uod.otago.ac.nz`
+  * further adjusting script `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices.sh`
+  * testing script `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices.sh`
+    * Mantel tests are available:
+      * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/206_18S_eDNA_samples_Eukaryotes_mantel-test_prt-cllps.qzv`
+      * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/206_18S_eDNA_samples_clustered99_Eukaryotes_mantel-test_prt-cllps.qzv`
+    * Procrustes tests are available 
+      * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/206_18S_eDNA_samples_Eukaryotes_procrustes_port-collapsed.qzv`
+      * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/206_18S_eDNA_samples_clustered99_Eukaryotes_procrustes_port-collapsed.qzv`
+    * commit for today 
 
 ## Todo
 

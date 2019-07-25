@@ -13,13 +13,13 @@
 
 # Paths need to be adjusted for remote execution
 # ----------------------------------------------
-if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
+if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]] && [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]] ; then
     printf "Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
     thrds="$(nproc --all)"
     bold=$(tput bold)
     normal=$(tput sgr0)
-elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
+elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]] || [[ "$HOSTNAME" == "macmini.staff.uod.otago.ac.nz" ]]  ; then
     printf "Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
     thrds='2'
@@ -30,7 +30,6 @@ fi
 # Define input paths 
 # ------------------
 map='Zenodo/Manifest/06_18S_merged_metadata.tsv' 
-
 
 # asv data
 dm_first[1]="Zenodo/Qiime/170_eDNA_samples_Eukaryotes_core_metrics/unweighted_unifrac_distance_matrix.qza"
