@@ -1404,11 +1404,29 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * Procrustes tests are available 
       * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/206_18S_eDNA_samples_Eukaryotes_procrustes_port-collapsed.qzv`
       * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/206_18S_eDNA_samples_clustered99_Eukaryotes_procrustes_port-collapsed.qzv`
-    * commit for today 
+    * commit for today `f944a914bf0005ebba591c79fe7b7041d2fa04a`
+* **30.07.2019** - encoding Mantel and Procrustes test extensions
+  * started to work on map DI for manuscript, in QGIS, 
+  * later QGIS versions also downloaded
+  * map retrieved as listed at `http://planet.qgis.org/planet/tag/world%20imagery/`
+    * in Python Console pasted `qgis.utils.iface.addRasterLayer("http://server.arcgisonline.com/arcgis/rest/services/ESRI_Imagery_World_2D/MapServer?f=json&pretty=true","raster")`
+    * continue at `/Users/paul/Documents/CU_combined/Zenodo/Qgis/190730_sample_map.qgz`
+* **31.07.2019** - pick-up afer conference call
+  * downloaded SILVA 132 reference data
+* **06.08.2019**
+  * received all Chinese sample data and metadata, saving to `/Users/paul/Sequences/Raw/190726_CU_Aibin_lab_external_run/`
+  * updating Cornell cluster, as well. Via `/Users/paul/Sequences/Raw/190726_CU_Aibin_lab_external_run/000_upload_update.sh`
+  * for Argentinean collaborators collated `/Users/paul/Documents/CU_combined/Zenodo/Blast/190806_NIS-WRAPS_Megan_input_eukaryotes_all_ports.zip`
+    * also see `/Users/paul/Documents/CU_argentina/Github/README.md`
+* **09.08.2019**
+  * aborted inclusion of Chinese data, see `/Users/paul/Documents/CU_China/Github/README.md`
+  * started to work more seriously on Display Items, see `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/README.md`
 
 ## Todo
 
 ### More Important 
+
+**update hostname in Transport scripts**
 
 #### Smaller Changes and Additions   
   * formalize implementation of `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
@@ -1418,6 +1436,8 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * redo Procrustes and Mantel tests with port-collapsed feature tables  
 
 #### Potentially large changes
+  * Include latest reference data
+  * Accomodate Chinase data
   * Accommodate different Rarefaction depths
   * Accomodate randomized matrices
   * Correlate identified invasives with high shipping traffic, for this isolate and inspect highly connected ports only.
