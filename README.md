@@ -1420,29 +1420,36 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * also see `/Users/paul/Documents/CU_argentina/Github/README.md`
 * **09.08.2019**
   * aborted inclusion of Chinese data, see `/Users/paul/Documents/CU_China/Github/README.md`
-  * started to work more seriously on Display Items, see `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/README.md`
+  * started to work more seriously on Display Items, see `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/README.md` 
+* **13.08.2019** - checking overlap between references and queries 
+  * importing to Geneious folder `Silva128_extended_overlap_check`
+    * `/Users/paul/Documents/CU_combined/Zenodo/References/Silva128_extract_extended/99_otus_18S.fasta`
+    * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/180_18S_eDNA_samples_tab_Eukaryotes_qiime_artefacts_non_phylogenetic/dna-sequences.fasta`
+  * randomly sample `5000` sequences with seed `42` from both files
+  * importing alignment file `/Users/paul/Sequences/References/SILVA_128_QIIME_release/core_alignment`
+  * generating majority consensus sequence and editing this - does work with mapping - little mapping success
+  * aligning both 5000-sequence-sets using MAFFT with default parameters - running
+  
+
 
 ## Todo
 
-### More Important 
+### More important 
 
-**update hostname in Transport scripts**
+#### Potentially large changes
+  * **update hostname in Transport scripts*
+  * Accommodate different Rarefaction depths
+  * Accomodate randomized matrices
+  * get and incorporate HON data
+  * finish display items
 
-#### Smaller Changes and Additions   
+#### Smaller changes and additions   
   * formalize implementation of `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
     * while doing so take care that matrix conflation is done using averages.
   * adjust `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
     * so that time stamp  to avoid overwriting in case of identical file names becomes something more meaningfule, sich as annalysis type  
-  * redo Procrustes and Mantel tests with port-collapsed feature tables  
 
-#### Potentially large changes
-  * Include latest reference data
-  * Accomodate Chinase data
-  * Accommodate different Rarefaction depths
-  * Accomodate randomized matrices
-  * Correlate identified invasives with high shipping traffic, for this isolate and inspect highly connected ports only.
-
-### Less Important 
+#### Less important 
   * run and render `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R` - manual port lookup necessary
   * extend `/Users/paul/Documents/CU_combined/Github/205_compare_matrices.sh` - include more diversity metrics
   * get numbers and display items
@@ -1451,10 +1458,15 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * adjust `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh` to use more metrcis such as 
     * observed OTUs, if desirable
   * Which Richmond is meant? Mapped is Richmond, California **as it should**, and not anymore Virginia. Other inconsistencies in data?
-  
+
+#### Done
+  * ~~Correlate identified invasives with high shipping traffic, for this isolate and inspect highly connected ports only.~~
+  * ~~Include latest reference data~~
+  * ~~Accomodate Chinase data~~
+
 ## Known issues and bugs
 
-### High Priority
+### High priority
 * _09.04.2019_ - **confirmed** some matrix column names and row names that are expected to have port numbers as Id'd do have "NA"'s only
   * as seen in `/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output_mat_trips_full.Rdata`
   * called via `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R`
@@ -1466,6 +1478,6 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * `500_70_matrix_comparison_uni_prd.R` and precursors
   * possible unconfirmed reason: some table has only first instances of port names filled, all others port names set NA by previous scripts
 
-### Low Priority
+### Low priority
 * _02.05.2018_ - **unconfirmed** - list output is sparse in `/Users/paul/Documents/CU_combined/Github/550_check_taxonomy.R`
   * possible unconfirmed reason: blast OTU list shorter the OTU list in Phyloseq object - perhaps blast is dropping queries ?
