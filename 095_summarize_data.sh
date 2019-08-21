@@ -10,13 +10,13 @@
 
 # paths need to be adjusted for remote execution
 # ----------------------------------------------
-if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
+if [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
     printf "Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
     thrds="$(nproc --all)"
     bold=$(tput bold)
     normal=$(tput sgr0)
-elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
+elif [[ "$HOSTNAME" == "macmini.staff.uod.otago.ac.nz" ]]; then
     printf "Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
     thrds='2'
@@ -39,7 +39,7 @@ inpth_tax='Zenodo/Qiime/075_18S_denoised_seq_taxonomy_assignment.qza'
 inpth_seq_unsorted=()
 while IFS=  read -r -d $'\0'; do
     inpth_seq_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" \( -name '085_18S_*_seq.qza' -o -name '090_18S_*_seq.qza' \) -print0)
+done < <(find "$trpth/Zenodo/Qiime" \( -name '085_18S_*_seq.qza' -o -name '090_18S_*_seq.qza' -o -name '091_18S_*_seq.qza' \) -print0)
 
 # for debugging - print unsorted sequences
 # printf '%s\n'
@@ -60,7 +60,7 @@ unset IFS
 inpth_tab_unsorted=()
 while IFS=  read -r -d $'\0'; do
     inpth_tab_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" \( -name '085_18S_*_tab.qza' -o -name '090_18S_*_tab.qza' \) -print0)
+done < <(find "$trpth/Zenodo/Qiime" \( -name '085_18S_*_tab.qza' -o -name '090_18S_*_tab.qza' -o -name '091_18S_*_tab.qza' \) -print0)
 
 # for debugging -  print unsorted tables
 # printf '%s\n'

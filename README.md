@@ -1429,7 +1429,13 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * importing alignment file `/Users/paul/Sequences/References/SILVA_128_QIIME_release/core_alignment`
   * generating majority consensus sequence and editing this - does work with mapping - little mapping success
   * aligning both 5000-sequence-sets using MAFFT with default parameters - running
-  
+  * committed
+* **15.08.2019** - checking overlap between references and queries 
+  * **alignment didn't tell much, erase and align primers instead**
+* **21.08.2019** - splitting and summarizing controls for results section
+  * creating and modifying `/Users/paul/Documents/CU_combined/Github/091_split_controls_further.sh` - ran ok
+  * modifying array fill in `/Users/paul/Documents/CU_combined/Github/095_summarize_data.sh` - ran ok
+  * commit
 
 
 ## Todo
