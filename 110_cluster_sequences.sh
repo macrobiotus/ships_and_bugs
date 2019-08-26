@@ -21,11 +21,11 @@
 
 # Paths need to be adjusted for remote execution
 # ----------------------------------------------
-if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
+if [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
     printf "This script needs at least qiime2-2018.08. Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
     cores="$(nproc --all)"
-elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
+elif [[ "$HOSTNAME" == "macmini.staff.uod.otago.ac.nz" ]]; then
     printf "This script needs at least qiime2-2018.08. Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
     # cores="$(nproc --all)"

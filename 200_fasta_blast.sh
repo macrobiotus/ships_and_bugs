@@ -17,7 +17,7 @@
 
 # paths need to be adjusted for remote execution
 # ----------------------------------------------
-if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]] && [[ "$HOSTNAME" != anat-dock-46.otago.ac.nz ]] ; then
+if [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]] && [[ "$HOSTNAME" != anat-dock-46.otago.ac.nz ]] ; then
     printf "Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
     cores="$(nproc --all)"
@@ -27,7 +27,7 @@ if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]] && [[ "$HOSTNAME" != anat-dock-4
     dbpath="/workdir/pc683/BLAST_NCBI/nt"
     # files will be there after running "../Transport/350_sync_ncbi_nt_to_scratch.sh"
     #  on cluster
-elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]] || [[ "$HOSTNAME" == anat-dock-46.otago.ac.nz ]]  ; then
+elif [[ "$HOSTNAME" == "macmini.staff.uod.otago.ac.nz" ]] || [[ "$HOSTNAME" == anat-dock-46.otago.ac.nz ]]  ; then
     printf "Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
     cores='3'

@@ -11,13 +11,13 @@
 
 # paths need to be adjusted for remote execution
 # ----------------------------------------------
-if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]] && [[ "$HOSTNAME" != anat-dock-46.otago.ac.nz ]] ; then
+if [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]] && [[ "$HOSTNAME" != anat-dock-46.otago.ac.nz ]] ; then
     printf "Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
     thrds="$(nproc --all)"
     bold=$(tput bold)
     normal=$(tput sgr0)
-elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]] || [[ "$HOSTNAME" == anat-dock-46.otago.ac.nz ]]  ; then
+elif [[ "$HOSTNAME" == "macmini.staff.uod.otago.ac.nz" ]] || [[ "$HOSTNAME" == anat-dock-46.otago.ac.nz ]]  ; then
     printf "Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
     thrds='2'

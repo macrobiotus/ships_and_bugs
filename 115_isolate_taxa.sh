@@ -100,7 +100,7 @@ for k in "${!in_seq[@]}"; do
     extension="${in_seq[$k]##*.}"                    # get the extension
     out_seq[$k]="$directory"/"${seq_file_name}_${string[$i]}.${extension}" # get name string
     # debugging only
-    echo "${out_seq[$k]}"
+    # echo "${out_seq[$k]}"
     
     # get output table file name 
     directory="Zenodo/Qiime"
@@ -109,7 +109,7 @@ for k in "${!in_seq[@]}"; do
     extension="${in_tab[$k]##*.}"                    # get the extension
     out_tab[$k]="$directory"/"${tab_file_name}_${string[$i]}.${extension}" # get name string    
     # debugging only
-    echo "${out_tab[$k]}"
+    # echo "${out_tab[$k]}"
     
     # debugging only
     # continue

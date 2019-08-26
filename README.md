@@ -1438,16 +1438,19 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * commit `d16eeb4f80daa89d4eeb316be66f7ed1b32cce77`
 * **26.08.2019** - **implementing different rarefaction depths analysis**
   * possible scripts to **modify** are:
-    * `/Users/paul/Documents/CU_combined/Github/115_isolate_taxa.sh`
-    * `/Users/paul/Documents/CU_combined/Github/130_get_core_metrics_non_phylogenetic.sh`
-    * `/Users/paul/Documents/CU_combined/Github/131_get_core_metrics_non_phylogenetic_collpased.sh`
-    * `/Users/paul/Documents/CU_combined/Github/170_get_core_metrics_phylogenetic.sh`
-    * `/Users/paul/Documents/CU_combined/Github/171_get_core_metrics_phylogenetic_collapsed.sh`
-    * and more (R scripts, mantel and procrustes tests - after Mandanas input?)
+    * `/Users/paul/Documents/CU_combined/Github/115_isolate_taxa.sh` - ok 
+    * `/Users/paul/Documents/CU_combined/Github/130_get_core_metrics_non_phylogenetic.sh` - pending 
+    * `/Users/paul/Documents/CU_combined/Github/131_get_core_metrics_non_phylogenetic_collpased.sh` - pending 
+    * `/Users/paul/Documents/CU_combined/Github/170_get_core_metrics_phylogenetic.sh` - pending 
+    * `/Users/paul/Documents/CU_combined/Github/171_get_core_metrics_phylogenetic_collapsed.sh`- pending 
+    * and more (R scripts, mantel and procrustes tests - after Mandanas input?) - pending
   * adjusting `/Users/paul/Documents/CU_combined/Github/115_isolate_taxa.sh`
     * namely `string[2]='Eukaryotes-shallow'` and loop counters
     * running script, ok, created files: `/Users/paul/Documents/CU_combined/Zenodo/Qiime/115_*_Eukaryotes-shallow.qza`
+    * commit `d52f11e7a706dac928122533ed6b92a09b95131a`
+  * adjusted hostnames in work scripts: `find /Users/paul/Documents/CU_combined/Github -name '*.sh' -exec gsed -i 's|"pc683.eeb.cornell.edu"|"macmini.staff.uod.otago.ac.nz"|g' {} \;`
     * commit 
+  * adjusting `/Users/paul/Documents/CU_combined/Github/130_get_core_metrics_non_phylogenetic.sh`
      
 
 
