@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 29.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 26.08.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 #  Retain only samples needed for analysis 
 
@@ -10,13 +10,13 @@
 
 # Paths need to be adjusted for remote execution
 # ----------------------------------------------
-if [[ "$HOSTNAME" != "pc683.eeb.cornell.edu" ]]; then
+if [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
     printf "Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
     thrds="$(nproc --all)"
     bold=$(tput bold)
     normal=$(tput sgr0)
-elif [[ "$HOSTNAME" == "pc683.eeb.cornell.edu" ]]; then
+elif [[ "$HOSTNAME" == "macmini.staff.uod.otago.ac.nz" ]]; then
     printf "Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
     thrds='2'
@@ -59,8 +59,9 @@ in_tab[6]='Zenodo/Qiime/090_18S_controls_tab.qza'
 # for file name
 string[1]='Unassigned'
 string[2]='Eukaryotes'
-string[3]='Metazoans'
-string[4]='Eukaryote-non-metazoans'
+string[3]='Eukaryotes-shallow'
+string[4]='Metazoans'
+string[5]='Eukaryote-non-metazoans'
 
 # for filtering
 # for '--p-mode exact \'
@@ -70,13 +71,14 @@ string[4]='Eukaryote-non-metazoans'
 
 taxon[1]='Unassigned'
 taxon[2]='Eukaryota'
-taxon[3]='Metazoa'
+taxon[3]='Eukaryota'
+taxon[4]='Metazoa'
 
 # loop over input files
 for k in "${!in_seq[@]}"; do  
   
   # loop over filtering parameters, and corresponding file name names additions
-  for ((i=1;i<=3;i++)); do
+  for ((i=1;i<=4;i++)); do
   
     # print diagnostic message
     printf "\n${bold}$(date):${normal} Filtering for ${taxon[$i]}...\n"
@@ -98,7 +100,7 @@ for k in "${!in_seq[@]}"; do
     extension="${in_seq[$k]##*.}"                    # get the extension
     out_seq[$k]="$directory"/"${seq_file_name}_${string[$i]}.${extension}" # get name string
     # debugging only
-    # echo "${out_seq[$k]}"
+    echo "${out_seq[$k]}"
     
     # get output table file name 
     directory="Zenodo/Qiime"
@@ -107,7 +109,7 @@ for k in "${!in_seq[@]}"; do
     extension="${in_tab[$k]##*.}"                    # get the extension
     out_tab[$k]="$directory"/"${tab_file_name}_${string[$i]}.${extension}" # get name string    
     # debugging only
-    # echo "${out_tab[$k]}"
+    echo "${out_tab[$k]}"
     
     # debugging only
     # continue
@@ -121,8 +123,6 @@ for k in "${!in_seq[@]}"; do
         --i-sequences "$trpth"/"${in_seq[$k]}" \
         --o-filtered-sequences "$trpth"/"${out_seq[$k]}" \
         --p-include  "${taxon[$i]}"
-
-    elif [ ! -f "$trpth"/"${out_tab[$k]}" ]; then
 
       qiime taxa filter-table \
         --i-taxonomy "$trpth"/"$inpth_tax" \
@@ -147,7 +147,7 @@ for k in "${!in_seq[@]}"; do
   #   Note restricted loop, and hard pointers to index positions in Qiime 
   #   filtering commands.
     
-  for ((i=4;i<=4;i++)); do
+  for ((i=5;i<=5;i++)); do
   
     # print diagnostic message
     printf "\n${bold}$(date):${normal} Filtering of special case.\n"
@@ -195,8 +195,6 @@ for k in "${!in_seq[@]}"; do
         --p-include  "${taxon[2]}" \
         --p-exclude "${taxon[3]}"
     
-    elif [ ! -f "$trpth"/"${out_tab[$k]}" ]; then
-
       qiime taxa filter-table \
         --i-taxonomy "$trpth"/"$inpth_tax" \
         --i-table "$trpth"/"${in_tab[$k]}" \

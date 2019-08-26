@@ -1435,7 +1435,20 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
 * **21.08.2019** - splitting and summarizing controls for results section
   * creating and modifying `/Users/paul/Documents/CU_combined/Github/091_split_controls_further.sh` - ran ok
   * modifying array fill in `/Users/paul/Documents/CU_combined/Github/095_summarize_data.sh` - ran ok
-  * commit
+  * commit `d16eeb4f80daa89d4eeb316be66f7ed1b32cce77`
+* **26.08.2019** - **implementing different rarefaction depths analysis**
+  * possible scripts to **modify** are:
+    * `/Users/paul/Documents/CU_combined/Github/115_isolate_taxa.sh`
+    * `/Users/paul/Documents/CU_combined/Github/130_get_core_metrics_non_phylogenetic.sh`
+    * `/Users/paul/Documents/CU_combined/Github/131_get_core_metrics_non_phylogenetic_collpased.sh`
+    * `/Users/paul/Documents/CU_combined/Github/170_get_core_metrics_phylogenetic.sh`
+    * `/Users/paul/Documents/CU_combined/Github/171_get_core_metrics_phylogenetic_collapsed.sh`
+    * and more (R scripts, mantel and procrustes tests - after Mandanas input?)
+  * adjusting `/Users/paul/Documents/CU_combined/Github/115_isolate_taxa.sh`
+    * namely `string[2]='Eukaryotes-shallow'` and loop counters
+    * running script, ok, created files: `/Users/paul/Documents/CU_combined/Zenodo/Qiime/115_*_Eukaryotes-shallow.qza`
+    * commit 
+     
 
 
 ## Todo
@@ -1443,9 +1456,7 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
 ### More important 
 
 #### Potentially large changes
-  * **update hostname in Transport scripts*
-  * Accommodate different Rarefaction depths
-  * Accomodate randomized matrices
+  * **accommodate different Rarefaction depths (started 26.08.2019)**
   * get and incorporate HON data
   * finish display items
 
@@ -1456,6 +1467,7 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * so that time stamp  to avoid overwriting in case of identical file names becomes something more meaningfule, sich as annalysis type  
 
 #### Less important 
+  * Accomodate randomized matrices
   * run and render `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R` - manual port lookup necessary
   * extend `/Users/paul/Documents/CU_combined/Github/205_compare_matrices.sh` - include more diversity metrics
   * get numbers and display items
