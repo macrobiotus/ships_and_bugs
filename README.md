@@ -1439,20 +1439,32 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
 * **26.08.2019** - **implementing different rarefaction depths analysis**
   * possible scripts to **modify** are:
     * `/Users/paul/Documents/CU_combined/Github/115_isolate_taxa.sh` - ok 
-    * `/Users/paul/Documents/CU_combined/Github/130_get_core_metrics_non_phylogenetic.sh` - pending 
-    * `/Users/paul/Documents/CU_combined/Github/131_get_core_metrics_non_phylogenetic_collpased.sh` - pending 
-    * `/Users/paul/Documents/CU_combined/Github/170_get_core_metrics_phylogenetic.sh` - pending 
-    * `/Users/paul/Documents/CU_combined/Github/171_get_core_metrics_phylogenetic_collapsed.sh`- pending 
-    * and more (R scripts, mantel and procrustes tests - after Mandanas input?) - pending
+    * `/Users/paul/Documents/CU_combined/Github/130_get_core_metrics_non_phylogenetic.sh` - **pending** 
+    * `/Users/paul/Documents/CU_combined/Github/131_get_core_metrics_non_phylogenetic_collpased.sh` - **pending** 
+    * `/Users/paul/Documents/CU_combined/Github/170_get_core_metrics_phylogenetic.sh` - **pending**  
+    * `/Users/paul/Documents/CU_combined/Github/171_get_core_metrics_phylogenetic_collapsed.sh`- **pending**  
+    * and more (R scripts, mantel and procrustes tests - after Mandanas input?) - **pending** 
   * adjusting `/Users/paul/Documents/CU_combined/Github/115_isolate_taxa.sh`
-    * namely `string[2]='Eukaryotes-shallow'` and loop counters
-    * running script, ok, created files: `/Users/paul/Documents/CU_combined/Zenodo/Qiime/115_*_Eukaryotes-shallow.qza`
+    * namely `string[2]='Eukaryote-shallow'` and loop counters
+    * running script, ok, created files: `/Users/paul/Documents/CU_combined/Zenodo/Qiime/115_*_Eukaryote-shallow.qza`
     * commit `d52f11e7a706dac928122533ed6b92a09b95131a`
   * adjusted hostnames in work scripts: `find /Users/paul/Documents/CU_combined/Github -name '*.sh' -exec gsed -i 's|"pc683.eeb.cornell.edu"|"macmini.staff.uod.otago.ac.nz"|g' {} \;`
     * commit 
   * adjusting `/Users/paul/Documents/CU_combined/Github/130_get_core_metrics_non_phylogenetic.sh`
-     
-
+    * checking rarefaction curve 1 `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/125_18S_eDNA_samples_tab_Eukaryotes_non_phylogenetic_curves.qzv` - **aborted**
+    * checking rarefaction curve 2 `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/160_eDNA_samples_Eukaryotes_curves_tree-matched.qzv` - **running** 
+    * setting shallow depth to 40000 sequences - ok
+      * done via new case
+```
+      *"Eukaryote-shallow"* )
+      depth=40000
+      echo "${bold}Depth set to $depth for Eukaryotes...${normal}"
+      ;;
+```
+   * run script  - ok - see folder `130_18S_eDNA_samples_Eukaryotes-shallow_core_metrics_non_phylogenetic`
+   * adjusting script `/Users/paul/Documents/CU_combined/Github/131_get_core_metrics_non_phylogenetic_collpased.sh`
+     * inserted new `case` statement
+     * running
 
 ## Todo
 

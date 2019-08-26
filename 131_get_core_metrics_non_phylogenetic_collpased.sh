@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 24.07.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 26.08.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Applies a collection of diversity metrics (both phylogenetic and non-
 #   phylogenetic) to a feature table.
@@ -89,6 +89,10 @@ for i in "${!inpth_tab[@]}"; do
       ;;
     *"Eukaryotes"* )
       depth=65000
+      echo "${bold}Depth set to $depth for Eukaryotes...${normal}"
+      ;;
+    *"Eukaryotes-shallow"* )
+      depth=40000
       echo "${bold}Depth set to $depth for Eukaryotes...${normal}"
       ;;
     *"Eukaryote-non-metazoans"* )

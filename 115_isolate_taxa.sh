@@ -59,7 +59,7 @@ in_tab[6]='Zenodo/Qiime/090_18S_controls_tab.qza'
 # for file name
 string[1]='Unassigned'
 string[2]='Eukaryotes'
-string[3]='Eukaryotes-shallow'
+string[3]='Eukaryote-shallow'
 string[4]='Metazoans'
 string[5]='Eukaryote-non-metazoans'
 
