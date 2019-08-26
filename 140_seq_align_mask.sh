@@ -107,8 +107,7 @@ for k in "${!inpth_seq[@]}"; do
       --p-min-conservation 0.5 \
       --p-max-gap-frequency 0.1 \
       --verbose 2>&1 | tee -a "${otpth_log[$k]}"
-  
-  
+
   else
  
     # diagnostic message

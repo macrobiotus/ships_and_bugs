@@ -1464,8 +1464,8 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * inserted new `case` statement
     * running - ok
   * possible scripts to **modify** and  **re-run** are:
-    * `/Users/paul/Documents/CU_combined/Github/140_seq_align_mask.sh` - ok
-    * `/Users/paul/Documents/CU_combined/Github/145_alignment_export.sh` - **modified**
+    * `/Users/paul/Documents/CU_combined/Github/140_seq_align_mask.sh` - ok - commit `def5d15bcc2262402a29f22e99b4cf1c2190f63b`
+    * `/Users/paul/Documents/CU_combined/Github/145_alignment_export.sh` - ok 
     * `/Users/paul/Documents/CU_combined/Github/150_calculate_fasttree.sh` - **pending**
     * `/Users/paul/Documents/CU_combined/Github/155_filter_data_to_match_trees.sh` - **pending**
     * script in between 
