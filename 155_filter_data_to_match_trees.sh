@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 30.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 26.08.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Filter data to match branches contained in trees.
 

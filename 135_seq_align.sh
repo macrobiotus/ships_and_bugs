@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 31.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 26.08.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Visualising reads after denoising and merging procedure.
 
@@ -98,11 +98,22 @@ done
 
 for k in "${!inpth_seq[@]}"; do
   
-  printf "\n${bold}$(date):${normal} Alignining file ${inpth_seq[$k]}...\n"
-  qiime alignment mafft \
-    --i-sequences "${inpth_seq[$k]}" \
-    --o-alignment "${otpth_seq[$k]}" \
-    --p-n-threads "$thrds" \
-    --verbose 2>&1 | tee -a "${otpth_log[$k]}"
+  # actual filtering
+  # continue only if output file isn't already there
+  if [ ! -f "${otpth_seq[$k]}" ]; then
+  
+    printf "\n${bold}$(date):${normal} Alignining file ${inpth_seq[$k]}...\n"
+    qiime alignment mafft \
+      --i-sequences "${inpth_seq[$k]}" \
+      --o-alignment "${otpth_seq[$k]}" \
+      --p-n-threads "$thrds" \
+      --verbose 2>&1 | tee -a "${otpth_log[$k]}"
+  
+  else
+ 
+    # diagnostic message
+    printf "${bold}$(date):${normal} Analysis already done for \"$(basename "${inpth_seq[$k]}")\"...\n"
+
+  fi
     
 done

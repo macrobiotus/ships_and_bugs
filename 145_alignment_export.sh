@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 01.06.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 26.08.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Export alignments, e.g. for pretty printing
 

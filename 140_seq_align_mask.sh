@@ -96,12 +96,24 @@ done
 
 for k in "${!inpth_seq[@]}"; do
   
-  printf "\n${bold}$(date):${normal} Masking alignment file ${inpth_seq[$k]}...\n"
-  qiime alignment mask \
-    --i-alignment "${inpth_seq[$k]}" \
-    --o-masked-alignment "${otpth_seq[$k]}" \
-    --p-min-conservation 0.5 \
-    --p-max-gap-frequency 0.1 \
-    --verbose 2>&1 | tee -a "${otpth_log[$k]}"
+  # actual filtering
+  # continue only if output file isn't already there
+  if [ ! -f "${otpth_seq[$k]}" ]; then
+
+    printf "\n${bold}$(date):${normal} Masking alignment file ${inpth_seq[$k]}...\n"
+    qiime alignment mask \
+      --i-alignment "${inpth_seq[$k]}" \
+      --o-masked-alignment "${otpth_seq[$k]}" \
+      --p-min-conservation 0.5 \
+      --p-max-gap-frequency 0.1 \
+      --verbose 2>&1 | tee -a "${otpth_log[$k]}"
+  
+  
+  else
+ 
+    # diagnostic message
+    printf "${bold}$(date):${normal} Analysis already done for \"$(basename "${inpth_seq[$k]}")\"...\n"
+
+  fi
 
 done
