@@ -129,25 +129,35 @@ for i in "${!inpth_tree[@]}"; do
     # echo "$tab_file_name"
     # continue
     
-    # Qiime calls: Remove features from a feature table if their identifiers are not tip
-    # identifiers in tree.
+    if [ ! -f "$seq_file_name" ]; then
     
-    printf "\n${bold}$(date):${normal} Copying tree file to have new name available...\n"
-    cp "${inpth_tree[$i]}" "$tre_file_name"
+      # Qiime calls: Remove features from a feature table if their identifiers are not tip
+      # identifiers in tree.
+        
+      printf "\n${bold}$(date):${normal} Copying tree file to have new name available...\n"
+      cp "${inpth_tree[$i]}" "$tre_file_name"
     
-    printf "\n${bold}$(date):${normal} Filtering feature table to match tree...\n"
-    qiime phylogeny filter-table \
-      --i-table "${inpth_tab[$i]}" \
-      --i-tree "$tre_file_name" \
-      --o-filtered-table "$tab_file_name" \
-      --verbose
+      printf "\n${bold}$(date):${normal} Filtering feature table to match tree...\n"
+      qiime phylogeny filter-table \
+        --i-table "${inpth_tab[$i]}" \
+        --i-tree "$tre_file_name" \
+        --o-filtered-table "$tab_file_name" \
+        --verbose
     
-    printf "\n${bold}$(date):${normal} Using feature table to yield unaligned sequences matching tree...\n"
-    qiime feature-table filter-seqs \
-      --i-data "${inpth_seq[$i]}" \
-      --i-table "$tab_file_name" \
-      --o-filtered-data "$seq_file_name" \
-      --verbose
+      printf "\n${bold}$(date):${normal} Using feature table to yield unaligned sequences matching tree...\n"
+      qiime feature-table filter-seqs \
+        --i-data "${inpth_seq[$i]}" \
+        --i-table "$tab_file_name" \
+        --o-filtered-data "$seq_file_name" \
+        --verbose
+    
+    else
+ 
+      # diagnostic message
+      printf "${bold}$(date):${normal} Analysis already done for \"$(basename "${inpth_tab[$i]}")\"...\n"
+
+    fi
+    
 
   else
   

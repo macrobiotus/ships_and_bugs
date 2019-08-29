@@ -1465,15 +1465,20 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * running - ok
   * possible scripts to **modify** and  **re-run** are:
     * `/Users/paul/Documents/CU_combined/Github/140_seq_align_mask.sh` - ok - commit `def5d15bcc2262402a29f22e99b4cf1c2190f63b`
-    * `/Users/paul/Documents/CU_combined/Github/145_alignment_export.sh` - ok 
-    * `/Users/paul/Documents/CU_combined/Github/150_calculate_fasttree.sh` - **pending**
-    * `/Users/paul/Documents/CU_combined/Github/155_filter_data_to_match_trees.sh` - **pending**
-    * script in between 
-    * `/Users/paul/Documents/CU_combined/Github/170_get_core_metrics_phylogenetic.sh` - **pending**
-    * `/Users/paul/Documents/CU_combined/Github/171_get_core_metrics_phylogenetic_collapsed.sh`- **pending**
-    * and more (R scripts, mantel and procrustes tests - after Mandanas input?) - **pending**
-
-
+    * `/Users/paul/Documents/CU_combined/Github/145_alignment_export.sh` - ok - commit `d9ab92f75d57878b9351f8980628b6ba28489f0d`
+* **29.08.2019** - continuing **implementing different rarefaction depths analysis**
+  * adjusted script `/Users/paul/Documents/CU_combined/Github/150_calculate_fasttree.sh`
+    * added check for readily available data - ran ok
+  * adjusted script `/Users/paul/Documents/CU_combined/Github/155_filter_data_to_match_trees.sh`
+    * added check for readily data - ran ok
+  * adjusted script `~/Documents/CU_combined/Github/160_alpha_rarefaction_curves_phylogenetic.sh`
+    * adjusted case and added check for readily available data
+    * not run, no new insights gained - available available via old plot 
+    * also did not run `~/Documents/CU_combined/Github/125_alpha_rarefaction_curves_non_phylogenetic.sh` - results available via old plot
+    * commit with further comments in commit message
+ 
+    
+    
 
 ## Todo
 
@@ -1481,6 +1486,12 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
 
 #### Potentially large changes
   * **accommodate different Rarefaction depths (started 26.08.2019)**
+    * possible scripts to **modify** and  **re-run** are:
+    * `/Users/paul/Documents/CU_combined/Github/120_summarize_data_non_phylogenetic.sh` - - **pending**
+    * `/Users/paul/Documents/CU_combined/Github/165_summarize_data_phylogenetic.sh` - **pending**
+    * `/Users/paul/Documents/CU_combined/Github/170_get_core_metrics_phylogenetic.sh` - **pending**
+    * `/Users/paul/Documents/CU_combined/Github/171_get_core_metrics_phylogenetic_collapsed.sh`- **pending**
+    * and more (R scripts, mantel and procrustes tests - after Mandanas input?) - **pending**
   * get and incorporate HON data
   * finish display items
 

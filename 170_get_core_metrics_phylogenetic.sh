@@ -101,6 +101,10 @@ for i in "${!inpth_tab[@]}"; do
         depth=65000
         echo "${bold}Depth set to $depth for Eukaryotes...${normal}"
         ;;
+      *"Eukaryote-shallow"* )
+        depth=40000
+        echo "${bold}Depth set to $depth for Eukaryotes (shallow set)...${normal}"
+        ;;
       *"Eukaryote-non-metazoans"* )
         depth=40000
         echo "${bold}Depth set to $depth for Non-metazoan Eukaryotes...${normal}"

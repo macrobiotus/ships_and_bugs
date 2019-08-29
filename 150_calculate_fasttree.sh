@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 01.06.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 29.08.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Calculating trees from masked alignments using FastTree - which uses multiple cores well.
 
@@ -118,16 +118,25 @@ done
 
 for k in "${!inpth_seq[@]}"; do
   
-  printf "\n${bold}$(date):${normal} Calculating tree ${inpth_seq[$k]}...\n"
-  qiime phylogeny fasttree \
-    --i-alignment "${inpth_seq[$k]}" \
-    --p-n-threads "$thrds" \
-    --o-tree "${otpth_tree[$k]}" \
-    --verbose  2>&1 | tee -a "${otpth_log[$k]}"
+  if [ ! -f "${otpth_tree[$k]}" ]; then
   
-  printf "\n${bold}$(date):${normal} Midpoint-rooting "${otpth_tree[$k]}"...\n"  
-  qiime phylogeny midpoint-root \
-    --i-tree "${otpth_tree[$k]}" \
-    --o-rooted-tree "${otpth_rtree[$k]}"
+    printf "\n${bold}$(date):${normal} Calculating tree ${inpth_seq[$k]}...\n"
+    qiime phylogeny fasttree \
+      --i-alignment "${inpth_seq[$k]}" \
+      --p-n-threads "$thrds" \
+      --o-tree "${otpth_tree[$k]}" \
+      --verbose  2>&1 | tee -a "${otpth_log[$k]}"
+  
+    printf "\n${bold}$(date):${normal} Midpoint-rooting "${otpth_tree[$k]}"...\n"  
+    qiime phylogeny midpoint-root \
+      --i-tree "${otpth_tree[$k]}" \
+      --o-rooted-tree "${otpth_rtree[$k]}"
+  
+  else
+ 
+    # diagnostic message
+    printf "${bold}$(date):${normal} Analysis already done for \"$(basename "${inpth_seq[$k]}")\"...\n"
+
+  fi
 
 done

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 01.06.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 29.08.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Generate interactive alpha rarefaction curves by computing rarefactions
 #   between `min_depth` and `max_depth`. The number of intermediate depths to
@@ -59,9 +59,10 @@ IFS=$'\n' inpth_tree=($(sort <<<"${inpth_tree_unsorted[*]}"))
 unset IFS
 
 # for debugging -  print sorted tables - ok!
-# printf '%s\n'
-# printf '%s\n' "$(basename ${inpth_tree[@]})"
+printf '%s\n'
+printf '%s\n' "$(basename ${inpth_tree[@]})"
 
+exit
 
 # feature tables (an trees)
 
@@ -92,20 +93,28 @@ for i in "${!inpth_tab[@]}"; do
     # echo "$plot_vis_name"
     
     #  continue
+    if [ ! -f "$plot_vis_name" ]; then
     
-    # Qiime calls   
-    printf "${bold}$(date):${normal} Starting analysis of \"$(basename "${inpth_tab[$i]}")\"...\n"
-    qiime diversity alpha-rarefaction \
-      --i-table "${inpth_tab[$i]}" \
-      --i-phylogeny "${inpth_tree[$i]}" \
-      --m-metadata-file "$trpth"/"$inpth_map" \
-      --p-max-depth 75000 \
-      --p-min-depth 1 \
-      --p-steps 1000 \
-      --p-iterations 5 \
-      --o-visualization "$plot_vis_name" \
-      --verbose
-    printf "${bold}$(date):${normal} ...finished analysis of \"$(basename "${inpth_tab[$i]}")\".\n"
+      # Qiime calls   
+      printf "${bold}$(date):${normal} Starting analysis of \"$(basename "${inpth_tab[$i]}")\"...\n"
+      qiime diversity alpha-rarefaction \
+        --i-table "${inpth_tab[$i]}" \
+        --i-phylogeny "${inpth_tree[$i]}" \
+        --m-metadata-file "$trpth"/"$inpth_map" \
+        --p-max-depth 75000 \
+        --p-min-depth 1 \
+        --p-steps 1000 \
+        --p-iterations 5 \
+        --o-visualization "$plot_vis_name" \
+        --verbose
+      printf "${bold}$(date):${normal} ...finished analysis of \"$(basename "${inpth_tab[$i]}")\".\n"
+    
+    else
+ 
+      # diagnostic message
+      printf "${bold}$(date):${normal} Analysis already done for \"$(basename "${inpth_tab[$i]}")\"...\n"
+
+    fi
   
   else
   
