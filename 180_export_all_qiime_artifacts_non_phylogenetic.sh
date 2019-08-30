@@ -77,7 +77,8 @@ for i in "${!inpth_features[@]}"; do
   if [ "$seqstump" == "$tabstump" ]; then
   
     # diagnostic only 
-    echo "Sequence-, and feature files have been matched, continuing..."
+    printf "${bold}$(date):${normal} Sequence-, feature-, and tree files have been matched, continuing...\n"
+    
     
     # create path for output directory
     results_tmp=$(basename "${inpth_features[$i]}".qza)
@@ -85,54 +86,64 @@ for i in "${!inpth_features[@]}"; do
     results_dir="$trpth/Zenodo/Qiime/180_"$results_tmp"_qiime_artefacts_non_phylogenetic"
     # echo "$results_dir"
     # exit
-    mkdir -p "$results_dir"
     
-    # Exporting Qiime 2 files
-    printf "${bold}$(date):${normal} Exporting Qiime 2 files...\n"
-    qiime tools export --input-path "${inpth_features[$i]}" --output-path "$results_dir" && \
-    qiime tools export --input-path "${inpth_sequences[$i]}" --output-path "$results_dir" && \
-    qiime tools export --input-path "$trpth"/"$tax_assignemnts" --output-path "$results_dir" || \
-    { echo "${bold}$(date):${normal} Qiime export failed" ; exit 1; }
+    if [ ! -d "$results_dir" ]; then
     
-    # Editing taxonomy file
-    printf "${bold}$(date):${normal} Rewriting headers of taxonomy information (backup copy is kept)...\n"
-    new_header='#OTUID  taxonomy    confidence' && \
-    gsed -i.bak "1 s/^.*$/$new_header/" "$results_dir"/taxonomy.tsv || \
-    { echo "${bold}$(date):${normal} Taxonomy Edit failed" ; exit 1; }
+      mkdir -p "$results_dir"
+    
+      # Exporting Qiime 2 files
+      printf "${bold}$(date):${normal} Exporting Qiime 2 files...\n"
+      qiime tools export --input-path "${inpth_features[$i]}" --output-path "$results_dir" && \
+      qiime tools export --input-path "${inpth_sequences[$i]}" --output-path "$results_dir" && \
+      qiime tools export --input-path "$trpth"/"$tax_assignemnts" --output-path "$results_dir" || \
+      { echo "${bold}$(date):${normal} Qiime export failed" ; exit 1; }
+    
+      # Editing taxonomy file
+      printf "${bold}$(date):${normal} Rewriting headers of taxonomy information (backup copy is kept)...\n"
+      new_header='#OTUID  taxonomy    confidence' && \
+      gsed -i.bak "1 s/^.*$/$new_header/" "$results_dir"/taxonomy.tsv || \
+      { echo "${bold}$(date):${normal} Taxonomy Edit failed" ; exit 1; }
   
-    # Adding taxonomy information to .biom file
-    printf "${bold}$(date):${normal} Adding taxonomy information to .biom file...\n"
-    biom add-metadata \
-      -i "$results_dir"/feature-table.biom \
-      -o "$results_dir"/features-tax.biom \
-      --observation-metadata-fp "$results_dir"/taxonomy.tsv \
-      --observation-header OTUID,taxonomy,confidence \
-      --sc-separated taxonomy || { echo 'taxonomy addition failed' ; exit 1; }
+      # Adding taxonomy information to .biom file
+      printf "${bold}$(date):${normal} Adding taxonomy information to .biom file...\n"
+      biom add-metadata \
+        -i "$results_dir"/feature-table.biom \
+        -o "$results_dir"/features-tax.biom \
+        --observation-metadata-fp "$results_dir"/taxonomy.tsv \
+        --observation-header OTUID,taxonomy,confidence \
+        --sc-separated taxonomy || { echo 'taxonomy addition failed' ; exit 1; }
    
-    # Adding metadata to .biom file
-    printf "${bold}$(date):${normal} Adding metadata to .biom file...\n"
-    biom add-metadata \
-      -i "$results_dir"/features-tax.biom \
-      -o "$results_dir"/features-tax-meta.biom \
-      -m "$trpth"/"$inpth_map" \
-      --observation-header OTUID,taxonomy,confidence \
-      --sample-header SampleID,BarcodeSequence,LinkerPrimerSequence,Port,Location,Type,Temp,Sali,Lati,Long,Run,Facility,CollYear || { echo 'Metadata addition failed' ; exit 1; }
+      # Adding metadata to .biom file
+      printf "${bold}$(date):${normal} Adding metadata to .biom file...\n"
+      biom add-metadata \
+        -i "$results_dir"/features-tax.biom \
+        -o "$results_dir"/features-tax-meta.biom \
+        -m "$trpth"/"$inpth_map" \
+        --observation-header OTUID,taxonomy,confidence \
+        --sample-header SampleID,BarcodeSequence,LinkerPrimerSequence,Port,Location,Type,Temp,Sali,Lati,Long,Run,Facility,CollYear || { echo 'Metadata addition failed' ; exit 1; }
   
-    # Exporting .biom file to .tsv
-    printf "${bold}$(date):${normal} Exporting to .tsv file...\n"
-    biom convert \
-      -i "$results_dir"/features-tax-meta.biom \
-      -o "$results_dir"/features-tax-meta.tsv \
-      --to-tsv && \
-    gsed -i.bak 's/#//' "$results_dir"/features-tax-meta.tsv \
-    || { echo 'TSV export failed' ; exit 1; }
+      # Exporting .biom file to .tsv
+      printf "${bold}$(date):${normal} Exporting to .tsv file...\n"
+      biom convert \
+        -i "$results_dir"/features-tax-meta.biom \
+        -o "$results_dir"/features-tax-meta.tsv \
+        --to-tsv && \
+      gsed -i.bak 's/#//' "$results_dir"/features-tax-meta.tsv \
+      || { echo 'TSV export failed' ; exit 1; }
      
-    # Summarize exported OTU tables
-    printf "${bold}$(date):${normal} Summarizing .tsv files...\n"
-    Rscript --vanilla "$trpth/Github/195_parse_otu_tables.R" \
-      "$results_dir/features-tax-meta.tsv" \
-      "$results_dir/features-tax-meta-feature-summary.txt" \
-      "$results_dir/features-tax-meta-feature-histogram.png"
+      # Summarize exported OTU tables
+      printf "${bold}$(date):${normal} Summarizing .tsv files...\n"
+      Rscript --vanilla "$trpth/Github/195_parse_otu_tables.R" \
+        "$results_dir/features-tax-meta.tsv" \
+        "$results_dir/features-tax-meta-feature-summary.txt" \
+        "$results_dir/features-tax-meta-feature-histogram.png"
+        
+    else
+    
+      # diagnostic message
+      printf "${bold}$(date):${normal} Detected readily available results, skipping analysis of one file set.\n"
+
+    fi
 
   else
   

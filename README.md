@@ -1475,25 +1475,39 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * adjusted case and added check for readily available data
     * not run, no new insights gained - available available via old plot 
     * also did not run `~/Documents/CU_combined/Github/125_alpha_rarefaction_curves_non_phylogenetic.sh` - results available via old plot
-    * commit with further comments in commit message
- 
-    
-    
+    * commit with further comments in commit message `8e78a34e04125f6d3dc9e3becc86f97a9649e6ce`
+  * adjusted exit conditions in `~/Documents/CU_combined/Github/120_summarize_data_non_phylogenetic.sh` - ran ok
+* **30.08.2019** - continuing **implementing different rarefaction depths analysis**
+  * adjusted exit conditions in `/Users/paul/Documents/CU_combined/Github/165_summarize_data_phylogenetic.sh` - ran ok
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/170_get_core_metrics_phylogenetic.sh` - ran ok
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/171_get_core_metrics_phylogenetic_collapsed.sh` - ran ok
+  * for clarity erasing all files `clustered87` in Qimme folder - last backup was 30.08.2019 16:41
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/175_export_all_qiime_artifacts_phylogenetic.sh` - ran ok
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/180_export_all_qiime_artifacts_non_phylogenetic.sh` - ran ok
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/185_export_UNIFRAC_distance_artefacts.sh`
+    * erased all old output files
+    * not truncating filename anymore
+    * re-run for all data - ok
+    * abort condition test - will not re-run on available data
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/190_export_JAQUARD_distance_artefacts.sh
+    * as previous script - was already done? - re-running
+  * commit
 
 ## Todo
 
 ### More important 
 
 #### Potentially large changes
-  * **accommodate different Rarefaction depths (started 26.08.2019)**
-    * possible scripts to **modify** and  **re-run** are:
-    * `/Users/paul/Documents/CU_combined/Github/120_summarize_data_non_phylogenetic.sh` - - **pending**
-    * `/Users/paul/Documents/CU_combined/Github/165_summarize_data_phylogenetic.sh` - **pending**
-    * `/Users/paul/Documents/CU_combined/Github/170_get_core_metrics_phylogenetic.sh` - **pending**
-    * `/Users/paul/Documents/CU_combined/Github/171_get_core_metrics_phylogenetic_collapsed.sh`- **pending**
-    * and more (R scripts, mantel and procrustes tests - after Mandanas input?) - **pending**
-  * get and incorporate HON data
-  * finish display items
+
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/205_compare_matrices.sh` - **pending**
+    * copy may be necessary
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices.sh` - **pending**
+     * copy may be necessary
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh` - **pending**
+     * UNIFRAC and JAQUARD distance export paths have changed
+     * shallow depth path may not hev the same taxa
+  * check all script marked yellow for required corrections
+
 
 #### Smaller changes and additions   
   * formalize implementation of `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`

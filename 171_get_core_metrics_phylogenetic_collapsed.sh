@@ -28,7 +28,7 @@ fi
 # define relative input locations - Qiime files
 # --------------------------------------------------------
 inpth_map='Zenodo/Manifest/06_18S_merged_metadata.tsv' # (should be  `b16888550ab997736253f741eaec47b`)
-secnd_map='Zenodo/Manifest/07_18S_merged_metadata grouped.tsv'
+secnd_map='Zenodo/Manifest/07_18S_merged_metadata_grouped.tsv'
 
 # define relative input locations - feature tables
 # ------------------------------------------------
@@ -103,7 +103,7 @@ for i in "${!inpth_tab[@]}"; do
     output_name="$(dirname "${inpth_tab[$i]}")/171_${tabstump:4:-4}_core_metrics_port-collapsed"
     output_log="$(dirname "${inpth_tab[$i]}")/171_${tabstump:4:-4}_core_metrics_port-collapsed_log.txt"
      
-    echo "$output_name" 
+    # echo "$output_name" 
     
     # setting depths
     case "${inpth_tab[$i]}" in
@@ -114,6 +114,10 @@ for i in "${!inpth_tab[@]}"; do
       *"Eukaryotes"* )
         depth=65000
         echo "${bold}Depth set to $depth for Eukaryotes...${normal}"
+        ;;
+      *"Eukaryote-shallow"* )
+        depth=40000
+        echo "${bold}Depth set to $depth for Eukaryotes (shallow set)...${normal}"
         ;;
       *"Eukaryote-non-metazoans"* )
         depth=40000
@@ -127,32 +131,41 @@ for i in "${!inpth_tab[@]}"; do
         echo "Depth setting error in case statement, aborting."
         exit
         ;;
-  esac
+    esac
     
     # Qiime calls   
     
-    printf "${bold}$(date):${normal} Collapsing table \"$(basename "${inpth_tab[$i]}")\"...\n"  
+    if [ ! -d "$output_name" ]; then
     
-    qiime feature-table group \
-      --i-table "${inpth_tab[$i]}" \
-      --p-axis 'sample' \
-      --m-metadata-file "$trpth"/"$inpth_map" \
-      --m-metadata-column 'Port' \
-      --p-mode 'sum' \
-      --o-grouped-table "$cllps_tab" \
-      --verbose
+      printf "${bold}$(date):${normal} Collapsing table \"$(basename "${inpth_tab[$i]}")\"...\n"  
     
-    printf "${bold}$(date):${normal} Starting analysis of \"$(basename "$cllps_tab")\"...\n"
+      qiime feature-table group \
+        --i-table "${inpth_tab[$i]}" \
+        --p-axis 'sample' \
+        --m-metadata-file "$trpth"/"$inpth_map" \
+        --m-metadata-column 'Port' \
+        --p-mode 'sum' \
+        --o-grouped-table "$cllps_tab" \
+        --verbose
     
-    qiime diversity core-metrics-phylogenetic \
-      --i-phylogeny "${inpth_tree[$i]}" \
-      --i-table "$cllps_tab" \
-      --m-metadata-file "$trpth"/"$secnd_map" \
-      --output-dir "$output_name" \
-      --p-sampling-depth "$depth" \
-      --verbose 2>&1 | tee -a "$output_log"
+      printf "${bold}$(date):${normal} Starting analysis of \"$(basename "$cllps_tab")\"...\n"
+    
+      qiime diversity core-metrics-phylogenetic \
+        --i-phylogeny "${inpth_tree[$i]}" \
+        --i-table "$cllps_tab" \
+        --m-metadata-file "$trpth"/"$secnd_map" \
+        --output-dir "$output_name" \
+        --p-sampling-depth "$depth" \
+        --verbose 2>&1 | tee -a "$output_log"
 
-    printf "${bold}$(date):${normal} ...finished analysis of \"$(basename "$cllps_tab")\".\n"
+      printf "${bold}$(date):${normal} ...finished analysis of \"$(basename "$cllps_tab")\".\n"
+    
+    else
+
+      # diagnostic message
+      printf "${bold}$(date):${normal} Detected readily available results, skipping analysis of one file set.\n"
+
+    fi
   
   else
   

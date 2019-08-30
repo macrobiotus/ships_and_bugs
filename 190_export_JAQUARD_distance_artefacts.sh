@@ -114,7 +114,7 @@ for i in "${!inpth_matrix[@]}"; do
       # move temp file in place
       mv "$TMPDIR"distance-matrix.tsv "$results_dir"/"$results_matx"
    
-   else
+    else
 
     # diagnostic message
     printf "${bold}$(date):${normal} Detected readily available results, skipping export of one file set.\n"

@@ -73,46 +73,55 @@ for i in "${!inpth_matrix[@]}"; do
   if [ "$matxstump" == "$pcoastump" ]; then
 
     # diagnostic only 
-    echo "Matrix- and PCOA files have been matched, continuing..."
+     printf "${bold}$(date):${normal} Matrix- and PCOA files have been matched, continuing...\n"
+     
+    # continue
     
     # create path for output directory
     results_tmp=$(dirname "${inpth_matrix[$i]}")
     results_tmp=$(basename "$results_tmp")
-    results_tmp=${results_tmp:4:-13}
+    results_tmp=${results_tmp:4}
     results_dir="$trpth/Zenodo/Qiime/185_"$results_tmp"_unweighted_UNIFRAC_distance_artefacts"
     # echo "$results_dir"
-    # exit
     
-    mkdir -p "$results_dir"
+    if [ ! -d "$results_dir" ]; then
     
-    # create output filenames - pcoa
-    tmp_pcoa="${inpth_pcoa[$i]:0:-4}"
-    results_pcoa="185_"$(basename "$tmp_pcoa")".txt"
+      mkdir -p "$results_dir"
     
-    # create output filenames - matrix
-    tmp_matx="${inpth_matrix[$i]:0:-4}"
-    results_matx="185_"$(basename "$tmp_matx")".tsv"
+      # create output filenames - pcoa
+      tmp_pcoa="${inpth_pcoa[$i]:0:-4}"
+      results_pcoa="185_"$(basename "$tmp_pcoa")".txt"
     
-    printf "${bold}$(date):${normal} Exporting \"$(basename "${inpth_pcoa[$i]}")\".\n"
-    # erase possibly existing temp files
-    rm -f "$TMPDIR"ordination.txt
-    # export to temp file
-    qiime tools export \
-      --input-path  "${inpth_pcoa[$i]}" \
-      --output-path "$TMPDIR"
-    # move temp file in place
-    mv "$TMPDIR"ordination.txt "$results_dir"/"$results_pcoa"
+      # create output filenames - matrix
+      tmp_matx="${inpth_matrix[$i]:0:-4}"
+      results_matx="185_"$(basename "$tmp_matx")".tsv"
+    
+      printf "${bold}$(date):${normal} Exporting \"$(basename "${inpth_pcoa[$i]}")\".\n"
+      # erase possibly existing temp files
+      rm -f "$TMPDIR"ordination.txt
+      # export to temp file
+      qiime tools export \
+        --input-path  "${inpth_pcoa[$i]}" \
+        --output-path "$TMPDIR"
+      # move temp file in place
+      mv "$TMPDIR"ordination.txt "$results_dir"/"$results_pcoa"
 
-    printf "${bold}$(date):${normal} Exporting \"$(basename "${inpth_matrix[$i]}")\".\n"
-    # erase possibly existing temp files
-    rm -f "$TMPDIR"distance-matrix.tsv 
-    # export to temp file
-    qiime tools export \
-      --input-path  "${inpth_matrix[$i]}" \
-      --output-path "$TMPDIR"
-    # move temp file in place
-    mv "$TMPDIR"distance-matrix.tsv "$results_dir"/"$results_matx"
+      printf "${bold}$(date):${normal} Exporting \"$(basename "${inpth_matrix[$i]}")\".\n"
+      # erase possibly existing temp files
+      rm -f "$TMPDIR"distance-matrix.tsv 
+      # export to temp file
+      qiime tools export \
+        --input-path  "${inpth_matrix[$i]}" \
+        --output-path "$TMPDIR"
+      # move temp file in place
+      mv "$TMPDIR"distance-matrix.tsv "$results_dir"/"$results_matx"
+
+    else
     
+      # diagnostic message
+      printf "${bold}$(date):${normal} Detected readily available results, skipping analysis of one file set.\n"
+
+    fi
 
   else
 

@@ -130,23 +130,32 @@ for i in "${!inpth_seq[@]}"; do
     # Qiime calls
     printf "\n${bold}$(date):${normal} Calling Qiime in iteration $i..."
     
-    qiime feature-table tabulate-seqs \
-      --i-data "${inpth_seq[$i]}" \
-      --o-visualization "$seq_file_vis_path" \
-      --verbose
+    if [ ! -f "$plot_file_vis_path" ]; then
+    
+      qiime feature-table tabulate-seqs \
+        --i-data "${inpth_seq[$i]}" \
+        --o-visualization "$seq_file_vis_path" \
+        --verbose
 
-    qiime feature-table summarize \
-      --m-sample-metadata-file "$trpth"/"$inpth_map" \
-      --i-table "${inpth_tab[$i]}" \
-      --o-visualization "$tab_file_vis_path" \
-      --verbose
+      qiime feature-table summarize \
+        --m-sample-metadata-file "$trpth"/"$inpth_map" \
+        --i-table "${inpth_tab[$i]}" \
+        --o-visualization "$tab_file_vis_path" \
+        --verbose
  
-    qiime taxa barplot \
-      --m-metadata-file "$trpth"/"$inpth_map" \
-      --i-taxonomy "$trpth"/"$inpth_tax" \
-      --i-table "${inpth_tab[$i]}" \
-      --o-visualization "$plot_file_vis_path" \
-      --verbose
+      qiime taxa barplot \
+        --m-metadata-file "$trpth"/"$inpth_map" \
+        --i-taxonomy "$trpth"/"$inpth_tax" \
+        --i-table "${inpth_tab[$i]}" \
+        --o-visualization "$plot_file_vis_path" \
+        --verbose
+            
+    else
+
+      # diagnostic message
+      printf "${bold}$(date):${normal} Summary unnecessary for current triplett, skipping...\n"
+
+    fi
 
   else
   

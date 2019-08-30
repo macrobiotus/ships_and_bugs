@@ -118,19 +118,28 @@ for i in "${!inpth_tab[@]}"; do
         exit
         ;;
   esac
+  
+    if [ ! -d "$output_name" ]; then
     
-    # Qiime calls   
-    printf "${bold}$(date):${normal} Starting analysis of \"$(basename "${inpth_tab[$i]}")\"...\n"
+      # Qiime calls   
+      printf "${bold}$(date):${normal} Starting analysis of \"$(basename "${inpth_tab[$i]}")\"...\n"
     
-    qiime diversity core-metrics-phylogenetic \
-      --i-phylogeny "${inpth_tree[$i]}" \
-      --i-table "${inpth_tab[$i]}" \
-      --m-metadata-file "$trpth"/"$inpth_map" \
-      --output-dir "$output_name" \
-      --p-sampling-depth "$depth" \
-      --verbose 2>&1 | tee -a "$output_log"
+      qiime diversity core-metrics-phylogenetic \
+        --i-phylogeny "${inpth_tree[$i]}" \
+        --i-table "${inpth_tab[$i]}" \
+        --m-metadata-file "$trpth"/"$inpth_map" \
+        --output-dir "$output_name" \
+        --p-sampling-depth "$depth" \
+        --verbose 2>&1 | tee -a "$output_log"
 
-    printf "${bold}$(date):${normal} ...finished analysis of \"$(basename "${inpth_tab[$i]}")\".\n"
+      printf "${bold}$(date):${normal} ...finished analysis of \"$(basename "${inpth_tab[$i]}")\".\n"
+    
+    else
+
+      # diagnostic message
+      printf "${bold}$(date):${normal} Detected readily available results, skipping analysis of one file set.\n"
+
+    fi
   
   else
   
