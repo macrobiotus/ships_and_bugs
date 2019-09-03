@@ -1462,7 +1462,7 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
 ```
   * adjusting script `/Users/paul/Documents/CU_combined/Github/131_get_core_metrics_non_phylogenetic_collpased.sh`
     * inserted new `case` statement
-    * running - ok
+    * running - ok - needed re-run 03.09.2019
   * possible scripts to **modify** and  **re-run** are:
     * `/Users/paul/Documents/CU_combined/Github/140_seq_align_mask.sh` - ok - commit `def5d15bcc2262402a29f22e99b4cf1c2190f63b`
     * `/Users/paul/Documents/CU_combined/Github/145_alignment_export.sh` - ok - commit `d9ab92f75d57878b9351f8980628b6ba28489f0d`
@@ -1493,9 +1493,13 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * as previous script - was already done? - re-running
   * commit ` 63bf24eeea504cff259408e0f1341512f887d911`
 * **03.09.2019** - continuing **implementing different rarefaction depths analysis**
+  * re-running `/Users/paul/Documents/CU_combined/Github/131_get_core_metrics_non_phylogenetic_collpased.sh`
   * creating and adjusting
     * `/Users/paul/Documents/CU_combined/Github/205_compare_matrices_shallow.sh` - ran ok 
-    * `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices_shallow.sh` - pending
+    * `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices_shallow.sh` - ran ok
+  * adjusted hostname check in some other scripts
+  * commit 
+  
 `
   
   
@@ -1506,14 +1510,13 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
 
 #### Potentially large changes
 
-  * adjusting and running `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices_shallow.sh` - **pending**
   * adjusting and running `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh` - **pending**
      * UNIFRAC and JAQUARD distance export paths have changed
      * shallow depth path may not hev the same taxa
   * send things off to Mandana
   * check all script marked yellow for required corrections
-  * adjust display items
-  * adjust text
+  * adjust display items (Procrustes and Mantel results)
+  * adjust text (shallow depth sampel inclusion from table summary)
 
 
 #### Smaller changes and additions   

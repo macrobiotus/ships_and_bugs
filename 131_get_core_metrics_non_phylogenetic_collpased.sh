@@ -28,7 +28,7 @@ fi
 # define relative input locations - Qiime files
 # --------------------------------------------------------
 inpth_map='Zenodo/Manifest/06_18S_merged_metadata.tsv' # (should be  `b16888550ab997736253f741eaec47b`)
-secnd_map='Zenodo/Manifest/07_18S_merged_metadata grouped.tsv'
+secnd_map='Zenodo/Manifest/07_18S_merged_metadata_grouped.tsv'
 
 # define relative input locations - feature tables
 # ------------------------------------------------
