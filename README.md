@@ -1491,7 +1491,14 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * abort condition test - will not re-run on available data
   * adjusting and running `/Users/paul/Documents/CU_combined/Github/190_export_JAQUARD_distance_artefacts.sh
     * as previous script - was already done? - re-running
-  * commit
+  * commit ` 63bf24eeea504cff259408e0f1341512f887d911`
+* **03.09.2019** - continuing **implementing different rarefaction depths analysis**
+  * creating and adjusting
+    * `/Users/paul/Documents/CU_combined/Github/205_compare_matrices_shallow.sh` - ran ok 
+    * `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices_shallow.sh` - pending
+`
+  
+  
 
 ## Todo
 
@@ -1499,14 +1506,14 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
 
 #### Potentially large changes
 
-  * adjusting and running `/Users/paul/Documents/CU_combined/Github/205_compare_matrices.sh` - **pending**
-    * copy may be necessary
-  * adjusting and running `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices.sh` - **pending**
-     * copy may be necessary
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices_shallow.sh` - **pending**
   * adjusting and running `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh` - **pending**
      * UNIFRAC and JAQUARD distance export paths have changed
      * shallow depth path may not hev the same taxa
+  * send things off to Mandana
   * check all script marked yellow for required corrections
+  * adjust display items
+  * adjust text
 
 
 #### Smaller changes and additions   
