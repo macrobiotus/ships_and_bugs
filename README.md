@@ -1506,19 +1506,24 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * can be run after checking script `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R` **pending**
   * checking and correcting script `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
     * testing execution with expanded file `~/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh`
-    * needs adjustment - use large if loop around line 232
+    * needs adjustment
+       * use large if loop around line 232 - commit running version before these large-scale changes - **ok**
+       * write logfile in `~/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh` - **ok** 
+
+       * also consider that Pearl Harbour does not have commercial routes - **pending**
+       * email to Mandana - **pending**
 
 ## Todo
 
 ### More important 
 
+* see 5.9.2019 -  needs adjustment
+  * also consider that Pearl Harbour does not have commercial routes - **pending**
+  * email to Mandana - **pending**
+
 #### Potentially large changes
 
-  * adjusting and running `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R` **pending** 
-     * UNIFRAC and JAQUARD distance export paths have changed
-     * shallow depth path may not hev the same taxa
-     * consider Pearl Harbour data 
-  * send things off to Mandana
+  
   * check all script marked yellow for required corrections
   * adjust display items (Procrustes and Mantel results)
   * adjust text (shallow depth sampel inclusion from table summary)

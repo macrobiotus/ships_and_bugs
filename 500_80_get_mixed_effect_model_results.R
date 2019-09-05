@@ -214,25 +214,59 @@ dim(mat_trips)
 mat_trips <- mat_trips[rowSums(is.na(mat_trips))!=ncol(mat_trips), colSums(is.na(mat_trips))!=nrow(mat_trips) ]
 dim(mat_trips) 
 
-# quick and dirty - manual lookup for subsetting
-#   improve this. Manual lookup via:
+# manual lookup done for subsetting via:
 #   `open  -a "Microsoft Excel" "/Users/paul/Dropbox/NSF NIS-WRAPS Data/raw data for Mandana/PlacesFile_updated_Aug2017.xlsx"`
 
-# 12-Jun-2019 for automatic calling a safety check to enable crude automatisation. 
-expected_colnames <- c("PH", "SW", "SY", "AD", "BT", "HN", "HT", "LB", "MI", 
-                       "AW", "CB", "HS", "NA", "NO", "OK", "PL", "PM", "RC",
-                       "RT", "VN", "GH", "WL", "ZB")
-
-
 message("Port names of current matrix are: ",  paste0(colnames(r_mat_clpsd), " "))
-message("Expected ports are: ", paste0(expected_colnames, " ") )
 
-readline(prompt="Press [enter] to continue")
 
-if (! identical ( colnames(r_mat_clpsd), expected_colnames ) ) {
-  stop( "Port names do not match. Manual intervention is necessary.\n", call.=FALSE)
+# 12-Jun-2019 for automatic calling a safety check to enable crude automatisation. 
+# 05-Sep-2019 for automatic calling large if loop implemented.
+
+expected_colnames_deepest <- c("PH", "SW", "SY", "AD", "BT", "HN", "HT", "LB", "MI", 
+                               "AW", "CB", "HS", "NA", "NO", "OK", "PL", "PM", "RC",
+                               "RT", "VN", "GH", "WL", "ZB")
+
+# After Antwerp ("AW") Buenos Aires ("BA") added before Coos Bay ("CB")
+expected_colnames_shallow <- c("PH", "SW", "SY", "AD", "BT", "HN", "HT", "LB", "MI", 
+                               "AW", "BA", "CB", "HS", "NA", "NO", "OK", "PL", "PM",
+                               "RC", "RT", "VN", "GH", "WL", "ZB")
+
+# Set port numbers, nbased on detected columns
+if ( identical (colnames (r_mat_clpsd), expected_colnames_deepest)) { 
+  
+    message("Setting port selection for deep rarefaction depth")
+    message("Expected ports are: ", paste0(expected_colnames_deepest, " ") )
+
+    
+    port_number_subset <- c("2503","1165","1165","3110", "854", 
+                            "2503","2331","7597","4899", "576",
+                            "2141","3367","3108","3381","7598",
+                             "238", "193","4777", "830", "311",
+                            "4538","7975","1675")
+    
+    } else if ( identical (colnames (r_mat_clpsd), expected_colnames_shallow)) {
+    
+    
+    # After Antwerp ("576") Buenos Aires ("BA") added before Coos Bay ("2141")
+    
+    
+    
+    message("Setting port selection for shallow rarefaction depth")
+    message("Expected ports are: ", paste0(expected_colnames_shallow, " ") )
+
+    
+    port_number_subset <- c("2503","1165","1165","3110", "854", 
+                            "2503","2331","7597","4899", "576", "2729", 
+                            "2141","3367","3108","3381","7598",
+                             "238", "193","4777", "830", "311",
+                            "4538","7975","1675")
+                          
+    } else {
+    
+    stop( "Port names can't be matched automatically. Manual intervention is necessary.\n", call.=FALSE)
+    
 }
-
 
 # "PH" "SW" "SY" "AD" "BT"
 # "HN" "HT" "LB" "MI" "AW"
@@ -253,16 +287,9 @@ if (! identical ( colnames(r_mat_clpsd), expected_colnames ) ) {
 # "4538", "7975", "1675"
 
 head(mat_trips)
-mat_trips <- mat_trips[c("2503","1165","1165","3110", "854", 
-                         "2503","2331","7597","4899", "576",
-                         "2141","3367","3108","3381","7598",
-                          "238", "193","4777", "830", "311",
-                         "4538","7975","1675"),
-                         c("2503","1165","1165","3110", "854", 
-                         "2503","2331","7597","4899", "576",
-                         "2141","3367","3108","3381","7598",
-                          "238", "193","4777", "830", "311",
-                         "4538","7975","1675")]
+
+# 05-Sep-2019 vector define via if loop above 
+mat_trips <- mat_trips[port_number_subset, port_number_subset]
 
 # Keep lower triangle
 mat_trips[lower.tri(mat_trips, diag = FALSE)] <- NA
@@ -284,16 +311,8 @@ rownames(mat_trips) <- rownames(r_mat_clpsd)
 #   improve (!!!) this. Manual lookup via:
 #   `open /Users/paul/Dropbox/NSF\ NIS-WRAPS\ Data/raw\ data\ for\ Mandana/PlacesFile_updated_Aug2017.xlsx -a "Microsoft Excel"`
 
-mat_env_dist <- mat_env_dist_full[c("2503","1165","1165","3110", "854",
-                                    "2503","2331","7597","4899", "576",
-                                    "2141","3367","3108","3381","7598",
-                                     "238", "193","4777", "830", "311",
-                                    "4538","7975","1675"),
-                                  c("2503","1165","1165","3110", "854",
-                                    "2503","2331","7597","4899", "576",
-                                    "2141","3367","3108","3381","7598",
-                                     "238", "193","4777", "830", "311",
-                                    "4538","7975","1675")]
+# 05-Sep-2019 vector define via if loop above 
+mat_env_dist <- mat_env_dist_full[port_number_subset, port_number_subset]
 
 mat_env_dist[lower.tri(mat_env_dist, diag = FALSE)] <- NA
 
