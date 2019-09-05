@@ -1498,11 +1498,15 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * `/Users/paul/Documents/CU_combined/Github/205_compare_matrices_shallow.sh` - ran ok 
     * `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices_shallow.sh` - ran ok
   * adjusted hostname check in some other scripts
-  * commit 
-  
-`
-  
-  
+  * commit `c993b3aa2a6dea43ec67b19f2b88747f1e5929c9`
+* **05.09.2019** - continuing **implementing different rarefaction depths analysis** - now adjusting modelling
+  * all data synced to Cornell cluster
+  * adjusted `~/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh`
+    * added distance matrices four to eight of shallow rarefaction depth fo UNIFRAC and JAQUARDD values and unclustered and clustered data
+    * can be run after checking script `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R` **pending**
+  * checking and correcting script `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
+    * testing execution with expanded file `~/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh`
+    * needs adjustment - use large if loop around line 232
 
 ## Todo
 
@@ -1510,9 +1514,10 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
 
 #### Potentially large changes
 
-  * adjusting and running `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh` - **pending**
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R` **pending** 
      * UNIFRAC and JAQUARD distance export paths have changed
      * shallow depth path may not hev the same taxa
+     * consider Pearl Harbour data 
   * send things off to Mandana
   * check all script marked yellow for required corrections
   * adjust display items (Procrustes and Mantel results)

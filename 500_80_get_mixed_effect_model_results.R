@@ -1,7 +1,7 @@
 #' ---
 #' title: "Compare Response and Predictor Matrices using Mixed Effect Models"
 #' author: "Paul Czechowski"
-#' date: "07-June-2019"
+#' date: "05-September-2019"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -34,7 +34,7 @@ rm(list=ls())
 #' Load Packages
 
 library ("ggplot2")   # for ggCaterpillar
-library ("ggbiplot")  # better PCoA plotting, get via `library(devtools); install_github("vqv/ggbiplot")`
+# library ("ggbiplot")  # better PCoA plotting, get via `library(devtools); install_github("vqv/ggbiplot")`
                       # uses `plyr` and needs to be loaded before `dplyr` in `tidyverse` 
 library ("gdata")     # matrix functions
 library ("tidyverse") # dplyr and friends
@@ -49,7 +49,6 @@ library ("cowplot")   # exporting ggplots
 
 # Loaded from helper script:
 source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")
-
 
 #' Define parameters. Call script via `Rscript --vanilla foo.R input_foo.foo output_fara.fara`.
 
@@ -82,7 +81,7 @@ if (length(args)==0) {
   #   this file name should be somewhat related to the input file name. Otherwise a 
   #   generic name is assigned here, since the file contents are determined by the 
   #   last-passed distance matrix file in `args[1]`. 
-  args[3] <- get_path(args[1], args[2], paste0("_collapsed_resposne_distance_matrix_", uniqstr), ".csv")
+  args[3] <- get_path(args[1], args[2], paste0("_collapsed_response_distance_matrix_", uniqstr), ".csv")
   
   message("3rd argument defined as: \"", args[3], "\".\n")
 
@@ -156,7 +155,12 @@ mat_env_dist_full[35:50, 35:50]
 #' ## Response: A distance matrix as produced by Qiime 2 (UNIFRAC or Jacquard)
 #'
 #' First command line parameter
+
+# for testing only - comment out later *****************
+# resp_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_Eukaryotes_core_metrics_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv"
 resp_path <- args[1]
+
+
 resp_mat  <- read.table(file = resp_path, sep = '\t', header = TRUE)
 
 # checking import and format
@@ -214,11 +218,16 @@ dim(mat_trips)
 #   improve this. Manual lookup via:
 #   `open  -a "Microsoft Excel" "/Users/paul/Dropbox/NSF NIS-WRAPS Data/raw data for Mandana/PlacesFile_updated_Aug2017.xlsx"`
 
-
 # 12-Jun-2019 for automatic calling a safety check to enable crude automatisation. 
 expected_colnames <- c("PH", "SW", "SY", "AD", "BT", "HN", "HT", "LB", "MI", 
                        "AW", "CB", "HS", "NA", "NO", "OK", "PL", "PM", "RC",
                        "RT", "VN", "GH", "WL", "ZB")
+
+
+message("Port names of current matrix are: ",  paste0(colnames(r_mat_clpsd), " "))
+message("Expected ports are: ", paste0(expected_colnames, " ") )
+
+readline(prompt="Press [enter] to continue")
 
 if (! identical ( colnames(r_mat_clpsd), expected_colnames ) ) {
   stop( "Port names do not match. Manual intervention is necessary.\n", call.=FALSE)
@@ -264,7 +273,7 @@ rownames(mat_trips) <- rownames(r_mat_clpsd)
 
 #' Finished matrix - Trips. Needs to be used to filter all other matrices
 #' (Other predictors and responses) to the same non-`NA` before analysis.
-mat_trips
+# mat_trips
 
 #'
 #' ## Predictors 2 of 2: Environmental distances
@@ -276,21 +285,27 @@ mat_trips
 #   `open /Users/paul/Dropbox/NSF\ NIS-WRAPS\ Data/raw\ data\ for\ Mandana/PlacesFile_updated_Aug2017.xlsx -a "Microsoft Excel"`
 
 mat_env_dist <- mat_env_dist_full[c("2503","1165","1165","3110", "854",
-                         "2503","2331","7597","4899", "576",
-                         "2141","3367","3108","3381","7598",
-                          "238", "193","4777", "830", "311",
-                         "4538","7975","1675"),
-                         c("2503","1165","1165","3110", "854",
-                         "2503","2331","7597","4899", "576",
-                         "2141","3367","3108","3381","7598",
-                          "238", "193","4777", "830", "311",
-                         "4538","7975","1675")]
+                                    "2503","2331","7597","4899", "576",
+                                    "2141","3367","3108","3381","7598",
+                                     "238", "193","4777", "830", "311",
+                                    "4538","7975","1675"),
+                                  c("2503","1165","1165","3110", "854",
+                                    "2503","2331","7597","4899", "576",
+                                    "2141","3367","3108","3381","7598",
+                                     "238", "193","4777", "830", "311",
+                                    "4538","7975","1675")]
 
 mat_env_dist[lower.tri(mat_env_dist, diag = FALSE)] <- NA
 
 # predictors - copy names - make automatic !! 
 colnames(mat_env_dist) <- colnames(r_mat_clpsd)
 rownames(mat_env_dist) <- rownames(r_mat_clpsd)
+
+message("Environmental distance matrix is:")
+print(mat_env_dist)
+
+message("Response distance matrix is:")
+print(r_mat_clpsd) 
 
 #' Finished matrix -
 #' to match predictors influenced by available voyages before analysis.
