@@ -1508,7 +1508,10 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * testing execution with expanded file `~/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh`
     * needs adjustment
        * use large if loop around line 232 - commit running version before these large-scale changes - **ok**
-       * write logfile in `~/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh` - **ok** 
+       * write logfile in `~/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh` - **ok**
+       * modify script to use more descriptive file names - **ok**
+       * time stamp of current results is `2019-Sep-06-14-13-30`
+       * commit
 
        * also consider that Pearl Harbour does not have commercial routes - **pending**
        * email to Mandana - **pending**
