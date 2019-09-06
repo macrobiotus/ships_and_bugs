@@ -33,11 +33,11 @@ rm(list=ls())
 
 #' Load Packages
 
+library ("tidyverse") # dplyr and friends
 library ("ggplot2")   # for ggCaterpillar
 # library ("ggbiplot")  # better PCoA plotting, get via `library(devtools); install_github("vqv/ggbiplot")`
                       # uses `plyr` and needs to be loaded before `dplyr` in `tidyverse` 
 library ("gdata")     # matrix functions
-library ("tidyverse") # dplyr and friends
 library ("reshape2")  # melting
 library ("lme4")      # mixed effect model
 library ("sjPlot")    # mixed effect model - with plotting
@@ -253,9 +253,6 @@ if ( identical (colnames (r_mat_clpsd), expected_colnames_deepest)) {
     
     
     # After Antwerp ("576") Buenos Aires ("BA") added before Coos Bay ("2141")
-    
-    
-    
     message("Setting port selection for shallow rarefaction depth")
     message("Expected ports are: ", paste0(expected_colnames_shallow, " ") )
 
@@ -408,9 +405,6 @@ model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("AW", "
 model_data <- model_data %>% add_column("ECO_DIFF" = NA)
 model_data <- model_data %>% mutate (ECO_DIFF = ifelse(ECO_PORT == ECO_DEST , FALSE, TRUE))
 
-# write data as per input path
-write.csv(model_data, file = args[4])
-
 # Checking response and predictor variable distributions
 
 ## Plots -  create list to store plots for export further below
@@ -463,14 +457,29 @@ capture.output( file=args[6], append=TRUE, aggregate(model_data$PRED_TRIPS~model
 pairs(RESP_UNIFRAC ~ PRED_ENV * PRED_TRIPS, data=model_data, main="Simple Scatterplot Matrix")
 
 #' # Select variables for modelling and build models 
-model_data
+message("Saving this model data to file:")
+print(model_data)
+
+# Sorting columns
+model_data <- model_data %>% arrange(PORT, desc(PRED_TRIPS), DEST)
+
+# correcting trips for Pearl Harbour
+model_data <- model_data %>% mutate (PRED_TRIPS = ifelse(PORT  == "PH", "0", PRED_TRIPS))
+model_data <- model_data %>% mutate (PRED_TRIPS = ifelse(DEST  == "PH", "0", PRED_TRIPS))
 
 model_data$PORT <- as.factor(model_data$PORT)
 model_data$DEST <- as.factor(model_data$DEST)
 model_data$ECO_DIFF <- as.factor(model_data$ECO_DIFF)
+model_data$PRED_TRIPS <- as.numeric(model_data$PRED_TRIPS)
 
-# reordering columns for model
+
+# write data as per input path - keep close to variable selection below
+write.csv(model_data, file = args[4])
+
+# select  columns for model
 vars <- model_data %>% select(RESP_UNIFRAC, PORT, DEST, ECO_DIFF, PRED_ENV, PRED_TRIPS)
+message("Using this model data for regression:")
+print(vars)
 
 #' ## Full Model and checking 
 vars_model_full <- lmer(RESP_UNIFRAC ~ PRED_ENV + PRED_TRIPS + ECO_DIFF + (1 | PORT) + (1 | DEST), data=vars, REML=FALSE)

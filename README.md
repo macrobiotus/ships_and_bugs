@@ -1503,40 +1503,63 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * all data synced to Cornell cluster
   * adjusted `~/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh`
     * added distance matrices four to eight of shallow rarefaction depth fo UNIFRAC and JAQUARDD values and unclustered and clustered data
-    * can be run after checking script `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R` **pending**
+    * can be run after checking script `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R` **ok**
   * checking and correcting script `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
     * testing execution with expanded file `~/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh`
     * needs adjustment
        * use large if loop around line 232 - commit running version before these large-scale changes - **ok**
        * write logfile in `~/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh` - **ok**
-       * modify script to use more descriptive file names - **ok**
-       * time stamp of current results is `2019-Sep-06-14-13-30`
-       * commit
+* **06.09.2019** - continuing **implementing different rarefaction depths analysis** - now adjusting modelling
+  * modify `~/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh` script to use more descriptive file names - **ok**
+  * commit `dde144cda117d87efa95adc518d2a8e97cfab9de`
+  * in `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R` also consider that Pearl Harbour does not have commercial routes - **ok**
+  * compare if output columns are identical - check for identical first columns - **ok** 
 
-       * also consider that Pearl Harbour does not have commercial routes - **pending**
-       * email to Mandana - **pending**
+```
+gawk -F "," 'NR==FNR{a[FNR]=$1;next}$1!=a[FNR]{print "They are dfifferent"; exit 1}' \
+  /Users/paul/Documents/CU_combined/Zenodo/Results/01_results_euk_asv00_deep_UNIF_model_data_2019-Sep-06-15-19-43.csv \
+  /Users/paul/Documents/CU_combined/Zenodo/Results/02_results_euk_otu99_deep_UNIF_model_data_2019-Sep-06-15-19-55.csv \
+  /Users/paul/Documents/CU_combined/Zenodo/Results/03_results_euk_asv00_deep_JAQU_model_data_2019-Sep-06-15-20-06.csv \
+  /Users/paul/Documents/CU_combined/Zenodo/Results/04_results_euk_otu99_deep_JAQU_model_data_2019-Sep-06-15-20-18.csv
+ 
+gawk -F "," 'NR==FNR{a[FNR]=$1;next}$1!=a[FNR]{print "They are dfifferent"; exit 1}' \
+ /Users/paul/Documents/CU_combined/Zenodo/Results/05_results_euk_asv00_shal__UNIF_model_data_2019-Sep-06-15-20-29.csv \
+ /Users/paul/Documents/CU_combined/Zenodo/Results/05_results_euk_asv00_shal__UNIF_model_data_2019-Sep-06-15-20-29.csv \
+ /Users/paul/Documents/CU_combined/Zenodo/Results/06_results_euk_otu99_shal__UNIF_model_data_2019-Sep-06-15-20-41.csv \
+ /Users/paul/Documents/CU_combined/Zenodo/Results/07_results_euk_asv00_shal__JAQU_model_data_2019-Sep-06-15-20-52.csv \
+ /Users/paul/Documents/CU_combined/Zenodo/Results/08_results_euk_otu99_shal__JAQU_model_data_2019-Sep-06-15-21-04.csv
+```
+  
+  * compare if output columns are identical - check for identical second columns - **ok** 
+
+```
+gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit 1}' \
+  /Users/paul/Documents/CU_combined/Zenodo/Results/01_results_euk_asv00_deep_UNIF_model_data_2019-Sep-06-15-19-43.csv \
+  /Users/paul/Documents/CU_combined/Zenodo/Results/02_results_euk_otu99_deep_UNIF_model_data_2019-Sep-06-15-19-55.csv \
+  /Users/paul/Documents/CU_combined/Zenodo/Results/03_results_euk_asv00_deep_JAQU_model_data_2019-Sep-06-15-20-06.csv \
+  /Users/paul/Documents/CU_combined/Zenodo/Results/04_results_euk_otu99_deep_JAQU_model_data_2019-Sep-06-15-20-18.csv
+ 
+gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit 1}' \
+ /Users/paul/Documents/CU_combined/Zenodo/Results/05_results_euk_asv00_shal__UNIF_model_data_2019-Sep-06-15-20-29.csv \
+ /Users/paul/Documents/CU_combined/Zenodo/Results/05_results_euk_asv00_shal__UNIF_model_data_2019-Sep-06-15-20-29.csv \
+ /Users/paul/Documents/CU_combined/Zenodo/Results/06_results_euk_otu99_shal__UNIF_model_data_2019-Sep-06-15-20-41.csv \
+ /Users/paul/Documents/CU_combined/Zenodo/Results/07_results_euk_asv00_shal__JAQU_model_data_2019-Sep-06-15-20-52.csv \
+ /Users/paul/Documents/CU_combined/Zenodo/Results/08_results_euk_otu99_shal__JAQU_model_data_2019-Sep-06-15-21-04.csv
+```
+ * email to Mandana for correction - **ok**
+
 
 ## Todo
 
 ### More important 
 
-* see 5.9.2019 -  needs adjustment
-  * also consider that Pearl Harbour does not have commercial routes - **pending**
-  * email to Mandana - **pending**
-
-#### Potentially large changes
-
-  
-  * check all script marked yellow for required corrections
+  * split modeling script from `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
+  * include Mandanas results
+  * formalize implementation of `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
+  * while doing so take care that matrix conflation is done using averages.
   * adjust display items (Procrustes and Mantel results)
   * adjust text (shallow depth sampel inclusion from table summary)
-
-
-#### Smaller changes and additions   
-  * formalize implementation of `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
-    * while doing so take care that matrix conflation is done using averages.
-  * adjust `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
-    * so that time stamp  to avoid overwriting in case of identical file names becomes something more meaningfule, sich as annalysis type  
+  * check all script marked yellow for required corrections
 
 #### Less important 
   * Accomodate randomized matrices
