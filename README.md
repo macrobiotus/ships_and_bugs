@@ -1546,13 +1546,18 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
  /Users/paul/Documents/CU_combined/Zenodo/Results/07_results_euk_asv00_shal__JAQU_model_data_2019-Sep-06-15-20-52.csv \
  /Users/paul/Documents/CU_combined/Zenodo/Results/08_results_euk_otu99_shal__JAQU_model_data_2019-Sep-06-15-21-04.csv
 ```
- * email to Mandana for correction - **ok**
+
+* **16.09.2019** - building display items, waiting for tables of HON modelling 
+ * email HON data request to Mandana **ok**
+ * working on building display items
+   * keeping scaffold ``/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190821_main_results_calculations_blank_checks.R`
+   * working in  `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190821_main_results_calculations.R`
 
 
 ## Todo
 
 ### More important 
-
+  * build display items in `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190821_main_results_calculations.R`
   * split modeling script from `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
   * include Mandanas results
   * formalize implementation of `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
