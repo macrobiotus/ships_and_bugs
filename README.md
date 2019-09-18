@@ -1550,8 +1550,15 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
 * **16.09.2019** - building display items, waiting for tables of HON modelling 
  * email HON data request to Mandana **ok**
  * working on building display items
-   * keeping scaffold ``/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190821_main_results_calculations_blank_checks.R`
-   * working in  `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190821_main_results_calculations.R`
+   * keeping scaffold `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190821_main_results_calculations_blank_checks.R`
+   * working in `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190821_main_results_calculations.R`
+* **17.09.2019** - building display items, waiting for tables of HON modelling 
+  * working on `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_DI_map_curves.R` - aborted
+  * working on `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_DI_map_straight_lines.R` - still works, but aborted
+* **18.09.2019** - building display items, waiting for tables of HON modelling 
+  * finished `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_DI_map_curves.R`
+    * writing and written to `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190812_display_items_main/190917_1_map.pdf` and
+    * writing and written to `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190812_display_items_supplement/190816_sample_map_simple.pdf`
 
 
 ## Todo
