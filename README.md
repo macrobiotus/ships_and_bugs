@@ -1560,8 +1560,10 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * writing and written to `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190812_display_items_main/190917_1_map.pdf` and
     * writing and written to `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190812_display_items_supplement/190816_sample_map_simple.pdf`
     * continued to work on `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_main_results_calculations.R`
-      * exported Keller DI's - but more to do 
-
+      * exported Keller DI's - but more to do
+* **26.09.2019** - building display items, waiting for tables of HON modelling
+  * extending `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_main_results_calculations.R`
+    * continue into section `Calculations for Results section 3: Chord diagram of model data`
 
 ## Todo
 
@@ -1569,10 +1571,14 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * build display items in `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190821_main_results_calculations.R`
      * Voyages summary per year
      * Voyages and other connections - flow map
-  * split modeling script from `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
   * include Mandanas results
+  * `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
+    * possibly re-run modeling scripts and output full route tables for `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_main_results_calculations.R`
+    * split modeling functions from `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
+    * possible re-write more concise R pipline
+  * revise `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_main_results_calculations.R`
   * formalize implementation of `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
-  * while doing so take care that matrix conflation is done using averages.
+    * while doing so take care that matrix conflation is done using averages.
   * adjust display items (Procrustes and Mantel results)
   * adjust text (shallow depth sampel inclusion from table summary)
   * check all script marked yellow for required corrections
