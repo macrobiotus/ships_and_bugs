@@ -1564,13 +1564,17 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
 * **26.09.2019** - building display items, waiting for tables of HON modelling
   * extending `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_main_results_calculations.R`
     * continue into section `Calculations for Results section 3: Chord diagram of model data`
+* **27.09.2019** - building display items, waiting for tables of HON modelling
+  * extending `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_main_results_calculations.R`
+    * continued into section `Calculations for Results section 3: Chord diagram of model data`
 
 ## Todo
 
 ### More important 
+  * *resolve Singapore dichotomy*
   * build display items in `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190821_main_results_calculations.R`
-     * Voyages summary per year
-     * Voyages and other connections - flow map
+     * Voyages summary per year - add bioregions
+     * taxon plots
   * include Mandanas results
   * `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
     * possibly re-run modeling scripts and output full route tables for `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_main_results_calculations.R`
