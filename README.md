@@ -1567,19 +1567,38 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
 * **27.09.2019** - building display items, waiting for tables of HON modelling
   * extending `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_main_results_calculations.R`
     * continued into section `Calculations for Results section 3: Chord diagram of model data`
+* **30.09.2019** - building display items, waiting for tables of HON modelling
+  * extending `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_main_results_calculations.R`
+    * stared into section `Calculations for Results section 4: Taxonomy plots`
+* **04.10.2019** - building display items, waiting for more tables of HON modelling
+  * extending `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_main_results_calculations.R`
+    * continued into section `Calculations for Results section 4: Taxonomy plots`
+    * finished first of three parts
+  * saved first HON data to `/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/191001_selected_links_Ballast_env_2012.csv`
+  * also saved geographical distances to `/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/191004_Unique_Voyages_ALL_YEARS_UDforQAwithErin.xlsx`
+  * _"I checked your first sheet and the records are correct. I have prepared
+     your data with FON and HON invasion risks. Please note that I have fewer rows
+     than yours since I didn't include the 0-risk pairs. Also, I used averaging
+     (over HON nodes) to obtain the pairwise physical risk. We can try aggregating
+     as well and see which one is a better fit! Unfortunately, I haven't gotten a
+     chance to extract direct shipping risks. I couldn't find my previous files so I
+     have to generate them again. I didn't want to send this to you in two pieces
+     but figured maybe it's better to send you what I have for now. I'm traveling
+     next week so I will send it to you the week after that. Sorry for the delay!"_
+
 
 ## Todo
 
 ### More important 
-  * *resolve Singapore dichotomy*
+  *resolve Singapore dichotomy* - recalculate UNIFRAC distances with single port
   * build display items in `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190821_main_results_calculations.R`
-     * Voyages summary per year - add bioregions
-     * taxon plots
+     * Voyages summary per year - **add bioregions**
+     * taxon plots - **continue parser, update phyloseq object, plot**
   * include Mandanas results
   * `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
     * possibly re-run modeling scripts and output full route tables for `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_main_results_calculations.R`
     * split modeling functions from `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
-    * possible re-write more concise R pipline
+    * possible re-write more concise R pipeline
   * revise `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_main_results_calculations.R`
   * formalize implementation of `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
     * while doing so take care that matrix conflation is done using averages.
