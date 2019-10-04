@@ -1585,10 +1585,11 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
      have to generate them again. I didn't want to send this to you in two pieces
      but figured maybe it's better to send you what I have for now. I'm traveling
      next week so I will send it to you the week after that. Sorry for the delay!"_
-  * moved DI scripts to `/Users/paul/Documents/CU_combined/Github/` to enable version contold, but kept sof links`
+  * moved DI scripts to `/Users/paul/Documents/CU_combined/Github/` to enable version control, but kept soft links
+  * all R objects now written to `/Users/paul/Documents/CU_combined/Zenodo/R_Objects`
 
 
-/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development
+
 
 ## Todo
 

@@ -299,8 +299,8 @@ plan(multiprocess) # enable
 blast_results_list <- furrr::future_map(blast_results_files, blastxml_dump, form = "tibble", .progress = TRUE) # takes a very long time - avoid by reloading full object from disk 
 names(blast_results_list) <- blast_results_files
 
-# save object and some time by reloading it
-save(blast_results_list, file="/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/191004_blast_results_list.Rdata")
+# save object and some time by reloading it - **save all items to R objects later !**
+save(blast_results_list, file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/190917_main_results_calculations__blast_results_list.Rdata")
 
 
 # create one large item from many few, while keeping source file info fo grouping or subsetting
@@ -310,7 +310,7 @@ blast_results_list %>% bind_rows(, .id = "src" ) %>%      # add source file name
                        slice(which.max(hsp_bit_score)) -> blast_results # save subset
 
 # save object and some time by reloading it
-save(blast_results_list, file="/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/191004_blast_results_list_sliced.Rdata")
+save(blast_results_list, file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/190917_main_results_calculations__blast_results_list_sliced.Rdata")
 
 # prepareDatabase not needed to be run multiple times
 prepareDatabase(sqlFile = "accessionTaxa.sql", tmpDir = "/Users/paul/Sequences/References/taxonomizR/", vocal = TRUE) # takes a very long time - avoid by reloading full object from disk
@@ -331,11 +331,64 @@ tax_table <- as_tibble(get_strng(blast_results_appended$tax_id), rownames = "tax
 blast_results_appended <- inner_join(blast_results_appended,tax_table)
 
 # save object and some time by reloading it
-save(blast_results_appended, file="/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/191004_blast_with_ncbi_taxonomy.Rdata")
+save(blast_results_appended, file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/190917_main_results_calculations__blast_with_ncbi_taxonomy.Rdata")
 
 
 # Part II: Update Phyloseq object and plot
 # ----------------------------------------
+# copied from
+# /Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa.R
+# possibly need updated Blast data to match current deep Phyloseq object, but only if hashes are missing
+
+#### begin construction site ####
+
+#' ## Load Packages
+
+library("ape")          # read tree file
+library("Biostrings")   # read fasta file
+library("phyloseq")     # filtering and utilities for such objects
+library("data.table")   # possibly best for large data dimension
+
+#' ## Functions
+#' 
+#'  Loading external functions:
+source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")
+
+#' ##  Data Read-in
+#'
+#' Set paths (from original blast input files still exist today 04.10.2019 - good! - should match up then):
+sequ_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/180_18S_eDNA_samples_tab_Eukaryotes_qiime_artefacts_non_phylogenetic/dna-sequences.fasta" 
+biom_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/180_18S_eDNA_samples_tab_Eukaryotes_qiime_artefacts_non_phylogenetic/features-tax-meta.biom"
+
+
+#' Create Phyloseq object:
+biom_table <- phyloseq::import_biom (biom_path)
+sequ_table <- Biostrings::readDNAStringSet(sequ_path)  
+  
+#' Construct Object:
+phsq_ob <- merge_phyloseq(biom_table, sequ_table)
+
+#' Clean Data:
+phsq_ob <- remove_empty(phsq_ob)
+
+ 
+#' Get a list of Phyloseq objects in which each object only contains samples
+#' from one Port. Matching of samples is done by the first two 
+#' characters of the sample name.
+phsq_list <- get_phsq_list(phsq_ob)
+
+#' Extract OTU tables from Phyloseq object list and store as data frames...
+df_list <- lapply (phsq_list, get_df_from_phsq_list)
+
+#' ...get row sums - summing observations per OTU across multiple samples per port.. 
+df_list <- lapply (df_list, rowSums)
+
+#' ... combining list elements to matrix and data.table. Feature id;'s are names "rs".
+features_shared <- data.table(do.call("cbind", df_list), keep.rownames=TRUE)
+
+
+#### end construction site ####
+
 
 
 
