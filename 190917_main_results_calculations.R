@@ -296,7 +296,7 @@ blast_results_files <- list.files(path=blast_results_folder, pattern = blast_res
 # system.time(blast_results_list <- furrr::future_map(blast_results_files[12:16], get_condensed_dump)) # takes a very long time - avoid by reloading full object from disk 
 
 plan(multiprocess) # enable 
-blast_results_list <- furrr::future_map(blast_results_files, blastxml_dump, form = "tibble", .progress = TRUE) # takes a very long time - avoid by reloading full object from disk 
+blast_results_list <- furrr::future_map(blast_results_files, blastxml_dump, form = "tibble", .progress = TRUE) # takes 2-3 hours - avoid by reloading full object from disk 
 names(blast_results_list) <- blast_results_files
 
 # save object and some time by reloading it - **save all items to R objects later !**
