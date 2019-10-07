@@ -1604,7 +1604,8 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
      the Phyloseq object you have at hand, you could of course back-reference
      occurrences to port and bioregions, or you may find this table useful for other
      plots."_
-  * count results are weird - check again
+  * count results are weird - check again - grouping command may have gone wrong somewhere
+  * updated code and comments to avoid mistake in the future
 
 
 
@@ -1615,7 +1616,7 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   *resolve Singapore dichotomy* - recalculate UNIFRAC distances with single port
   * build display items in `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190821_main_results_calculations.R`
      * Voyages summary per year - **add bioregions**
-     * taxon plots - **continue parser, update phyloseq object, plot**
+     * taxon plots - **continue parser, update phyloseq object, plot** (correct grouping of Blast variables)
   * include Mandanas results
   * `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
     * possibly re-run modeling scripts and output full route tables for `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_main_results_calculations.R`

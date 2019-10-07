@@ -355,18 +355,10 @@ save(blast_results_final, file="/Users/paul/Documents/CU_combined/Zenodo/R_Objec
 load(file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/190917_main_results_calculations__blast_with_ncbi_taxonomy.Rdata")
 
 
-# Part II: Plot Blast results
+# Part II: Plot Tax at ports with blast taxonomy 
 # ---------------------------
 
-
-blast_results_final %>% ungroup() %>% mutate(src = as.numeric(src)) -> blast_results_final
-
-
-
-blast_results_final %>% group_by("src") %>% count( name = "src")
-
-
-
+# should not plot plot from Blast results until slicing is fully understood
 
 
 
@@ -379,19 +371,3 @@ blast_results_final %>% group_by("src") %>% count( name = "src")
 
 # use alluvial diagram
 # https://cran.r-project.org/web/packages/ggalluvial/vignettes/ggalluvial.html
-
-#' Get a list of Phyloseq objects in which each object only contains samples
-#' from one Port. Matching of samples is done by the first two 
-#' characters of the sample name.
-phsq_list <- get_phsq_list(phsq_ob)
-
-#' Extract OTU tables from Phyloseq object list and store as data frames...
-df_list <- lapply (phsq_list, get_df_from_phsq_list)
-
-#' ...get row sums - summing observations per OTU across multiple samples per port.. 
-df_list <- lapply (df_list, rowSums)
-
-#' ... combining list elements to matrix and data.table. Feature id;'s are names "rs".
-features_shared <- data.table(do.call("cbind", df_list), keep.rownames=TRUE)
-
-
