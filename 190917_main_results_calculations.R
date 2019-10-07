@@ -296,24 +296,29 @@ blast_results_files <- list.files(path=blast_results_folder, pattern = blast_res
 # system.time(blast_results_list <- furrr::future_map(blast_results_files[12:16], get_condensed_dump)) # takes a very long time - avoid by reloading full object from disk 
 
 plan(multiprocess) # enable 
-blast_results_list <- furrr::future_map(blast_results_files, blastxml_dump, form = "tibble", .progress = TRUE) # takes 2-3 hours - avoid by reloading full object from disk 
-names(blast_results_list) <- blast_results_files
+blast_results_list <- furrr::future_map(blast_results_files, blastxml_dump, form = "tibble", .progress = TRUE) # takes 7-10 hours on four cores - avoid by reloading full object from disk 
+names(blast_results_list) <- blast_results_files # <- execute next 
 
-# save object and some time by reloading it - **save all items to R objects later !**
-save(blast_results_list, file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/190917_main_results_calculations__blast_results_list.Rdata")
-
+# save object and some time by reloading it - comment in if necessary
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# save(blast_results_list, file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/190917_main_results_calculations__blast_results_list.Rdata")
+# load(file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/190917_main_results_calculations__blast_results_list.Rdata", verbose = TRUE)
 
 # create one large item from many few, while keeping source file info fo grouping or subsetting
-blast_results_list %>% bind_rows(, .id = "src" ) %>%      # add source file names as column elements
-                       clean_names(.) %>%                 # clean columns names 
-                       group_by(iteration_query_def) %>%  # isolate groups of hits per sequence hash
+blast_results_list %>% bind_rows(, .id = "src" ) %>%        # add source file names as column elements
+                       clean_names(.) %>%                   # clean columns names 
+                       group_by(iteration_query_def) %>%    # isolate groups of hits per sequence hash
                        slice(which.max(hsp_bit_score)) -> blast_results # save subset
 
-# save object and some time by reloading it
-save(blast_results_list, file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/190917_main_results_calculations__blast_results_list_sliced.Rdata")
+# save object and some time by reloading it - comment in if necessary
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# save(blast_results, file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/190917_main_results_calculations__blast_results_list_sliced.Rdata")
+# load(file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/190917_main_results_calculations__blast_results_list_sliced.Rdata", verbose = TRUE)
+# nrow(blast_results) 17586
 
 # prepareDatabase not needed to be run multiple times
-prepareDatabase(sqlFile = "accessionTaxa.sql", tmpDir = "/Users/paul/Sequences/References/taxonomizR/", vocal = TRUE) # takes a very long time - avoid by reloading full object from disk
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# prepareDatabase(sqlFile = "accessionTaxa.sql", tmpDir = "/Users/paul/Sequences/References/taxonomizR/", vocal = TRUE) # takes a very long time - avoid by reloading full object from disk
 
 # function for mutate to convert NCBI accession numbers to taxonomic IDs.
 get_taxid <- function(x) {accessionToTaxa(x, "/Users/paul/Sequences/References/taxonomizR/accessionTaxa.sql", version='base')}
@@ -321,57 +326,60 @@ get_taxid <- function(x) {accessionToTaxa(x, "/Users/paul/Sequences/References/t
 # function for mutate to use taxonomic IDs and add taxonomy strings
 get_strng <- function(x) {getTaxonomy(x,"/Users/paul/Sequences/References/taxonomizR/accessionTaxa.sql")}
 
-# add tax ids to table for string lookup
+# add tax ids to table for string lookup - probably takes long time
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 blast_results_appended <- blast_results %>% mutate(tax_id = get_taxid(hit_accession))
+# save(blast_results_appended, file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/190917_main_results_calculations__blast_results_with_taxid.Rdata")
+# load(file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/190917_main_results_calculations__blast_results_with_taxid.Rdata", verbose=TRUE)
+
+length(blast_results_appended$tax_id) # 17586
 
 # look up taxonomy table
 tax_table <- as_tibble(get_strng(blast_results_appended$tax_id), rownames = "tax_id") %>% mutate(tax_id= as.numeric(tax_id))
+nrow(tax_table) # 17586
 
-# get blast results including taxonomy
-blast_results_appended <- inner_join(blast_results_appended,tax_table)
+tax_table <- tax_table %>% arrange(tax_id) %>% distinct(tax_id, superkingdom, phylum, class, order, family, genus, species, .keep_all= TRUE)
+
+# checks
+nrow(tax_table)             # 3891 - as it should
+all(!duplicated(tax_table)) #        and no duplicated tax ids anymore
+lapply(list(blast_results_appended,tax_table), nrow) # first 17586, second deduplicated and with 3891 - ok 
+
+# https://stackoverflow.com/questions/5706437/whats-the-difference-between-inner-join-left-join-right-join-and-full-join
+blast_results_final <- left_join(blast_results_appended, tax_table, copy = TRUE) 
+nrow(blast_results_final) # 17586 - table has correct length now 
 
 # save object and some time by reloading it
-save(blast_results_appended, file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/190917_main_results_calculations__blast_with_ncbi_taxonomy.Rdata")
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+save(blast_results_final, file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/190917_main_results_calculations__blast_with_ncbi_taxonomy.Rdata")
+load(file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/190917_main_results_calculations__blast_with_ncbi_taxonomy.Rdata")
 
 
-# Part II: Update Phyloseq object and plot
-# ----------------------------------------
-# copied from
-# /Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa.R
-# possibly need updated Blast data to match current deep Phyloseq object, but only if hashes are missing
-
-#### begin construction site ####
-
-#' ## Load Packages
-
-library("ape")          # read tree file
-library("Biostrings")   # read fasta file
-library("phyloseq")     # filtering and utilities for such objects
-library("data.table")   # possibly best for large data dimension
-
-#' ## Functions
-#' 
-#'  Loading external functions:
-source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")
-
-#' ##  Data Read-in
-#'
-#' Set paths (from original blast input files still exist today 04.10.2019 - good! - should match up then):
-sequ_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/180_18S_eDNA_samples_tab_Eukaryotes_qiime_artefacts_non_phylogenetic/dna-sequences.fasta" 
-biom_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/180_18S_eDNA_samples_tab_Eukaryotes_qiime_artefacts_non_phylogenetic/features-tax-meta.biom"
+# Part II: Plot Blast results
+# ---------------------------
 
 
-#' Create Phyloseq object:
-biom_table <- phyloseq::import_biom (biom_path)
-sequ_table <- Biostrings::readDNAStringSet(sequ_path)  
-  
-#' Construct Object:
-phsq_ob <- merge_phyloseq(biom_table, sequ_table)
+blast_results_final %>% ungroup() %>% mutate(src = as.numeric(src)) -> blast_results_final
 
-#' Clean Data:
-phsq_ob <- remove_empty(phsq_ob)
 
- 
+
+blast_results_final %>% group_by("src") %>% count( name = "src")
+
+
+
+
+
+
+
+
+# Part III: relate taxonomy ids with route data and plot  
+# -----------------------------------------------------
+
+# (copy and adjust original blast subsetting code)
+
+# use alluvial diagram
+# https://cran.r-project.org/web/packages/ggalluvial/vignettes/ggalluvial.html
+
 #' Get a list of Phyloseq objects in which each object only contains samples
 #' from one Port. Matching of samples is done by the first two 
 #' characters of the sample name.
@@ -385,16 +393,5 @@ df_list <- lapply (df_list, rowSums)
 
 #' ... combining list elements to matrix and data.table. Feature id;'s are names "rs".
 features_shared <- data.table(do.call("cbind", df_list), keep.rownames=TRUE)
-
-
-#### end construction site ####
-
-
-
-
-# Part III: relate taxonomy ids with route data and plot  
-# -----------------------------------------------------
-
-# (copy and adjust original blast subsetting code)
 
 

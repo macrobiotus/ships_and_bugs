@@ -1587,6 +1587,24 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
      next week so I will send it to you the week after that. Sorry for the delay!"_
   * moved DI scripts to `/Users/paul/Documents/CU_combined/Github/` to enable version control, but kept soft links
   * all R objects now written to `/Users/paul/Documents/CU_combined/Zenodo/R_Objects`
+  * in ~/Documents/CU_combined/Github/190917_main_results_calculations.R
+  * continue at line 300 (`<- execute next`)
+* **04.10.2019** - building display items, waiting for more tables of HON modelling
+  * extending `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_main_results_calculations.R`
+  * _" I have parsed the Blast result xml I created and attach this as an R object
+     for you consideration - I hope that you may find this useful to streamline your
+     work and keep it consistent with the results I have here (and that are on the
+     cluster and with Erin). I have read in the old(er) blast xml, kept only the
+     highest (bit-)scoring matches from each query, and added NCBI taxonomy
+     information as columns to this filtered Blast output. The lookup was possible
+     via the NCBI taxonomy id (tax_id), which in turn I retrieved via the base
+     version of the accession of the respective Blast match. There should be 3891
+     unique taxa among the 17586 queries below. The src column indicates at how
+     many ports the query was found. Via the sequence hash `iteration_query_def` and
+     the Phyloseq object you have at hand, you could of course back-reference
+     occurrences to port and bioregions, or you may find this table useful for other
+     plots."_
+  * count results are weird - check again
 
 
 
