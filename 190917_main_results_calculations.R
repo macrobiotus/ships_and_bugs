@@ -297,7 +297,9 @@ blast_results_files <- list.files(path=blast_results_folder, pattern = blast_res
 
 plan(multiprocess) # enable 
 blast_results_list <- furrr::future_map(blast_results_files, blastxml_dump, form = "tibble", .progress = TRUE) # takes 7-10 hours on four cores - avoid by reloading full object from disk 
-names(blast_results_list) <- blast_results_files # <- execute next 
+# save(blast_results_list, file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/191009_main_results_calculations__blast_results_list.Rdata")
+# load(file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/191009_main_results_calculations__blast_results_list.Rdata", verbose = TRUE)
+names(blast_results_list) <- blast_results_files # works
 
 # save object and some time by reloading it - comment in if necessary
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -312,9 +314,9 @@ blast_results_list %>% bind_rows(, .id = "src" ) %>%        # add source file na
 
 # save object and some time by reloading it - comment in if necessary
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# save(blast_results, file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/190917_main_results_calculations__blast_results_list_sliced.Rdata")
-# load(file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/190917_main_results_calculations__blast_results_list_sliced.Rdata", verbose = TRUE)
-# nrow(blast_results) 17586
+# save(blast_results, file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/191009_main_results_calculations__blast_results_list_sliced.Rdata")
+# load(file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/191009_main_results_calculations__blast_results_list_sliced.Rdata", verbose = TRUE)
+nrow(blast_results) # 17586
 
 # prepareDatabase not needed to be run multiple times
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -328,9 +330,9 @@ get_strng <- function(x) {getTaxonomy(x,"/Users/paul/Sequences/References/taxono
 
 # add tax ids to table for string lookup - probably takes long time
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-blast_results_appended <- blast_results %>% mutate(tax_id = get_taxid(hit_accession))
-# save(blast_results_appended, file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/190917_main_results_calculations__blast_results_with_taxid.Rdata")
-# load(file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/190917_main_results_calculations__blast_results_with_taxid.Rdata", verbose=TRUE)
+blast_results_appended <- blast_results %>% mutate(tax_id = get_taxid(hit_accession)) # takes some time... 
+# save(blast_results_appended, file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/191009_main_results_calculations__blast_results_with_taxid.Rdata")
+# load(file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/191009_main_results_calculations__blast_results_with_taxid.Rdata", verbose=TRUE)
 
 length(blast_results_appended$tax_id) # 17586
 
@@ -338,9 +340,12 @@ length(blast_results_appended$tax_id) # 17586
 tax_table <- as_tibble(get_strng(blast_results_appended$tax_id), rownames = "tax_id") %>% mutate(tax_id= as.numeric(tax_id))
 nrow(tax_table) # 17586
 
+# getting a tax table without dulictaes to enable proper join command later
 tax_table <- tax_table %>% arrange(tax_id) %>% distinct(tax_id, superkingdom, phylum, class, order, family, genus, species, .keep_all= TRUE)
 
+
 # checks
+head(tax_table)
 nrow(tax_table)             # 3891 - as it should
 all(!duplicated(tax_table)) #        and no duplicated tax ids anymore
 lapply(list(blast_results_appended,tax_table), nrow) # first 17586, second deduplicated and with 3891 - ok 
@@ -351,16 +356,16 @@ nrow(blast_results_final) # 17586 - table has correct length now
 
 # save object and some time by reloading it
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-save(blast_results_final, file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/190917_main_results_calculations__blast_with_ncbi_taxonomy.Rdata")
-load(file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/190917_main_results_calculations__blast_with_ncbi_taxonomy.Rdata")
+# save(blast_results_final, file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/191009_main_results_calculations__blast_with_ncbi_taxonomy.Rdata")
+# load(file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/191009_main_results_calculations__blast_with_ncbi_taxonomy.Rdata")
 
 
 # Part II: Plot Tax at ports with blast taxonomy 
-# ---------------------------
+# ----------------------------------------------
 
-# should not plot plot from Blast results until slicing is fully understood
+# can be plotted now
 
-
+head(blast_results_final)
 
 
 

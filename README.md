@@ -1605,8 +1605,16 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
      occurrences to port and bioregions, or you may find this table useful for other
      plots."_
   * count results are weird - check again - grouping command may have gone wrong somewhere
-  * updated code and comments to avoid mistake in the future
-
+  * updated code and comments to avoid mistake in the future - slicing keeps first occurence of hash, even if it is in the data multiple times (?)
+* **09.10.2019** - building display items, waiting for more tables of HON modelling
+  * running again parts of file `/Users/paul/Documents/CU_combined/Github/190917_main_results_calculations.R`, after import
+* **10.10.2019** - building display items, waiting for more tables of HON modelling
+  * corrected naming of list elements
+  * saved new output files and mailed off
+  * erased older output files in `/Users/paul/Documents/CU_combined/Zenodo/R_Objects`
+  * next 
+    * code plot in Part II
+    * code plot in part III
 
 
 
