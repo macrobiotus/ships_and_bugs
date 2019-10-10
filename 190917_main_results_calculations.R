@@ -340,9 +340,8 @@ length(blast_results_appended$tax_id) # 17586
 tax_table <- as_tibble(get_strng(blast_results_appended$tax_id), rownames = "tax_id") %>% mutate(tax_id= as.numeric(tax_id))
 nrow(tax_table) # 17586
 
-# getting a tax table without dulictaes to enable proper join command later
+# getting a tax table without duplicates to enable proper join command later
 tax_table <- tax_table %>% arrange(tax_id) %>% distinct(tax_id, superkingdom, phylum, class, order, family, genus, species, .keep_all= TRUE)
-
 
 # checks
 head(tax_table)
@@ -354,19 +353,54 @@ lapply(list(blast_results_appended,tax_table), nrow) # first 17586, second dedup
 blast_results_final <- left_join(blast_results_appended, tax_table, copy = TRUE) 
 nrow(blast_results_final) # 17586 - table has correct length now 
 
+# correcting factors
+blast_results_final %>% ungroup(.) %>% mutate(src = as.factor(src)) -> blast_results_final
+levels(blast_results_final$src) 
+
+# diagnostic plot - ok 
+ggplot(blast_results_final, aes(x = src, y = phylum, fill = phylum)) + 
+    geom_bar(position="stack", stat="identity") +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+blast_results_final$src <- plyr::revalue(blast_results_final$src, c("/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/110_85_18S_eDNA_samples_Eukaryotes_qiime_artefacts_non_phylogenetic_seqeunces_overlap_1_ports_blast_result_euk_only_no_env.txt" =  "1 Port(s)",
+                                                                    "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/110_85_18S_eDNA_samples_Eukaryotes_qiime_artefacts_non_phylogenetic_seqeunces_overlap_10_ports_blast_result_euk_only_no_env.txt" = "10 Port(s)",
+                                                                    "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/110_85_18S_eDNA_samples_Eukaryotes_qiime_artefacts_non_phylogenetic_seqeunces_overlap_11_ports_blast_result_euk_only_no_env.txt" = "11 Port(s)",
+                                                                    "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/110_85_18S_eDNA_samples_Eukaryotes_qiime_artefacts_non_phylogenetic_seqeunces_overlap_12_ports_blast_result_euk_only_no_env.txt" = "12 Port(s)",
+                                                                    "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/110_85_18S_eDNA_samples_Eukaryotes_qiime_artefacts_non_phylogenetic_seqeunces_overlap_13_ports_blast_result_euk_only_no_env.txt" = "13 Port(s)",
+                                                                    "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/110_85_18S_eDNA_samples_Eukaryotes_qiime_artefacts_non_phylogenetic_seqeunces_overlap_14_ports_blast_result_euk_only_no_env.txt" = "14 Port(s)",
+                                                                    "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/110_85_18S_eDNA_samples_Eukaryotes_qiime_artefacts_non_phylogenetic_seqeunces_overlap_15_ports_blast_result_euk_only_no_env.txt" = "15 Port(s)",
+                                                                    "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/110_85_18S_eDNA_samples_Eukaryotes_qiime_artefacts_non_phylogenetic_seqeunces_overlap_16_ports_blast_result_euk_only_no_env.txt" = "16 Port(s)",
+                                                                    "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/110_85_18S_eDNA_samples_Eukaryotes_qiime_artefacts_non_phylogenetic_seqeunces_overlap_2_ports_blast_result_euk_only_no_env.txt" = "2 Port(s)",
+                                                                    "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/110_85_18S_eDNA_samples_Eukaryotes_qiime_artefacts_non_phylogenetic_seqeunces_overlap_3_ports_blast_result_euk_only_no_env.txt" = "3 Port(s)",
+                                                                    "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/110_85_18S_eDNA_samples_Eukaryotes_qiime_artefacts_non_phylogenetic_seqeunces_overlap_4_ports_blast_result_euk_only_no_env.txt" = "4 Port(s)",
+                                                                    "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/110_85_18S_eDNA_samples_Eukaryotes_qiime_artefacts_non_phylogenetic_seqeunces_overlap_5_ports_blast_result_euk_only_no_env.txt" = "5 Port(s)",
+                                                                    "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/110_85_18S_eDNA_samples_Eukaryotes_qiime_artefacts_non_phylogenetic_seqeunces_overlap_6_ports_blast_result_euk_only_no_env.txt" = "6 Port(s)",
+                                                                    "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/110_85_18S_eDNA_samples_Eukaryotes_qiime_artefacts_non_phylogenetic_seqeunces_overlap_7_ports_blast_result_euk_only_no_env.txt" = "7 Port(s)",
+                                                                    "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/110_85_18S_eDNA_samples_Eukaryotes_qiime_artefacts_non_phylogenetic_seqeunces_overlap_8_ports_blast_result_euk_only_no_env.txt" = "8 Port(s)",
+                                                                    "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/110_85_18S_eDNA_samples_Eukaryotes_qiime_artefacts_non_phylogenetic_seqeunces_overlap_9_ports_blast_result_euk_only_no_env.txt" = "9 Port(s)"))
+
+# diagnostic plot -ok 
+ggplot(blast_results_final, aes(x = src, y = phylum, fill = phylum)) + 
+    geom_bar(position="stack", stat="identity") +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+blast_results_final$src <- factor(blast_results_final$src, levels = c("1 Port(s)", "2 Port(s)","3 Port(s)","4 Port(s)","5 Port(s)","6 Port(s)","7 Port(s)","8 Port(s)","9 Port(s)","10 Port(s)","11 Port(s)","12 Port(s)","13 Port(s)","14 Port(s)","15 Port(s)","16 Port(s)"))
+
 # save object and some time by reloading it
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # save(blast_results_final, file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/191009_main_results_calculations__blast_with_ncbi_taxonomy.Rdata")
 # load(file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/191009_main_results_calculations__blast_with_ncbi_taxonomy.Rdata")
 
-
 # Part II: Plot Tax at ports with blast taxonomy 
 # ----------------------------------------------
 
-# can be plotted now
+ggplot(blast_results_final, aes(x = src, y = phylum, fill = phylum)) + 
+    geom_bar(position="stack", stat="identity") +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-head(blast_results_final)
-
+# Why NA's????
+    
 
 
 # Part III: relate taxonomy ids with route data and plot  

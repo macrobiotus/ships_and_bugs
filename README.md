@@ -1612,12 +1612,12 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * corrected naming of list elements
   * saved new output files and mailed off
   * erased older output files in `/Users/paul/Documents/CU_combined/Zenodo/R_Objects`
+  * drafted plot code in Part II
   * next 
-    * code plot in Part II
+    * improve plot code in Part II
     * code plot in part III
-
-
-
+  
+  
 ## Todo
 
 ### More important 
