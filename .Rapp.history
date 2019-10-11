@@ -1,0 +1,26 @@
+blast_results_list
+library("blastxml")   # read blast xml - get via `library(devtools); install_github("BigelowLab/blastxml")`#
+library("tidyverse")  # work using tibbles#
+library("janitor")    # clean column names#
+library("taxonomizr") # query taxon names#
+library("purrr")      # dplyr applies#
+library("furrr")      # parallel purrrs
+blast_results_folder <- "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development"#
+blast_results_pattern <- "_blast_result_euk_only_no_env.txt"#
+#
+# read all file into lists for `lapply()` usage#
+blast_results_files <- list.files(path=blast_results_folder, pattern = blast_results_pattern, full.names = TRUE)
+plan(multiprocess) # enable #
+blast_results_list <- furrr::future_map(blast_results_files, blastxml_dump, form = "tibble", .progress = TRUE) # takes 7-10 hours on four cores - avoid by reloading full object from disk #
+# save(blast_results_list, file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/191009_main_results_calculations__blast_results_list.Rdata")#
+# load(file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/191009_main_results_calculations__blast_results_list.Rdata", verbose = TRUE)#
+names(blast_results_list) <- blast_results_files # works
+blast_results_list %>% bind_rows(, .id = "src" )
+load(file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/191009_main_results_calculations__blast_results_list.Rdata", verbose = TRUE)
+names(blast_results_list) <- blast_results_files # works
+blast_results_list %>% bind_rows(, .id = "src" )
+blast_results_list %>% bind_rows(, .id = "src" ) %>%        # add source file names as column elements#
+                       clean_names(.) %>%                   # clean columns names #
+                       group_by(iteration_query_def) %>%    # isolate groups of hits per sequence hash#
+                       slice(which.max(hsp_bit_score)) -> blast_results # save subset
+q()

@@ -1616,15 +1616,24 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * next 
     * improve plot code in Part II
     * code plot in part III
-  
+* **11.10.2019** - building display items, waiting for more tables of HON modelling
+  * corrected naming of list elements
+  * saved new output files and mailed off
+  * erased older output files in `/Users/paul/Documents/CU_combined/Zenodo/R_Objects`
+  * drafted plot code in Part II
+  * next 
+    * improve plot code in Part II
+    * code plot in part III
   
 ## Todo
 
 ### More important 
   *resolve Singapore dichotomy* - recalculate UNIFRAC distances with single port
+  * check Honolulu encoding in model data
   * build display items in `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190821_main_results_calculations.R`
      * Voyages summary per year - **add bioregions**
      * taxon plots - **continue parser, update phyloseq object, plot** (correct grouping of Blast variables)
+  * email Costello for a GIS layer
   * include Mandanas results
   * `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
     * possibly re-run modeling scripts and output full route tables for `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_main_results_calculations.R`

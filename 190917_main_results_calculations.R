@@ -399,7 +399,6 @@ ggplot(blast_results_final, aes(x = src, y = phylum, fill = phylum)) +
     geom_bar(position="stack", stat="identity") +
     theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-# Why NA's????
     
 
 
