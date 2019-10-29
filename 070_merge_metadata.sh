@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 28.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 29.10.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 
 # for debugging only
@@ -9,11 +9,11 @@
 
 # paths need to be adjusted for remote execution
 # ----------------------------------------------
-if [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
+if [[ "$HOSTNAME" != "macmini.local" ]]; then
     printf "Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
     thrds="$(nproc --all)"
-elif [[ "$HOSTNAME" == "macmini.staff.uod.otago.ac.nz" ]]; then
+elif [[ "$HOSTNAME" == "macmini.local" ]]; then
     printf "Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
     thrds='2'
@@ -32,7 +32,7 @@ tab[7]='/Users/paul/Documents/CU_WL_GH_ZEE/Zenodo/Manifest/05_18S_mapping_file_r
 
 # define output locations
 # -----------------------
-otpth_tab='Zenodo/Manifest/05_18S_merged_metadata_preliminary.tsv' # unrevised file: 1a18bd7bfd966c2438a92a76830b09b2
+otpth_tab='Zenodo/Manifest/05_18S_merged_metadata_preliminary.tsv' # unrevised file: 7e5793b431e9fd28d58715ab65bcae1f
 
 # run script
 # ----------

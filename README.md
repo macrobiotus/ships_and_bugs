@@ -1624,6 +1624,26 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * next 
     * improve plot code in Part II
     * code plot in part III
+* **25.10.2019** - starting to resolve Singpore dichotomy
+  * have HON modelling data from Mandana
+    * `/Users/paul/Documents/CU_NIS-WRAPS/190208_hon_data/19102019_all_links_emails.pdf`
+    * `/Users/paul/Documents/CU_NIS-WRAPS/190208_hon_data/19102019_all_links.csv`
+  * copied and compressed all date prior to today and saved at `/Users/paul/Documents/CU_combined.zip`
+  * keeping copy of `/Users/paul/Documents/CU_SP_AD_CH` at `/Users/paul/Documents/CU_SP_AD_CH.zip`
+  * starting to work on re-import of `/Users/paul/Documents/CU_SP_AD_CH`
+  * as further described in `/Users/paul/Documents/CU_SP_AD_CH/Github/README.md`
+* **29.10.2019** - continuing to resolve Singpore dichotomy
+  * erasing all files in Qiime folder
+  * running `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh`
+  * running `/Users/paul/Documents/CU_combined/Github/070_merge_metadata.sh`
+  * created checksum for new file `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata_preliminary.tsv`
+  * swapped in Silva 132 reference data at
+    * `/Users/paul/Documents/CU_combined/Zenodo/References/Silva132_extract_extended/majority_taxonomy_7_levels.txt`
+    * `/Users/paul/Documents/CU_combined/Zenodo/References/Silva132_extract_extended/silva_132_99_18S.fasta`
+  * update for cluster operation `/Users/paul/Documents/CU_combined/Github/075_classify_reads.sh`
+  * commit - move to cluster - start taxonomy assignment
+
+  
   
 ## Todo
 
