@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 21.08.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 30.10.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 #  Retain only samples needed for analysis 
 
@@ -10,11 +10,11 @@
 
 # Paths need to be adjusted for remote execution
 # ----------------------------------------------
-if [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
+if [[ "$HOSTNAME" != "macmini.local" ]]; then
     printf "Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
     cores="$(nproc --all)"
-elif [[ "$HOSTNAME" == "macmini.staff.uod.otago.ac.nz" ]]; then
+elif [[ "$HOSTNAME" == "macmini.local" ]]; then
     printf "Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
 fi

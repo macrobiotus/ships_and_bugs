@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 26.08.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 30.10.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 #  Retain only samples needed for analysis 
 
@@ -10,13 +10,13 @@
 
 # Paths need to be adjusted for remote execution
 # ----------------------------------------------
-if [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
+if [[ "$HOSTNAME" != "macmini.local" ]]; then
     printf "Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
     thrds="$(nproc --all)"
     bold=$(tput bold)
     normal=$(tput sgr0)
-elif [[ "$HOSTNAME" == "macmini.staff.uod.otago.ac.nz" ]]; then
+elif [[ "$HOSTNAME" == "macmini.local" ]]; then
     printf "Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
     thrds='2'
@@ -43,15 +43,15 @@ in_tab[2]='Zenodo/Qiime/110_18S_eDNA_samples_clustered99_tab.qza'
 in_seq[3]='Zenodo/Qiime/110_18S_eDNA_samples_clustered97_seq.qza'
 in_tab[3]='Zenodo/Qiime/110_18S_eDNA_samples_clustered97_tab.qza'
 
-in_seq[4]='Zenodo/Qiime/110_18S_eDNA_samples_clustered90_seq.qza'
-in_tab[4]='Zenodo/Qiime/110_18S_eDNA_samples_clustered90_tab.qza'
-
-in_seq[5]='Zenodo/Qiime/110_18S_eDNA_samples_clustered87_seq.qza'
-in_tab[5]='Zenodo/Qiime/110_18S_eDNA_samples_clustered87_tab.qza'
+# in_seq[4]='Zenodo/Qiime/110_18S_eDNA_samples_clustered90_seq.qza'
+# in_tab[4]='Zenodo/Qiime/110_18S_eDNA_samples_clustered90_tab.qza'
+# 
+# in_seq[5]='Zenodo/Qiime/110_18S_eDNA_samples_clustered87_seq.qza'
+# in_tab[5]='Zenodo/Qiime/110_18S_eDNA_samples_clustered87_tab.qza'
 
 # controls
-in_seq[6]='Zenodo/Qiime/090_18S_controls_seq.qza'
-in_tab[6]='Zenodo/Qiime/090_18S_controls_tab.qza'
+in_seq[4]='Zenodo/Qiime/090_18S_controls_seq.qza'
+in_tab[4]='Zenodo/Qiime/090_18S_controls_tab.qza'
 
 # Define filtering strings
 # -----------------------
@@ -192,15 +192,15 @@ for k in "${!in_seq[@]}"; do
         --i-taxonomy "$trpth"/"$inpth_tax" \
         --i-sequences "$trpth"/"${in_seq[$k]}" \
         --o-filtered-sequences "$trpth"/"${out_seq[$k]}" \
-        --p-include  "${taxon[2]}" \
-        --p-exclude "${taxon[3]}"
+        --p-include  "${taxon[3]}" \
+        --p-exclude "${taxon[4]}"
     
       qiime taxa filter-table \
         --i-taxonomy "$trpth"/"$inpth_tax" \
         --i-table "$trpth"/"${in_tab[$k]}" \
         --o-filtered-table "$trpth"/"${out_tab[$k]}" \
-        --p-include  "${taxon[2]}" \
-        --p-exclude "${taxon[3]}"
+        --p-include  "${taxon[3]}" \
+        --p-exclude "${taxon[4]}"
     
     else
 

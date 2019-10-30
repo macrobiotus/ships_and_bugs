@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 29.05.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 30.10.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 #   "Given a feature table and the associated feature sequences, cluster the
 #   features based on user-specified percent identity threshold of their
@@ -21,11 +21,11 @@
 
 # Paths need to be adjusted for remote execution
 # ----------------------------------------------
-if [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
+if [[ "$HOSTNAME" != "macmini.local" ]]; then
     printf "This script needs at least qiime2-2018.08. Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
     cores="$(nproc --all)"
-elif [[ "$HOSTNAME" == "macmini.staff.uod.otago.ac.nz" ]]; then
+elif [[ "$HOSTNAME" == "macmini.local" ]]; then
     printf "This script needs at least qiime2-2018.08. Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
     # cores="$(nproc --all)"
@@ -59,7 +59,7 @@ log[4]='Zenodo/Qiime/110_18S_eDNA_samples_clustered87_log.txt'
 
 # Run scripts
 # ------------
-for ((i=1;i<=4;i++)); do
+for ((i=1;i<=2;i++)); do
   
   # continue only if output file isn't already there
   if [ ! -f "$trpth"/"${clust_tab[$i]}" ]; then

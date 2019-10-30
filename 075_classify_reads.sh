@@ -8,7 +8,7 @@
 # export LC_ALL=en_US.utf-8
 # export LANG=en_US.utf-8
 # export PATH=/programs/miniconda3/bin:$PATH
-# source activate qiime2-2019.1
+# source activate qiime2-2019.7
 
 # For debugging only
 # ------------------ 

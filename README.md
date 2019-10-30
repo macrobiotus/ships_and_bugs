@@ -1642,9 +1642,32 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * `/Users/paul/Documents/CU_combined/Zenodo/References/Silva132_extract_extended/silva_132_99_18S.fasta`
   * update for cluster operation `/Users/paul/Documents/CU_combined/Github/075_classify_reads.sh`
   * commit - move to cluster - start taxonomy assignment
+  * taxonomy assignemnt started on cluster successfully
+* **30.10.2019** - continuing to resolve Singpore dichotomy
+  * downloaded Silva 132 classification from Cornell cluster: `Matching query sequences: 22064 of 28394 (77.71%)`
+    * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/075_18S_denoised_seq_taxonomy_assignment.txt`
+  * revising `/Users/paul/Documents/CU_combined/Zenodo/Manifest/06_18S_merged_metadata.tsv` md5 is `7874420a1a886b7823bc7335`
+  * running `/Users/paul/Documents/CU_combined/Github/080_summarize_data.sh` - ok 
+  * running `/Users/paul/Documents/CU_combined/Github/085_split_projects.sh` - ok
+  * running `/Users/paul/Documents/CU_combined/Github/090_split_controls.sh` - ok
+  * running `/Users/paul/Documents/CU_combined/Github/091_split_controls_further.sh` - ok
+  * running `/Users/paul/Documents/CU_combined/Github/095_summarize_data.sh` - ok
+  * re-implementing control data subtraction via `/Users/paul/Documents/CU_combined/Github/100_subtract_controls.sh`
+    * running manually ` qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_controls_tab.qzv`
+    * exporting lower frequency table: `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_features.csv`
+    * converting: `echo "feature-id	frequency" | cat - /Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_features.csv | tr "," "\\t" > /Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_features.tsv`
+    * running `/Users/paul/Documents/CU_combined/Github/100_subtract_controls.sh` - ok
+  * running `/Users/paul/Documents/CU_combined/Github/100_subtract_controls.sh`- ok
+  * running adjusted `/Users/paul/Documents/CU_combined/Github/110_cluster_sequences.sh` - ok
+    * only clustering at 99% and 97%.
+    * check `/Users/paul/Documents/CU_combined/Zenodo/Qiime/110_18S_eDNA_samples_clustered97_log.txt`
+    * check `/Users/paul/Documents/CU_combined/Zenodo/Qiime/110_18S_eDNA_samples_clustered99_log.txt`
+  * running adjusted `/Users/paul/Documents/CU_combined/Github/115_isolate_taxa.sh`
+  * running `/Users/paul/Documents/CU_combined/Github/120_summarize_data_non_phylogenetic.sh` - ok
+  * running `/Users/paul/Documents/CU_combined/Github/125_alpha_rarefaction_curves_non_phylogenetic.sh` on cluster after commit
+  
 
-  
-  
+
 ## Todo
 
 ### More important 
