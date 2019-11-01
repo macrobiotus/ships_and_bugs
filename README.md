@@ -1665,8 +1665,28 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * running adjusted `/Users/paul/Documents/CU_combined/Github/115_isolate_taxa.sh`
   * running `/Users/paul/Documents/CU_combined/Github/120_summarize_data_non_phylogenetic.sh` - ok
   * running `/Users/paul/Documents/CU_combined/Github/125_alpha_rarefaction_curves_non_phylogenetic.sh` on cluster after commit
-  
+* **31.10.2019** - continuing to resolve Singpore dichotomy
+  * retrieved results of  `/Users/paul/Documents/CU_combined/Github/125_alpha_rarefaction_curves_non_phylogenetic.sh` from cluster - ok .
+* **01.11.2019** - continuing to resolve Singpore dichotomy
+  * designing R script to create metadata files suitable for subsetting available Eukaryote data
+    * name `/Users/paul/Documents/CU_combined/Github/127_select_random_samples.R`
+    * function and purpose documented therein
+    * rarefaction treshhold redefined using the following identical files (infecting the first of each pairs):
+      * summary `/Users/paul/Documents/CU_combined/Zenodo/Qiime/120_18S_eDNA_samples_tab_Eukaryotes.qzv`
+      * summary (another identical "shallow" file is available with identical contents)
+      * curves `/Users/paul/Documents/CU_combined/Zenodo/Qiime/125_18S_eDNA_samples_tab_Eukaryotes_non_phylogenetic_curves.qzv`
+      * curves `/Users/paul/Documents/CU_combined/Zenodo/Qiime/125_18S_eDNA_samples_tab_Eukaryote-shallow_non_phylogenetic_curves.qzv`
+    * rarefaction result of `49000` and `40000` 
+      * **needs to be updated for Eukaryotes in subsequent scripts**
+      * should keep `RID`s `c("AD","AW","BT","CB","GH","HN","HS","HT","LB","MI","NO","OK","PH","PL","PM","RC","RT","SI","WL","ZB")`
+      * is on the the accumulation curve for observed OTUS:
+        * for `49000` in the plateau or at least pretty stable
+        * for `40000` in the plateau or at least pretty stable
+  * writing R script to create metadata files suitable for subsetting available Eukaryote data - ok
+  * calling R script - ok - output files added at `/Users/paul/Documents/CU_combined/Zenodo/Manifest`
+  * commit () - next - filter input data based on new tables - or think about next step
 
+  
 
 ## Todo
 
@@ -1721,4 +1741,4 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
 
 ### Low priority
 * _02.05.2018_ - **unconfirmed** - list output is sparse in `/Users/paul/Documents/CU_combined/Github/550_check_taxonomy.R`
-  * possible unconfirmed reason: blast OTU list shorter the OTU list in Phyloseq object - perhaps blast is dropping queries ?
+  * possible unconfirmed reason: blast OTU list shorter the OTU list in Phyloseq object - perhaps blast is dropping queries?
