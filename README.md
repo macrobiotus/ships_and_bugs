@@ -1684,7 +1684,13 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
         * for `40000` in the plateau or at least pretty stable
   * writing R script to create metadata files suitable for subsetting available Eukaryote data - ok
   * calling R script - ok - output files added at `/Users/paul/Documents/CU_combined/Zenodo/Manifest`
-  * commit () - next - filter input data based on new tables - or think about next step
+  * added `prelim` suffix to grouped files
+  * commit (`cc8e58a9f7eea9f3456dc5955fe1266a12e8c5e7`) - next - filter input data based on new tables - or think about next step
+* **04.11.2019** - continuing to resolve Singpore dichotomy
+  * working on `/Users/paul/Documents/CU_combined/Github/128_adjust_sample_counts.sh` - draft done
+    * backup (next after 15:31, 4.11.2019)
+    * commit
+
 
   
 
