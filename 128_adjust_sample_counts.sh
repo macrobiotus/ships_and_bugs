@@ -119,20 +119,19 @@ for i in "${!in_seq[@]}"; do
       #   section `Identifier-based filtering`
       printf "${bold}$(date):${normal} Subsetting eDNA features of file \"$(basename "${in_tab[$i]}")\"...\n"
       qiime feature-table filter-samples \
-        --i-table "$trpth"/"${in_tab[$i]}" \
+        --i-table "${in_tab[$i]}" \
         --m-metadata-file "$trpth"/"$map" \
-        --p-min-frequency '49000' \
         --p-min-features '1' \
         --o-filtered-table "$out_tab_path" \
         --verbose
 
       printf "${bold}$(date):${normal} Subsetting eDNA sequences of file \"$(basename "${in_seq[$i]}")\"...\n"
       qiime feature-table filter-seqs \
-        --i-data "$trpth"/"${in_seq[$i]}" \
+        --i-data "${in_seq[$i]}" \
         --i-table "$out_tab_path" \
         --o-filtered-data "$out_seq_path" \
         --verbose
-  
+      
       else
 
         # diagnostic message

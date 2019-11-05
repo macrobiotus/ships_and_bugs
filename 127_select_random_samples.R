@@ -1,5 +1,11 @@
 library("tidyverse")
 
+# 2019-11-05 - Attention: data is being grouped by script
+#   `/Users/paul/Documents/CU_combined/Github/131_get_core_metrics_non_phylogenetic_collpased.sh`
+#   any grouping in this file is unnecessary, and the writing of the final objects has been disabled. 
+
+
+
 # data read-in 
 #   read in metadata file - `/Users/paul/Documents/CU_combined/Zenodo/Manifest/06_18S_merged_metadata.tsv`
 #   read in frequency per sample file
@@ -52,10 +58,10 @@ fmerge_grp <- fmerge_grp %>% group_by(Type, RID) %>%  arrange(., RID, Type)
 # all samples - normal depth 
 write_tsv(fmerge_fll, "/Users/paul/Documents/CU_combined/Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_all.tsv")
 # collapsed samples - normal depth 
-write_tsv(fmerge_grp, "/Users/paul/Documents/CU_combined/Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_grp.tsv")
+# write_tsv(fmerge_grp, "/Users/paul/Documents/CU_combined/Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_grp.tsv")
 
 # all samples - shallow depth 
 write_tsv(fmerge_fll, "/Users/paul/Documents/CU_combined/Zenodo/Manifest/127_18S_5-sample-euk-metadata_shll_all.tsv")
 
 # collapsed samples - shallow depth 
-write_tsv(fmerge_grp, "/Users/paul/Documents/CU_combined/Zenodo/Manifest/127_18S_5-sample-euk-metadata_shll_grp.tsv")
+# write_tsv(fmerge_grp, "/Users/paul/Documents/CU_combined/Zenodo/Manifest/127_18S_5-sample-euk-metadata_shll_grp.tsv")

@@ -9,26 +9,27 @@
 
 # needed for /Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices.sh
 
-# paths need to be adjusted for remote execution
-# ----------------------------------------------
-if [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]] && [[ "$HOSTNAME" != anat-dock-46.otago.ac.nz ]] ; then
-    printf "Execution on remote...\n"
+set -e
+
+# Paths need to be adjusted for remote execution
+# ==============================================
+if [[ "$HOSTNAME" != "macmini.local" ]] && [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
+    bold=$(tput bold)
+    normal=$(tput sgr0)
+    printf "${bold}$(date):${normal} Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
-    thrds="$(nproc --all)"
+    cores="$(nproc --all)"
+elif [[ "$HOSTNAME" == "macmini.local" ]]  || [[ "$HOSTNAME" = "macmini.staff.uod.otago.ac.nz" ]]; then
     bold=$(tput bold)
     normal=$(tput sgr0)
-elif [[ "$HOSTNAME" == "macmini.staff.uod.otago.ac.nz" ]] || [[ "$HOSTNAME" == anat-dock-46.otago.ac.nz ]]  ; then
-    printf "Execution on local...\n"
+    printf "${bold}$(date):${normal} Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
-    thrds='2'
-    bold=$(tput bold)
-    normal=$(tput sgr0)
 fi
 
 # define relative input locations - Qiime files
 # --------------------------------------------------------
-inpth_map='Zenodo/Manifest/06_18S_merged_metadata.tsv' # (should be  `b16888550ab997736253f741eaec47b`)
-secnd_map='Zenodo/Manifest/07_18S_merged_metadata_grouped.tsv'
+inpth_map='Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_all.tsv'
+secnd_map='Zenodo/Manifest/131_18S_5-sample-euk-metadata_deep_all_grouped.tsv'
 
 # define relative input locations - feature tables
 # ------------------------------------------------
@@ -37,7 +38,7 @@ secnd_map='Zenodo/Manifest/07_18S_merged_metadata_grouped.tsv'
 inpth_tab_unsorted=()
 while IFS=  read -r -d $'\0'; do
     inpth_tab_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" -name '115_*_tab_*.qza' -print0)
+done < <(find "$trpth/Zenodo/Qiime" -name '128_*_tab_*.qza' -print0)
 
 # Sort array 
 IFS=$'\n' inpth_tab=($(sort <<<"${inpth_tab_unsorted[*]}"))
@@ -88,11 +89,11 @@ for i in "${!inpth_tab[@]}"; do
       echo "${bold}Depth set to $depth for Unassigned...${normal}"
       ;;
     *"Eukaryotes"* )
-      depth=65000
+      depth=49974
       echo "${bold}Depth set to $depth for Eukaryotes...${normal}"
       ;;
     *"Eukaryote-shallow"* )
-      depth=40000
+      depth=32982
       echo "${bold}Depth set to $depth for Eukaryotes (shallow set)...${normal}"
       ;;
     *"Eukaryote-non-metazoans"* )

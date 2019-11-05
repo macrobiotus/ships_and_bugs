@@ -1689,10 +1689,33 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
 * **04.11.2019** - continuing to resolve Singpore dichotomy
   * working on `/Users/paul/Documents/CU_combined/Github/128_adjust_sample_counts.sh` - draft done
     * backup (next after 15:31, 4.11.2019)
-    * commit
+    * commit (`b25bc1ba9d13fc7341747a9ce07af3d54b919de0`)
+    * from `filter-samples` command removing `--p-min-frequency '49000' \`
+    * and correcting file paths
+    * script seems to be running ok
+    * next: revise summary script
+* **05.11.2019** - continuing to resolve Singpore dichotomy
+  * received new HON data:
+    * `/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/191105_shipping_estimates.csv`
+    * `/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/191105_shipping_estimates_data_doc.pdf`
+  * adjusted and ran summary script `/Users/paul/Documents/CU_combined/Github/129_summarize_data_non_phylogenetic.sh`
+  * inspecting summary script results:
+    * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/129_18S_eDNA_samples_tab_Eukaryotes.qzv`
+      * `5` samples per port everywhere - ok
+      * deepest possible depth is `49974` for Eukaryotes
+      * Included `RID`'s are `c("AD","AW","BT","CB","GH","HN","HS","HT","LB","MI","NO","OK","PH","PL","PM","RC", "RT","SI","WL","ZB")` as above.
+    * adjusted and ran `/Users/paul/Documents/CU_combined/Github/130_get_core_metrics_non_phylogenetic.sh`
+    * adjusting `~/Documents/CU_combined/Github/131_get_core_metrics_non_phylogenetic_collpased.sh`
+      * script seems to group? No, but creating file manually: `/Users/paul/Documents/CU_combined/Zenodo/Manifest/131_18S_5-sample-euk-metadata_deep_all_grouped.tsv`
+      * disabling grouping in `/Users/paul/Documents/CU_combined/Github/127_select_random_samples.R`
+      * grouping on port - thereby lumping Pearl Harbour and Honolulu, as they are not kept separately in the other mapping file, unfortunately
+      * will not allow seperate analysis of Pearl Harbour and Honolulu in Procrustes and Mantel, but also not really necessary if I remember correctly
+   * adjusted and ran `/Users/paul/Documents/CU_combined/Github/135_seq_align.sh` - finished ok
+   * adjusting and running `/Users/paul/Documents/CU_combined/Github/140_seq_align_mask.sh` - running
+   * commit for today
+        
+    
 
-
-  
 
 ## Todo
 
