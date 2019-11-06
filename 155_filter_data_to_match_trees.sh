@@ -1,28 +1,27 @@
 #!/usr/bin/env bash
 
-# 26.08.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 06.11.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
-# Filter data to match branches contained in trees.
+# Visualising reads after denoising and merging procedure.
 
-# for debugging only
-# ------------------ 
-# set -x
+# abort on error
+# --------------- 
+set -e
 
-# paths need to be adjusted for remote execution
-# ----------------------------------------------
-if [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
-    printf "Execution on remote...\n"
+# Paths need to be adjusted for remote execution
+# ==============================================
+if [[ "$HOSTNAME" != "macmini.local" ]] && [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
+    bold=$(tput bold)
+    normal=$(tput sgr0)
+    printf "${bold}$(date):${normal} Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
-    thrds="$(nproc --all)"
-    export PATH=/programs/parallel/bin:$PATH
+    cores="$(nproc --all)"
+elif [[ "$HOSTNAME" == "macmini.local" ]]  || [[ "$HOSTNAME" = "macmini.staff.uod.otago.ac.nz" ]]; then
     bold=$(tput bold)
     normal=$(tput sgr0)
-elif [[ "$HOSTNAME" == "macmini.staff.uod.otago.ac.nz" ]]; then
-    printf "Execution on local...\n"
+    printf "${bold}$(date):${normal} Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
-    thrds='2'
-    bold=$(tput bold)
-    normal=$(tput sgr0)
+    cores="2"
 fi
 
 # define relative input locations - tree files
@@ -49,7 +48,7 @@ unset IFS
 inpth_tab_unsorted=()
 while IFS=  read -r -d $'\0'; do
      inpth_tab_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" -name '115_18S_*_tab_*.qza' -print0)
+done < <(find "$trpth/Zenodo/Qiime" -name '128_18S_*_tab_*.qza' -print0)
  
 # Sort array 
 IFS=$'\n' inpth_tab=($(sort <<<"${inpth_tab_unsorted[*]}"))
@@ -68,7 +67,7 @@ unset IFS
 inpth_seq_unsorted=()
 while IFS=  read -r -d $'\0'; do
     inpth_seq_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" -name '115_18S_*_seq_*.qza' -print0)
+done < <(find "$trpth/Zenodo/Qiime" -name '128_18S_*_seq_*.qza' -print0)
 
 # Sort array 
 IFS=$'\n' inpth_seq=($(sort <<<"${inpth_seq_unsorted[*]}"))
@@ -106,7 +105,7 @@ for i in "${!inpth_tree[@]}"; do
     # echo "$trestump"
     # echo "$seqstump"
     # echo "$tabstump"
-    echo "Sequence-, feature-, and tree files have been matched, continuing..."
+    printf "\n${bold}$(date):${normal} Sequence-, feature-, and tree files have been matched, continuing..."
     # continue
        
     # get input sequence file name - for debugging 

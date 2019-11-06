@@ -1,32 +1,36 @@
 #!/usr/bin/env bash
 
-# 03.06.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 06.11.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
-# Visualising reads after denoising and merging procedure.
+# Generate interactive alpha rarefaction curves by computing rarefactions
+#   between `min_depth` and `max_depth`. The number of intermediate depths to
+#   compute is controlled by the `steps` parameter, with n `iterations` being
+#   computed at each rarefaction depth. If sample metadata is provided,
+#   samples may be grouped based on distinct values within a metadata column.
 
-# for debugging only
-# ------------------ 
-# set -x
+# abort on error
+# --------------- 
+set -e
 
-# paths need to be adjusted for remote execution
-# ----------------------------------------------
-if [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
-    printf "Execution on remote...\n"
+# Paths need to be adjusted for remote execution
+# ==============================================
+if [[ "$HOSTNAME" != "macmini.local" ]] && [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
+    bold=$(tput bold)
+    normal=$(tput sgr0)
+    printf "${bold}$(date):${normal} Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
-    thrds="$(nproc --all)"
+    cores="$(nproc --all)"
+elif [[ "$HOSTNAME" == "macmini.local" ]]  || [[ "$HOSTNAME" = "macmini.staff.uod.otago.ac.nz" ]]; then
     bold=$(tput bold)
     normal=$(tput sgr0)
-elif [[ "$HOSTNAME" == "macmini.staff.uod.otago.ac.nz" ]]; then
-    printf "Execution on local...\n"
+    printf "${bold}$(date):${normal} Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
-    thrds='2'
-    bold=$(tput bold)
-    normal=$(tput sgr0)
+    cores="2"
 fi
 
 # define relative input locations - Qiime files
 # --------------------------------------------------------
-inpth_map='Zenodo/Manifest/06_18S_merged_metadata.tsv' # (should be  `b16888550ab997736253f741eaec47b`)
+inpth_map='Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_all.tsv'
 inpth_tax='Zenodo/Qiime/075_18S_denoised_seq_taxonomy_assignment.qza'
 
 # define relative input locations - sequence files

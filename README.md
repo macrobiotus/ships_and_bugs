@@ -1712,15 +1712,26 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * will not allow seperate analysis of Pearl Harbour and Honolulu in Procrustes and Mantel, but also not really necessary if I remember correctly
    * adjusted and ran `/Users/paul/Documents/CU_combined/Github/135_seq_align.sh` - finished ok
    * adjusting and running `/Users/paul/Documents/CU_combined/Github/140_seq_align_mask.sh` - running
-   * commit for today
-        
-    
+   * commit for today `8f5799f021f2020ac1101ec34ea33026f377fa20`
+* **05.11.2019** - continuing to resolve Singpore dichotomy
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/145_alignment_export.sh` - *ok*
+  * importing masked Eukaryote alignment to Geneious (check date of imported file `/Users/paul/Documents/CU_combined/Zenodo/Qiime/145_18S_eDNA_samples_seq_Eukaryotes_alignment_masked.fasta.gz`)  - *ok*
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/150_calculate_fasttree.sh` - *ok*
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/155_filter_data_to_match_trees.sh` - *ok*
+  * skipping adjustment of `/Users/paul/Documents/CU_combined/Github/160_alpha_rarefaction_curves_phylogenetic.sh` - results wont be largely different, run later
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/165_summarize_data_phylogenetic.sh` - *ok*
+  * commit
+ 
+
+
 
 
 ## Todo
 
 ### More important 
-  *resolve Singapore dichotomy* - recalculate UNIFRAC distances with single port
+  * *resolve Singapore dichotomy* - recalculate UNIFRAC distances with single port
+    * importing tree file into Geneious (check for import date in Geneious) - later
+    * re-run later - takes long time - `/Users/paul/Documents/CU_combined/Github/160_alpha_rarefaction_curves_phylogenetic.sh`
   * check Honolulu encoding in model data
   * build display items in `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190821_main_results_calculations.R`
      * Voyages summary per year - **add bioregions**

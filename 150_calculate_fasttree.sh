@@ -1,28 +1,27 @@
 #!/usr/bin/env bash
 
-# 29.08.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 06.11.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
-# Calculating trees from masked alignments using FastTree - which uses multiple cores well.
+# Visualising reads after denoising and merging procedure.
 
-# for debugging only
-# ------------------ 
-# set -x
+# abort on error
+# --------------- 
+set -e
 
-# paths need to be adjusted for remote execution
-# ----------------------------------------------
-if [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
-    printf "Execution on remote...\n"
+# Paths need to be adjusted for remote execution
+# ==============================================
+if [[ "$HOSTNAME" != "macmini.local" ]] && [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
+    bold=$(tput bold)
+    normal=$(tput sgr0)
+    printf "${bold}$(date):${normal} Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
-    thrds="$(nproc --all)"
-    export PATH=/programs/parallel/bin:$PATH
+    cores="$(nproc --all)"
+elif [[ "$HOSTNAME" == "macmini.local" ]]  || [[ "$HOSTNAME" = "macmini.staff.uod.otago.ac.nz" ]]; then
     bold=$(tput bold)
     normal=$(tput sgr0)
-elif [[ "$HOSTNAME" == "macmini.staff.uod.otago.ac.nz" ]]; then
-    printf "Execution on local...\n"
+    printf "${bold}$(date):${normal} Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
-    thrds='2'
-    bold=$(tput bold)
-    normal=$(tput sgr0)
+    cores="2"
 fi
 
 
@@ -123,7 +122,7 @@ for k in "${!inpth_seq[@]}"; do
     printf "\n${bold}$(date):${normal} Calculating tree ${inpth_seq[$k]}...\n"
     qiime phylogeny fasttree \
       --i-alignment "${inpth_seq[$k]}" \
-      --p-n-threads "$thrds" \
+      --p-n-threads "$cores" \
       --o-tree "${otpth_tree[$k]}" \
       --verbose  2>&1 | tee -a "${otpth_log[$k]}"
   

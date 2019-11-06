@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 29.08.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 06.11.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Generate interactive alpha rarefaction curves by computing rarefactions
 #   between `min_depth` and `max_depth`. The number of intermediate depths to
@@ -8,25 +8,29 @@
 #   computed at each rarefaction depth. If sample metadata is provided,
 #   samples may be grouped based on distinct values within a metadata column.
 
-# paths need to be adjusted for remote execution
-# ----------------------------------------------
-if [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
-    printf "Execution on remote...\n"
+# abort on error
+# --------------- 
+set -e
+
+# Paths need to be adjusted for remote execution
+# ==============================================
+if [[ "$HOSTNAME" != "macmini.local" ]] && [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
+    bold=$(tput bold)
+    normal=$(tput sgr0)
+    printf "${bold}$(date):${normal} Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
-    thrds="$(nproc --all)"
+    cores="$(nproc --all)"
+elif [[ "$HOSTNAME" == "macmini.local" ]]  || [[ "$HOSTNAME" = "macmini.staff.uod.otago.ac.nz" ]]; then
     bold=$(tput bold)
     normal=$(tput sgr0)
-elif [[ "$HOSTNAME" == "macmini.staff.uod.otago.ac.nz" ]]; then
-    printf "Execution on local...\n"
+    printf "${bold}$(date):${normal} Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
-    thrds='2'
-    bold=$(tput bold)
-    normal=$(tput sgr0)
+    cores="2"
 fi
 
 # define relative input locations - Qiime files
 # --------------------------------------------------------
-inpth_map='Zenodo/Manifest/06_18S_merged_metadata.tsv' # (should be  `b16888550ab997736253f741eaec47b`)
+inpth_map='Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_all.tsv' # (should be  `b16888550ab997736253f741eaec47b`)
 
 # define relative input locations - feature tables
 # ------------------------------------------------
@@ -101,7 +105,7 @@ for i in "${!inpth_tab[@]}"; do
         --i-table "${inpth_tab[$i]}" \
         --i-phylogeny "${inpth_tree[$i]}" \
         --m-metadata-file "$trpth"/"$inpth_map" \
-        --p-max-depth 75000 \
+        --p-max-depth 60000 \
         --p-min-depth 1 \
         --p-steps 1000 \
         --p-iterations 5 \
