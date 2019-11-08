@@ -1,34 +1,36 @@
 #!/usr/bin/env bash
 
-# 24.07.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 07.11.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
-# Applies a collection of diversity metrics (both phylogenetic and non-
-#   phylogenetic) to a feature table.
-# also see for an explanation of metrics
-#  https://forum.qiime2.org/t/alpha-and-beta-diversity-explanations-and-commands/2282
 
-# needed for /Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices.sh
+# abort on error
+# --------------- 
+set -e
 
-# paths need to be adjusted for remote execution
-# ----------------------------------------------
-if [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]] && [[ "$HOSTNAME" != anat-dock-46.otago.ac.nz ]] ; then
-    printf "Execution on remote...\n"
+# Paths need to be adjusted for remote execution
+# ==============================================
+if [[ "$HOSTNAME" != "macmini.local" ]] && [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
+    bold=$(tput bold)
+    normal=$(tput sgr0)
+    printf "${bold}$(date):${normal} Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
-    thrds="$(nproc --all)"
+    cores="$(nproc --all)"
+elif [[ "$HOSTNAME" == "macmini.local" ]]  || [[ "$HOSTNAME" = "macmini.staff.uod.otago.ac.nz" ]]; then
     bold=$(tput bold)
     normal=$(tput sgr0)
-elif [[ "$HOSTNAME" == "macmini.staff.uod.otago.ac.nz" ]] || [[ "$HOSTNAME" == anat-dock-46.otago.ac.nz ]]  ; then
-    printf "Execution on local...\n"
+    printf "${bold}$(date):${normal} Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
-    thrds='2'
-    bold=$(tput bold)
-    normal=$(tput sgr0)
+    cores="2"
 fi
 
 # define relative input locations - Qiime files
 # --------------------------------------------------------
-inpth_map='Zenodo/Manifest/06_18S_merged_metadata.tsv' # (should be  `b16888550ab997736253f741eaec47b`)
-secnd_map='Zenodo/Manifest/07_18S_merged_metadata_grouped.tsv'
+inpth_map='Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_all.tsv'
+
+# define relative input locations - Qiime files
+# --------------------------------------------------------
+inpth_map='Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_all.tsv'
+secnd_map='Zenodo/Manifest/131_18S_5-sample-euk-metadata_deep_all_grouped.tsv'
 
 # define relative input locations - feature tables
 # ------------------------------------------------
@@ -63,7 +65,6 @@ unset IFS
 # for debugging -  print sorted tables - ok!
 # printf '%s\n'
 # printf '%s\n' "$(basename ${inpth_tree[@]})"
-
 
 # feature tables (an trees)
 
@@ -112,11 +113,11 @@ for i in "${!inpth_tab[@]}"; do
         echo "${bold}Depth set to $depth for Unassigned...${normal}"
         ;;
       *"Eukaryotes"* )
-        depth=65000
+        depth=49974
         echo "${bold}Depth set to $depth for Eukaryotes...${normal}"
         ;;
       *"Eukaryote-shallow"* )
-        depth=40000
+        depth=32982
         echo "${bold}Depth set to $depth for Eukaryotes (shallow set)...${normal}"
         ;;
       *"Eukaryote-non-metazoans"* )

@@ -1,28 +1,28 @@
 #!/usr/bin/env bash
 
-# 03.06.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+#!/usr/bin/env bash
+
+# 07.11.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
-# Export of Qiime artifacts for the purpose of checking feature counts 
-# at rarefaction depth used for Unifrac analysis 
 
-# for debugging only
-# ================== 
-# set -x
+# abort on error
+# --------------- 
+set -e
 
-# paths need to be adjusted for remote execution
+# Paths need to be adjusted for remote execution
 # ==============================================
-if [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
-    printf "Execution on remote...\n"
+if [[ "$HOSTNAME" != "macmini.local" ]] && [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
+    bold=$(tput bold)
+    normal=$(tput sgr0)
+    printf "${bold}$(date):${normal} Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
-    thrds="$(nproc --all)"
+    cores="$(nproc --all)"
+elif [[ "$HOSTNAME" == "macmini.local" ]]  || [[ "$HOSTNAME" = "macmini.staff.uod.otago.ac.nz" ]]; then
     bold=$(tput bold)
     normal=$(tput sgr0)
-elif [[ "$HOSTNAME" == "macmini.staff.uod.otago.ac.nz" ]]; then
-    printf "Execution on local...\n"
+    printf "${bold}$(date):${normal} Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
-    thrds='2'
-    bold=$(tput bold)
-    normal=$(tput sgr0)
+    cores="2"
 fi
 
 # define relative input and output locations
@@ -30,16 +30,15 @@ fi
 
 # Qiime files
 # -----------
-inpth_map='Zenodo/Manifest/06_18S_merged_metadata.tsv'
+inpth_map='Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_all.tsv'
 tax_assignemnts='Zenodo/Qiime/075_18S_denoised_seq_taxonomy_assignment.qza'
-
 
 # Find all feature tables and put into array
 # ------------------------------------------
 inpth_features_unsorted=()
 while IFS=  read -r -d $'\0'; do
     inpth_features_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" -name '115_*_tab_*.qza' -print0)
+done < <(find "$trpth/Zenodo/Qiime" -name '128_*_tab_*.qza' -print0)
 
 # Sort array 
 IFS=$'\n' inpth_features=($(sort <<<"${inpth_features_unsorted[*]}"))
@@ -50,7 +49,7 @@ unset IFS
 inpth_sequences_unsorted=()
 while IFS=  read -r -d $'\0'; do
     inpth_sequences_unsorted+=("$REPLY")
-done < <(find "$trpth/Zenodo/Qiime" -name '115_18S_*_seq*.qza' -print0)
+done < <(find "$trpth/Zenodo/Qiime" -name '128_18S_*_seq*.qza' -print0)
 
 # Sort array 
 IFS=$'\n' inpth_sequences=($(sort <<<"${inpth_sequences_unsorted[*]}"))
@@ -133,7 +132,7 @@ for i in "${!inpth_features[@]}"; do
      
       # Summarize exported OTU tables
       printf "${bold}$(date):${normal} Summarizing .tsv files...\n"
-      Rscript --vanilla "$trpth/Github/195_parse_otu_tables.R" \
+      Rscript --vanilla "$trpth/Github/177_parse_otu_tables.R" \
         "$results_dir/features-tax-meta.tsv" \
         "$results_dir/features-tax-meta-feature-summary.txt" \
         "$results_dir/features-tax-meta-feature-histogram.png"

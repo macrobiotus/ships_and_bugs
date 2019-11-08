@@ -1,30 +1,26 @@
 #!/usr/bin/env bash
 
-# 03.09.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 07.11.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
-#  Mantel test and Procrustes analysis of 
-#    * between UNIFRAC and Jacquard distance matrices
-#    * using ASV and 99% clustered data
-#   (* different rarefaction levels - possibly later)
 
-# For debugging only
-# ------------------ 
-# set -x
+# abort on error
+# --------------- 
+set -e
 
 # Paths need to be adjusted for remote execution
-# ----------------------------------------------
-if [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]] ; then
-    printf "Execution on remote...\n"
+# ==============================================
+if [[ "$HOSTNAME" != "macmini.local" ]] && [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
+    bold=$(tput bold)
+    normal=$(tput sgr0)
+    printf "${bold}$(date):${normal} Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
-    thrds="$(nproc --all)"
+    cores="$(nproc --all)"
+elif [[ "$HOSTNAME" == "macmini.local" ]]  || [[ "$HOSTNAME" = "macmini.staff.uod.otago.ac.nz" ]]; then
     bold=$(tput bold)
     normal=$(tput sgr0)
-elif [[ "$HOSTNAME" == "macmini.staff.uod.otago.ac.nz" ]] ; then
-    printf "Execution on local...\n"
+    printf "${bold}$(date):${normal} Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
-    thrds='2'
-    bold=$(tput bold)
-    normal=$(tput sgr0)
+    cores="2"
 fi
 
 # Define input paths 

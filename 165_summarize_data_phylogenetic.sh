@@ -2,11 +2,6 @@
 
 # 06.11.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
-# Generate interactive alpha rarefaction curves by computing rarefactions
-#   between `min_depth` and `max_depth`. The number of intermediate depths to
-#   compute is controlled by the `steps` parameter, with n `iterations` being
-#   computed at each rarefaction depth. If sample metadata is provided,
-#   samples may be grouped based on distinct values within a metadata column.
 
 # abort on error
 # --------------- 

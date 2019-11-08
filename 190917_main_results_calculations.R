@@ -127,7 +127,7 @@ ggsave("190926_voyage_predictor_distribution.pdf", plot = last_plot(),
 # ============================================================================
 
 # same call as above (line~ 72)
-mod_data <- read_csv("/Users/paul/Documents/CU_combined/Zenodo/Results/01_results_euk_asv00_deep_UNIF_model_data_2019-Sep-06-15-19-43.csv")
+mod_data <- read_csv("/Users/paul/Documents/CU_combined/Zenodo/Results/01_results_euk_asv00_deep_UNIF_model_data_2019-Nov-07-15-31-48.csv")
 
 # summary of the variables that are suitable for summary
 summary(mod_data  %>% select(. , -c("X1", "ECO_PORT","ECO_DEST" )))
@@ -156,7 +156,7 @@ ggplot(mod_sel, aes (x=RESP_UNIFRAC, color = ECO_DIFF)) +
   guides(color=guide_legend(title="Crossed")) +
   theme_bw()
 
-ggsave("190927_2c_deep_unifrac_per_ecoregion.pdf", plot = last_plot(), 
+ggsave("191107_2c_deep_unifrac_per_ecoregion.pdf", plot = last_plot(), 
   device = "pdf", path = "/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190812_display_items_main/",
   scale = 5, width = 30, height = 15, units = c("mm"),
   dpi = 500, limitsize = TRUE)
@@ -174,7 +174,7 @@ ggplot(mod_sel, aes (x=PRED_ENV, color = ECO_DIFF)) +
   guides(color=guide_legend(title="Crossed")) +
   theme_bw()
 
-ggsave("190927_2a_deep_envdist_per_ecoregion.pdf", plot = last_plot(), 
+ggsave("191107_2a_deep_envdist_per_ecoregion.pdf", plot = last_plot(), 
   device = "pdf", path = "/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190812_display_items_main/",
   scale = 5, width = 30, height = 15, units = c("mm"),
   dpi = 500, limitsize = TRUE)
@@ -192,11 +192,10 @@ ggplot(mod_sel, aes (x=PRED_TRIPS, color = ECO_DIFF)) +
   guides(color=guide_legend(title="Crossed")) +
   theme_bw()
   
-ggsave("190927_2b_deep_trips_per_ecoregion.pdf", plot = last_plot(), 
+ggsave("191107_2b_deep_trips_per_ecoregion.pdf", plot = last_plot(), 
   device = "pdf", path = "/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190812_display_items_main/",
   scale = 5, width = 30, height = 15, units = c("mm"),
   dpi = 500, limitsize = TRUE)
-
 
 # Show chord diagrams of routes, for all predictors and responses
 # ---------------------------------------------------------------

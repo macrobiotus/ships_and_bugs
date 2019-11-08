@@ -1713,17 +1713,50 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
    * adjusted and ran `/Users/paul/Documents/CU_combined/Github/135_seq_align.sh` - finished ok
    * adjusting and running `/Users/paul/Documents/CU_combined/Github/140_seq_align_mask.sh` - running
    * commit for today `8f5799f021f2020ac1101ec34ea33026f377fa20`
-* **05.11.2019** - continuing to resolve Singpore dichotomy
+* **06.11.2019** - continuing to resolve Singpore dichotomy
   * adjusting and running `/Users/paul/Documents/CU_combined/Github/145_alignment_export.sh` - *ok*
   * importing masked Eukaryote alignment to Geneious (check date of imported file `/Users/paul/Documents/CU_combined/Zenodo/Qiime/145_18S_eDNA_samples_seq_Eukaryotes_alignment_masked.fasta.gz`)  - *ok*
   * adjusting and running `/Users/paul/Documents/CU_combined/Github/150_calculate_fasttree.sh` - *ok*
   * adjusting and running `/Users/paul/Documents/CU_combined/Github/155_filter_data_to_match_trees.sh` - *ok*
   * skipping adjustment of `/Users/paul/Documents/CU_combined/Github/160_alpha_rarefaction_curves_phylogenetic.sh` - results wont be largely different, run later
   * adjusting and running `/Users/paul/Documents/CU_combined/Github/165_summarize_data_phylogenetic.sh` - *ok*
-  * commit
- 
-
-
+  * commit (`53ae7a784937374a59b6bef8cdfa1751971ca2ec`)
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/170_get_core_metrics_phylogenetic.sh` - *ok*
+* **07.11.2019** - continuing to resolve Singpore dichotomy and finalizing analysis for five random samples per port
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/171_get_core_metrics_phylogenetic_collapsed.sh` - *ok*
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/175_export_all_qiime_artifacts_phylogenetic.sh` - *ok*
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/180_export_all_qiime_artifacts_non_phylogenetic.sh` - *ok*
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/185_export_UNIFRAC_distance_artefacts.sh` - *ok*
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/190_export_JAQUARD_distance_artefacts.sh` - *ok*
+  * renamed `/Users/paul/Documents/CU_combined/Github/177_parse_otu_tables.R`
+    * adjusted calls in `/Users/paul/Documents/CU_combined/Github/175_export_all_qiime_artifacts_phylogenetic.sh` - *ok*
+    * adjusted calls in `/Users/paul/Documents/CU_combined/Github/180_export_all_qiime_artifacts_non_phylogenetic.sh` - *ok*
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/205_compare_matrices.sh` - *ok*
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/205_compare_matrices_shallow.sh` - *ok*
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices_shallow.sh` - *ok*
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices.sh` - *ok*
+  * preparing modelling re-run
+    * adjusting wrapper script `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh`
+    * adjusting write destination folder
+      * keeping results with all samples as `/Users/paul/Documents/CU_combined/Zenodo/Results_old_all_samples`
+      * creating empty `/Users/paul/Documents/CU_combined/Zenodo/Results`
+    * adjusting modelling script - in R - circumventing wrapper script functionality at code start
+      * should likely keep `RID`s `c("AD","AW","BT","CB","GH","HN","HS","HT","LB","MI","NO","OK","PH","PL","PM","RC","RT","SI","WL","ZB")`
+      * deep table: `Collapsed matrix has 20 rows and 20 columns.`
+      * deep table: `Collapsed matrix should receive data for samples: PH SI AD BT HN HT LB MI AW CB HS NO OK PL PM RC RT GH WL ZB.`
+      * shallow table: `Collapsed matrix has 20 rows and 20 columns.`
+      * shallow table: `Collapsed matrix should receive data for samples: PH SI AD BT HN HT LB MI AW CB HS NO OK PL PM RC RT GH WL ZB.`
+      * commenting out test conditions at file read-in stage
+    * and running script via: `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh`
+      * results stored at `/Users/paul/Documents/CU_combined/Zenodo/Results`
+    * running some parts of `~/Documents/CU_combined/Github/190917_main_results_calculations.R` and rewriting:
+      * `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190812_display_items_main/191107_2a_deep_envdist_per_ecoregion.pdf`
+      * `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190812_display_items_main/191107_2b_deep_trips_per_ecoregion.pdf`
+      * `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190812_display_items_main/191107_2c_deep_unifrac_per_ecoregion.pdf`
+* **07.11.2019** - rework pipeline, stratified random sample selection of five sample per port
+  * rework all results from **01.11.2019** onwards
+  * committing ()
+  * before working on `~/Documents/CU_combined/Github/127_select_random_samples.R`
 
 
 ## Todo

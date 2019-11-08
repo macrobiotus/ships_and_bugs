@@ -1,34 +1,32 @@
 #!/usr/bin/env bash
 
-# 03.06.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 07.11.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
-# Getting UNIFRAC matrices from eDNA samples
 
-# for debugging only
-# ------------------ 
-# set -x
+# abort on error
+# --------------- 
+set -e
 
-# paths need to be adjusted for remote execution
-# ----------------------------------------------
-if [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
-    printf "Execution on remote...\n"
+# Paths need to be adjusted for remote execution
+# ==============================================
+if [[ "$HOSTNAME" != "macmini.local" ]] && [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
+    bold=$(tput bold)
+    normal=$(tput sgr0)
+    printf "${bold}$(date):${normal} Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
-    thrds="$(nproc --all)"
+    cores="$(nproc --all)"
+elif [[ "$HOSTNAME" == "macmini.local" ]]  || [[ "$HOSTNAME" = "macmini.staff.uod.otago.ac.nz" ]]; then
     bold=$(tput bold)
     normal=$(tput sgr0)
-elif [[ "$HOSTNAME" == "macmini.staff.uod.otago.ac.nz" ]]; then
-    printf "Execution on local...\n"
+    printf "${bold}$(date):${normal} Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
-    thrds='2'
-    bold=$(tput bold)
-    normal=$(tput sgr0)
+    cores="2"
 fi
 
 # define relative input and output locations
 # ==========================================
 
-# Find all distance matrices and put into array
-inpth_matrix_unsorted=()
+# Find all distance matrices and put into arrayinpth_matrix_unsorted=()
 while IFS=  read -r -d $'\0'; do
     inpth_matrix_unsorted+=("$REPLY")
 done < <(find "$trpth/Zenodo/Qiime" -name 'jaccard_distance_matrix.qza' -print0)
