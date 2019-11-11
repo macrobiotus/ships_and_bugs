@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 04.11.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 11.11.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 #  Retain only samples needed for analysis 
 

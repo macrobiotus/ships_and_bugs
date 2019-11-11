@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 26.08.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 11.11.2019 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Applies a collection of diversity metrics (both phylogenetic and non-
 #   phylogenetic) to a feature table.

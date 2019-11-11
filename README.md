@@ -1755,20 +1755,51 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190812_display_items_main/191107_2c_deep_unifrac_per_ecoregion.pdf`
 * **07.11.2019** - rework pipeline, stratified random sample selection of five sample per port
   * rework all results from **01.11.2019** onwards
-  * committing ()
-  * before working on `~/Documents/CU_combined/Github/127_select_random_samples.R`
+  * committing (`1f883a42fb8f20cd0e20e13157a5476e364c0586`)
+  * working on `~/Documents/CU_combined/Github/127_select_random_samples.R`
+* **11.11.2019** - rework pipeline, stratified random sample selection of five sample per port
+  * continue work on `~/Documents/CU_combined/Github/127_select_random_samples.R` in line `50`
+    * keep Singapore Yacht Club 
+    * keep Adelaide Container Dock 1
+    * rewrote file `/Users/paul/Documents/CU_combined/Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_all.tsv`
+    * rewrote file `/Users/paul/Documents/CU_combined/Zenodo/Manifest/127_18S_5-sample-euk-metadata_shll_all.tsv`
+  * adjusted and ran: `./128_adjust_sample_counts.sh && ./129_summarize_data_non_phylogenetic.sh && ./130_get_core_metrics_non_phylogenetic.sh /Users/paul/Documents/CU_combined/Github/128_adjust_sample_counts.sh` - *ok*
+  * checking summary for rarefaction data lost for five samples per port: `Retained 4,997,500 (37.93%) features in 100 (100.00%) samples at the specifed sampling depth.`
+  * adjusted and ran: `/Users/paul/Documents/CU_combined/Github/131_get_core_metrics_non_phylogenetic_collpased.sh`
+  * adjusted and ran: `/135_seq_align.sh && ./140_seq_align_mask.sh && ./145_alignment_export.sh && ./150_calculate_fasttree.sh`
+  * running `/Users/paul/Documents/CU_combined/Github/155_filter_data_to_match_trees.sh` -  *ok* 
+  * running `./165_summarize_data_phylogenetic.sh && ./170_get_core_metrics_phylogenetic.sh && ./171_get_core_metrics_phylogenetic_collapsed.sh` - *ok*
+  * running `/Users/paul/Documents/CU_combined/Github/175_export_all_qiime_artifacts_phylogenetic.sh` - *ok*
+  * running `/Users/paul/Documents/CU_combined/Github/180_export_all_qiime_artifacts_non_phylogenetic.sh` - *ok*
+  * running `/Users/paul/Documents/CU_combined/Github/185_export_UNIFRAC_distance_artefacts.sh && /Users/paul/Documents/CU_combined/Github/190_export_JAQUARD_distance_artefacts.sh` - *ok*
+  * running `./205_compare_matrices.sh && ./205_compare_matrices_shallow.sh`
+  * running `./206_compare_collpased_matrices.sh && ./206_compare_collpased_matrices_shallow.sh`
+  * commit 
+  * adjusting modelling script - in R - circumventing wrapper script functionality at code start - *pending*
+    * *old text below!*
+    * should likely keep `RID`s `c("AD","AW","BT","CB","GH","HN","HS","HT","LB","MI","NO","OK","PH","PL","PM","RC","RT","SI","WL","ZB")`
+    * deep table: `Collapsed matrix has 20 rows and 20 columns.`
+    * deep table: `Collapsed matrix should receive data for samples: PH SI AD BT HN HT LB MI AW CB HS NO OK PL PM RC RT GH WL ZB.`
+    * shallow table: `Collapsed matrix has 20 rows and 20 columns.`
+    * shallow table: `Collapsed matrix should receive data for samples: PH SI AD BT HN HT LB MI AW CB HS NO OK PL PM RC RT GH WL ZB.`
+  
+
+
+
 
 
 ## Todo
 
 ### More important 
-  * *resolve Singapore dichotomy* - recalculate UNIFRAC distances with single port
-    * importing tree file into Geneious (check for import date in Geneious) - later
-    * re-run later - takes long time - `/Users/paul/Documents/CU_combined/Github/160_alpha_rarefaction_curves_phylogenetic.sh`
-  * check Honolulu encoding in model data
+  
+  * re run modelling and associated scripts to *resolve Singapore dichotomy* and to *recalculate UNIFRAC distances with single locations*
+    * deferred running `/Users/paul/Documents/CU_combined/Github/160_alpha_rarefaction_curves_phylogenetic.sh` - *pending*
+    * check summaries created by `/Users/paul/Documents/CU_combined/Github/165_summarize_data_phylogenetic.sh`  - *pending*
+    * importing tree and alignment files into Geneious (check for import date in Geneious)   - *pending*
+    * check modeling and re-run script
   * build display items in `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190821_main_results_calculations.R`
-     * Voyages summary per year - **add bioregions**
-     * taxon plots - **continue parser, update phyloseq object, plot** (correct grouping of Blast variables)
+    * Voyages summary per year - **add bioregions**
+    * taxon plots - **continue parser, update phyloseq object, plot** (correct grouping of Blast variables)
   * email Costello for a GIS layer
   * include Mandanas results
   * `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
@@ -1783,7 +1814,7 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * check all script marked yellow for required corrections
 
 #### Less important 
-  * Accomodate randomized matrices
+  * accomodate randomized matrices
   * run and render `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R` - manual port lookup necessary
   * extend `/Users/paul/Documents/CU_combined/Github/205_compare_matrices.sh` - include more diversity metrics
   * get numbers and display items
