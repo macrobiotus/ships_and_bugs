@@ -47,16 +47,16 @@ tmp_dm[2]="$TMPDIR/02_results_euk_otu99_deep_UNIF.tsv"
 tmp_dm[3]="$TMPDIR/03_results_euk_asv00_deep_JAQU.tsv"
 tmp_dm[4]="$TMPDIR/04_results_euk_otu99_deep_JAQU.tsv"
 
-tmp_dm[5]="$TMPDIR/05_results_euk_asv00_shal__UNIF.tsv" 
-tmp_dm[6]="$TMPDIR/06_results_euk_otu99_shal__UNIF.tsv"
+tmp_dm[5]="$TMPDIR/05_results_euk_asv00_shal_UNIF.tsv" 
+tmp_dm[6]="$TMPDIR/06_results_euk_otu99_shal_UNIF.tsv"
 
-tmp_dm[7]="$TMPDIR/07_results_euk_asv00_shal__JAQU.tsv" 
-tmp_dm[8]="$TMPDIR/08_results_euk_otu99_shal__JAQU.tsv"
+tmp_dm[7]="$TMPDIR/07_results_euk_asv00_shal_JAQU.tsv" 
+tmp_dm[8]="$TMPDIR/08_results_euk_otu99_shal_JAQU.tsv"
 
 # Define output paths 
 # ------------------
 output_dir="Zenodo/Results/" # keep trailing slash for `get_path()` in `/Users/paul/Documents/CU_combined/Github/500_00_functions.R`
-logfile="$trpth"/"$output_dir"210_modelling_run_log.txt 
+logfile="$trpth"/"$output_dir"210_model_data_export_log.txt 
 
 
 # Run scripts 
@@ -76,7 +76,7 @@ for i in "${!input_dm[@]}"; do
 
     printf "${bold}$(date):${normal} Obtaining model results using R from \""$(basename $trpth/${tmp_dm[$i]})"\" writing to \""$trpth"/"$output_dir" \"...\n"
     
-    Rscript --vanilla "$trpth/Github/500_80_get_mixed_effect_model_results.R" \
+    Rscript --vanilla "$trpth/Github/500_80_get_mixed_effect_model_tables.R" \
       "${tmp_dm[$i]}" \
       "$trpth"/"$output_dir" 2>&1 | tee -a "$logfile"
     

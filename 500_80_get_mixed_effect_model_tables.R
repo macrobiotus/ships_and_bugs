@@ -1,20 +1,14 @@
 #' ---
-#' title: "Compare Response and Predictor Matrices using Mixed Effect Models"
+#' title: "Get input dat tables for Mixed Effect Models"
 #' author: "Paul Czechowski"
-#' date: "07-November-2019"
+#' date: "12-November-2019"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
 #' bibliography: ./references.bib
 #' ---
 #' 
-#' This script version tests the influence of environmental data and 
-#' the influence of voyages against biological responses. This script
-#' only considers port in between which routes are present, such ports are
-#' fewer the ports which have environmental distances available. (All ports 
-#' with measurements have environmental distances available.)
-#'
-#' This script needs all R scripts named `500_*.R` toi have run successfully,
+#' This script needs all R scripts named `500_*.R` to have run successfully,
 #' apart from `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
 #' It should then be called using a shell script. It will only accept certain files
 #' currently, and otherwise abort. For further information understand section Environment
@@ -171,6 +165,8 @@ resp_path <- args[1]
 # resp_path <- c("/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_Eukaryotes_core_metrics_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv")
 # resp_path <- c("/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_Eukaryote-shallow_core_metrics_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv")
 
+
+
 resp_mat  <- read.table(file = resp_path, sep = '\t', header = TRUE)
 
 # checking import and format
@@ -210,7 +206,8 @@ r_mat_clpsd <- get_collapsed_responses_matrix(resp_mat)
                                 
 r_mat_clpsd <- fill_collapsed_responses_matrix(r_mat_clpsd, resp_mat)
 
-write.csv(r_mat_clpsd, file = args[3])
+## Commenting out matrix writing 12.11.2019
+# write.csv(r_mat_clpsd, file = args[3])
 dim(r_mat_clpsd)
 #'
 #' <!-- -------------------------------------------------------------------- -->
@@ -413,60 +410,11 @@ model_data <- model_data %>% mutate (ECO_DEST = ifelse( .$"DEST"  %in% c("AW", "
 model_data <- model_data %>% add_column("ECO_DIFF" = NA)
 model_data <- model_data %>% mutate (ECO_DIFF = ifelse(ECO_PORT == ECO_DEST , FALSE, TRUE))
 
-# Checking response and predictor variable distributions
-
-## Plots -  create list to store plots for export further below
-
-### Responses
-plot_l <- list()
-
-plot_l[[1]] <- ggplot(model_data, aes (x=RESP_UNIFRAC)) + 
-              geom_density() +
-              facet_grid(~ECO_DIFF) +
-              theme_bw()
-
-plot_l[[2]] <- ggplot(model_data,aes (x=PRED_ENV))+ 
-              geom_density()+
-              facet_grid(~ECO_DIFF)+
-              theme_bw()
-
-
-### Pedictors
-
-plot_l[[3]] <-  ggplot(model_data,aes (x=PRED_TRIPS))+ 
-               geom_density()+
-               facet_grid(~ECO_DIFF)+
-               theme_bw()
-
-plots <- plot_grid(plot_l[[1]], plot_l[[2]], plot_l[[3]],
-          labels=c("Eco(T/F)", "Eco(T/F)", "Eco(T/F)" ))
-
-save_plot(args[5], plots, ncol = 1, nrow = 1, base_height = 5,
-  base_aspect_ratio = 1.1, base_width = 10)
-  
-
-# Appending to output file.
-capture.output( file=args[6], append=TRUE, print("Aggregation of biological distance means per ecoregion. (Response variable)"))
-capture.output( file=args[6], append=TRUE, aggregate(model_data$RESP_UNIFRAC~model_data$ECO_DIFF, FUN=mean))
-
-capture.output( file=args[6], append=TRUE, print("Aggregation of environmental distance means per ecoregion (Predictor variable)."))
-capture.output( file=args[6], append=TRUE, aggregate(model_data$PRED_ENV~model_data$ECO_DIFF, FUN=mean))
-
-capture.output( file=args[6], append=TRUE, print("Aggregation of summed voyage counts means per ecoregion (Predictor variable)."))
-capture.output( file=args[6], append=TRUE, aggregate(model_data$PRED_TRIPS~model_data$ECO_DIFF, FUN=mean))
-
 #'
 #' <!-- #################################################################### -->
 #'
 #' <!-- #################################################################### -->
 #'
-
-# model_data <- model_data %>%  mutate_if(is.numeric, scale(.,scale = FALSE))
-pairs(RESP_UNIFRAC ~ PRED_ENV * PRED_TRIPS, data=model_data, main="Simple Scatterplot Matrix")
-
-#' # Select variables for modelling and build models 
-message("Saving this model data to file:")
-print(model_data)
 
 # Sorting columns
 model_data <- model_data %>% arrange(PORT, desc(PRED_TRIPS), DEST)
@@ -483,75 +431,6 @@ model_data$PRED_TRIPS <- as.numeric(model_data$PRED_TRIPS)
 
 # write data as per input path - keep close to variable selection below
 write.csv(model_data, file = args[4])
-
-# select  columns for model
-vars <- model_data %>% select(RESP_UNIFRAC, PORT, DEST, ECO_DIFF, PRED_ENV, PRED_TRIPS)
-message("Using this model data for regression:")
-print(vars)
-
-#' ## Full Model and checking 
-vars_model_full <- lmer(RESP_UNIFRAC ~ PRED_ENV + PRED_TRIPS + ECO_DIFF + (1 | PORT) + (1 | DEST), data=vars, REML=FALSE)
-
-# vars_model_full <- lm(RESP_UNIFRAC ~ PRED_ENV + PRED_TRIPS + ECO_DIFF, data=vars)
-
-#' ### Model Summary
-
-# Appending to output file.
-capture.output( file=args[6], append=TRUE,   message("Considered vraiables"))
-capture.output( file=args[6], append=TRUE,   print(vars_model_full))
-  
-capture.output( file=args[6], append=TRUE,   message("Random effect model summary"))
-capture.output( file=args[6], append=TRUE,   print(summary(vars_model_full)))
-  
-capture.output( file=args[6], append=TRUE,  message("Intercepts for factor levels"))
-capture.output( file=args[6], append=TRUE,  print(coef(vars_model_full))) #intercept for each level
-
-# For linear models, you can also plot standardized beta coefficients,
-# https://cran.r-project.org/web/packages/sjPlot/vignettes/plot_model_estimates.html
-# using type = "std" or type = "std2". These two options differ in the way how
-# coefficients are standardized. type = "std2" plots standardized beta values,
-# however, standardization follows Gelman’s (2008) suggestion, 
-# rescaling the estimates by dividing them by two standard deviations
-# instead of just one. (Use, type = std)
-
-p <- plot_model(vars_model_full, show.values = TRUE, value.offset = .3,
-   type = "std", 
-   title = args[8])
-
-save_plot(args[7], p, ncol = 1, nrow = 1, base_height = 8,
-  base_aspect_ratio = 1.1, base_width = 8)
-
-#' Residuals
-plot(vars_model_full)
-
-## check normality of the residuals
-qqnorm(residuals(vars_model_full))
-
-## plotting random effects - trial after https://stackoverflow.com/questions/13847936/in-r-plotting-random-effects-from-lmer-lme4-package-using-qqmath-or-dotplot
-# qqplot of the random effects with their variances
-# "The last line of code produces a really nice plot of each intercept with the error around each estimate."
-qqmath(ranef(vars_model_full, condVar = TRUE), strip = FALSE)$PORT
-qqmath(ranef(vars_model_full, condVar = TRUE), strip = FALSE)$DEST
-
-
-#' ### Leverage of Observations
-
-## model is not influenced by one or a small set of observations ?
-ggplot(data.frame(lev=hatvalues(vars_model_full),pearson=residuals(vars_model_full, type="pearson")),
-      aes(x=lev,y=pearson)) + geom_point() + theme_bw()
-
-#' ## Null Model and checking 
-
-vars_model_null <- lmer(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST), data=vars, REML=FALSE)
-
-# vars_model_null <- lm(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF, data=vars)
-
-#' ### Model Summary
-summary(vars_model_null)
-
-# Appending to output file.
-#' ## Model Significance
-capture.output( file=args[6],   anova(vars_model_null, vars_model_full))
 
 #' <!-- #################################################################### -->
 #'

@@ -1774,19 +1774,49 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * running `/Users/paul/Documents/CU_combined/Github/185_export_UNIFRAC_distance_artefacts.sh && /Users/paul/Documents/CU_combined/Github/190_export_JAQUARD_distance_artefacts.sh` - *ok*
   * running `./205_compare_matrices.sh && ./205_compare_matrices_shallow.sh`
   * running `./206_compare_collpased_matrices.sh && ./206_compare_collpased_matrices_shallow.sh`
-  * commit 
-  * adjusting modelling script - in R - circumventing wrapper script functionality at code start - *pending*
-    * *old text below!*
+  * commit
+    * skipping revision for now:
+    * `500_00_functions.R`
+    * `500_05_UNIFRAC_behaviour.R`
+    * `500_10_gather_predictor_tables.R`
+    * `500_20_get_predictor_euklidian_distances.R`
+    * `500_30_shape_matrices.R`
+    * `500_40_get_maps.R`
+  * adjusting modelling script (`/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`) - circumventing wrapper script functionality at code start - *pending*
     * should likely keep `RID`s `c("AD","AW","BT","CB","GH","HN","HS","HT","LB","MI","NO","OK","PH","PL","PM","RC","RT","SI","WL","ZB")`
-    * deep table: `Collapsed matrix has 20 rows and 20 columns.`
-    * deep table: `Collapsed matrix should receive data for samples: PH SI AD BT HN HT LB MI AW CB HS NO OK PL PM RC RT GH WL ZB.`
-    * shallow table: `Collapsed matrix has 20 rows and 20 columns.`
-    * shallow table: `Collapsed matrix should receive data for samples: PH SI AD BT HN HT LB MI AW CB HS NO OK PL PM RC RT GH WL ZB.`
-  
+    * keeps same samples as above - no chnage necessary - for either deep or shallow table
+    * Collapsed matrix should receive data for samples: PH SI AD BT HN HT LB MI AW CB HS NO OK PL PM RC RT GH WL ZB.
+      * deep table: `Collapsed matrix has 20 rows and 20 columns.`
+      * deep table: `Collapsed matrix should receive data for samples: PH SI AD BT HN HT LB MI AW CB HS NO OK PL PM RC RT GH WL ZB.`
+      * shallow table: `Collapsed matrix has 20 rows and 20 columns.`
+      * shallow table: `Collapsed matrix should receive data for samples: PH SI AD BT HN HT LB MI AW CB HS NO OK PL PM RC RT GH WL ZB.`
+    * compressing previous results from 07.11.2019 to `/Users/paul/Documents/CU_combined/Zenodo/Results_old191107.zip`
+    * emptying `/Users/paul/Documents/CU_combined/Zenodo/Results`
+  * running modelling script `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
+  * via `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh`
+* **11.11.2019** - adjusting modeeling script to accomodate HOm data
+  * work plan
+    * save backup copy of script `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R` - *ok*
+      * `cp /Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R /Users/paul/Documents/CU_combined/Scratch/R`  - *ok*
+    * save backup copy of results from yesterday - *ok*
+      * backup of `/Users/paul/Documents/CU_combined/Zenodo/Results` saved at `/Users/paul/Documents/CU_combined/Zenodo/Results_old191111.zip`
+    * split above modeling script
+      * former upper part only writes modelling tables - `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_tables.R` - *ok*
+        * testing script - *ok*
+        * new results written to `/Users/paul/Documents/CU_combined/Zenodo/Results`
+        * committed progress at 
+      * new script 
+        * parses tables
+        * copies data but excludes `PH`
+        * adds in Mandana's results - `/Users/paul/Documents/CU_combined/Github/500_81_gextend_model_tables.R` - *write*
+      * former lower part does modelling and using tables - `/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R` - *adjust*
+  * adjusted `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_tables.sh` - *ok*
+      
+      
+      
 
 
-
-
+      
 
 ## Todo
 
@@ -1797,6 +1827,7 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * check summaries created by `/Users/paul/Documents/CU_combined/Github/165_summarize_data_phylogenetic.sh`  - *pending*
     * importing tree and alignment files into Geneious (check for import date in Geneious)   - *pending*
     * check modeling and re-run script
+    * re-run modelling with and without Pearl Harbour
   * build display items in `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190821_main_results_calculations.R`
     * Voyages summary per year - **add bioregions**
     * taxon plots - **continue parser, update phyloseq object, plot** (correct grouping of Blast variables)
