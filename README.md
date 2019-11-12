@@ -1784,7 +1784,7 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * `500_40_get_maps.R`
   * adjusting modelling script (`/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`) - circumventing wrapper script functionality at code start - *pending*
     * should likely keep `RID`s `c("AD","AW","BT","CB","GH","HN","HS","HT","LB","MI","NO","OK","PH","PL","PM","RC","RT","SI","WL","ZB")`
-    * keeps same samples as above - no chnage necessary - for either deep or shallow table
+    * keeps same samples as above - no change necessary - for either deep or shallow table
     * Collapsed matrix should receive data for samples: PH SI AD BT HN HT LB MI AW CB HS NO OK PL PM RC RT GH WL ZB.
       * deep table: `Collapsed matrix has 20 rows and 20 columns.`
       * deep table: `Collapsed matrix should receive data for samples: PH SI AD BT HN HT LB MI AW CB HS NO OK PL PM RC RT GH WL ZB.`
@@ -1794,7 +1794,7 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * emptying `/Users/paul/Documents/CU_combined/Zenodo/Results`
   * running modelling script `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
   * via `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh`
-* **11.11.2019** - adjusting modeeling script to accomodate HOm data
+* **12.11.2019** - adjusting modeling script to accomodate HON data
   * work plan
     * save backup copy of script `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R` - *ok*
       * `cp /Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R /Users/paul/Documents/CU_combined/Scratch/R`  - *ok*
@@ -1805,18 +1805,19 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
         * testing script - *ok*
         * new results written to `/Users/paul/Documents/CU_combined/Zenodo/Results`
         * committed progress at 
-      * new script 
+      * new script  - *write*
         * parses tables
         * copies data but excludes `PH`
-        * adds in Mandana's results - `/Users/paul/Documents/CU_combined/Github/500_81_gextend_model_tables.R` - *write*
+        * adds in Mandana's results - `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R`
       * former lower part does modelling and using tables - `/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R` - *adjust*
   * adjusted `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_tables.sh` - *ok*
-      
-      
-      
+  * started on `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R` - next steps:
+    * close function and write files
+    * request subsetting parameters and model formulas
+    * run modelling script
+    8 for now commit (``)
 
 
-      
 
 ## Todo
 

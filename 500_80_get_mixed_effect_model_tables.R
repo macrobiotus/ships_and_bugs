@@ -430,7 +430,7 @@ model_data$PRED_TRIPS <- as.numeric(model_data$PRED_TRIPS)
 
 
 # write data as per input path - keep close to variable selection below
-write.csv(model_data, file = args[4])
+write_csv(model_data, path = args[4])
 
 #' <!-- #################################################################### -->
 #'
