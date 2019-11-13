@@ -1,7 +1,7 @@
 #' ---
 #' title: "UNIFRAC value change in dependence of included samples."
 #' author: "Paul Czechowski"
-#' date: "Apr 05 2019"
+#' date: "13-Nov-2019"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -95,11 +95,10 @@ get_matrix_row_or_col_indices = function(prt_elmt, unifrac_matrix) {
 
 get_subset_matrix_from_indices <- function(ind_elmnt_a,ind_elmnt_b, unifrac_matrix) {
   # subset matrix and store
-  subset_matrix <-  unifrac_matrix[ c(ind_elmnt_a), c(ind_elmnt_b)]
+  subset_matrix <- unifrac_matrix[ c(ind_elmnt_a), c(ind_elmnt_b)]
   #return stored
   return (subset_matrix)
 }
-
 
 #' ### Get subset matrix for port pair - index based
 #' 
@@ -140,12 +139,21 @@ get_many_matrices_from_input_matrix <- function (unifrac_matrix) {
   
   # generating matrices from input matrix, step 1 - get port strings from matrix
   port_strings <- get_port_strings_from_matrix(unifrac_matrix)
+  message( "`port_strings` are:", paste(port_strings, collapse = " "))
   
   # generating matrices from input matrix, step 2 - get port combinations from port strings
   port_combinations <- get_port_combinations_from_port_strings(port_strings)
+  message( "`port_combinations` are listed below this line if not commented out.")
+  print(port_combinations)
   
   # generating matrices from input matrix, step 3 - get list of matrices from  port combinations
   unifrac_matrices <- apply(port_combinations, 1, function (prt_elmt) get_matrix_from_port_pair(prt_elmt[1], prt_elmt[2], unifrac_matrix))
+  
+  # debugging above call 13-11-2019
+  #   works:
+  # get_matrix_from_port_pair(port_combinations[1,1], port_combinations[1,2], unifrac_matrix) # works
+  #   works: 
+  # apply(port_combinations, 1, function (prt_elmt) print(paste(prt_elmt[1], prt_elmt[2])))
   
   # return
   return(unifrac_matrices)
@@ -324,8 +332,9 @@ get_distance_matrix_means_current_port_matrix_at_sample_count = function (port_m
   #   e.g. 455 * 35 = 15965 for 3 samples and one port of 20
   # sapply(current_port_and_sample_tupel_comb_matrices, mean, simplify = TRUE)
   # ***05.04.2018 - changed from mean to median***
+  # ***13.11.2019 - changed from median to mean***
 
-  current_port_and_sample_tupel_comb_means <- sapply(current_port_and_sample_tupel_comb_matrices, median, simplify = TRUE)
+  current_port_and_sample_tupel_comb_means <- sapply(current_port_and_sample_tupel_comb_matrices, mean, simplify = TRUE)
   
   # returning long vector of means from matrices - should be approximately
   #   `dim(dim_indices_rows_p_mat)[1] * dim(dim_indices_cols_p_mat)[1]`
@@ -375,17 +384,23 @@ get_results_vector_list_current_port = function(port_matrix, limit, ports_pairs)
 
 #' ## Data read-in
 #'
-#' Paths defined in list are UNIFRAC matrices for ports samples, without control
-#  samples, for:
-#'   
-#'   * unclustred 18S eDNA data, unfiltered for anything but control samples
-#'   * 97% clustered data, unfiltered for anything but control samples
-#'   * 97% clustered data, filtered for metazoans
-#'    
+#' Paths defined in list are distance matrices for ports samples, without control
+#' samples, as described by the file name and probably should match what is in 
+#' file `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_tables.sh`
 
+# using paths as in /Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_tables.sh
 paths <- list(
-  "/Users/paul/Documents/CU_combined/Zenodo/Qiime/125_18S_metazoan_unweighted_unifrac_distance_matrix/distance-matrix.tsv")
-       
+  "/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_Eukaryotes_core_metrics_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv",
+  "/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_clustered99_Eukaryotes_core_metrics_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv",
+  "/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_Eukaryotes_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv",
+  "/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_clustered99_Eukaryotes_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv",
+  "/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_Eukaryote-shallow_core_metrics_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv",
+  "/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_clustered99_Eukaryote-shallow_core_metrics_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv",
+  "/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_Eukaryote-shallow_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv",
+  "/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_clustered99_Eukaryote-shallow_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv"
+  )
+
+   
 raw_unifrac_values <- read_tsv(paths[[1]])
 
 #'
@@ -403,6 +418,14 @@ colnames(unifrac_matrix) <- colnames(raw_unifrac_values[2:ncol(raw_unifrac_value
 #'
 #' Get a list of unique, unduplicated port-specific matrices.
 #'
+
+# doesn't work 13.11.2019 - backtracking
+#  checking `get_port_strings_from_matrix` - seems ok
+#  checking `get_port_combinations_from_port_strings` - seems ok
+#  checking `get_matrix_from_port_pair` - seems ok
+#  checking `get_subset_matrix_from_indices` - seems ok
+#  apply call doesn't seem to work properly in `get_many_matrices_from_input_matrix`
+#  next try with last working test file from archive, check `REAME.md` of `CU_combined` on today's date
 
 unifrac_matrix_list <- get_many_matrices_from_input_matrix(unifrac_matrix) 
 

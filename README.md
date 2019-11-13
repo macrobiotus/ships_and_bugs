@@ -785,7 +785,7 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * improve tree calculation
     * re-run Mixed effect Model on Voyage counts (although I do not think this will improve much) 
     * include HON adjacency values from Mandana instead of trips.
-* _10.04.2019_ get hashes of DB files - for test in `CU_mock` today
+* **10.04.2019** get hashes of DB files - for test in `CU_mock` today
  * consistent with `CU_mock`: `/Users/paul/Documents/CU_combined/Zenodo/References/Silva128_extract_extended/99_otus_18S.fasta` `05c54da004175a5f6220f5f4439f8a8d`
  * consistent with `CU_mock`: `/Users/paul/Documents/CU_combined/Zenodo/References/Silva128_extract_extended/majority_taxonomy_7_levels.txt` `7c765f8a740c07def24922c1ef8cee20`
  * check classification
@@ -946,7 +946,7 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
          * prepare rarefaction curves
          * get modelling framework
   * committed repository
-*  **23.04.2019**
+* **23.04.2019**
   * in addition to what is noted yesterday, perhaps revise naming conventions to maintain consecutive script numbers
     * see also `Users/paul/Documents/CU_tx_test/Github/095_isolate_taxa.sh` (commit `05513af98dea68b4556ef072f8217acdee89ca46`)
 * **06.05.2019**
@@ -1814,9 +1814,28 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * started on `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R` - next steps:
     * close function and write files
     * request subsetting parameters and model formulas
-    * run modelling script
-    8 for now commit (``)
-
+    * start on modelling script
+  * for now commit (` 09131d85e61e6cdc19d460237e3bfc25a3713594`)
+* **13.11.2019** - adjusting modeling functionality to accomodate HON data
+  * finished script `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R`
+    * during read-in  with subsequent script from location
+    * use files with suffix `_with_hon_info.csv`
+  * restarted work sample sufficiency test - *pending*
+    * renaming script `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
+      * to `/Users/paul/Documents/CU_combined/Github/500_05_test_sampling_effort.R` - *ok*
+    * update input file list and output file list - *ok*
+    * update conflation code from `median` to `mean` if not already done - *ok*
+    * apply call or function doesn't work properly: *pending*
+      * needs debugging (`apply(port_combinations, 1, function (prt_elmt) get_matrix_from_port_pair(prt_elmt[1], prt_elmt[2], unifrac_matrix))`)
+      * try functionality with old input file (was`Users/paul/Documents/CU_combined/Zenodo/Qiime/125_18S_metazoan_unweighted_unifrac_distance_matrix/distance-matrix.tsv`)
+      * from backup `/Users/paul/Archive/Cornell/CU_cmbd_rf_test.zip`
+  * next steps for modelling  - *pending*
+    * receive answers to questions
+    * adjust modelling script for agreed-upon variables and data sets
+      * script `/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R`
+      * use file ending in `_with_hon_info.csv` from `/Users/paul/Documents/CU_combined/Zenodo/Results`
+  * commit
+  
 
 
 ## Todo

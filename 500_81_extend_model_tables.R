@@ -19,38 +19,73 @@
 #' Please check the session info at the end of the document for further 
 #' notes on the coding environment.
 #' 
-#' # Environment preparation
-#'
-#' Empty buffer.
 
+## Environment preparation
+## -----------------------
+
+# Clear Environment
 rm(list=ls())
 
-#' Load Packages
+# Load Packages
 library ("tidyverse") # dplyr and friends
 library ("ggplot2")   # for ggCaterpillar
 
-#' Functions
+# Functions
 
 # Loaded from helper script:
 source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")
 
-# remove "PH" rows from input data - written for `lapply call`
+# Function to remove "PH" rows from input data - written for `lapply` call
 remove_ph_rows = function(listed_table){
   require("tidyverse")
   listed_table %>% filter(!PORT %in% c("PH")) %>% filter(!DEST %in% c("PH")) -> listed_table
   return(listed_table)
 }
 
-# function to add port pairs in both orientations 
-add_concatenated_pairs = function (any_table){
+# Function to merge Mandanas dat with my data, minding the differences in orders of source and
+#  destination columns - written for `lapply` call
+left_join_using_port_sets = function(tab_in_list, tab_single_cleaned){
+  
+  # needed for pretty much all this function does
   require("dplyr")
-  any_table %>% mutate(ORIA = paste0(PORT,"-", DEST)) %>% arrange(PORT, DEST) -> any_table
-  any_table %>% mutate(ORIB = paste0(DEST,"-", PORT)) %>% arrange(PORT, DEST) -> any_table
-  message("Attention, table has been sorted.")
-  return(any_table)
+  
+  # function to add port pairs in both orientations 
+  add_concatenated_pairs = function (any_table){
+    require("dplyr")
+    any_table %>% mutate(ORIA = paste0(PORT,"-", DEST)) %>% arrange(PORT, DEST) -> any_table
+    any_table %>% mutate(ORIB = paste0(DEST,"-", PORT)) %>% arrange(PORT, DEST) -> any_table
+    message("Attention, table has been sorted.")
+    return(any_table)
+  }
+  
+  # add columns to allow left-joining regardsles of port id order
+  tab_in_list <- add_concatenated_pairs(tab_in_list)
+  tab_single_cleaned <- add_concatenated_pairs(tab_single_cleaned)
+
+  # match up port-ids independent of their order in in table pair being matched
+  return_tabl <- bind_rows (
+    left_join(tab_in_list, tab_single_cleaned, by = "ORIA" ),
+    left_join(tab_in_list, tab_single_cleaned, by = "ORIB" ),
+    left_join(tab_in_list, tab_single_cleaned, by = c("ORIA","ORIB" )),
+    left_join(tab_in_list, tab_single_cleaned, by = c("ORIB", "ORIA")),
+  ) 
+  
+  # data needs to be uniform to identify duplicates - remove variables used to join data 
+  return_tabl <- return_tabl  %>% 
+    select (-c(ORIA, ORIB, ORIB.x, PORT.y, DEST.y, ORIB.y, ORIA.x, ORIA.y)) %>%
+    rename(PORT = PORT.x) %>% rename(DEST = DEST.x) %>% arrange(PORT, DEST)
+  
+  # keep only non-duplicated entries in table
+  return_tabl <- return_tabl  %>%  distinct(PORT, DEST, RESP_UNIFRAC, PRED_ENV,
+    PRED_TRIPS, ECO_PORT, ECO_DEST, ECO_DIFF, TRIPS, VOY_FON, VOY_HON, 
+    BLL_HON_NOECO, BLL_FON_NOECO, BLL_HON_SMECO, BLL_FON_SMECO, .keep_all = TRUE)
+  
+  return(return_tabl)
+
 }
 
-##  Read in all tables
+## Read in and format data
+## -----------------------
 
 # define file path components for listing 
 model_input_folder <- "/Users/paul/Documents/CU_combined/Zenodo/Results"
@@ -65,6 +100,7 @@ model_input_data <- lapply(model_input_files, function(listed_file)  read_csv(li
 names(model_input_data) <- model_input_files
 
 ##  Copy data but exclude `PH` rows
+## ----------------------------------
 
 # checking filtering command - full data
 # model_input_data[[1]] %>% rmarkdown::paged_table()
@@ -76,32 +112,16 @@ names(model_input_data) <- model_input_files
 model_no_ph_data <- lapply(model_input_data, remove_ph_rows)
 names(model_no_ph_data) <- gsub(".csv", "_no_ph.csv", names(model_no_ph_data))
 
-# write out "PH" filtered lists 
-for (i  in seq(1:length(model_no_ph_data))){
-  # set destination path from list label
-  path = names(model_no_ph_data[i])
-  # diagnostic message
-  message ("Writing \"", path , "\".")
-  # write files
-  write_csv(model_no_ph_data[[i]], path)
-}
+
+## Combine lists of tables with PH and non-PH data
+## -----------------------------------------------
+
+all_model_data <- append(model_input_data, model_no_ph_data)
+names(all_model_data)
 
 
-##  Read in all tables again
-
-# define file path components for listing 
-model_input_folder <- "/Users/paul/Documents/CU_combined/Zenodo/Results"
-model_input_pattern <- glob2rx("??_results_euk_*_model_data_*.csv")
-
-# read all file into lists for `lapply()` usage
-model_input_files <- list.files(path=model_input_folder, pattern = model_input_pattern, full.names = TRUE)
-
-# store all tables in list and save input filenames alongside - skipping "X1" 
-#  in case previous tables have column numbers, which they should not have anymore.
-model_input_data <- lapply(model_input_files, function(listed_file)  read_csv(listed_file, col_types = cols('X1' = col_skip())))
-names(model_input_data) <- model_input_files
-
-##  Add in Mandana's results
+## Read and format Mandana's results
+## ---------------------------------
 
 # read in Mandana's resu;ts and name columns
 mandanas_data <- read_csv("/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/191105_shipping_estimates.csv")
@@ -116,75 +136,25 @@ mandanas_data$DEST[is.na(mandanas_data$DEST)] <- "NX"
 # check full table 
 mandanas_data <- mandanas_data %>% arrange(PORT, DEST) %>% print(n = Inf)
 
-# add sorting variables to data sets
-mandanas_data_source <- add_concatenated_pairs(mandanas_data)
-mandanas_data_destin <- lapply(model_input_data, add_concatenated_pairs)
 
-# check tables
-mandanas_data_source %>% print(n = Inf)
-mandanas_data_destin[[1]] %>% print(n = Inf)
+## Left-join Mandana's results to model data 
+## -----------------------------------------
 
+# add Mandanas information to model data tables 
+all_model_data_appended <- lapply(all_model_data, left_join_using_port_sets, mandanas_data)
 
-# match Mandana's data source with Mandana's data destination - write as function: 
+# correct list labels as these will be used as file names
+names(all_model_data_appended) <- gsub(".csv", "_with_hon_info.csv", names(all_model_data_appended))
 
-
-# create all possible join table
-destination_table <- bind_rows (
-  left_join(mandanas_data_destin[[1]], mandanas_data_source, by = "ORIA" ),
-  left_join(mandanas_data_destin[[1]], mandanas_data_source, by = "ORIB" ),
-  left_join(mandanas_data_destin[[1]], mandanas_data_source, by = c("ORIA","ORIB" )),
-  left_join(mandanas_data_destin[[1]], mandanas_data_source, by = c("ORIB", "ORIA")),
-  ) %>% select (-c(ORIA, ORIB, ORIB.x, PORT.y, DEST.y, ORIB.y, ORIA.x, ORIA.y)) %>%
-  rename(PORT = PORT.x) %>% rename(DEST = DEST.x) %>% arrange(PORT, DEST) %>% 
-  distinct(PORT, DEST, RESP_UNIFRAC, PRED_ENV, PRED_TRIPS, ECO_PORT,
-    ECO_DEST, ECO_DIFF, TRIPS, VOY_FON, VOY_HON, BLL_HON_NOECO, BLL_FON_NOECO, 
-    BLL_HON_SMECO, BLL_FON_SMECO, .keep_all = TRUE) %>% print(n = Inf)
-  
-# concatenate
- 
-
-
-# erase keys
-
-# de-duplicate
-
-# correct column names
-
-# -- pending --
-
-# remove sorting variables
-
-# -- pending --
-
-# write sorted data
-
-# -- pending --
-
-# get source indices for destination indices in all ordinations
-
-# check input data length 
-nrow(mandanas_data_destin[[1]]) #  64
-nrow(mandanas_data_source)      # 111
-
-# get indices two match up two data sets
-srce_indices <- which (mandanas_data_source$ORIA %in% mandanas_data_destin[[1]]$ORIA | mandanas_data_source$ORIA %in% mandanas_data_destin[[1]]$ORIB)
-dest_indices <- which (mandanas_data_destin[[1]]$ORIA %in% mandanas_data_source$ORIA  | mandanas_data_destin[[1]]$ORIB %in% mandanas_data_source$ORIA)
-
-srce_indices # indices pointing tow rows in Mandanas data - not 111, two few
-dest_indices # indices pointing tow rows in my data - not 64, two few
-
-# subset two matching datasets 
-
-test_source <-  mandanas_data_source[srce_indices, ]
-test_destin <-  mandanas_data_destin[[1]][dest_indices,  ] 
-
-test_source %>% arrange(PORT, DEST)
-test_destin %>% arrange(PORT, DEST)
-
-# sort two data sets on first then on second column
-
-
-
+# write files
+for (i  in seq(1:length(all_model_data_appended))){
+   # set destination path from list label
+   path = names(all_model_data_appended[i])
+   # diagnostic message
+   message ("Writing \"", path , "\".")
+   # write files
+   write_csv(all_model_data_appended[[i]], path)
+}
 
 
 #' <!-- #################################################################### -->
