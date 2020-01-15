@@ -1,5 +1,5 @@
 #' ---
-#' title: "UUnifrac and Jaccard relationship."
+#' title: "Unifrac and Jaccard relationship."
 #' author: "Paul Czechowski"
 #' date: "15-Jan-2020"
 #' output: pdf_document
@@ -21,6 +21,11 @@
 #'  pairs.  (As decided previously for later analyses, I believe we need this 
 #'  including and excluding Pearl Harbor.)"_ (D.L. 14.01.2020)
 #' 
+#' This code commentary is included in the R code itself and can be rendered at
+#' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/200115_unifrac_vs_jaccard.R")`.
+#' Please check the session info at the end of the document for further 
+#' notes on the coding environment.
+#' 
 #' # Prepare Environment
 #'
 #' ## Empty buffer
@@ -31,7 +36,7 @@ rm(list=ls())
 library("data.table") # enhanced version of data.frame for fast data manipulations. 
 library("tidyverse")  # for data handling and graphing
 library("magrittr")   # setting row names during conversion from Tibble to Matrix
-
+library("ggrepel")    # plot labelling
 #' ## Functions
 #'
 
@@ -87,3 +92,11 @@ dist_df_collapsed <- dist_df_collapsed %>% filter(complete.cases(.))
 #' ## Plotting
 
 dist_df_collapsed
+
+ggplot(dist_df_collapsed, aes(UNIFRAC, JACCARD)) +
+  geom_text_repel(aes(label = paste(PORT.A,"-",PORT.B, sep = "", collapse = NULL) ,  color = PORT.A), size = 3) +
+  geom_point() + 
+  theme(legend.position= "none")
+  
+
+

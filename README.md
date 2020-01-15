@@ -1840,6 +1840,7 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * commit (`31695804431ed96461aa26a235e8fb0da823f57a`)
 * **15.01.2020** - starting script `/Users/paul/Documents/CU_combined/Github/200115_unifrac_vs_jaccard.R` for reasons outlined therein
   * only plotting (and rendering) is needed to do  - committing.
+  * plotting is now working - saved file to `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/200115_port_pairs_UNIFRAC_vs_JACCARD.pdf`
 
 
 ## Todo
