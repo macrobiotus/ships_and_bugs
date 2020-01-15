@@ -1829,19 +1829,29 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * needs debugging (`apply(port_combinations, 1, function (prt_elmt) get_matrix_from_port_pair(prt_elmt[1], prt_elmt[2], unifrac_matrix))`)
       * try functionality with old input file (was`Users/paul/Documents/CU_combined/Zenodo/Qiime/125_18S_metazoan_unweighted_unifrac_distance_matrix/distance-matrix.tsv`)
       * from backup `/Users/paul/Archive/Cornell/CU_cmbd_rf_test.zip`
+        * copying from backup working file `cp /Users/paul/Archive/Cornell/CU_cmbd_rf_test/Zenodo/Qiime/150_18S_097_cl_edna_mat/distance-matrix.tsv /Users/paul/Documents/CU_combined/Scratch/Data`
+      * old file is working as intended - *ok*
+      * compare input files for oddities. - *pending*
   * next steps for modelling  - *pending*
     * receive answers to questions
     * adjust modelling script for agreed-upon variables and data sets
       * script `/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R`
       * use file ending in `_with_hon_info.csv` from `/Users/paul/Documents/CU_combined/Zenodo/Results`
-  * commit
-  
+  * commit (`31695804431ed96461aa26a235e8fb0da823f57a`)
+* **15.01.2020** - starting script `/Users/paul/Documents/CU_combined/Github/200115_unifrac_vs_jaccard.R` for reasons outlined therein
+  * only plotting (and rendering) is needed to do  - committing.
 
 
 ## Todo
 
 ### More important 
-  
+  * before re-run safe repository for spin-off - ecoregion paper
+  * re-run for factors:
+     * many ports - high coverage
+     * clustered - unclustered
+     * include Mandanas results
+     * (2012 - all voyage years)
+  * debug `rf_test` script with input data file in scratch folder - that file must be somehow differently formated then later version of distance matrices
   * re run modelling and associated scripts to *resolve Singapore dichotomy* and to *recalculate UNIFRAC distances with single locations*
     * deferred running `/Users/paul/Documents/CU_combined/Github/160_alpha_rarefaction_curves_phylogenetic.sh` - *pending*
     * check summaries created by `/Users/paul/Documents/CU_combined/Github/165_summarize_data_phylogenetic.sh`  - *pending*
@@ -1852,7 +1862,7 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * Voyages summary per year - **add bioregions**
     * taxon plots - **continue parser, update phyloseq object, plot** (correct grouping of Blast variables)
   * email Costello for a GIS layer
-  * include Mandanas results
+
   * `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
     * possibly re-run modeling scripts and output full route tables for `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_main_results_calculations.R`
     * split modeling functions from `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`

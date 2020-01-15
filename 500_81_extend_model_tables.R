@@ -64,10 +64,10 @@ left_join_using_port_sets = function(tab_in_list, tab_single_cleaned){
 
   # match up port-ids independent of their order in in table pair being matched
   return_tabl <- bind_rows (
-    left_join(tab_in_list, tab_single_cleaned, by = "ORIA" ),
-    left_join(tab_in_list, tab_single_cleaned, by = "ORIB" ),
-    left_join(tab_in_list, tab_single_cleaned, by = c("ORIA","ORIB" )),
-    left_join(tab_in_list, tab_single_cleaned, by = c("ORIB", "ORIA")),
+    left_join(tab_in_list, tab_single_cleaned, by = "ORIA"),
+    left_join(tab_in_list, tab_single_cleaned, by = "ORIB"),
+    left_join(tab_in_list, tab_single_cleaned, by = c("ORIA","ORIB")),
+    left_join(tab_in_list, tab_single_cleaned, by = c("ORIB","ORIA")),
   ) 
   
   # data needs to be uniform to identify duplicates - remove variables used to join data 

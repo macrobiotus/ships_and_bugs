@@ -18,6 +18,7 @@
 #' Code was developed in `/Users/paul/Documents/CU_cmbd_rf_test` around Oct 02 2018.
 #''
 #' NEED to use mean again in matrix conflation, as in `fill_collapsed_responses_matrix` of `/Users/paul/Documents/CU_combined/Github/500_00_functions.R`
+#  NEED to check if debugging can be acieved by adjusting coomand `dist_list_mat <- lapply(dist_list_raw, function(mat) mat %>% set_rownames(.$X1) %>% select(-X1) %>% as.matrix)`
 #'
 #' # Prepare Environment
 #'
@@ -389,7 +390,9 @@ get_results_vector_list_current_port = function(port_matrix, limit, ports_pairs)
 #' file `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_tables.sh`
 
 # using paths as in /Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_tables.sh
+# first file for debugging only, works with archived code version in `/Users/paul/Archive/Cornell/CU_cmbd_rf_test.zip`
 paths <- list(
+  "/Users/paul/Documents/CU_combined/Scratch/Data/distance-matrix.tsv",
   "/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_Eukaryotes_core_metrics_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv",
   "/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_clustered99_Eukaryotes_core_metrics_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv",
   "/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_Eukaryotes_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv",
