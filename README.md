@@ -1841,6 +1841,23 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
 * **15.01.2020** - starting script `/Users/paul/Documents/CU_combined/Github/200115_unifrac_vs_jaccard.R` for reasons outlined therein
   * only plotting (and rendering) is needed to do  - committing.
   * plotting is now working - saved file to `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/200115_port_pairs_UNIFRAC_vs_JACCARD.pdf`
+* **28.01.2020** - received data from Mandana and saved it 
+  * `/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/280120_all_links_1997_2018_info.pdf`
+  * `/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/280120_all_links_1997_2018.csv`
+  * check Things and below to get new todo list
+* **31.01.2020** - swapping in Mandana's new data
+  * following notes 12.11.2010
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_tables.sh` - ok
+  * which calls, on all tables: `~/Documents/CU_combined/Github/500_80_get_mixed_effect_model_tables.R` - ok
+  * erasing old files in `/Users/paul/Documents/CU_combined/Zenodo/Results` - ok
+  * adjusting for new data from Mandana and running `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R` - ok
+    * still missing data in Mandanas files
+    * erasing needed files in `/Users/paul/Documents/CU_combined/Zenodo/Results` (i.e. data without HON info)
+  * opening `/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R`
+    * **pending**: run
+    * **pending**: include more model formulas
+  
+
 
 
 ## Todo
@@ -1848,10 +1865,12 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
 ### More important 
   * before re-run safe repository for spin-off - ecoregion paper
   * re-run for factors:
-     * many ports - high coverage
-     * clustered - unclustered
-     * include Mandanas results
-     * (2012 - all voyage years)
+     * include Mandanas results for all voyage esrs
+     * include 
+       * several modelling approaches
+       * many ports - high coverage
+       * clustered - unclustered
+       * follow word document with outline
   * debug `rf_test` script with input data file in scratch folder - that file must be somehow differently formated then later version of distance matrices
   * re run modelling and associated scripts to *resolve Singapore dichotomy* and to *recalculate UNIFRAC distances with single locations*
     * deferred running `/Users/paul/Documents/CU_combined/Github/160_alpha_rarefaction_curves_phylogenetic.sh` - *pending*

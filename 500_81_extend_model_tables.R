@@ -1,7 +1,7 @@
 #' ---
 #' title: "Extend modelling input"
 #' author: "Paul Czechowski"
-#' date: "12-November-2019"
+#' date: "31-January-2020"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -77,8 +77,9 @@ left_join_using_port_sets = function(tab_in_list, tab_single_cleaned){
   
   # keep only non-duplicated entries in table
   return_tabl <- return_tabl  %>%  distinct(PORT, DEST, RESP_UNIFRAC, PRED_ENV,
-    PRED_TRIPS, ECO_PORT, ECO_DEST, ECO_DIFF, TRIPS, VOY_FON, VOY_HON, 
-    BLL_HON_NOECO, BLL_FON_NOECO, BLL_HON_SMECO, BLL_FON_SMECO, .keep_all = TRUE)
+    PRED_TRIPS, ECO_PORT, ECO_DEST, ECO_DIFF, VOY_FREQ, B_FON_NOECO, 
+    B_HON_NOECO, B_FON_SMECO, B_HON_SMECO, F_FON_NOECO, F_HON_NOECO, F_FON_SMECO,
+    F_HON_SMECO, .keep_all = TRUE)
   
   return(return_tabl)
 
@@ -123,9 +124,16 @@ names(all_model_data)
 ## Read and format Mandana's results
 ## ---------------------------------
 
-# read in Mandana's resu;ts and name columns
-mandanas_data <- read_csv("/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/191105_shipping_estimates.csv")
-names(mandanas_data) <- c("PORT", "DEST", "TRIPS", "VOY_FON", "VOY_HON", "BLL_HON_NOECO", "BLL_FON_NOECO", "BLL_HON_SMECO", "BLL_FON_SMECO")
+# read in Mandana's results and name columns
+# old incomplete data (19.11.2019)
+# mandanas_data <- read_csv("/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/191105_shipping_estimates.csv")
+# newer more complete data
+mandanas_data <- read_csv("/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/280120_all_links_1997_2018.csv")
+names(mandanas_data)
+
+
+names(mandanas_data) <- c("PORT", "DEST", "VOY_FREQ", "B_FON_NOECO", "B_HON_NOECO", "B_FON_SMECO", "B_HON_SMECO", "F_FON_NOECO", "F_HON_NOECO", "F_FON_SMECO", "F_HON_SMECO")
+
 
 # rename SY to SI to match my data
 mandanas_data$PORT[which (mandanas_data$PORT == "SY")] <- "SI"
@@ -155,7 +163,6 @@ for (i  in seq(1:length(all_model_data_appended))){
    # write files
    write_csv(all_model_data_appended[[i]], path)
 }
-
 
 #' <!-- #################################################################### -->
 #'
