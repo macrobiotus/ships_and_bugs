@@ -1853,9 +1853,13 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * adjusting for new data from Mandana and running `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R` - ok
     * still missing data in Mandanas files
     * erasing needed files in `/Users/paul/Documents/CU_combined/Zenodo/Results` (i.e. data without HON info)
-  * opening `/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R`
-    * **pending**: run
-    * **pending**: include more model formulas
+  * **commitiing before adjusting next script** commit hash is `d74bcf73f8f0044445091d226bb5c7b0bf4cb061`
+  * adjust and run  `/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R`
+    * **ok**: read in results tables from `/Users/paul/Documents/CU_combined/Zenodo/Results`
+    * **pending**: subset model table to exclude NA - finish function
+    * **pending**: adjust code for several model formulas
+    * **pending**: verify model formulas
+    * do better plotting, using functions
   
 
 
