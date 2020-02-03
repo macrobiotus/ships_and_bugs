@@ -6,7 +6,6 @@
 #' toc: "true"
 #' highlight: "zenburn"
 #' ---
-# 
 #' 
 #' # Preamble
 #' 
@@ -37,25 +36,81 @@ rm(list=ls())
 
 library ("tidyverse") # dplyr and friends
 library ("ggplot2")   # for ggCaterpillar
-# library ("ggbiplot")  # better PCoA plotting, get via `library(devtools); install_github("vqv/ggbiplot")`
-                      # uses `plyr` and needs to be loaded before `dplyr` in `tidyverse` 
 library ("gdata")     # matrix functions
 library ("reshape2")  # melting
 library ("lme4")      # mixed effect model
 library ("sjPlot")    # mixed effect model - with plotting
-
-library ("vegan")     # metaMDS
 library ("cowplot")   # exporting ggplots
+library ("formula.tools") # better formatting of formulas
+library("stringr")    # better string concatenation
 
 #' Functions
 
 # Loaded from helper script:
 source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")
 
+#' "Not in" function
+`%!in%` = Negate(`%in%`)
+
+#' Function to subset data to fit model variables. Currently there are more 
+#' incomplete cases among Notre-Dame predictors then among Cornell predictors.
+#' Consider running an extra analysis \n with Cornell data trimmed so as to match Notre Dame data.
+match_data_to_formula <- function (formula_item, data_item){
+  
+  # package loading
+  require ("tidyverse")
+  
+  # message
+  message("\nData is subset to fit model variables, but currently there are more incomplete cases among Notre-Dame predictors then among Cornell predictors. Consider running an extra analysis with Cornell data trimmed so as to match Notre Dame data.")
+  
+  # Setting types
+  #   for debugging only
+  # print(head(data_item))
+  
+  message("- Setting types.")
+  cols <- c("PORT", "DEST", "ECO_PORT", "ECO_DEST", "ECO_DIFF")
+  data_item[cols] <- lapply(data_item[cols], as.factor)  
+
+  #   for debugging only
+  # print(head(data_item))
+  
+        
+  # remove superflous columns
+  vars_to_keep <- all.vars (formula_item)
+
+  message("- Input dimensions are: ", paste0( (dim(data_item)), " "),  ".")
+  message("- Removed variables are: ", paste0( names(data_item)[which(names(data_item) %!in% vars_to_keep)], " "), ".")
+  message("- Kept variables are: ", paste0(vars_to_keep, " "), ".")
+  
+  data_item <- data_item %>% select(vars_to_keep)
+
+  message("- Intermediate dimensions are: ", paste0( (dim(data_item)), " "), ".")
+  
+  # remove superflous rows
+  message("- Undefined rows have been removed, assuming they were real \"NA\" and not \"0\".")
+  
+  data_item %>% na.omit
+  
+  message("- Final dimensions are: ", paste0( (dim(data_item)), " "), ".")
+  
+  # return table object suitable for modelling with model formula
+  return(data_item)
+
+}
+
 #' Calculate random effect model results
 calculate_model <- function(formula_item, data_item){
-  return(lmer(formula_item, data = data_item, REML=FALSE))
+  
+  message("\nModelling function received variables: ", paste0(names(data_item) , " "), ".")
+  message("   ... dimensions: ", paste0( (dim(data_item)), " "), ".")
+  message("   ... formula: ", paste0(formula_item , " "), "." )
+  
+  model <- lmer(formula_item, data = data_item, REML=FALSE)
+
+  return(model)
 }
+
+
 
 #' # Model definitions
 #' 
@@ -74,16 +129,16 @@ full_formulae <- list(
 
   # Formulas from Word document with Mandana's ballast risk estimates:
   # Unifrac ~ Ballast FON shipping + env similarity + ecoregion + random port effects
-  as.formula(RESP_UNIFRAC ~ B_FON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  as.formula(RESP_UNIFRAC ~ B_FON_NOECO + ECO_DIFF + (1 | PORT) + (1 | DEST)),
 
   # Unifrac ~ Ballast HON shipping + env similarity + ecoregion + random port effects
-  as.formula(RESP_UNIFRAC ~ B_HON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  as.formula(RESP_UNIFRAC ~ B_HON_NOECO + ECO_DIFF + (1 | PORT) + (1 | DEST)),
 
   # Unifrac ~ Ballast FON risk* + ~~ecoregion~~ / env similarity + random port effects
-  as.formula(RESP_UNIFRAC ~ B_FON_SMECO + PRED_ENV + (1 | PORT) + (1 | DEST)),
+  as.formula(RESP_UNIFRAC ~ B_FON_SMECO + (1 | PORT) + (1 | DEST)),
 
   # Unifrac ~ Ballast HON risk* + ~~ecoregion~~ / env similarity + random port effects
-  as.formula(RESP_UNIFRAC ~ B_HON_SMECO + PRED_ENV + (1 | PORT) + (1 | DEST))
+  as.formula(RESP_UNIFRAC ~ B_HON_SMECO + (1 | PORT) + (1 | DEST))
 )
 
 #' 
@@ -102,16 +157,18 @@ null_formulae <- list(
 
   # Formulas from Word document with Mandana's ballast risk estimates:
   # Unifrac ~ Ballast FON shipping + env similarity + ecoregion + random port effects
-  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST)),
 
   # Unifrac ~ Ballast HON shipping + env similarity + ecoregion + random port effects
-  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST)),
 
   # Unifrac ~ Ballast FON risk* + ~~ecoregion~~ / env similarity + random port effects
-  as.formula(RESP_UNIFRAC ~ PRED_ENV + (1 | PORT) + (1 | DEST)),
+  # message("Considering only random effects in null model - unsure if this is possible.")
+  as.formula(RESP_UNIFRAC ~ (1 | PORT) + (1 | DEST)),
 
   # Unifrac ~ Ballast HON risk* + ~~ecoregion~~ / env similarity + random port effects
-  as.formula(RESP_UNIFRAC ~ B_HON_SMECO + PRED_ENV + (1 | PORT) + (1 | DEST))
+  # message("Considering only random effects in null model - unsure if this is possible.")
+  as.formula(RESP_UNIFRAC ~ (1 | PORT) + (1 | DEST))
 )
 
 #' # Read in and format data
@@ -132,69 +189,63 @@ model_input_data <- suppressWarnings(lapply(model_input_files,
   function(listed_file)  read_csv(listed_file, col_types = cols('X1' = col_skip()))))
 names(model_input_data) <- model_input_files
 
-
 #' # Obtain modelling results
 #'
-#' Using loops for sanity reasons.
+
+# use this approach to get around the loop - later
+# define all possible combinations for mapply call
+combinations_model_data <- expand.grid(seq(model_input_data), seq(full_formulae))
+setNames(analysis_combinations, c("model", "formula"))
+
+#' Initially using loops, for sanity reasons.
 
 # loop over formulae
 for (i in seq(full_formulae)){
-
+  
   # loop over dat sets
   for (j in seq(model_input_data)){
   
-    
-    # move this function upwards upon completion
-    match_data_to_formula <- function (formula_item, data_item){
-      
-      require ("tidyverse")
-      
-      # remove superflous columns
-      
-      
-      vars_to_keep <- all.vars (formula_item)
-      
-      
-      # remove superflous rows
-      
-      # return table object suitable for modelling with model formula
-    
-    }
-    
-    # set model formula for parsing
-    model_formula <- full_formulae[[i]]
-    
-    # set data table for subessting
-    model_formula <- full_formulae[[i]]
-    
-    
-    
-    
-    # calculate_model(full_formulae[[i]], model_input_data[[j]])
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")
   
+  # define current model formula for parsing
+  full_formula <- full_formulae[[i]]
+  null_formula <- null_formulae[[i]]
+     
+  # define current data table for subsetting
+  model_data_raw <- model_input_data[[j]]
+         
+  # match input table dimensions to current model formulae
+  model_data <- match_data_to_formula(full_formula, model_data_raw)
+     
+  # calculate full model
+  full_model <- calculate_model(full_formula, model_data)
+     
+  # calculate null model
+  null_model <- calculate_model(null_formula, model_data)
+     
+  # print model summary and evaluations
+  message("\nGetting Model Summary: ")
+  sm <- summary(full_model)
+  print(sm)
+     
+   message("\nGetting Model ANOVA: ")
+   an <- try(anova(full_model, null_model))
+   print(sm)
+   try(print(an))
+   # plot model coefficients
+   message("\nPlotting Model Coefficients: ")
+   plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,
+     type = "std", 
+     title = paste("Coefficients for formula \"", as.character(full_formula),
+     "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",
+     basename(names(model_input_data)[[j]]), "\"." ))
+    
+  print(plot)
+
   }
 }
 
-calculate_model(full_formulae[[2]], model_input_data[[1]])
 
-# define all possible combinations for mapply call
-analysis_combinations <- expand.grid(seq(model_input_data), seq(full_formulae))
-setNames(analysis_combinations, c("model_model", "formula"))
-
-
-
-
-
-
-
-lapply(analysis_combinations, print)
-
-
-
-
-mapply(   )
-
-mapply(rep, times = 1:4, x = 4:1)
 
 
 #' # Modelling
