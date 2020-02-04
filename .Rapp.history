@@ -1,26 +1,3543 @@
-blast_results_list
-library("blastxml")   # read blast xml - get via `library(devtools); install_github("BigelowLab/blastxml")`#
-library("tidyverse")  # work using tibbles#
-library("janitor")    # clean column names#
-library("taxonomizr") # query taxon names#
-library("purrr")      # dplyr applies#
-library("furrr")      # parallel purrrs
-blast_results_folder <- "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development"#
-blast_results_pattern <- "_blast_result_euk_only_no_env.txt"#
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+setNames(analysis_combinations, c("model_index", "formula_index"))
+analysis_summaries
+setNames(analysis_combinations, c("model_index", "formula_index"))
+analysis_combinations <- as.Tibble(analysis_combinations)
+analysis_combinations <- Tibble(analysis_combinations)
+analysis_combinations <- tibble(analysis_combinations)
+analysis_combinations
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+setNames(analysis_combinations, c("model_index", "formula_index"))
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+setNames(analysis_summaries, c("model_index", "formula_index"))#
+analysis_summaries <- tibble(analysis_summaries)
+analysis_summaries
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+setNames(analysis_summaries, c("model_index", "formula_index"))
+analysis_summaries
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+setNames(analysis_summaries, c("model_index", "formula_index"))#
+analysis_summaries <- as_tibble(analysis_summaries)
+analysis_summaries
+analysis_summaries <- as_tibble(analysis_summaries, c("model_index", "formula_index"))
+analysis_summaries
+as_tibble(analysis_summaries) %>% colnames(c("model_index", "formula_index")))
+analysis_summaries <- as_tibble(analysis_summaries) %>% colnames(c("model_index", "formula_index"))
+setNames(analysis_summaries, c("model_index", "formula_index"))
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries)#
+setNames(analysis_summaries, c("model_index", "formula_index"))
+add_column(analysis_summaries, "FRML", "DATA", "AIC", "SIGN")
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries)#
+setNames(analysis_summaries, c("MIDX", "FIDX"))
+add_column(analysis_summaries, "FRML", "DATA", "AIC", "SIGN")
+add_column(analysis_summaries, c("FRML", "DATA", "AIC", "SIGN"))
+add_column(analysis_summaries, FRML, DATA, AIC, SIGN))
+add_column(analysis_summaries, FRML, DATA, AIC, SIGN)
+add_column(analysis_summaries, FRML = formula(0), DATA = character(0), AIC = double(0), SIGN = double(0))
+add_column(analysis_summaries, FRML = character(0), DATA = character(0), AIC = double(0), SIGN = double(0))
+add_column(analysis_summaries, FRML = character(NA), DATA = character(NA), AIC = double(NA), SIGN = double(NA))
+analysis_summaries$FRML = character(0),
+analysis_summaries$FRML = character(0)
+analysis_summaries$FRML = NA
+analysis_summaries
+analysis_summaries$FRML = character(NA)
+analysis_summaries$FRML = character(0)
+analysis_summaries <- as_tibble(analysis_summaries, a = character())
+analysis_summaries
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries, a = character())
+analysis_summaries
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries)
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries)#
+setNames(analysis_summaries, c("MIDX", "FIDX"))
+?add_column()
+analysis_summaries %>% add_column(DATA)
+analysis_summaries %>% add_column("DATA"")
+)
+""
+analysis_summaries %>% add_column("DATA")
+analysis_summaries %>% add_column(DATA = 0 )
+analysis_summaries %>% add_column(DATA = double(0) )
+analysis_summaries %>% add_column(as.double(DATA))
+convert
+analysis_summaries %>% add_column(DATA) %>% mutate_at(DATA, character)
+analysis_summaries %>% add_column(DATA) %>% mutate_at(vars(DATA), character)
+analysis_summaries %>% add_column(DATA) %>% mutate_at(., character)
+analysis_summaries %>% add_column(DATA)
+analysis_summaries %>% add_column(.,DATA) %>% mutate_at(., character)
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries)#
+setNames(analysis_summaries, c("MIDX", "FIDX"))
+analysis_summaries %>% add_column(DATA)
+analysis_summaries %>% add_column(analysis_summaries, DATA)
+analysis_summaries %>% add_column(analysis_summaries, "DATA")
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries)#
+setNames(analysis_summaries, c("MIDX", "FIDX"))
+analysis_summaries %>% add_column(analysis_summaries, "DATA") %>% mutate_at(., character)
+analysis_summaries %>% add_column(analysis_summaries, "DATA")
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries)#
+setNames(analysis_summaries, c("MIDX", "FIDX"))
+analysis_summaries %>% add_column("DATA")
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries)#
+setNames(analysis_summaries, c("MIDX", "FIDX"))#
+analysis_summaries %>% add_column(DATA)
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries)#
+setNames(analysis_summaries, c("MIDX", "FIDX"))
+analysis_summaries %>% add_column(DATA)
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries)#
+analysis_summaries <- setNames(analysis_summaries, c("MIDX", "FIDX"))
+analysis_summaries
+analysis_summaries %>% add_column(DATA)
+analysis_summaries %>% add_column(analysis_summaries, DATA)
+analysis_summaries %>% add_column(analysis_summaries, "DATA")
+add_column(analysis_summaries, DATA )
+add_column(analysis_summaries, c("DATA") )
+add_column(analysis_summaries, "DATA" )
+add_column(analysis_summaries, DATA )
+add_column(analysis_summaries, DATA = 0 )
+analysis_summaries %>% add_column(DATA = 0 )
+analysis_summaries %>% add_column( AIC = 0, FRML = 0,   DATA = 0, )
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries)#
+analysis_summaries <- setNames(analysis_summaries, c("DIDX", "FIDX"))
+analysis_summaries %>% add_column( AIC = 0, FRML = 0,   DATA = 0, )
+analysis_summaries %>% add_column(AIC = 0, DATA = 0, FRML = 0) %>% mutate_at(AIC = 0, DATA = 0, FRML = 0)
+analysis_summaries %>% add_column(AIC = 0, DATA = 0, FRML = 0) %>% mutate_at(vars(AIC = double, DATA = chracter, FRML = character))
+analysis_summaries %>% add_column(AIC = 0, DATA = 0, FRML = 0) %>% #
+analysis_summaries %<>% mutate(AIC = as.double(AIC))
+library magrittr
+library(magrittr)
+mtcars$AIC %<>% as.integer
+analysis_summaries$AIC %<>% as.integer
+analysis_summaries$AIC
+analysis_summaries %>% add_column(AIC = 0, DATA = 0, FRML = 0) %>%
+gh
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries)#
+analysis_summaries <- setNames(analysis_summaries, c("DIDX", "FIDX"))#
+analysis_summaries %>% add_column(AIC = 0, DATA = 0, FRML = 0)
+analysis_summaries$AIC %<>% as.integer
+analysis_summaries$DATA %<>% as.character
+analysis_summaries$AIC
+analysis_summaries$
+AIC
+analysis_summaries$AIC
+analysis_summaries %>% add_column(AIC = 1, DATA = 1, FRML = 1)
+analysis_summaries$AIC %<>% as.integer
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries)#
+analysis_summaries <- setNames(analysis_summaries, c("DIDX", "FIDX"))#
+analysis_summaries <- analysis_summaries %>% add_column(AIC = 1, DATA = 1, FRML = 1)
+analysis_summaries
+analysis_summaries$AIC %<>% as.integer#
+analysis_summaries$DATA %<>% as.character#
+analysis_summaries$AIC %<>% as.integer
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries)#
+analysis_summaries <- setNames(analysis_summaries, c("DIDX", "FIDX"))#
+analysis_summaries <- analysis_summaries %>% add_column(AIC = 0, DATA = 0, FRML = 0)#
+analysis_summaries$AIC  %<>% as.integer#
+analysis_summaries$DATA %<>% as.character#
+analysis_summaries$FRML  %<>% as.formula
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries)#
+analysis_summaries <- setNames(analysis_summaries, c("DIDX", "FIDX"))#
+analysis_summaries <- analysis_summaries %>% add_column(AIC = 0, DATA = 0, FRML = 0)#
+analysis_summaries$AIC  %<>% as.integer#
+analysis_summaries$DATA %<>% as.character#
+analysis_summaries$FRML  %<>% as.character
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries)#
+analysis_summaries <- setNames(analysis_summaries, c("DIDX", "FIDX"))#
+analysis_summaries <- analysis_summaries %>% add_column(AIC = 0, DATA = 0, FRML = 0)
+analysis_summaries$AIC  %<>% as.integer#
+analysis_summaries$DATA %<>% as.character#
+analysis_summaries$FRML  %<>% as.character
+analysis_summaries
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries)#
+analysis_summaries <- setNames(analysis_summaries, c("DIDX", "FIDX"))#
+analysis_summaries <- analysis_summaries %>% add_column(AIC = 0, DATA = 0, FRML = 0, SIGN = 0)#
+#
+analysis_summaries$AIC  %<>% as.double#
+analysis_summaries$DATA %<>% as.character#
+analysis_summaries$FRML  %<>% as.character
+#' ---#
+#' output: "pdf_document"#
+#' title: "Apply Mixed Effect Models to Extended Modelling Input Data"#
+#' name: "Paul Czechowski"#
+#' date: "31-January-2020"#
+#' toc: "true"#
+#' highlight: "zenburn"#
+#' ---#
+#' #
+#' # Preamble#
+#' #
+#' This script version tests the influence of environmental data and #
+#' the influence of voyages against biological responses. This script#
+#' only considers port in between which routes are present, such ports are#
+#' fewer the ports which have environmental distances available. (All ports #
+#' with measurements have environmental distances available.)#
+#'#
+#' This script needs all R scripts named `500_*.R` to have run successfully,#
+#' apart from `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`#
+#' It should then be called using a shell script. It will only accept certain files#
+#' currently, and otherwise abort. For further information understand section Environment#
+#' preparation. Also check `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh`#
+#'#
+#' This code commentary is included in the R code itself and can be rendered at#
+#' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE)`.#
+#' Please check the session info at the end of the document for further #
+#' notes on the coding environment.#
+#' #
+#' # Environment preparation#
+#'#
+#' Empty buffer.#
+#
+rm(list=ls())#
+#
+#' Load Packages#
+#
+library ("tidyverse") # dplyr and friends#
+library ("ggplot2")   # for ggCaterpillar#
+library ("gdata")     # matrix functions#
+library ("reshape2")  # melting#
+library ("lme4")      # mixed effect model#
+library ("sjPlot")    # mixed effect model - with plotting#
+library ("cowplot")   # exporting ggplots#
+library ("formula.tools") # better formatting of formulas#
+library ("stringr")    # better string concatenation#
+library ("magrittr")  # back-piping (only used for type conversion)#
+#' Functions#
+#
+# Loaded from helper script:#
+source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")#
+#
+#' "Not in" function#
+`%!in%` = Negate(`%in%`)#
+#
+#' Function to subset data to fit model variables. Currently there are more #
+#' incomplete cases among Notre-Dame predictors then among Cornell predictors.#
+#' Consider running an extra analysis \n with Cornell data trimmed so as to match Notre Dame data.#
+match_data_to_formula <- function (formula_item, data_item){#
+  # package loading#
+  require ("tidyverse")#
+  # message#
+  message("\nData is subset to fit model variables, but currently there are more incomplete cases among Notre-Dame predictors then among Cornell predictors. Consider running an extra analysis with Cornell data trimmed so as to match Notre Dame data.")#
+  # Setting types#
+  #   for debugging only#
+  # print(head(data_item))#
+  message("- Setting types.")#
+  cols <- c("PORT", "DEST", "ECO_PORT", "ECO_DEST", "ECO_DIFF")#
+  data_item[cols] <- lapply(data_item[cols], as.factor)  #
+#
+  #   for debugging only#
+  # print(head(data_item))#
+  # remove superflous columns#
+  vars_to_keep <- all.vars (formula_item)#
+#
+  message("- Input dimensions are: ", paste0( (dim(data_item)), " "),  ".")#
+  message("- Removed variables are: ", paste0( names(data_item)[which(names(data_item) %!in% vars_to_keep)], " "), ".")#
+  message("- Kept variables are: ", paste0(vars_to_keep, " "), ".")#
+  data_item <- data_item %>% select(vars_to_keep)#
+#
+  message("- Intermediate dimensions are: ", paste0( (dim(data_item)), " "), ".")#
+  # remove superflous rows#
+  message("- Undefined rows have been removed, assuming they were real \"NA\" and not \"0\".")#
+  data_item %>% na.omit#
+  message("- Final dimensions are: ", paste0( (dim(data_item)), " "), ".")#
+  # return table object suitable for modelling with model formula#
+  return(data_item)#
+#
+}#
+#
+#' Calculate random effect model results#
+calculate_model <- function(formula_item, data_item){#
+  message("\nModelling function received variables: ", paste0(names(data_item) , " "), ".")#
+  message("   ... dimensions: ", paste0( (dim(data_item)), " "), ".")#
+  message("   ... formula: ", paste0(formula_item , " "), "." )#
+  model <- lmer(formula_item, data = data_item, REML=FALSE)#
+#
+  return(model)#
+}#
+#
+#' # Model definitions#
+#' #
+#' ##  Define full models#
+#'#
+#' following `https://stackoverflow.com/questions/25312818/using-lapply-to-fit-multiple-model-how-to-keep-the-model-formula-self-contain`#
+#
+full_formulae <- list(#
+  # Original formula used by Paul:#
+  # Unifrac ~ Voyage counts  + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_TRIPS + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+#
+  # Original formula adjusted with Mandana's frequencies:#
+  # Unifrac ~ Voyage frequencies + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ VOY_FREQ + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+#
+  # Formulas from Word document with Mandana's ballast risk estimates:#
+  # Unifrac ~ Ballast FON shipping + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ B_FON_NOECO + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+#
+  # Unifrac ~ Ballast HON shipping + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ B_HON_NOECO + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+#
+  # Unifrac ~ Ballast FON risk* + ~~ecoregion~~ / env similarity + random port effects#
+  as.formula(RESP_UNIFRAC ~ B_FON_SMECO + (1 | PORT) + (1 | DEST)),#
+#
+  # Unifrac ~ Ballast HON risk* + ~~ecoregion~~ / env similarity + random port effects#
+  as.formula(RESP_UNIFRAC ~ B_HON_SMECO + (1 | PORT) + (1 | DEST))#
+)#
+#
+#' #
+#' ##  Define null models#
+#'#
+#' For Anova comparison. Order *must* be the same as in list `full_models`.#
+#
+null_formulae <- list(#
+  # Original formula used by Paul:#
+  # Unifrac ~ Voyage counts  + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+#
+  # Original formula adjusted with Mandana's frequencies:#
+  # Unifrac ~ Voyage frequencies + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+#
+  # Formulas from Word document with Mandana's ballast risk estimates:#
+  # Unifrac ~ Ballast FON shipping + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+#
+  # Unifrac ~ Ballast HON shipping + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+#
+  # Unifrac ~ Ballast FON risk* + ~~ecoregion~~ / env similarity + random port effects#
+  # message("Considering only random effects in null model - unsure if this is possible.")#
+  as.formula(RESP_UNIFRAC ~ (1 | PORT) + (1 | DEST)),#
+#
+  # Unifrac ~ Ballast HON risk* + ~~ecoregion~~ / env similarity + random port effects#
+  # message("Considering only random effects in null model - unsure if this is possible.")#
+  as.formula(RESP_UNIFRAC ~ (1 | PORT) + (1 | DEST))#
+)#
+#
+#' # Read in and format data#
+#'#
+#' Please refer to project README.md file for further details on previous processing steps (dated 31-Jan-2020). #
+#
+# define file path components for listing #
+model_input_folder <- "/Users/paul/Documents/CU_combined/Zenodo/Results"#
+model_input_pattern <- glob2rx("??_results_euk_*_model_data_*.csv")#
 #
 # read all file into lists for `lapply()` usage#
-blast_results_files <- list.files(path=blast_results_folder, pattern = blast_results_pattern, full.names = TRUE)
-plan(multiprocess) # enable #
-blast_results_list <- furrr::future_map(blast_results_files, blastxml_dump, form = "tibble", .progress = TRUE) # takes 7-10 hours on four cores - avoid by reloading full object from disk #
-# save(blast_results_list, file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/191009_main_results_calculations__blast_results_list.Rdata")#
-# load(file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/191009_main_results_calculations__blast_results_list.Rdata", verbose = TRUE)#
-names(blast_results_list) <- blast_results_files # works
-blast_results_list %>% bind_rows(, .id = "src" )
-load(file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/191009_main_results_calculations__blast_results_list.Rdata", verbose = TRUE)
-names(blast_results_list) <- blast_results_files # works
-blast_results_list %>% bind_rows(, .id = "src" )
-blast_results_list %>% bind_rows(, .id = "src" ) %>%        # add source file names as column elements#
-                       clean_names(.) %>%                   # clean columns names #
-                       group_by(iteration_query_def) %>%    # isolate groups of hits per sequence hash#
-                       slice(which.max(hsp_bit_score)) -> blast_results # save subset
-q()
+model_input_files <- list.files(path=model_input_folder, #
+  pattern = model_input_pattern, full.names = TRUE)#
+#
+# store all tables in list and save input filenames alongside - skipping "X1" #
+#  in case previous tables have column numbers, which they should not have anymore.#
+model_input_data <- suppressWarnings(lapply(model_input_files, #
+  function(listed_file)  read_csv(listed_file, col_types = cols('X1' = col_skip()))))#
+names(model_input_data) <- model_input_files#
+#
+#' # Obtain modelling results#
+#'#
+#
+# use this approach to get around the loop - later#
+# define all possible combinations for mapply call#
+# for later - starting point#
+# analysis_combinations <- expand.grid(seq(model_input_data), seq(full_formulae))#
+# setNames(analysis_combinations, c("model_index", "formula_index"))#
+# for later - starting point#
+# list(model_input_data, full_formulae)#
+# initialize results table so that it can be filled in the loop#
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries)#
+analysis_summaries <- setNames(analysis_summaries, c("DIDX", "FIDX"))#
+analysis_summaries <- analysis_summaries %>% add_column(AIC = 0, DATA = 0, FRML = 0, SIGN = 0)#
+#
+analysis_summaries$AIC  %<>% as.double#
+analysis_summaries$DATA %<>% as.character#
+analysis_summaries$FRML  %<>% as.character#
+analysis_summaries$SIGN  %<>% as.double
+analysis_summaries[1, 1]
+analysis_summaries[1, 2]
+as.vector(analysis_summaries[1, 1])
+as.integer(analysis_summaries[1, 1])
+as.integer(analysis_summaries[1, 2])
+#' ---#
+#' output: "pdf_document"#
+#' title: "Apply Mixed Effect Models to Extended Modelling Input Data"#
+#' name: "Paul Czechowski"#
+#' date: "31-January-2020"#
+#' toc: "true"#
+#' highlight: "zenburn"#
+#' ---#
+#' #
+#' # Preamble#
+#' #
+#' This script version tests the influence of environmental data and #
+#' the influence of voyages against biological responses. This script#
+#' only considers port in between which routes are present, such ports are#
+#' fewer the ports which have environmental distances available. (All ports #
+#' with measurements have environmental distances available.)#
+#'#
+#' This script needs all R scripts named `500_*.R` to have run successfully,#
+#' apart from `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`#
+#' It should then be called using a shell script. It will only accept certain files#
+#' currently, and otherwise abort. For further information understand section Environment#
+#' preparation. Also check `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh`#
+#'#
+#' This code commentary is included in the R code itself and can be rendered at#
+#' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE)`.#
+#' Please check the session info at the end of the document for further #
+#' notes on the coding environment.#
+#' #
+#' # Environment preparation#
+#'#
+#' Empty buffer.#
+#
+rm(list=ls())#
+#
+#' Load Packages#
+#
+library ("tidyverse") # dplyr and friends#
+library ("ggplot2")   # for ggCaterpillar#
+library ("gdata")     # matrix functions#
+library ("reshape2")  # melting#
+library ("lme4")      # mixed effect model#
+library ("sjPlot")    # mixed effect model - with plotting#
+library ("cowplot")   # exporting ggplots#
+library ("formula.tools") # better formatting of formulas#
+library ("stringr")    # better string concatenation#
+library ("magrittr")  # back-piping (only used for type conversion)#
+#' Functions#
+#
+# Loaded from helper script:#
+source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")#
+#
+#' "Not in" function#
+`%!in%` = Negate(`%in%`)#
+#
+#' Function to subset data to fit model variables. Currently there are more #
+#' incomplete cases among Notre-Dame predictors then among Cornell predictors.#
+#' Consider running an extra analysis \n with Cornell data trimmed so as to match Notre Dame data.#
+match_data_to_formula <- function (formula_item, data_item){#
+  # package loading#
+  require ("tidyverse")#
+  # message#
+  message("\nData is subset to fit model variables, but currently there are more incomplete cases among Notre-Dame predictors then among Cornell predictors. Consider running an extra analysis with Cornell data trimmed so as to match Notre Dame data.")#
+  # Setting types#
+  #   for debugging only#
+  # print(head(data_item))#
+  message("- Setting types.")#
+  cols <- c("PORT", "DEST", "ECO_PORT", "ECO_DEST", "ECO_DIFF")#
+  data_item[cols] <- lapply(data_item[cols], as.factor)  #
+#
+  #   for debugging only#
+  # print(head(data_item))#
+  # remove superflous columns#
+  vars_to_keep <- all.vars (formula_item)#
+#
+  message("- Input dimensions are: ", paste0( (dim(data_item)), " "),  ".")#
+  message("- Removed variables are: ", paste0( names(data_item)[which(names(data_item) %!in% vars_to_keep)], " "), ".")#
+  message("- Kept variables are: ", paste0(vars_to_keep, " "), ".")#
+  data_item <- data_item %>% select(vars_to_keep)#
+#
+  message("- Intermediate dimensions are: ", paste0( (dim(data_item)), " "), ".")#
+  # remove superflous rows#
+  message("- Undefined rows have been removed, assuming they were real \"NA\" and not \"0\".")#
+  data_item %>% na.omit#
+  message("- Final dimensions are: ", paste0( (dim(data_item)), " "), ".")#
+  # return table object suitable for modelling with model formula#
+  return(data_item)#
+#
+}#
+#
+#' Calculate random effect model results#
+calculate_model <- function(formula_item, data_item){#
+  message("\nModelling function received variables: ", paste0(names(data_item) , " "), ".")#
+  message("   ... dimensions: ", paste0( (dim(data_item)), " "), ".")#
+  message("   ... formula: ", paste0(formula_item , " "), "." )#
+  model <- lmer(formula_item, data = data_item, REML=FALSE)#
+#
+  return(model)#
+}#
+#
+#' # Model definitions#
+#' #
+#' ##  Define full models#
+#'#
+#' following `https://stackoverflow.com/questions/25312818/using-lapply-to-fit-multiple-model-how-to-keep-the-model-formula-self-contain`#
+#
+full_formulae <- list(#
+  # as per email 04.02.2020#
+  # Unifrac ~ VOY_FREQ + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ VOY_FREQ + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_FON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ B_FON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_HON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ B_HON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))#
+)#
+#
+#' #
+#' ##  Define null models#
+#'#
+#' For Anova comparison. Order *must* be the same as in list `full_models`.#
+#
+null_formulae <- list(#
+  # as per email 04.02.2020#
+  # Unifrac ~ VOY_FREQ + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_FON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_HON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))#
+)#
+#
+#' # Read in and format data#
+#'#
+#' Please refer to project README.md file for further details on previous processing steps (dated 31-Jan-2020). #
+#
+# define file path components for listing #
+model_input_folder <- "/Users/paul/Documents/CU_combined/Zenodo/Results"#
+model_input_pattern <- glob2rx("??_results_euk_*_model_data_*.csv")#
+#
+# read all file into lists for `lapply()` usage#
+model_input_files <- list.files(path=model_input_folder, #
+  pattern = model_input_pattern, full.names = TRUE)#
+#
+# store all tables in list and save input filenames alongside - skipping "X1" #
+#  in case previous tables have column numbers, which they should not have anymore.#
+model_input_data <- suppressWarnings(lapply(model_input_files, #
+  function(listed_file)  read_csv(listed_file, col_types = cols('X1' = col_skip()))))#
+names(model_input_data) <- model_input_files#
+#' # Obtaining modelling results#
+#'#
+#' ## Initialize results table#
+#' #
+#' So that it can be filled in the loop.#
+#
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries)#
+analysis_summaries <- setNames(analysis_summaries, c("DIDX", "FIDX"))#
+analysis_summaries <- analysis_summaries %>% add_column(AIC = 0, DATA = 0, FRML = 0, SIGN = 0)#
+#
+analysis_summaries$AIC  %<>% as.double#
+analysis_summaries$DATA %<>% as.character#
+analysis_summaries$FRML  %<>% as.character#
+analysis_summaries$SIGN  %<>% as.double
+# loop over formulae#
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(full_model, null_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+   basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+#
+  }#
+}
+model_data
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+   basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+#
+  }#
+}
+?break()
+next
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data)#
+  next#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+   basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+#
+  }#
+}
+#' with measurements have environmental distances available.)#
+#'#
+#' This script needs all R scripts named `500_*.R` to have run successfully,#
+#' apart from `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`#
+#' It should then be called using a shell script. It will only accept certain files#
+#' currently, and otherwise abort. For further information understand section Environment#
+#' preparation. Also check `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh`#
+#'#
+#' This code commentary is included in the R code itself and can be rendered at#
+#' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE)`.#
+#' Please check the session info at the end of the document for further #
+#' notes on the coding environment.#
+#' #
+#' # Environment preparation#
+#'#
+#' Empty buffer.#
+#
+rm(list=ls())#
+#
+#' Load Packages#
+#
+library ("tidyverse") # dplyr and friends#
+library ("ggplot2")   # for ggCaterpillar#
+library ("gdata")     # matrix functions#
+library ("reshape2")  # melting#
+library ("lme4")      # mixed effect model#
+library ("sjPlot")    # mixed effect model - with plotting#
+library ("cowplot")   # exporting ggplots#
+library ("formula.tools") # better formatting of formulas#
+library ("stringr")    # better string concatenation#
+library ("magrittr")  # back-piping (only used for type conversion)#
+#' Functions#
+#
+# Loaded from helper script:#
+source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")#
+#
+#' "Not in" function#
+`%!in%` = Negate(`%in%`)#
+#
+#' Function to subset data to fit model variables. Currently there are more #
+#' incomplete cases among Notre-Dame predictors then among Cornell predictors.#
+#' Consider running an extra analysis \n with Cornell data trimmed so as to match Notre Dame data.#
+match_data_to_formula <- function (formula_item, data_item){#
+  # package loading#
+  require ("tidyverse")#
+  # message#
+  message("\nData is subset to fit model variables, but currently there are more incomplete cases among Notre-Dame predictors then among Cornell predictors. Consider running an extra analysis with Cornell data trimmed so as to match Notre Dame data.")#
+  # Setting types#
+  #   for debugging only#
+  # print(head(data_item))#
+  message("- Setting types.")#
+  cols <- c("PORT", "DEST", "ECO_PORT", "ECO_DEST", "ECO_DIFF")#
+  data_item[cols] <- lapply(data_item[cols], as.factor)  #
+#
+  #   for debugging only#
+  # print(head(data_item))#
+  # remove superflous columns#
+  vars_to_keep <- all.vars (formula_item)#
+#
+  message("- Input dimensions are: ", paste0( (dim(data_item)), " "),  ".")#
+  message("- Removed variables are: ", paste0( names(data_item)[which(names(data_item) %!in% vars_to_keep)], " "), ".")#
+  message("- Kept variables are: ", paste0(vars_to_keep, " "), ".")#
+  data_item <- data_item %>% select(vars_to_keep)#
+#
+  message("- Intermediate dimensions are: ", paste0( (dim(data_item)), " "), ".")#
+  # remove superflous rows#
+  message("- Undefined rows have been removed, assuming they were real \"NA\" and not \"0\".")#
+  data_item %>% na.omit#
+  message("- Final dimensions are: ", paste0( (dim(data_item)), " "), ".")#
+  # return table object suitable for modelling with model formula#
+  return(data_item)#
+#
+}#
+#
+#' Calculate random effect model results#
+calculate_model <- function(formula_item, data_item){#
+  message("\nModelling function received variables: ", paste0(names(data_item) , " "), ".")#
+  message("   ... dimensions: ", paste0( (dim(data_item)), " "), ".")#
+  message("   ... formula: ", paste0(formula_item , " "), "." )#
+  model <- lmer(formula_item, data = data_item, REML=FALSE)#
+#
+  return(model)#
+}#
+#
+#' # Model definitions#
+#' #
+#' ##  Define full models#
+#'#
+#' following `https://stackoverflow.com/questions/25312818/using-lapply-to-fit-multiple-model-how-to-keep-the-model-formula-self-contain`#
+#
+full_formulae <- list(#
+  # as per email 04.02.2020#
+  # Unifrac ~ VOY_FREQ + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ VOY_FREQ + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_FON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ B_FON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_HON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ B_HON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))#
+)#
+#
+#' #
+#' ##  Define null models#
+#'#
+#' For Anova comparison. Order *must* be the same as in list `full_models`.#
+#
+null_formulae <- list(#
+  # as per email 04.02.2020#
+  # Unifrac ~ VOY_FREQ + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_FON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_HON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))#
+)#
+#
+#' # Read in and format data#
+#'#
+#' Please refer to project README.md file for further details on previous processing steps (dated 31-Jan-2020). #
+#
+# define file path components for listing #
+model_input_folder <- "/Users/paul/Documents/CU_combined/Zenodo/Results"#
+model_input_pattern <- glob2rx("??_results_euk_*_model_data_*.csv")#
+#
+# read all file into lists for `lapply()` usage#
+model_input_files <- list.files(path=model_input_folder, #
+  pattern = model_input_pattern, full.names = TRUE)#
+#
+# store all tables in list and save input filenames alongside - skipping "X1" #
+#  in case previous tables have column numbers, which they should not have anymore.#
+model_input_data <- suppressWarnings(lapply(model_input_files, #
+  function(listed_file)  read_csv(listed_file, col_types = cols('X1' = col_skip()))))#
+names(model_input_data) <- model_input_files#
+#' # Obtaining modelling results#
+#'#
+#' ## Initialize results table#
+#' #
+#' So that it can be filled in the loop.#
+#
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries)#
+analysis_summaries <- setNames(analysis_summaries, c("DIDX", "FIDX"))#
+analysis_summaries <- analysis_summaries %>% add_column(AIC = 0, DATA = 0, FRML = 0, SIGN = 0)#
+#
+analysis_summaries$AIC  %<>% as.double#
+analysis_summaries$DATA %<>% as.character#
+analysis_summaries$FRML  %<>% as.character#
+analysis_summaries$SIGN  %<>% as.double#
+#
+# data sets are at #
+as.integer(analysis_summaries[1, 1])#
+#
+# formulas are at #
+as.integer(analysis_summaries[1, 2])#
+#
+# use this approach to get around the loop - later#
+#   define all possible combinations for mapply call#
+#   for later - starting point#
+#   analysis_combinations <- expand.grid(seq(model_input_data), seq(full_formulae))#
+#   setNames(analysis_combinations, c("model_index", "formula_index"))#
+#   for later - starting point#
+#   list(model_input_data, full_formulae)#
+#
+#'#
+#' ## Calculating Results#
+#' #
+#' Initially using loops, for sanity reasons. While looping fill results table#
+#' `analysis_summaries`.#
+#
+# loop over formulae#
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data)#
+  next#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+   basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+#
+  }#
+}
+match_data_to_formula <- function (formula_item, data_item){#
+  # package loading#
+  require ("tidyverse")#
+  # message#
+  message("\nData is subset to fit model variables, but currently there are more incomplete cases among Notre-Dame predictors then among Cornell predictors. Consider running an extra analysis with Cornell data trimmed so as to match Notre Dame data.")#
+  # Setting types#
+  #   for debugging only#
+  # print(head(data_item))#
+  message("- Setting types.")#
+  cols <- c("PORT", "DEST", "ECO_PORT", "ECO_DEST", "ECO_DIFF")#
+  data_item[cols] <- lapply(data_item[cols], as.factor)  #
+#
+  #   for debugging only#
+  # print(head(data_item))#
+  # remove superflous columns#
+  vars_to_keep <- all.vars (formula_item)#
+#
+  message("- Input dimensions are: ", paste0( (dim(data_item)), " "),  ".")#
+  message("- Removed variables are: ", paste0( names(data_item)[which(names(data_item) %!in% vars_to_keep)], " "), ".")#
+  message("- Kept variables are: ", paste0(vars_to_keep, " "), ".")#
+  data_item <- data_item %>% select(vars_to_keep)#
+#
+  message("- Intermediate dimensions are: ", paste0( (dim(data_item)), " "), ".")#
+  # remove superflous rows#
+  message("- Undefined rows have been removed, assuming they were real \"NA\" and not \"0\".")#
+  data_item <- data_item %>% filter(complete.cases(.))#
+  message("- Final dimensions are: ", paste0( (dim(data_item)), " "), ".")#
+  # return table object suitable for modelling with model formula#
+  return(data_item)#
+#
+}
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data)#
+  next#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+   basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+#
+  }#
+}
+print(model_data, n = Inf)
+# loop over formulae#
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)#
+  # next#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+   basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+#
+  }#
+}
+#' ---#
+#' output: "pdf_document"#
+#' title: "Apply Mixed Effect Models to Extended Modelling Input Data"#
+#' name: "Paul Czechowski"#
+#' date: "31-January-2020"#
+#' toc: "true"#
+#' highlight: "zenburn"#
+#' ---#
+#' #
+#' # Preamble#
+#' #
+#' This script version tests the influence of environmental data and #
+#' the influence of voyages against biological responses. This script#
+#' only considers port in between which routes are present, such ports are#
+#' fewer the ports which have environmental distances available. (All ports #
+#' with measurements have environmental distances available.)#
+#'#
+#' This script needs all R scripts named `500_*.R` to have run successfully,#
+#' apart from `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`#
+#' It should then be called using a shell script. It will only accept certain files#
+#' currently, and otherwise abort. For further information understand section Environment#
+#' preparation. Also check `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh`#
+#'#
+#' This code commentary is included in the R code itself and can be rendered at#
+#' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE)`.#
+#' Please check the session info at the end of the document for further #
+#' notes on the coding environment.#
+#' #
+#' # Environment preparation#
+#'#
+#' Empty buffer.#
+#
+rm(list=ls())#
+#
+#' Load Packages#
+#
+library ("tidyverse") # dplyr and friends#
+library ("ggplot2")   # for ggCaterpillar#
+library ("gdata")     # matrix functions#
+library ("reshape2")  # melting#
+library ("lme4")      # mixed effect model#
+library ("sjPlot")    # mixed effect model - with plotting#
+library ("cowplot")   # exporting ggplots#
+library ("formula.tools") # better formatting of formulas#
+library ("stringr")    # better string concatenation#
+library ("magrittr")  # back-piping (only used for type conversion)#
+#' Functions#
+#
+# Loaded from helper script:#
+source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")#
+#
+#' "Not in" function#
+`%!in%` = Negate(`%in%`)#
+#
+#' Function to subset data to fit model variables. Currently there are more #
+#' incomplete cases among Notre-Dame predictors then among Cornell predictors.#
+#' Consider running an extra analysis \n with Cornell data trimmed so as to match Notre Dame data.#
+match_data_to_formula <- function (formula_item, data_item){#
+  # package loading#
+  require ("tidyverse")#
+  # message#
+  message("\nData is subset to fit model variables, but currently there are more incomplete cases among Notre-Dame predictors then among Cornell predictors. Consider running an extra analysis with Cornell data trimmed so as to match Notre Dame data.")#
+  # Setting types#
+  #   for debugging only#
+  # print(head(data_item))#
+  message("- Setting types.")#
+  cols <- c("PORT", "DEST", "ECO_PORT", "ECO_DEST", "ECO_DIFF")#
+  data_item[cols] <- lapply(data_item[cols], as.factor)  #
+#
+  #   for debugging only#
+  # print(head(data_item))#
+  # remove superflous columns#
+  vars_to_keep <- all.vars (formula_item)#
+#
+  message("- Input dimensions are: ", paste0( (dim(data_item)), " "),  ".")#
+  message("- Removed variables are: ", paste0( names(data_item)[which(names(data_item) %!in% vars_to_keep)], " "), ".")#
+  message("- Kept variables are: ", paste0(vars_to_keep, " "), ".")#
+  data_item <- data_item %>% select(vars_to_keep)#
+#
+  message("- Intermediate dimensions are: ", paste0( (dim(data_item)), " "), ".")#
+  # remove superflous rows#
+  message("- Undefined rows have been removed, assuming they were real \"NA\" and not \"0\".")#
+  data_item <- data_item %>% filter(complete.cases(.))#
+  message("- Final dimensions are: ", paste0( (dim(data_item)), " "), ".")#
+  # return table object suitable for modelling with model formula#
+  return(data_item)#
+#
+}#
+#
+#' Calculate random effect model results#
+calculate_model <- function(formula_item, data_item){#
+  message("\nModelling function received variables: ", paste0(names(data_item) , " "), ".")#
+  message("   ... dimensions: ", paste0( (dim(data_item)), " "), ".")#
+  message("   ... formula: ", paste0(formula_item , " "), "." )#
+  model <- lmer(formula_item, data = data_item, REML=FALSE)#
+#
+  return(model)#
+}#
+#
+#' # Model definitions#
+#' #
+#' ##  Define full models#
+#'#
+#' following `https://stackoverflow.com/questions/25312818/using-lapply-to-fit-multiple-model-how-to-keep-the-model-formula-self-contain`#
+#
+full_formulae <- list(#
+  # as per email 04.02.2020#
+  # Unifrac ~ VOY_FREQ + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ VOY_FREQ + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_FON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ B_FON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_HON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ B_HON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))#
+)#
+#
+#' #
+#' ##  Define null models#
+#'#
+#' For Anova comparison. Order *must* be the same as in list `full_models`.#
+#
+null_formulae <- list(#
+  # as per email 04.02.2020#
+  # Unifrac ~ VOY_FREQ + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_FON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_HON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))#
+)#
+#
+#' # Read in and format data#
+#'#
+#' Please refer to project README.md file for further details on previous processing steps (dated 31-Jan-2020). #
+#
+# define file path components for listing #
+model_input_folder <- "/Users/paul/Documents/CU_combined/Zenodo/Results"#
+model_input_pattern <- glob2rx("??_results_euk_*_model_data_*.csv")#
+#
+# read all file into lists for `lapply()` usage#
+model_input_files <- list.files(path=model_input_folder, #
+  pattern = model_input_pattern, full.names = TRUE)#
+#
+# store all tables in list and save input filenames alongside - skipping "X1" #
+#  in case previous tables have column numbers, which they should not have anymore.#
+model_input_data <- suppressWarnings(lapply(model_input_files, #
+  function(listed_file)  read_csv(listed_file, col_types = cols('X1' = col_skip()))))#
+names(model_input_data) <- model_input_files#
+#' # Obtaining modelling results#
+#'#
+#' ## Initialize results table#
+#' #
+#' So that it can be filled in the loop.#
+#
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries)#
+analysis_summaries <- setNames(analysis_summaries, c("DIDX", "FIDX"))#
+analysis_summaries <- analysis_summaries %>% add_column(AIC = 0, DATA = 0, FRML = 0, SIGN = 0)#
+#
+analysis_summaries$AIC  %<>% as.double#
+analysis_summaries$DATA %<>% as.character#
+analysis_summaries$FRML  %<>% as.character#
+analysis_summaries$SIGN  %<>% as.double#
+#
+# data sets are at #
+as.integer(analysis_summaries[1, 1])#
+#
+# formulas are at #
+as.integer(analysis_summaries[1, 2])#
+#
+# use this approach to get around the loop - later#
+#   define all possible combinations for mapply call#
+#   for later - starting point#
+#   analysis_combinations <- expand.grid(seq(model_input_data), seq(full_formulae))#
+#   setNames(analysis_combinations, c("model_index", "formula_index"))#
+#   for later - starting point#
+#   list(model_input_data, full_formulae)#
+#
+#'#
+#' ## Calculating Results#
+#' #
+#' Initially using loops, for sanity reasons. While looping fill results table#
+#' `analysis_summaries`.#
+#
+# loop over formulae#
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)#
+  # next#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+   basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+#
+  }#
+}
+?isSingular
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE)`
+``
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE)
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, 'html_document')
+rmarkdown::render("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", 'html_document')
+rmarkdown::render('/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R', 'html_document')
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, 'html_document')
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, html_document)
+?render()
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, output_format = html_document)
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, output_format = html_document())
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, output_format = NULL). run_pandoc = TRUE
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, output_format = NULL), run_pandoc = TRUE
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, output_format = NULL, run_pandoc = TRUE)
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE)
+any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE)
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE)
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, run_pandoc = TRUE, output_format = html_document)
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, run_pandoc = TRUE, output_format = "html_document")
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, run_pandoc = TRUE)`
+`
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, run_pandoc = TRUE)
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, run_pandoc = FALSE)
+#' ---#
+#' title: "Apply Mixed Effect Models to Extended Modelling Input Data"#
+#' output: #
+#'   html_document:#
+#'   toc: true#
+#'   toc_float: true#
+#'   toc_collapsed: true#
+#' toc_depth: 3#
+#' number_sections: true#
+#' theme: lumen#
+#' ---#
+#' # Preamble#
+#' #
+#' This script version tests the influence of environmental data and #
+#' the influence of voyages against biological responses. This script#
+#' only considers port in between which routes are present, such ports are#
+#' fewer the ports which have environmental distances available. (All ports #
+#' with measurements have environmental distances available.)#
+#'#
+#' This script needs all R scripts named `500_*.R` to have run successfully,#
+#' apart from `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`#
+#' It should then be called using a shell script. It will only accept certain files#
+#' currently, and otherwise abort. For further information understand section Environment#
+#' preparation. Also check `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh`#
+#'#
+#' This code commentary is included in the R code itself and can be rendered at#
+#' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, run_pandoc = FALSE)`.#
+#' Please check the session info at the end of the document for further #
+#' notes on the coding environment.#
+#' #
+#' # Environment preparation#
+#'#
+#' Empty buffer.#
+#
+rm(list=ls())#
+#
+#' Load Packages#
+#
+library ("tidyverse") # dplyr and friends#
+library ("ggplot2")   # for ggCaterpillar#
+library ("gdata")     # matrix functions#
+library ("reshape2")  # melting#
+library ("lme4")      # mixed effect model#
+library ("sjPlot")    # mixed effect model - with plotting#
+library ("cowplot")   # exporting ggplots#
+library ("formula.tools") # better formatting of formulas#
+library ("stringr")    # better string concatenation#
+library ("magrittr")  # back-piping (only used for type conversion)#
+#' Functions#
+#
+# Loaded from helper script:#
+source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")#
+#
+#' "Not in" function#
+`%!in%` = Negate(`%in%`)#
+#
+#' Function to subset data to fit model variables. Currently there are more #
+#' incomplete cases among Notre-Dame predictors then among Cornell predictors.#
+#' Consider running an extra analysis \n with Cornell data trimmed so as to match Notre Dame data.#
+match_data_to_formula <- function (formula_item, data_item){#
+  # package loading#
+  require ("tidyverse")#
+  # message#
+  message("\nData is subset to fit model variables, but currently there are more incomplete cases among Notre-Dame predictors then among Cornell predictors. Consider running an extra analysis with Cornell data trimmed so as to match Notre Dame data.")#
+  # Setting types#
+  #   for debugging only#
+  # print(head(data_item))#
+  message("- Setting types.")#
+  cols <- c("PORT", "DEST", "ECO_PORT", "ECO_DEST", "ECO_DIFF")#
+  data_item[cols] <- lapply(data_item[cols], as.factor)  #
+#
+  #   for debugging only#
+  # print(head(data_item))#
+  # remove superflous columns#
+  vars_to_keep <- all.vars (formula_item)#
+#
+  message("- Input dimensions are: ", paste0( (dim(data_item)), " "),  ".")#
+  message("- Removed variables are: ", paste0( names(data_item)[which(names(data_item) %!in% vars_to_keep)], " "), ".")#
+  message("- Kept variables are: ", paste0(vars_to_keep, " "), ".")#
+  data_item <- data_item %>% select(vars_to_keep)#
+#
+  message("- Intermediate dimensions are: ", paste0( (dim(data_item)), " "), ".")#
+  # remove superflous rows#
+  message("- Undefined rows have been removed, assuming they were real \"NA\" and not \"0\".")#
+  data_item <- data_item %>% filter(complete.cases(.))#
+  message("- Final dimensions are: ", paste0( (dim(data_item)), " "), ".")#
+  # return table object suitable for modelling with model formula#
+  return(data_item)#
+#
+}#
+#
+#' Calculate random effect model results#
+calculate_model <- function(formula_item, data_item){#
+  message("\nModelling function received variables: ", paste0(names(data_item) , " "), ".")#
+  message("   ... dimensions: ", paste0( (dim(data_item)), " "), ".")#
+  message("   ... formula: ", paste0(formula_item , " "), "." )#
+  model <- lmer(formula_item, data = data_item, REML=FALSE)#
+#
+  return(model)#
+}#
+#
+#' # Model definitions#
+#' #
+#' ##  Define full models#
+#'#
+#' following `https://stackoverflow.com/questions/25312818/using-lapply-to-fit-multiple-model-how-to-keep-the-model-formula-self-contain`#
+#
+full_formulae <- list(#
+  # as per email 04.02.2020#
+  # Unifrac ~ VOY_FREQ + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ VOY_FREQ + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_FON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ B_FON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_HON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ B_HON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))#
+)#
+#
+#' #
+#' ##  Define null models#
+#'#
+#' For Anova comparison. Order *must* be the same as in list `full_models`.#
+#
+null_formulae <- list(#
+  # as per email 04.02.2020#
+  # Unifrac ~ VOY_FREQ + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_FON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_HON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))#
+)#
+#
+#' # Read in and format data#
+#'#
+#' Please refer to project README.md file for further details on previous processing steps (dated 31-Jan-2020). #
+#
+# define file path components for listing #
+model_input_folder <- "/Users/paul/Documents/CU_combined/Zenodo/Results"#
+model_input_pattern <- glob2rx("??_results_euk_*_model_data_*.csv")#
+#
+# read all file into lists for `lapply()` usage#
+model_input_files <- list.files(path=model_input_folder, #
+  pattern = model_input_pattern, full.names = TRUE)#
+#
+# store all tables in list and save input filenames alongside - skipping "X1" #
+#  in case previous tables have column numbers, which they should not have anymore.#
+model_input_data <- suppressWarnings(lapply(model_input_files, #
+  function(listed_file)  read_csv(listed_file, col_types = cols('X1' = col_skip()))))#
+names(model_input_data) <- model_input_files#
+#
+#' # Obtaining modelling results#
+#'#
+#' ## Initialize results table#
+#' #
+#' So that it can be filled in the loop.#
+#
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries)#
+analysis_summaries <- setNames(analysis_summaries, c("DIDX", "FIDX"))#
+analysis_summaries <- analysis_summaries %>% add_column(AIC = 0, DATA = 0, FRML = 0, SIGN = 0)#
+#
+analysis_summaries$AIC  %<>% as.double#
+analysis_summaries$DATA %<>% as.character#
+analysis_summaries$FRML  %<>% as.character#
+analysis_summaries$SIGN  %<>% as.double#
+#
+# data sets are at #
+as.integer(analysis_summaries[1, 1])#
+#
+# formulas are at #
+as.integer(analysis_summaries[1, 2])#
+#
+# use this approach to get around the loop - later#
+#   define all possible combinations for mapply call#
+#   for later - starting point#
+#   analysis_combinations <- expand.grid(seq(model_input_data), seq(full_formulae))#
+#   setNames(analysis_combinations, c("model_index", "formula_index"))#
+#   for later - starting point#
+#   list(model_input_data, full_formulae)#
+#
+#'#
+#' ## Calculating Results#
+#' #
+#' Initially using loops, for sanity reasons. While looping fill results table#
+#' `analysis_summaries`.#
+#
+# loop over formulae#
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)#
+  # next#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+   basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+#
+  }#
+}#
+#
+#' # On warning ?`isSingular`#
+#' #
+#'  Complex mixed-effect models (i.e., those with#
+#' a large number of variance-covariance#
+#' parameters) frequently result in singular fits,#
+#' i.e. estimated variance-covariance matrices#
+#' with less than full rank. Less technically,#
+#' this means that some "dimensions" of the#
+#' variance-covariance matrix have been estimated#
+#' as exactly zero. For scalar random effects such#
+#' as intercept-only models, or 2-dimensional#
+#' random effects such as intercept+slope models,#
+#' singularity is relatively easy to detect#
+#' because it leads to random-effect variance#
+#' estimates of (nearly) zero, or estimates of#
+#' correlations that are (almost) exactly -1 or 1.#
+#' However, for more complex models#
+#' (variance-covariance matrices of dimension >=3)#
+#' singularity can be hard to detect; models can#
+#' often be singular without any of their#
+#' individual variances being close to zero or#
+#' correlations being close to +/-1.#
+#' #
+#'   This function performs a simple test to#
+#' determine whether any of the random effects#
+#' covariance matrices of a fitted model are#
+#' singular. The rePCA method provides more detail#
+#' about the singularity pattern, showing the#
+#' standard deviations of orthogonal variance#
+#' components and the mapping from variance terms#
+#' in the model to orthogonal components (i.e.,#
+#' eigenvector/rotation matrices).#
+#' #
+#'   While singular models are statistically well#
+#' defined (it is theoretically sensible for the#
+#' true maximum likelihood estimate to correspond#
+#' to a singular fit), there are real concerns#
+#' that (1) singular fits correspond to overfitted#
+#' models that may have poor power; (2) chances of#
+#' numerical problems and mis-convergence are#
+#' higher for singular models (e.g. it may be#
+#' computationally difficult to compute profile#
+#' confidence intervals for such models); (3)#
+#' standard inferential procedures such as Wald#
+#' statistics and likelihood ratio tests may be#
+#' inappropriate.#
+#' #
+#'   There is not yet consensus about how to deal#
+#' with singularity, or more generally to choose#
+#' which random-effects specification (from a#
+#' range of choices of varying complexity) to use.#
+#' Some proposals include:#
+#' #
+#'   avoid fitting overly complex models in the#
+#' first place, i.e. design experiments/restrict#
+#' models a priori such that the#
+#' variance-covariance matrices can be estimated#
+#' precisely enough to avoid singularity#
+#' (Matuschek et al 2017)#
+#' #
+#'   use some form of model selection to choose a#
+#' model that balances predictive accuracy and#
+#' overfitting/type I error (Bates et al 2015,#
+#' Matuschek et al 2017)#
+#' #
+#'   “keep it maximal”, i.e. fit the most complex#
+#' model consistent with the experimental design,#
+#' removing only terms required to allow a#
+#' non-singular fit (Barr et al. 2013), or#
+#' removing further terms based on p-values or AIC#
+#' #
+#'   use a partially Bayesian method that produces#
+#' maximum a posteriori (MAP) estimates using#
+#' regularizing priors to force the estimated#
+#' random-effects variance-covariance matrices#
+#' away from singularity (Chung et al 2013, blme#
+#' package)#
+#' #
+#'   use a fully Bayesian method that both#
+#' regularizes the model via informative priors#
+#' and gives estimates and credible intervals for#
+#' all parameters that average over the#
+#' uncertainty in the random effects parameters#
+#' (Gelman and Hill 2006, McElreath 2015;#
+#' MCMCglmm, rstanarm and brms packages)#
+#' # Session info#
+#'#
+#' The code and output in this document were tested and generated in the#
+#' following computing environment:#
+#+ echo=FALSE#
+sessionInfo()#
+#
+#' # References
+warnings()
+warnings()
+analysis_summaries
+which(analysis_summaries$DIDX == 1)
+which(analysis_summaries$FIDX == 1)
+which(analysis_summaries$DIDX == 1) && which(analysis_summaries$FIDX == 1)
+which(analysis_summaries$FIDX == 1)
+which(analysis_summaries$DIDX == 1)
+unique(which(analysis_summaries$DIDX == 1), which(analysis_summaries$FIDX == 1))
+which(analysis_summaries$DIDX == 1)
+analysis_summaries
+which(analysis_summaries$DIDX == 1)
+which(analysis_summaries$FIDX == 1)
+intersect(which(analysis_summaries$DIDX == 1), which(analysis_summaries$FIDX == 1)
+)
+# loop over formulae#
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  # to gather results, get current row of results table#
+  crnt_row <- intersect(which(analysis_summaries$DIDX == j), which(analysis_summaries$FIDX == i))#
+  next #
+#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)#
+  # next#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+   basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+#
+  }#
+}
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  # to gather results, get current row of results table#
+  crnt_row <- intersect(which(analysis_summaries$DIDX == j), which(analysis_summaries$FIDX == i))#
+  print(crnt_row)#
+  next #
+#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)#
+  # next#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+   basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+#
+  }#
+}
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+  # to gather results, get current row of results table#
+  crnt_row <- intersect(which(analysis_summaries$DIDX == j), which(analysis_summaries$FIDX == i))#
+  print(crnt_row)#
+  next #
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+   basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+#
+  }#
+}
+analysis_summaries
+analysis_summaries[1]
+analysis_summaries[ ,1]
+analysis_summaries[1, ]
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  # to gather results, get current row of results table#
+  crnt_row <- intersect(which(analysis_summaries$DIDX == j), which(analysis_summaries$FIDX == i))#
+  print(analysis_summaries[crnt_row, ])#
+  next #
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+   basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+#
+  }#
+}
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  # gather results#
+  #   set current row of results table#
+  crnt_row <- intersect(which(analysis_summaries$DIDX == j), which(analysis_summaries$FIDX == i))#
+  #    fill results table#
+  print(analysis_summaries[crnt_row, AIC])#
+  next#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+   basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+#
+  }#
+}
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  # gather results#
+  #   set current row of results table#
+  crnt_row <- intersect(which(analysis_summaries$DIDX == j), which(analysis_summaries$FIDX == i))#
+  #    fill results table#
+  print(analysis_summaries[crnt_row, FRML])#
+  next#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+   basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+#
+  }#
+}
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  # gather results#
+  #   set current row of results table#
+  crnt_row <- intersect(which(analysis_summaries$DIDX == j), which(analysis_summaries$FIDX == i))#
+  #    fill results table#
+  print(analysis_summaries[crnt_row, ]$FRML)#
+  next#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+   basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+#
+  }#
+}
+?AIC()
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  # gather results#
+  #   set current row of results table#
+  crnt_row <- intersect(which(analysis_summaries$DIDX == j), which(analysis_summaries$FIDX == i))#
+  #    fill results table#
+  analysis_summaries[crnt_row, ]$AKAI) <- foo#
+  print(analysis_summaries[crnt_row, ]$AKAI) <- foo#
+  next#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+   basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+#
+  }#
+}
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  # gather results#
+  #   set current row of results table#
+  crnt_row <- intersect(which(analysis_summaries$DIDX == j), which(analysis_summaries$FIDX == i))#
+  #    fill results table#
+  analysis_summaries[crnt_row, ]$AKAI) <- foo#
+  print(analysis_summaries[crnt_row, ]$AKAI)#
+  next#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+   basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+#
+  }#
+}
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  # gather results#
+  #   set current row of results table#
+  crnt_row <- intersect(which(analysis_summaries$DIDX == j), which(analysis_summaries$FIDX == i))#
+  #    fill results table#
+  analysis_summaries[crnt_row, ]$AKAI <- foo#
+  print(analysis_summaries[crnt_row, ]$AKAI)#
+  next#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+   basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+#
+  }#
+}
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  # gather results#
+  #   set current row of results table#
+  crnt_row <- intersect(which(analysis_summaries$DIDX == j), which(analysis_summaries$FIDX == i))#
+  #    fill results table#
+  analysis_summaries[crnt_row, ]$AKAI <- "foo"#
+  print(analysis_summaries[crnt_row, ]$AKAI)#
+  next#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+   basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+#
+  }#
+}
+warnings()
+#' ---#
+#' title: "Apply Mixed Effect Models to Extended Modelling Input Data"#
+#' output: #
+#'   html_document:#
+#'   toc: true#
+#'   toc_float: true#
+#'   toc_collapsed: true#
+#' toc_depth: 3#
+#' number_sections: true#
+#' theme: lumen#
+#' ---#
+#' # Preamble#
+#' #
+#' This script version tests the influence of environmental data and #
+#' the influence of voyages against biological responses. This script#
+#' only considers port in between which routes are present, such ports are#
+#' fewer the ports which have environmental distances available. (All ports #
+#' with measurements have environmental distances available.)#
+#'#
+#' This script needs all R scripts named `500_*.R` to have run successfully,#
+#' apart from `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`#
+#' It should then be called using a shell script. It will only accept certain files#
+#' currently, and otherwise abort. For further information understand section Environment#
+#' preparation. Also check `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh`#
+#'#
+#' This code commentary is included in the R code itself and can be rendered at#
+#' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, run_pandoc = FALSE)`.#
+#' Please check the session info at the end of the document for further #
+#' notes on the coding environment.#
+#' #
+#' # Environment preparation#
+#'#
+#' Empty buffer.#
+#
+rm(list=ls())#
+#
+#' Load Packages#
+#
+library ("tidyverse") # dplyr and friends#
+library ("ggplot2")   # for ggCaterpillar#
+library ("gdata")     # matrix functions#
+library ("reshape2")  # melting#
+library ("lme4")      # mixed effect model#
+library ("sjPlot")    # mixed effect model - with plotting#
+library ("cowplot")   # exporting ggplots#
+library ("formula.tools") # better formatting of formulas#
+library ("stringr")    # better string concatenation#
+library ("magrittr")  # back-piping (only used for type conversion)#
+#' Functions#
+#
+# Loaded from helper script:#
+source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")#
+#
+#' "Not in" function#
+`%!in%` = Negate(`%in%`)#
+#
+#' Function to subset data to fit model variables. Currently there are more #
+#' incomplete cases among Notre-Dame predictors then among Cornell predictors.#
+#' Consider running an extra analysis \n with Cornell data trimmed so as to match Notre Dame data.#
+match_data_to_formula <- function (formula_item, data_item){#
+  # package loading#
+  require ("tidyverse")#
+  # message#
+  message("\nData is subset to fit model variables, but currently there are more incomplete cases among Notre-Dame predictors then among Cornell predictors. Consider running an extra analysis with Cornell data trimmed so as to match Notre Dame data.")#
+  # Setting types#
+  #   for debugging only#
+  # print(head(data_item))#
+  message("- Setting types.")#
+  cols <- c("PORT", "DEST", "ECO_PORT", "ECO_DEST", "ECO_DIFF")#
+  data_item[cols] <- lapply(data_item[cols], as.factor)  #
+#
+  #   for debugging only#
+  # print(head(data_item))#
+  # remove superflous columns#
+  vars_to_keep <- all.vars (formula_item)#
+#
+  message("- Input dimensions are: ", paste0( (dim(data_item)), " "),  ".")#
+  message("- Removed variables are: ", paste0( names(data_item)[which(names(data_item) %!in% vars_to_keep)], " "), ".")#
+  message("- Kept variables are: ", paste0(vars_to_keep, " "), ".")#
+  data_item <- data_item %>% select(vars_to_keep)#
+#
+  message("- Intermediate dimensions are: ", paste0( (dim(data_item)), " "), ".")#
+  # remove superflous rows#
+  message("- Undefined rows have been removed, assuming they were real \"NA\" and not \"0\".")#
+  data_item <- data_item %>% filter(complete.cases(.))#
+  message("- Final dimensions are: ", paste0( (dim(data_item)), " "), ".")#
+  # return table object suitable for modelling with model formula#
+  return(data_item)#
+#
+}#
+#
+#' Calculate random effect model results#
+calculate_model <- function(formula_item, data_item){#
+  message("\nModelling function received variables: ", paste0(names(data_item) , " "), ".")#
+  message("   ... dimensions: ", paste0( (dim(data_item)), " "), ".")#
+  message("   ... formula: ", paste0(formula_item , " "), "." )#
+  model <- lmer(formula_item, data = data_item, REML=FALSE)#
+#
+  return(model)#
+}#
+#
+#' # Model definitions#
+#' #
+#' ##  Define full models#
+#'#
+#' following `https://stackoverflow.com/questions/25312818/using-lapply-to-fit-multiple-model-how-to-keep-the-model-formula-self-contain`#
+#
+full_formulae <- list(#
+  # as per email 04.02.2020#
+  # Unifrac ~ VOY_FREQ + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ VOY_FREQ + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_FON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ B_FON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_HON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ B_HON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))#
+)#
+#
+#' #
+#' ##  Define null models#
+#'#
+#' For Anova comparison. Order *must* be the same as in list `full_models`.#
+#
+null_formulae <- list(#
+  # as per email 04.02.2020#
+  # Unifrac ~ VOY_FREQ + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_FON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_HON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))#
+)#
+#
+#' # Read in and format data#
+#'#
+#' Please refer to project README.md file for further details on previous processing steps (dated 31-Jan-2020). #
+#
+# define file path components for listing #
+model_input_folder <- "/Users/paul/Documents/CU_combined/Zenodo/Results"#
+model_input_pattern <- glob2rx("??_results_euk_*_model_data_*.csv")#
+#
+# read all file into lists for `lapply()` usage#
+model_input_files <- list.files(path=model_input_folder, #
+  pattern = model_input_pattern, full.names = TRUE)#
+#
+# store all tables in list and save input filenames alongside - skipping "X1" #
+#  in case previous tables have column numbers, which they should not have anymore.#
+model_input_data <- suppressWarnings(lapply(model_input_files, #
+  function(listed_file)  read_csv(listed_file, col_types = cols('X1' = col_skip()))))#
+names(model_input_data) <- model_input_files#
+#
+#' # Obtaining modelling results#
+#'#
+#' ## Initialize results table#
+#' #
+#' So that it can be filled in the loop.#
+#
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries)#
+analysis_summaries <- setNames(analysis_summaries, c("DIDX", "FIDX"))#
+analysis_summaries <- analysis_summaries %>% add_column(AKAI = 0, DATA = 0, FRML = 0, SIGN = 0)#
+#
+analysis_summaries$AKAI  %<>% as.double#
+analysis_summaries$DATA %<>% as.character#
+analysis_summaries$FRML  %<>% as.character#
+analysis_summaries$SIGN  %<>% as.double
+# loop over formulae#
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  # gather results#
+  #   set current row of results table#
+  crnt_row <- intersect(which(analysis_summaries$DIDX == j), which(analysis_summaries$FIDX == i))#
+  #    fill results table#
+  analysis_summaries[crnt_row, ]$AKAI <- "foo"#
+  print(analysis_summaries[crnt_row, ]$AKAI)#
+  next#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+   basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+#
+  }#
+}
+analysis_summaries
+sm
+full_model
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+  basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+  # gather results#
+  #   set current row of results table#
+  crnt_row <- intersect(which(analysis_summaries$DIDX == j), which(analysis_summaries$FIDX == i))#
+  #    fill results table#
+  analysis_summaries[crnt_row, ]$SIGN <- summary(full_model)$coefficients[,4] #
+  }#
+}#
+#
+#' # Show Summary#
+#
+analysis_summaries
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+  basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+  # gather results#
+  #   set current row of results table#
+  crnt_row <- intersect(which(analysis_summaries$DIDX == j), which(analysis_summaries$FIDX == i))#
+  #    fill results table#
+  analysis_summaries[crnt_row, ]$SIGN <- #
+  try(print(summary(full_model)$coefficients[,4]))#
+  }#
+}
+extractAIC()
+library("stats")
+extractAIC()
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+  basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+  # gather results#
+  #   set current row of results table#
+  crnt_row <- intersect(which(analysis_summaries$DIDX == j), which(analysis_summaries$FIDX == i))#
+  #    fill results table#
+  analysis_summaries[crnt_row, ]$AKAI <- extractAIC(full_model)#
+  # try(print(summary(full_model)$coefficients[,4]))#
+  }#
+}#
+#
+#' # Show Summary#
+#
+analysis_summaries
+#' ---#
+#' title: "Apply Mixed Effect Models to Extended Modelling Input Data"#
+#' output: #
+#'   html_document:#
+#'   toc: true#
+#'   toc_float: true#
+#'   toc_collapsed: true#
+#' toc_depth: 3#
+#' number_sections: true#
+#' theme: lumen#
+#' ---#
+#' # Preamble#
+#' #
+#' This script version tests the influence of environmental data and #
+#' the influence of voyages against biological responses. This script#
+#' only considers port in between which routes are present, such ports are#
+#' fewer the ports which have environmental distances available. (All ports #
+#' with measurements have environmental distances available.)#
+#'#
+#' This script needs all R scripts named `500_*.R` to have run successfully,#
+#' apart from `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`#
+#' It should then be called using a shell script. It will only accept certain files#
+#' currently, and otherwise abort. For further information understand section Environment#
+#' preparation. Also check `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh`#
+#'#
+#' This code commentary is included in the R code itself and can be rendered at#
+#' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, run_pandoc = FALSE)`.#
+#' Please check the session info at the end of the document for further #
+#' notes on the coding environment.#
+#' #
+#' # Environment preparation#
+#'#
+#' Empty buffer.#
+#
+rm(list=ls())#
+#
+#' Load Packages#
+#
+library ("tidyverse") # dplyr and friends#
+library ("ggplot2")   # for ggCaterpillar#
+library ("gdata")     # matrix functions#
+library ("reshape2")  # melting#
+library ("lme4")      # mixed effect model#
+library ("sjPlot")    # mixed effect model - with plotting#
+library ("cowplot")   # exporting ggplots#
+library ("formula.tools") # better formatting of formulas#
+library ("stringr")    # better string concatenation#
+library ("magrittr")  # back-piping (only used for type conversion)#
+#' Functions#
+#
+# Loaded from helper script:#
+source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")#
+#
+#' "Not in" function#
+`%!in%` = Negate(`%in%`)#
+#
+#' Function to subset data to fit model variables. Currently there are more #
+#' incomplete cases among Notre-Dame predictors then among Cornell predictors.#
+#' Consider running an extra analysis \n with Cornell data trimmed so as to match Notre Dame data.#
+match_data_to_formula <- function (formula_item, data_item){#
+  # package loading#
+  require ("tidyverse")#
+  # message#
+  message("\nData is subset to fit model variables, but currently there are more incomplete cases among Notre-Dame predictors then among Cornell predictors. Consider running an extra analysis with Cornell data trimmed so as to match Notre Dame data.")#
+  # Setting types#
+  #   for debugging only#
+  # print(head(data_item))#
+  message("- Setting types.")#
+  cols <- c("PORT", "DEST", "ECO_PORT", "ECO_DEST", "ECO_DIFF")#
+  data_item[cols] <- lapply(data_item[cols], as.factor)  #
+#
+  #   for debugging only#
+  # print(head(data_item))#
+  # remove superflous columns#
+  vars_to_keep <- all.vars (formula_item)#
+#
+  message("- Input dimensions are: ", paste0( (dim(data_item)), " "),  ".")#
+  message("- Removed variables are: ", paste0( names(data_item)[which(names(data_item) %!in% vars_to_keep)], " "), ".")#
+  message("- Kept variables are: ", paste0(vars_to_keep, " "), ".")#
+  data_item <- data_item %>% select(vars_to_keep)#
+#
+  message("- Intermediate dimensions are: ", paste0( (dim(data_item)), " "), ".")#
+  # remove superflous rows#
+  message("- Undefined rows have been removed, assuming they were real \"NA\" and not \"0\".")#
+  data_item <- data_item %>% filter(complete.cases(.))#
+  message("- Final dimensions are: ", paste0( (dim(data_item)), " "), ".")#
+  # return table object suitable for modelling with model formula#
+  return(data_item)#
+#
+}#
+#
+#' Calculate random effect model results#
+calculate_model <- function(formula_item, data_item){#
+  message("\nModelling function received variables: ", paste0(names(data_item) , " "), ".")#
+  message("   ... dimensions: ", paste0( (dim(data_item)), " "), ".")#
+  message("   ... formula: ", paste0(formula_item , " "), "." )#
+  model <- lmer(formula_item, data = data_item, REML=FALSE)#
+#
+  return(model)#
+}#
+#
+#' # Model definitions#
+#' #
+#' ##  Define full models#
+#'#
+#' following `https://stackoverflow.com/questions/25312818/using-lapply-to-fit-multiple-model-how-to-keep-the-model-formula-self-contain`#
+#
+full_formulae <- list(#
+  # as per email 04.02.2020#
+  # Unifrac ~ VOY_FREQ + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ VOY_FREQ + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_FON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ B_FON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_HON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ B_HON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))#
+)#
+#
+#' #
+#' ##  Define null models#
+#'#
+#' For Anova comparison. Order *must* be the same as in list `full_models`.#
+#
+null_formulae <- list(#
+  # as per email 04.02.2020#
+  # Unifrac ~ VOY_FREQ + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_FON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_HON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))#
+)#
+#
+#' # Read in and format data#
+#'#
+#' Please refer to project README.md file for further details on previous processing steps (dated 31-Jan-2020). #
+#
+# define file path components for listing #
+model_input_folder <- "/Users/paul/Documents/CU_combined/Zenodo/Results"#
+model_input_pattern <- glob2rx("??_results_euk_*_model_data_*.csv")#
+#
+# read all file into lists for `lapply()` usage#
+model_input_files <- list.files(path=model_input_folder, #
+  pattern = model_input_pattern, full.names = TRUE)#
+#
+# store all tables in list and save input filenames alongside - skipping "X1" #
+#  in case previous tables have column numbers, which they should not have anymore.#
+model_input_data <- suppressWarnings(lapply(model_input_files, #
+  function(listed_file)  read_csv(listed_file, col_types = cols('X1' = col_skip()))))#
+names(model_input_data) <- model_input_files#
+#
+#' # Obtaining modelling results#
+#'#
+#' ## Initialize results table#
+#' #
+#' So that it can be filled in the loop.#
+#
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries)#
+analysis_summaries <- setNames(analysis_summaries, c("DIDX", "FIDX"))#
+analysis_summaries <- analysis_summaries %>% add_column(AKAI = 0, DATA = 0, FRML = 0, SIGN = 0)#
+#
+analysis_summaries$AKAI  %<>% as.double#
+analysis_summaries$DATA %<>% as.character#
+analysis_summaries$FRML  %<>% as.character#
+analysis_summaries$SIGN  %<>% as.double#
+#
+# use this approach to get around the loop - later#
+#   define all possible combinations for mapply call#
+#   for later - starting point#
+#   analysis_combinations <- expand.grid(seq(model_input_data), seq(full_formulae))#
+#   setNames(analysis_combinations, c("model_index", "formula_index"))#
+#   for later - starting point#
+#   list(model_input_data, full_formulae)#
+#
+#'#
+#' ## Calculating Results#
+#' #
+#' Initially using loops, for sanity reasons. While looping fill results table#
+#' `analysis_summaries`.#
+#
+# loop over formulae#
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+  basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+  # gather results#
+  #   set current row of results table#
+  crnt_row <- intersect(which(analysis_summaries$DIDX == j), which(analysis_summaries$FIDX == i))#
+  #    fill results table#
+  analysis_summaries[crnt_row, ]$AKAI <- extractAIC(full_model)#
+  # try(print(summary(full_model)$coefficients[,4]))#
+  }#
+}
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+  basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+  # gather results#
+  #   set current row of results table#
+  crnt_row <- intersect(which(analysis_summaries$DIDX == j), which(analysis_summaries$FIDX == i))#
+  #    fill results table#
+  analysis_summaries[crnt_row, ]$AKAI <- extractAIC(full_model)[2]#
+  # try(print(summary(full_model)$coefficients[,4]))#
+  }#
+}
+analysis_summaries
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+  basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+  # gather results#
+  #   set current row of results table#
+  crnt_row <- intersect(which(analysis_summaries$DIDX == j), which(analysis_summaries$FIDX == i))#
+  #    fill results table#
+  analysis_summaries[crnt_row, ]$AKAI <- extractAIC(full_model)[2]#
+  analysis_summaries[crnt_row, ]$DATA <- as.character(basename(names(model_input_data)[[j]]))#
+  # try(print(summary(full_model)$coefficients[,4]))#
+  }#
+}
+analysis_summaries
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+  basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+  # gather results#
+  #   set current row of results table#
+  crnt_row <- intersect(which(analysis_summaries$DIDX == j), which(analysis_summaries$FIDX == i))#
+  #    fill results table#
+  analysis_summaries[crnt_row, ]$AKAI <- extractAIC(full_model)[2]#
+  analysis_summaries[crnt_row, ]$DATA <- as.character(basename(names(model_input_data)[[j]]))#
+  analysis_summaries[crnt_row, ]$DATA <- as.character(full_formulae[[i]])#
+  # try(print(summary(full_model)$coefficients[,4]))#
+  }#
+}#
+#
+#' # Show Summary#
+#
+print(analysis_summaries, n = Inf)
+analysis_summaries
+print(arrange(analysis_summaries, AKAI), n = Inf)
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+  basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+  # gather results#
+  #   set current row of results table#
+  crnt_row <- intersect(which(analysis_summaries$DIDX == j), which(analysis_summaries$FIDX == i))#
+  #    fill results table#
+  analysis_summaries[crnt_row, ]$AKAI <- extractAIC(full_model)[2]#
+  analysis_summaries[crnt_row, ]$DATA <- as.character(basename(names(model_input_data)[[j]]))#
+  analysis_summaries[crnt_row, ]$FRML <- as.character(full_formulae[[i]])#
+  # try(print(summary(full_model)$coefficients[,4]))#
+  }#
+}
+analysis_summaries#
+print(arrange(analysis_summaries, AKAI), n = Inf)
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, run_pandoc = FALSE)
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, run_pandoc = FALSE)
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, output_format = "html_notebook")
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, output_format = "html_notebook")
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, output_format = "html_notebook")
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, output_format = "html_notebook")
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, output_format = "html_notebook")
+?anova()
+#' ---#
+#' title: "Apply Mixed Effect Models to Extended Modelling Input Data"#
+#' output: #
+#'   html_document:#
+#'   toc: true#
+#'   toc_float: true#
+#'   toc_collapsed: true#
+#' toc_depth: 3#
+#' number_sections: true#
+#' theme: lumen#
+#' ---#
+#
+#' # Preamble#
+#' #
+#' This script version tests the influence of environmental data and #
+#' the influence of voyages against biological responses. This script#
+#' only considers port in between which routes are present, such ports are#
+#' fewer the ports which have environmental distances available. (All ports #
+#' with measurements have environmental distances available.)#
+#'#
+#' This script needs all R scripts named `500_*.R` to have run successfully,#
+#' apart from `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`#
+#' It should then be called using a shell script. It will only accept certain files#
+#' currently, and otherwise abort. For further information understand section Environment#
+#' preparation. Also check `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh`#
+#'#
+#' This code commentary is included in the R code itself and can be rendered at#
+#' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, output_format = "html_notebook")`.#
+#' Please check the session info at the end of the document for further #
+#' notes on the coding environment.#
+#' #
+#' # Environment preparation#
+#'#
+#' Empty buffer.#
+#
+rm(list=ls())#
+#
+#' Load Packages#
+#
+library ("tidyverse") # dplyr and friends#
+library ("ggplot2")   # for ggCaterpillar#
+library ("gdata")     # matrix functions#
+library ("reshape2")  # melting#
+library ("lme4")      # mixed effect model#
+library ("sjPlot")    # mixed effect model - with plotting#
+library ("cowplot")   # exporting ggplots#
+library ("formula.tools") # better formatting of formulas#
+library ("stringr")    # better string concatenation#
+library ("magrittr")  # back-piping (only used for type conversion)#
+#' Functions#
+#
+# Loaded from helper script:#
+source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")#
+#
+#' "Not in" function#
+`%!in%` = Negate(`%in%`)#
+#
+#' Function to subset data to fit model variables. Currently there are more #
+#' incomplete cases among Notre-Dame predictors then among Cornell predictors.#
+#' Consider running an extra analysis \n with Cornell data trimmed so as to match Notre Dame data.#
+match_data_to_formula <- function (formula_item, data_item){#
+  # package loading#
+  require ("tidyverse")#
+  # message#
+  message("\nData is subset to fit model variables, but currently there are more incomplete cases among Notre-Dame predictors then among Cornell predictors. Consider running an extra analysis with Cornell data trimmed so as to match Notre Dame data.")#
+  # Setting types#
+  #   for debugging only#
+  # print(head(data_item))#
+  message("- Setting types.")#
+  cols <- c("PORT", "DEST", "ECO_PORT", "ECO_DEST", "ECO_DIFF")#
+  data_item[cols] <- lapply(data_item[cols], as.factor)  #
+#
+  #   for debugging only#
+  # print(head(data_item))#
+  # remove superflous columns#
+  vars_to_keep <- all.vars (formula_item)#
+#
+  message("- Input dimensions are: ", paste0( (dim(data_item)), " "),  ".")#
+  message("- Removed variables are: ", paste0( names(data_item)[which(names(data_item) %!in% vars_to_keep)], " "), ".")#
+  message("- Kept variables are: ", paste0(vars_to_keep, " "), ".")#
+  data_item <- data_item %>% select(vars_to_keep)#
+#
+  message("- Intermediate dimensions are: ", paste0( (dim(data_item)), " "), ".")#
+  # remove superflous rows#
+  message("- Undefined rows have been removed, assuming they were real \"NA\" and not \"0\".")#
+  data_item <- data_item %>% filter(complete.cases(.))#
+  message("- Final dimensions are: ", paste0( (dim(data_item)), " "), ".")#
+  # return table object suitable for modelling with model formula#
+  return(data_item)#
+#
+}#
+#
+#' Calculate random effect model results#
+calculate_model <- function(formula_item, data_item){#
+  message("\nModelling function received variables: ", paste0(names(data_item) , " "), ".")#
+  message("   ... dimensions: ", paste0( (dim(data_item)), " "), ".")#
+  message("   ... formula: ", paste0(formula_item , " "), "." )#
+  model <- lmer(formula_item, data = data_item, REML=FALSE)#
+#
+  return(model)#
+}#
+#
+#' # Model definitions#
+#' #
+#' ##  Define full models#
+#'#
+#' following `https://stackoverflow.com/questions/25312818/using-lapply-to-fit-multiple-model-how-to-keep-the-model-formula-self-contain`#
+#
+full_formulae <- list(#
+  # Original by Paul #
+  as.formula(RESP_UNIFRAC ~ PRED_TRIPS + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # as per email 04.02.2020#
+  # Unifrac ~ VOY_FREQ + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ VOY_FREQ + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_FON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ B_FON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_HON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ B_HON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))#
+)#
+#
+#' #
+#' ##  Define null models#
+#'#
+#' For Anova comparison. Order *must* be the same as in list `full_models`.#
+#
+null_formulae <- list(#
+  # Original by Paul #
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # as per email 04.02.2020#
+  # Unifrac ~ VOY_FREQ + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_FON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_HON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))#
+)#
+#
+#' # Read in and format data#
+#'#
+#' Please refer to project README.md file for further details on previous processing steps (dated 31-Jan-2020). #
+#
+# define file path components for listing #
+model_input_folder <- "/Users/paul/Documents/CU_combined/Zenodo/Results"#
+model_input_pattern <- glob2rx("??_results_euk_*_model_data_*.csv")#
+#
+# read all file into lists for `lapply()` usage#
+model_input_files <- list.files(path=model_input_folder, #
+  pattern = model_input_pattern, full.names = TRUE)#
+#
+# store all tables in list and save input filenames alongside - skipping "X1" #
+#  in case previous tables have column numbers, which they should not have anymore.#
+model_input_data <- suppressWarnings(lapply(model_input_files, #
+  function(listed_file)  read_csv(listed_file, col_types = cols('X1' = col_skip()))))#
+names(model_input_data) <- model_input_files#
+#
+#' # Obtaining modelling results#
+#'#
+#' ## Initialize results table#
+#' #
+#' So that it can be filled in the loop.#
+#
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries)#
+analysis_summaries <- setNames(analysis_summaries, c("DIDX", "FIDX"))#
+analysis_summaries <- analysis_summaries %>% add_column(AKAI = 0,  SIGN = 0, FRML = 0, DATA = 0)#
+#
+analysis_summaries$AKAI  %<>% as.double#
+analysis_summaries$DATA %<>% as.character#
+analysis_summaries$FRML  %<>% as.character#
+analysis_summaries$SIGN  %<>% as.double#
+#
+# use this approach to get around the loop - later#
+#   define all possible combinations for mapply call#
+#   for later - starting point#
+#   analysis_combinations <- expand.grid(seq(model_input_data), seq(full_formulae))#
+#   setNames(analysis_combinations, c("model_index", "formula_index"))#
+#   for later - starting point#
+#   list(model_input_data, full_formulae)#
+#
+#'#
+#' ## Calculating Results#
+#' #
+#' Initially using loops, for sanity reasons. While looping fill results table#
+#' `analysis_summaries`. #
+#' Check raw model outputs below for `Writing above results to results table row: n` and look up `n` in both results tables all the way at the end of this page.#
+#
+# loop over formulae#
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  print(sm$coefficients)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+  basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+  # gather results#
+  #   set current row of results table#
+  crnt_row <- intersect(which(analysis_summaries$DIDX == j), which(analysis_summaries$FIDX == i))#
+  message("Writing above results to results table row: ", crnt_row)#
+  #    fill results table#
+  analysis_summaries[crnt_row, ]$AKAI <- extractAIC(full_model)[2]#
+  analysis_summaries[crnt_row, ]$DATA <- as.character(basename(names(model_input_data)[[j]]))#
+  analysis_summaries[crnt_row, ]$FRML <- as.character(full_formulae[[i]])#
+  analysis_summaries[crnt_row, ]$SIGN <- an[[5]][1]#
+  # try(print(summary(full_model)$coefficients[,4]))#
+  }#
+}#
+#
+#' # Show Results table#
+#'#
+#' Check above raw model out put for `Writing above results to results table row: n` and look up `n` in both tables below.#
+#
+#'#
+#' Sort results table by AIC#
+#
+analysis_summaries <- arrange(analysis_summaries, AKAI)#
+#
+#' Show results table interactively:#
+#
+analysis_summaries#
+#
+#' Show results table on screen:#
+#
+print(analysis_summaries, n = Inf)#
+#
+#' # On warning ?`isSingular`#
+#' #
+#'  Complex mixed-effect models (i.e., those with#
+#' a large number of variance-covariance#
+#' parameters) frequently result in singular fits,#
+#' i.e. estimated variance-covariance matrices#
+#' with less than full rank. Less technically,#
+#' this means that some "dimensions" of the#
+#' variance-covariance matrix have been estimated#
+#' as exactly zero. For scalar random effects such#
+#' as intercept-only models, or 2-dimensional#
+#' random effects such as intercept+slope models,#
+#' singularity is relatively easy to detect#
+#' because it leads to random-effect variance#
+#' estimates of (nearly) zero, or estimates of#
+#' correlations that are (almost) exactly -1 or 1.#
+#' However, for more complex models#
+#' (variance-covariance matrices of dimension >=3)#
+#' singularity can be hard to detect; models can#
+#' often be singular without any of their#
+#' individual variances being close to zero or#
+#' correlations being close to +/-1.#
+#' #
+#'   This function performs a simple test to#
+#' determine whether any of the random effects#
+#' covariance matrices of a fitted model are#
+#' singular. The rePCA method provides more detail#
+#' about the singularity pattern, showing the#
+#' standard deviations of orthogonal variance#
+#' components and the mapping from variance terms#
+#' in the model to orthogonal components (i.e.,#
+#' eigenvector/rotation matrices).#
+#' #
+#'   While singular models are statistically well#
+#' defined (it is theoretically sensible for the#
+#' true maximum likelihood estimate to correspond#
+#' to a singular fit), there are real concerns#
+#' that (1) singular fits correspond to overfitted#
+#' models that may have poor power; (2) chances of#
+#' numerical problems and mis-convergence are#
+#' higher for singular models (e.g. it may be#
+#' computationally difficult to compute profile#
+#' confidence intervals for such models); (3)#
+#' standard inferential procedures such as Wald#
+#' statistics and likelihood ratio tests may be#
+#' inappropriate.#
+#' #
+#'   There is not yet consensus about how to deal#
+#' with singularity, or more generally to choose#
+#' which random-effects specification (from a#
+#' range of choices of varying complexity) to use.#
+#' Some proposals include:#
+#' #
+#'   avoid fitting overly complex models in the#
+#' first place, i.e. design experiments/restrict#
+#' models a priori such that the#
+#' variance-covariance matrices can be estimated#
+#' precisely enough to avoid singularity#
+#' (Matuschek et al 2017)#
+#' #
+#'   use some form of model selection to choose a#
+#' model that balances predictive accuracy and#
+#' overfitting/type I error (Bates et al 2015,#
+#' Matuschek et al 2017)#
+#' #
+#'   “keep it maximal”, i.e. fit the most complex#
+#' model consistent with the experimental design,#
+#' removing only terms required to allow a#
+#' non-singular fit (Barr et al. 2013), or#
+#' removing further terms based on p-values or AIC#
+#' #
+#'   use a partially Bayesian method that produces#
+#' maximum a posteriori (MAP) estimates using#
+#' regularizing priors to force the estimated#
+#' random-effects variance-covariance matrices#
+#' away from singularity (Chung et al 2013, blme#
+#' package)#
+#' #
+#'   use a fully Bayesian method that both#
+#' regularizes the model via informative priors#
+#' and gives estimates and credible intervals for#
+#' all parameters that average over the#
+#' uncertainty in the random effects parameters#
+#' (Gelman and Hill 2006, McElreath 2015;#
+#' MCMCglmm, rstanarm and brms packages)#
+#' # Session info#
+#'#
+#' The code and output in this document were tested and generated in the#
+#' following computing environment:#
+#+ echo=FALSE#
+sessionInfo()#
+#
+#' # References
+#' ---#
+#' title: "Apply Mixed Effect Models to Extended Modelling Input Data"#
+#' output: #
+#'   html_document:#
+#'   toc: true#
+#'   toc_float: true#
+#'   toc_collapsed: true#
+#' toc_depth: 3#
+#' number_sections: true#
+#' theme: lumen#
+#' ---#
+#
+#' # Preamble#
+#' #
+#' This script version tests the influence of environmental data and #
+#' the influence of voyages against biological responses. This script#
+#' only considers port in between which routes are present, such ports are#
+#' fewer the ports which have environmental distances available. (All ports #
+#' with measurements have environmental distances available.)#
+#'#
+#' This script needs all R scripts named `500_*.R` to have run successfully,#
+#' apart from `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`#
+#' It should then be called using a shell script. It will only accept certain files#
+#' currently, and otherwise abort. For further information understand section Environment#
+#' preparation. Also check `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh`#
+#'#
+#' This code commentary is included in the R code itself and can be rendered at#
+#' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, output_format = "html_notebook")`.#
+#' Please check the session info at the end of the document for further #
+#' notes on the coding environment.#
+#' #
+#' # Environment preparation#
+#'#
+#' Empty buffer.#
+#
+rm(list=ls())#
+#
+#' Load Packages#
+#
+library ("tidyverse") # dplyr and friends#
+library ("ggplot2")   # for ggCaterpillar#
+library ("gdata")     # matrix functions#
+library ("reshape2")  # melting#
+library ("lme4")      # mixed effect model#
+library ("sjPlot")    # mixed effect model - with plotting#
+library ("cowplot")   # exporting ggplots#
+library ("formula.tools") # better formatting of formulas#
+library ("stringr")    # better string concatenation#
+library ("magrittr")  # back-piping (only used for type conversion)#
+#' Functions#
+#
+# Loaded from helper script:#
+source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")#
+#
+#' "Not in" function#
+`%!in%` = Negate(`%in%`)#
+#
+#' Function to subset data to fit model variables. Currently there are more #
+#' incomplete cases among Notre-Dame predictors then among Cornell predictors.#
+#' Consider running an extra analysis \n with Cornell data trimmed so as to match Notre Dame data.#
+match_data_to_formula <- function (formula_item, data_item){#
+  # package loading#
+  require ("tidyverse")#
+  # message#
+  message("\nData is subset to fit model variables, but currently there are more incomplete cases among Notre-Dame predictors then among Cornell predictors. Consider running an extra analysis with Cornell data trimmed so as to match Notre Dame data.")#
+  # Setting types#
+  #   for debugging only#
+  # print(head(data_item))#
+  message("- Setting types.")#
+  cols <- c("PORT", "DEST", "ECO_PORT", "ECO_DEST", "ECO_DIFF")#
+  data_item[cols] <- lapply(data_item[cols], as.factor)  #
+#
+  #   for debugging only#
+  # print(head(data_item))#
+  # remove superflous columns#
+  vars_to_keep <- all.vars (formula_item)#
+#
+  message("- Input dimensions are: ", paste0( (dim(data_item)), " "),  ".")#
+  message("- Removed variables are: ", paste0( names(data_item)[which(names(data_item) %!in% vars_to_keep)], " "), ".")#
+  message("- Kept variables are: ", paste0(vars_to_keep, " "), ".")#
+  data_item <- data_item %>% select(vars_to_keep)#
+#
+  message("- Intermediate dimensions are: ", paste0( (dim(data_item)), " "), ".")#
+  # remove superflous rows#
+  message("- Undefined rows have been removed, assuming they were real \"NA\" and not \"0\".")#
+  data_item <- data_item %>% filter(complete.cases(.))#
+  message("- Final dimensions are: ", paste0( (dim(data_item)), " "), ".")#
+  # return table object suitable for modelling with model formula#
+  return(data_item)#
+#
+}#
+#
+#' Calculate random effect model results#
+calculate_model <- function(formula_item, data_item){#
+  message("\nModelling function received variables: ", paste0(names(data_item) , " "), ".")#
+  message("   ... dimensions: ", paste0( (dim(data_item)), " "), ".")#
+  message("   ... formula: ", paste0(formula_item , " "), "." )#
+  model <- lmer(formula_item, data = data_item, REML=FALSE)#
+#
+  return(model)#
+}#
+#
+#' # Model definitions#
+#' #
+#' ##  Define full models#
+#'#
+#' following `https://stackoverflow.com/questions/25312818/using-lapply-to-fit-multiple-model-how-to-keep-the-model-formula-self-contain`#
+#
+full_formulae <- list(#
+  # Original by Paul #
+  as.formula(RESP_UNIFRAC ~ PRED_TRIPS + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # as per email 04.02.2020#
+  # Unifrac ~ VOY_FREQ + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ VOY_FREQ + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_FON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ B_FON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_HON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ B_HON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))#
+)#
+#
+#' #
+#' ##  Define null models#
+#'#
+#' For Anova comparison. Order *must* be the same as in list `full_models`.#
+#
+null_formulae <- list(#
+  # Original by Paul #
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # as per email 04.02.2020#
+  # Unifrac ~ VOY_FREQ + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_FON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),#
+  # Unifrac ~ B_HON_NOECO + env similarity + ecoregion + random port effects#
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))#
+)#
+#
+#' # Read in and format data#
+#'#
+#' Please refer to project README.md file for further details on previous processing steps (dated 31-Jan-2020). #
+#
+# define file path components for listing #
+model_input_folder <- "/Users/paul/Documents/CU_combined/Zenodo/Results"#
+model_input_pattern <- glob2rx("??_results_euk_*_model_data_*.csv")#
+#
+# read all file into lists for `lapply()` usage#
+model_input_files <- list.files(path=model_input_folder, #
+  pattern = model_input_pattern, full.names = TRUE)#
+#
+# store all tables in list and save input filenames alongside - skipping "X1" #
+#  in case previous tables have column numbers, which they should not have anymore.#
+model_input_data <- suppressWarnings(lapply(model_input_files, #
+  function(listed_file)  read_csv(listed_file, col_types = cols('X1' = col_skip()))))#
+names(model_input_data) <- model_input_files#
+#
+#' # Obtaining modelling results#
+#'#
+#' ## Initialize results table#
+#' #
+#' So that it can be filled in the loop.#
+#
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))#
+analysis_summaries <- as_tibble(analysis_summaries)#
+analysis_summaries <- setNames(analysis_summaries, c("DIDX", "FIDX"))#
+analysis_summaries <- analysis_summaries %>% add_column(AKAI = 0,  SIGN = 0, FRML = 0, DATA = 0)#
+#
+analysis_summaries$AKAI  %<>% as.double#
+analysis_summaries$DATA %<>% as.character#
+analysis_summaries$FRML  %<>% as.character#
+analysis_summaries$SIGN  %<>% as.double#
+#
+# use this approach to get around the loop - later#
+#   define all possible combinations for mapply call#
+#   for later - starting point#
+#   analysis_combinations <- expand.grid(seq(model_input_data), seq(full_formulae))#
+#   setNames(analysis_combinations, c("model_index", "formula_index"))#
+#   for later - starting point#
+#   list(model_input_data, full_formulae)#
+#
+#'#
+#' ## Calculating Results#
+#' #
+#' Initially using loops, for sanity reasons. While looping fill results table#
+#' `analysis_summaries`. #
+#' Check raw model outputs below for `Writing above results to results table row: n` and look up `n` in both results tables all the way at the end of this page.#
+#
+# loop over formulae#
+for (i in seq(full_formulae)){#
+  # loop over dat sets#
+  for (j in seq(model_input_data)){#
+  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")#
+#
+  # define current model formula for parsing#
+  full_formula <- full_formulae[[i]]#
+  null_formula <- null_formulae[[i]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[j]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  print(sm$coefficients)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  print(sm)#
+  try(print(an))#
+#
+  # plot model coefficients#
+  message("\nPlotting Model Coefficients: ")#
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,#
+   type = "std", #
+   title = paste("Coefficients for formula \"", as.character(full_formula),#
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",#
+  basename(names(model_input_data)[[j]]), "\"." ))#
+  print(plot)#
+  # gather results#
+  #   set current row of results table#
+  crnt_row <- intersect(which(analysis_summaries$DIDX == j), which(analysis_summaries$FIDX == i))#
+  message("Writing above results to results table row: ", crnt_row)#
+  #    fill results table#
+  analysis_summaries[crnt_row, ]$AKAI <- extractAIC(full_model)[2]#
+  analysis_summaries[crnt_row, ]$DATA <- as.character(basename(names(model_input_data)[[j]]))#
+  analysis_summaries[crnt_row, ]$FRML <- as.character(full_formulae[[i]])#
+  analysis_summaries[crnt_row, ]$SIGN <- an[[5]][1]#
+  # try(print(summary(full_model)$coefficients[,4]))#
+  }#
+}#
+#
+#' # Show Results table#
+#'#
+#' Check above raw model out put for `Writing above results to results table row: n` and look up `n` in both tables below.#
+#
+#'#
+#' Sort results table by AIC#
+#
+analysis_summaries <- arrange(analysis_summaries, AKAI)#
+#
+#' Show results table interactively:#
+#
+analysis_summaries#
+#
+#' Show results table on screen:#
+#
+print(analysis_summaries, n = Inf)#
+#
+#' # On warning ?`isSingular`#
+#' #
+#'  Complex mixed-effect models (i.e., those with#
+#' a large number of variance-covariance#
+#' parameters) frequently result in singular fits,#
+#' i.e. estimated variance-covariance matrices#
+#' with less than full rank. Less technically,#
+#' this means that some "dimensions" of the#
+#' variance-covariance matrix have been estimated#
+#' as exactly zero. For scalar random effects such#
+#' as intercept-only models, or 2-dimensional#
+#' random effects such as intercept+slope models,#
+#' singularity is relatively easy to detect#
+#' because it leads to random-effect variance#
+#' estimates of (nearly) zero, or estimates of#
+#' correlations that are (almost) exactly -1 or 1.#
+#' However, for more complex models#
+#' (variance-covariance matrices of dimension >=3)#
+#' singularity can be hard to detect; models can#
+#' often be singular without any of their#
+#' individual variances being close to zero or#
+#' correlations being close to +/-1.#
+#' #
+#'   This function performs a simple test to#
+#' determine whether any of the random effects#
+#' covariance matrices of a fitted model are#
+#' singular. The rePCA method provides more detail#
+#' about the singularity pattern, showing the#
+#' standard deviations of orthogonal variance#
+#' components and the mapping from variance terms#
+#' in the model to orthogonal components (i.e.,#
+#' eigenvector/rotation matrices).#
+#' #
+#'   While singular models are statistically well#
+#' defined (it is theoretically sensible for the#
+#' true maximum likelihood estimate to correspond#
+#' to a singular fit), there are real concerns#
+#' that (1) singular fits correspond to overfitted#
+#' models that may have poor power; (2) chances of#
+#' numerical problems and mis-convergence are#
+#' higher for singular models (e.g. it may be#
+#' computationally difficult to compute profile#
+#' confidence intervals for such models); (3)#
+#' standard inferential procedures such as Wald#
+#' statistics and likelihood ratio tests may be#
+#' inappropriate.#
+#' #
+#'   There is not yet consensus about how to deal#
+#' with singularity, or more generally to choose#
+#' which random-effects specification (from a#
+#' range of choices of varying complexity) to use.#
+#' Some proposals include:#
+#' #
+#'   avoid fitting overly complex models in the#
+#' first place, i.e. design experiments/restrict#
+#' models a priori such that the#
+#' variance-covariance matrices can be estimated#
+#' precisely enough to avoid singularity#
+#' (Matuschek et al 2017)#
+#' #
+#'   use some form of model selection to choose a#
+#' model that balances predictive accuracy and#
+#' overfitting/type I error (Bates et al 2015,#
+#' Matuschek et al 2017)#
+#' #
+#'   “keep it maximal”, i.e. fit the most complex#
+#' model consistent with the experimental design,#
+#' removing only terms required to allow a#
+#' non-singular fit (Barr et al. 2013), or#
+#' removing further terms based on p-values or AIC#
+#' #
+#'   use a partially Bayesian method that produces#
+#' maximum a posteriori (MAP) estimates using#
+#' regularizing priors to force the estimated#
+#' random-effects variance-covariance matrices#
+#' away from singularity (Chung et al 2013, blme#
+#' package)#
+#' #
+#'   use a fully Bayesian method that both#
+#' regularizes the model via informative priors#
+#' and gives estimates and credible intervals for#
+#' all parameters that average over the#
+#' uncertainty in the random effects parameters#
+#' (Gelman and Hill 2006, McElreath 2015;#
+#' MCMCglmm, rstanarm and brms packages)#
+#' # Session info#
+#'#
+#' The code and output in this document were tested and generated in the#
+#' following computing environment:#
+#+ echo=FALSE#
+sessionInfo()#
+#
+#' # References
+diamonds.mod1 <- lm(value ~ weight, data = diamonds)#
+#
+ # Model 2: 2 IVs (weight AND clarity)#
+ diamonds.mod2 <- lm(value ~ weight + clarity, data = diamonds)#
+#
+ # Model 3: 3 IVs (weight AND clarity AND color)#
+ diamonds.mod3 <- lm(value ~ weight + clarity + color, data = diamonds)
+load(diamonds)
+data(diamonds)
+# model 1: 1 IV (only weight)#
+ diamonds.mod1 <- lm(value ~ weight, data = diamonds)#
+#
+ # Model 2: 2 IVs (weight AND clarity)#
+ diamonds.mod2 <- lm(value ~ weight + clarity, data = diamonds)#
+#
+ # Model 3: 3 IVs (weight AND clarity AND color)#
+ diamonds.mod3 <- lm(value ~ weight + clarity + color, data = diamonds)#
+#
+anova(diamonds.mod1, diamonds.mod2)
+diamonds.mod1 <- lm(value ~ weight, data = diamonds)
+diamonds
+diamonds.mod1 <- lm(carat ~ price, data = diamonds)
+diamonds.mod1 <- lm(price ~ carat, data = diamonds)#
+#
+ # Model 2: 2 IVs (weight AND clarity)#
+ diamonds.mod2 <- lm(price ~ carat + clarity, data = diamonds)#
+#
+ # Model 3: 3 IVs (weight AND clarity AND color)#
+ diamonds.mod3 <- lm(price ~ carat + clarity + color, data = diamonds)
+anova(diamonds.mod1, diamonds.mod2)
+full_formula <- full_formulae[[1]]#
+null_formula <- null_formulae[[1]]
+# define current data table for subsetting#
+  model_data_raw <- model_input_data[[1]]
+# match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)
+# calculate full model#
+  full_model <- calculate_model(full_formula, model_data)
+# calculate null model#
+  null_model <- calculate_model(null_formula, model_data)
+# print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)
+print(sm)
+message("\nGetting Model Coefficients from Summary: ")
+print(sm$coefficients)
+message("\nGetting Model ANOVA: ")
+an <- try(anova(null_model, full_model))
+try(print(an))
+str(an)
+an[2, 8]
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, output_format = "html_notebook")
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, output_format = "html_notebook")
+full_formula <- full_formulae[[1]]#
+null_formula <- null_formulae[[1]]#
+  # define current data table for subsetting#
+  model_data_raw <- model_input_data[[1]]#
+  # match input table dimensions to current model formulae#
+  model_data <- match_data_to_formula(full_formula, model_data_raw)#
+  print(model_data, n = Inf)#
+  # calculate full model#
+  full_model <- calculate_model(full_formula, model_data)#
+  # calculate null model#
+  null_model <- calculate_model(null_formula, model_data)#
+  # print model summary and evaluations#
+  message("\nGetting Model Summary: ")#
+  sm <- summary(full_model)#
+  print(sm)#
+  message("\nGetting Model Coefficients from Summary: ")#
+  print(sm$coefficients)#
+  message("\nGetting Model ANOVA: ")#
+  an <- try(anova(null_model, full_model))#
+  try(print(an))#
+#
+str(an)#
+an[2, 8]
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, output_format = "html_notebook")
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, output_format = "html_notebook")
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, output_format = "html_notebook")
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, output_format = "html_notebook")
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, output_format = "html_notebook")
+rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, output_format = "html_notebook")

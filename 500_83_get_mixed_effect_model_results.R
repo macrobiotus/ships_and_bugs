@@ -1,28 +1,19 @@
 #' ---
-#' output: "pdf_document"
 #' title: "Apply Mixed Effect Models to Extended Modelling Input Data"
-#' name: "Paul Czechowski"
-#' date: "31-January-2020"
-#' toc: "true"
-#' highlight: "zenburn"
+#' output: 
+#'   html_document:
+#'   toc: true
+#'   toc_float: true
+#'   toc_collapsed: true
+#' toc_depth: 3
+#' number_sections: true
+#' theme: lumen
 #' ---
-#' 
+
 #' # Preamble
 #' 
-#' This script version tests the influence of environmental data and 
-#' the influence of voyages against biological responses. This script
-#' only considers port in between which routes are present, such ports are
-#' fewer the ports which have environmental distances available. (All ports 
-#' with measurements have environmental distances available.)
-#'
-#' This script needs all R scripts named `500_*.R` to have run successfully,
-#' apart from `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
-#' It should then be called using a shell script. It will only accept certain files
-#' currently, and otherwise abort. For further information understand section Environment
-#' preparation. Also check `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh`
-#'
 #' This code commentary is included in the R code itself and can be rendered at
-#' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE)`.
+#' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R", clean = TRUE, output_format = "html_notebook")`.
 #' Please check the session info at the end of the document for further 
 #' notes on the coding environment.
 #' 
@@ -82,14 +73,14 @@ match_data_to_formula <- function (formula_item, data_item){
   message("- Removed variables are: ", paste0( names(data_item)[which(names(data_item) %!in% vars_to_keep)], " "), ".")
   message("- Kept variables are: ", paste0(vars_to_keep, " "), ".")
   
-  data_item <- data_item %>% select(vars_to_keep)
+  data_item <- data_item %>% select(all_of(vars_to_keep))
 
   message("- Intermediate dimensions are: ", paste0( (dim(data_item)), " "), ".")
   
   # remove superflous rows
   message("- Undefined rows have been removed, assuming they were real \"NA\" and not \"0\".")
   
-  data_item %>% na.omit
+  data_item <- data_item %>% filter(complete.cases(.))
   
   message("- Final dimensions are: ", paste0( (dim(data_item)), " "), ".")
   
@@ -117,26 +108,19 @@ calculate_model <- function(formula_item, data_item){
 #' following `https://stackoverflow.com/questions/25312818/using-lapply-to-fit-multiple-model-how-to-keep-the-model-formula-self-contain`
 
 full_formulae <- list(
-  # Original formula used by Paul:
-  # Unifrac ~ Voyage counts  + env similarity + ecoregion + random port effects
+  
+  # Original by Paul 
   as.formula(RESP_UNIFRAC ~ PRED_TRIPS + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
-
-  # Original formula adjusted with Mandana's frequencies:
-  # Unifrac ~ Voyage frequencies + env similarity + ecoregion + random port effects
+  
+  # as per email 04.02.2020
+  # Unifrac ~ VOY_FREQ + env similarity + ecoregion + random port effects
   as.formula(RESP_UNIFRAC ~ VOY_FREQ + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
-
-  # Formulas from Word document with Mandana's ballast risk estimates:
-  # Unifrac ~ Ballast FON shipping + env similarity + ecoregion + random port effects
-  as.formula(RESP_UNIFRAC ~ B_FON_NOECO + ECO_DIFF + (1 | PORT) + (1 | DEST)),
-
-  # Unifrac ~ Ballast HON shipping + env similarity + ecoregion + random port effects
-  as.formula(RESP_UNIFRAC ~ B_HON_NOECO + ECO_DIFF + (1 | PORT) + (1 | DEST)),
-
-  # Unifrac ~ Ballast FON risk* + ~~ecoregion~~ / env similarity + random port effects
-  as.formula(RESP_UNIFRAC ~ B_FON_SMECO + (1 | PORT) + (1 | DEST)),
-
-  # Unifrac ~ Ballast HON risk* + ~~ecoregion~~ / env similarity + random port effects
-  as.formula(RESP_UNIFRAC ~ B_HON_SMECO + (1 | PORT) + (1 | DEST))
+   
+  # Unifrac ~ B_FON_NOECO + env similarity + ecoregion + random port effects
+  as.formula(RESP_UNIFRAC ~ B_FON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  
+  # Unifrac ~ B_HON_NOECO + env similarity + ecoregion + random port effects
+  as.formula(RESP_UNIFRAC ~ B_HON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))
 )
 
 #' 
@@ -145,28 +129,19 @@ full_formulae <- list(
 #' For Anova comparison. Order *must* be the same as in list `full_models`.
 
 null_formulae <- list(
-  # Original formula used by Paul:
-  # Unifrac ~ Voyage counts  + env similarity + ecoregion + random port effects
+  
+  # Original by Paul 
   as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
-
-  # Original formula adjusted with Mandana's frequencies:
-  # Unifrac ~ Voyage frequencies + env similarity + ecoregion + random port effects
+  
+  # as per email 04.02.2020
+  # Unifrac ~ VOY_FREQ + env similarity + ecoregion + random port effects
   as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
-
-  # Formulas from Word document with Mandana's ballast risk estimates:
-  # Unifrac ~ Ballast FON shipping + env similarity + ecoregion + random port effects
-  as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST)),
-
-  # Unifrac ~ Ballast HON shipping + env similarity + ecoregion + random port effects
-  as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST)),
-
-  # Unifrac ~ Ballast FON risk* + ~~ecoregion~~ / env similarity + random port effects
-  # message("Considering only random effects in null model - unsure if this is possible.")
-  as.formula(RESP_UNIFRAC ~ (1 | PORT) + (1 | DEST)),
-
-  # Unifrac ~ Ballast HON risk* + ~~ecoregion~~ / env similarity + random port effects
-  # message("Considering only random effects in null model - unsure if this is possible.")
-  as.formula(RESP_UNIFRAC ~ (1 | PORT) + (1 | DEST))
+   
+  # Unifrac ~ B_FON_NOECO + env similarity + ecoregion + random port effects
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  
+  # Unifrac ~ B_HON_NOECO + env similarity + ecoregion + random port effects
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))
 )
 
 #' # Read in and format data
@@ -187,8 +162,6 @@ model_input_data <- suppressWarnings(lapply(model_input_files,
   function(listed_file)  read_csv(listed_file, col_types = cols('X1' = col_skip()))))
 names(model_input_data) <- model_input_files
 
-
-
 #' # Obtaining modelling results
 #'
 #' ## Initialize results table
@@ -198,18 +171,12 @@ names(model_input_data) <- model_input_files
 analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))
 analysis_summaries <- as_tibble(analysis_summaries)
 analysis_summaries <- setNames(analysis_summaries, c("DIDX", "FIDX"))
-analysis_summaries <- analysis_summaries %>% add_column(AIC = 0, DATA = 0, FRML = 0, SIGN = 0)
+analysis_summaries <- analysis_summaries %>% add_column(AKAI = 0, PVAL = 0, FRML = 0, DATA = 0)
 
-analysis_summaries$AIC  %<>% as.double
+analysis_summaries$AKAI  %<>% as.double
 analysis_summaries$DATA %<>% as.character
 analysis_summaries$FRML  %<>% as.character
-analysis_summaries$SIGN  %<>% as.double
-
-# data sets are at 
-as.integer(analysis_summaries[1, 1])
-
-# formulas are at 
-as.integer(analysis_summaries[1, 2])
+analysis_summaries$PVAL  %<>% as.double
 
 # use this approach to get around the loop - later
 #   define all possible combinations for mapply call
@@ -223,7 +190,8 @@ as.integer(analysis_summaries[1, 2])
 #' ## Calculating Results
 #' 
 #' Initially using loops, for sanity reasons. While looping fill results table
-#' `analysis_summaries`.
+#' `analysis_summaries`. 
+#' Check raw model outputs below for `Writing above results to results table row: n` and look up `n` in both results tables all the way at the end of this page.
 
 # loop over formulae
 for (i in seq(full_formulae)){
@@ -231,286 +199,182 @@ for (i in seq(full_formulae)){
   # loop over dat sets
   for (j in seq(model_input_data)){
   
-  message("**Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), "** ")
-  
-  # define current model formula for parsing
-  full_formula <- full_formulae[[i]]
-  null_formula <- null_formulae[[i]]
-     
-  # define current data table for subsetting
-  model_data_raw <- model_input_data[[j]]
-         
-  # match input table dimensions to current model formulae
-  model_data <- match_data_to_formula(full_formula, model_data_raw)
-     
-  # calculate full model
-  full_model <- calculate_model(full_formula, model_data)
-     
-  # calculate null model
-  null_model <- calculate_model(null_formula, model_data)
-     
-  # print model summary and evaluations
-  message("\nGetting Model Summary: ")
-  sm <- summary(full_model)
-  print(sm)
-      
-  message("\nGetting Model ANOVA: ")
-  an <- try(anova(full_model, null_model))
-  print(sm)
-  try(print(an))
+    message("°º¤ø,¸¸,ø¤º°`°º¤ø,¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸ °º¤ø,¸¸,ø¤º°`°º¤ø,¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸ °º¤ø,¸¸,ø¤º°`°º¤ø,¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸ ")
+    message("\nStarting new analysis, with data index DIDX \"", j , "\" and formula index FIDX \"", i, "\" in Summary Tables." ) 
+    message("Using formula: ", as.character(full_formulae[[i]]), " with data: ", as.character(basename(names(model_input_data)[[j]])), ". ")
 
-  # plot model coefficients
-  message("\nPlotting Model Coefficients: ")
-  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,
-   type = "std", 
-   title = paste("Coefficients for formula \"", as.character(full_formula),
-   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",
-   basename(names(model_input_data)[[j]]), "\"." ))
-    
-  print(plot)
+    # define current model formula for parsing
+    full_formula <- full_formulae[[i]]
+    null_formula <- null_formulae[[i]]
+     
+    # define current data table for subsetting
+    model_data_raw <- model_input_data[[j]]
+         
+    # match input table dimensions to current model formulae
+    model_data <- match_data_to_formula(full_formula, model_data_raw)
+    print(model_data, n = Inf)
+  
+    # calculate full model
+    full_model <- calculate_model(full_formula, model_data)
+     
+    # calculate null model
+    null_model <- calculate_model(null_formula, model_data)
+     
+    # print model summary and evaluations
+    message("\nGetting Model Summary: ")
+    sm <- summary(full_model)
+    print(sm)
+    message("\nGetting Model Coefficients from Summary: ")
+    print(sm$coefficients)
+      
+    message("\nGetting Model ANOVA: ")
+    an <- try(anova(null_model, full_model))
+    try(print(an))
+
+    # plot model coefficients
+    message("\nPlotting Model Coefficients: ")
+    plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,
+     type = "std", 
+     title = paste("Coefficients for formula \"", as.character(full_formula),
+     "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",
+    basename(names(model_input_data)[[j]]), "\"." ))
+  
+    print(plot)
+  
+    # gather results
+    #   set current row of results table
+    crnt_row <- intersect(which(analysis_summaries$DIDX == j), which(analysis_summaries$FIDX == i))
+    # message("Writing above results to results table row (but the table is re-sorted): ", crnt_row)
+  
+    #    fill results table
+    analysis_summaries[crnt_row, ]$AKAI <- extractAIC(full_model)[2]
+    analysis_summaries[crnt_row, ]$DATA <- as.character(basename(names(model_input_data)[[j]]))
+    analysis_summaries[crnt_row, ]$FRML <- as.character(full_formulae[[i]])
+    analysis_summaries[crnt_row, ]$PVAL <- an[2,8]
+  
+    # keep in mind for further elements from anova object:
+    #  > str(an)
+    #  Classes ‘anova’ and 'data.frame':	2 obs. of  8 variables:
+    #  $ Df        : num  6 7
+    #  $ AIC       : num  -158 -159
+    #  $ BIC       : num  -145 -144
+    #  $ logLik    : num  84.8 86.5
+    #  $ deviance  : num  -170 -173
+    #  $ Chisq     : num  NA 3.49
+    #  $ Chi Df    : num  NA 1
+    #  $ Pr(>Chisq): num  NA 0.0617
 
   }
 }
 
+#' # Show Results table
+#'
+#' Check above raw model out put for `Writing above results to results table row: n` and look up `n` in both tables below.
 
+#'
+#' Sort results table by AIC
 
+analysis_summaries <- arrange(analysis_summaries, AKAI)
 
-#' # Modelling
+#' Show results table interactively:
 
-#' ## Get full models
+analysis_summaries
 
-# loop over input tables and models
+#' Show results table on screen:
 
-# full_models
+print(analysis_summaries, n = Inf)
 
+#' # On warning ?`isSingular`
+#' 
+#'  Complex mixed-effect models (i.e., those with
+#' a large number of variance-covariance
+#' parameters) frequently result in singular fits,
+#' i.e. estimated variance-covariance matrices
+#' with less than full rank. Less technically,
+#' this means that some "dimensions" of the
+#' variance-covariance matrix have been estimated
+#' as exactly zero. For scalar random effects such
+#' as intercept-only models, or 2-dimensional
+#' random effects such as intercept+slope models,
+#' singularity is relatively easy to detect
+#' because it leads to random-effect variance
+#' estimates of (nearly) zero, or estimates of
+#' correlations that are (almost) exactly -1 or 1.
+#' However, for more complex models
+#' (variance-covariance matrices of dimension >=3)
+#' singularity can be hard to detect; models can
+#' often be singular without any of their
+#' individual variances being close to zero or
+#' correlations being close to +/-1.
+#' 
+#'   This function performs a simple test to
+#' determine whether any of the random effects
+#' covariance matrices of a fitted model are
+#' singular. The rePCA method provides more detail
+#' about the singularity pattern, showing the
+#' standard deviations of orthogonal variance
+#' components and the mapping from variance terms
+#' in the model to orthogonal components (i.e.,
+#' eigenvector/rotation matrices).
+#' 
+#'   While singular models are statistically well
+#' defined (it is theoretically sensible for the
+#' true maximum likelihood estimate to correspond
+#' to a singular fit), there are real concerns
+#' that (1) singular fits correspond to overfitted
+#' models that may have poor power; (2) chances of
+#' numerical problems and mis-convergence are
+#' higher for singular models (e.g. it may be
+#' computationally difficult to compute profile
+#' confidence intervals for such models); (3)
+#' standard inferential procedures such as Wald
+#' statistics and likelihood ratio tests may be
+#' inappropriate.
+#' 
+#'   There is not yet consensus about how to deal
+#' with singularity, or more generally to choose
+#' which random-effects specification (from a
+#' range of choices of varying complexity) to use.
+#' Some proposals include:
+#' 
+#'   avoid fitting overly complex models in the
+#' first place, i.e. design experiments/restrict
+#' models a priori such that the
+#' variance-covariance matrices can be estimated
+#' precisely enough to avoid singularity
+#' (Matuschek et al 2017)
+#' 
+#'   use some form of model selection to choose a
+#' model that balances predictive accuracy and
+#' overfitting/type I error (Bates et al 2015,
+#' Matuschek et al 2017)
+#' 
+#'   “keep it maximal”, i.e. fit the most complex
+#' model consistent with the experimental design,
+#' removing only terms required to allow a
+#' non-singular fit (Barr et al. 2013), or
+#' removing further terms based on p-values or AIC
+#' 
+#'   use a partially Bayesian method that produces
+#' maximum a posteriori (MAP) estimates using
+#' regularizing priors to force the estimated
+#' random-effects variance-covariance matrices
+#' away from singularity (Chung et al 2013, blme
+#' package)
+#' 
+#'   use a fully Bayesian method that both
+#' regularizes the model via informative priors
+#' and gives estimates and credible intervals for
+#' all parameters that average over the
+#' uncertainty in the random effects parameters
+#' (Gelman and Hill 2006, McElreath 2015;
+#' MCMCglmm, rstanarm and brms packages)
 
+#' # Session info
+#'
+#' The code and output in this document were tested and generated in the
+#' following computing environment:
+#+ echo=FALSE
+sessionInfo()
 
-
-
-
-
-
-
-
-
-
-
-
-# flatten list
-
-
-
-
-
-#' ## Get ANOVAs
-
-#' ## Check AICs
-
-#' ## Plot model results
-
-
-
-
-
-# lmer( full_models[[1]], data = model_input_data[[1]], REML=FALSE)
-# 
-# 
-# #' # Define null models
-# 
-# 
-# # 
-# 
-# # anova using mapply over lists
-# 
-# 
-# #' For reasons of simplicity loop over list to generate model results and plots for each inout data set.
-# 
-# #'
-# #' # Apply models to list of formatted input tables 
-# #' 
-# #' ## Model formulas: 
-# #'
-# #' ### Original formula used by Paul:
-# #' 
-# #' 0. ` Unifrac ~ Voyage counts  + env similarity + ecoregion + random port effects`:
-# 
-# # full_model <- lmer(RESP_UNIFRAC ~ PRED_TRIPS + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST), data = vars, REML=FALSE)
-# 
-# #' ### Original formula adjusted with Mandana's frequencies:
-# #'
-# #' 1. `Unifrac ~ Voyage frequencies + env similarity + ecoregion + random port effects`:
-# 
-# # full_model <- lmer(RESP_UNIFRAC ~ VOY_FREQ + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST), data = vars, REML=FALSE)
-# 
-# #' ### Formulas from Word document with Mandana's ballast risk estimates:
-# #' 
-# #' 2.  `Unifrac ~ Ballast FON shipping + env similarity + ecoregion + random port effects`:
-# 
-# # full_model <- lmer(RESP_UNIFRAC ~ B_FON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST), data = vars, REML=FALSE)
-# 
-# #' 3.  `Unifrac ~ Ballast HON shipping + env similarity + ecoregion + random port effects`:
-# 
-# # full_model <- lmer(RESP_UNIFRAC ~ B_HON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST), data = vars, REML=FALSE)
-# 
-# #' 4.  `Unifrac ~ Ballast FON risk* + ~~ecoregion~~ / env similarity + random port effects` (Ecoregion from Word documents substituted with Environmental Similarity since Mandana considers Ecoregions?):
-# 
-# # full_model <- lmer(RESP_UNIFRAC ~ B_FON_SMECO + PRED_ENV + (1 | PORT) + (1 | DEST), data = vars, REML=FALSE)
-# 
-# #' 5.  `Unifrac ~ Ballast HON risk* + ~~ecoregion~~ / env similarity + random port effects` (Ecoregion from Word documents substituted with Environmental Similarity since Mandana considers Ecoregions?):
-# 
-# # full_model <- lmer(RESP_UNIFRAC ~ B_HON_SMECO + PRED_ENV + (1 | PORT) + (1 | DEST), data = vars, REML=FALSE)
-# 
-# #'
-# 
-# # ------------------------- old code below ----------------------
-# # 
-# # Checking response and predictor variable distributions
-# # 
-# # # Plots -  create list to store plots for export further below
-# # 
-# # ## Responses
-# # plot_l <- list()
-# # 
-# # plot_l[[1]] <- ggplot(model_data, aes (x=RESP_UNIFRAC)) + 
-# #               geom_density() +
-# #               facet_grid(~ECO_DIFF) +
-# #               theme_bw()
-# # 
-# # plot_l[[2]] <- ggplot(model_data,aes (x=PRED_ENV))+ 
-# #               geom_density()+
-# #               facet_grid(~ECO_DIFF)+
-# #               theme_bw()
-# # 
-# # 
-# # ## Pedictors
-# # 
-# # plot_l[[3]] <-  ggplot(model_data,aes (x=PRED_TRIPS))+ 
-# #                geom_density()+
-# #                facet_grid(~ECO_DIFF)+
-# #                theme_bw()
-# # 
-# # plots <- plot_grid(plot_l[[1]], plot_l[[2]], plot_l[[3]],
-# #           labels=c("Eco(T/F)", "Eco(T/F)", "Eco(T/F)" ))
-# # 
-# # save_plot(args[5], plots, ncol = 1, nrow = 1, base_height = 5,
-# #   base_aspect_ratio = 1.1, base_width = 10)
-# #   
-# # 
-# # Appending to output file.
-# # capture.output( file=args[6], append=TRUE, print("Aggregation of biological distance means per ecoregion. (Response variable)"))
-# # capture.output( file=args[6], append=TRUE, aggregate(model_data$RESP_UNIFRAC~model_data$ECO_DIFF, FUN=mean))
-# # 
-# # capture.output( file=args[6], append=TRUE, print("Aggregation of environmental distance means per ecoregion (Predictor variable)."))
-# # capture.output( file=args[6], append=TRUE, aggregate(model_data$PRED_ENV~model_data$ECO_DIFF, FUN=mean))
-# # 
-# # capture.output( file=args[6], append=TRUE, print("Aggregation of summed voyage counts means per ecoregion (Predictor variable)."))
-# # capture.output( file=args[6], append=TRUE, aggregate(model_data$PRED_TRIPS~model_data$ECO_DIFF, FUN=mean))
-# # 
-# # '
-# # ' <!-- #################################################################### -->
-# # '
-# # ' <!-- #################################################################### -->
-# # '
-# # 
-# # model_data <- model_data %>%  mutate_if(is.numeric, scale(.,scale = FALSE))
-# # pairs(RESP_UNIFRAC ~ PRED_ENV * PRED_TRIPS, data=model_data, main="Simple Scatterplot Matrix")
-# # 
-# # ' # Select variables for modelling and build models 
-# # message("Saving this model data to file:")
-# # print(model_data)
-# # 
-# # Sorting columns
-# # model_data <- model_data %>% arrange(PORT, desc(PRED_TRIPS), DEST)
-# # 
-# # correcting trips for Pearl Harbour
-# # model_data <- model_data %>% mutate (PRED_TRIPS = ifelse(PORT  == "PH", "0", PRED_TRIPS))
-# # model_data <- model_data %>% mutate (PRED_TRIPS = ifelse(DEST  == "PH", "0", PRED_TRIPS))
-# # 
-# # model_data$PORT <- as.factor(model_data$PORT)
-# # model_data$DEST <- as.factor(model_data$DEST)
-# # model_data$ECO_DIFF <- as.factor(model_data$ECO_DIFF)
-# # model_data$PRED_TRIPS <- as.numeric(model_data$PRED_TRIPS)
-# # 
-# # 
-# # write data as per input path - keep close to variable selection below
-# # write.csv(model_data, file = args[4])
-# # 
-# # select  columns for model
-# # vars <- model_data %>% select(RESP_UNIFRAC, PORT, DEST, ECO_DIFF, PRED_ENV, PRED_TRIPS)
-# # message("Using this model data for regression:")
-# # print(vars)
-# # 
-# # ' ## Full Model and checking 
-# # vars_model_full <- lmer(RESP_UNIFRAC ~ PRED_ENV + PRED_TRIPS + ECO_DIFF + (1 | PORT) + (1 | DEST), data=vars, REML=FALSE)
-# # 
-# # vars_model_full <- lm(RESP_UNIFRAC ~ PRED_ENV + PRED_TRIPS + ECO_DIFF, data=vars)
-# # 
-# # ' ### Model Summary
-# # 
-# # Appending to output file.
-# # capture.output( file=args[6], append=TRUE,   message("Considered vraiables"))
-# # capture.output( file=args[6], append=TRUE,   print(vars_model_full))
-# #   
-# # capture.output( file=args[6], append=TRUE,   message("Random effect model summary"))
-# # capture.output( file=args[6], append=TRUE,   print(summary(vars_model_full)))
-# #   
-# # capture.output( file=args[6], append=TRUE,  message("Intercepts for factor levels"))
-# # capture.output( file=args[6], append=TRUE,  print(coef(vars_model_full))) #intercept for each level
-# # 
-# # For linear models, you can also plot standardized beta coefficients,
-# # https://cran.r-project.org/web/packages/sjPlot/vignettes/plot_model_estimates.html
-# # using type = "std" or type = "std2". These two options differ in the way how
-# # coefficients are standardized. type = "std2" plots standardized beta values,
-# # however, standardization follows Gelman’s (2008) suggestion, 
-# # rescaling the estimates by dividing them by two standard deviations
-# # instead of just one. (Use, type = std)
-# # 
-# # p <- plot_model(vars_model_full, show.values = TRUE, value.offset = .3,
-# #    type = "std", 
-# #    title = args[8])
-# # 
-# # save_plot(args[7], p, ncol = 1, nrow = 1, base_height = 8,
-# #   base_aspect_ratio = 1.1, base_width = 8)
-# # 
-# # ' Residuals
-# # plot(vars_model_full)
-# # 
-# # # check normality of the residuals
-# # qqnorm(residuals(vars_model_full))
-# # 
-# # # plotting random effects - trial after https://stackoverflow.com/questions/13847936/in-r-plotting-random-effects-from-lmer-lme4-package-using-qqmath-or-dotplot
-# # qqplot of the random effects with their variances
-# # "The last line of code produces a really nice plot of each intercept with the error around each estimate."
-# # qqmath(ranef(vars_model_full, condVar = TRUE), strip = FALSE)$PORT
-# # qqmath(ranef(vars_model_full, condVar = TRUE), strip = FALSE)$DEST
-# # 
-# # 
-# # ' ### Leverage of Observations
-# # 
-# # # model is not influenced by one or a small set of observations ?
-# # ggplot(data.frame(lev=hatvalues(vars_model_full),pearson=residuals(vars_model_full, type="pearson")),
-# #       aes(x=lev,y=pearson)) + geom_point() + theme_bw()
-# # 
-# # ' ## Null Model and checking 
-# # 
-# # vars_model_null <- lmer(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST), data=vars, REML=FALSE)
-# # 
-# # vars_model_null <- lm(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF, data=vars)
-# # 
-# # ' ### Model Summary
-# # summary(vars_model_null)
-# # 
-# # Appending to output file.
-# # ' ## Model Significance
-# # capture.output( file=args[6],   anova(vars_model_null, vars_model_full))
-# 
-# #' <!-- #################################################################### -->
-# #'
-# #' # Session info
-# #'
-# #' The code and output in this document were tested and generated in the
-# #' following computing environment:
-# #+ echo=FALSE
-# sessionInfo()
-# 
-# #' # References
+#' # References
