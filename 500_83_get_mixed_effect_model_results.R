@@ -42,8 +42,8 @@ library ("lme4")      # mixed effect model
 library ("sjPlot")    # mixed effect model - with plotting
 library ("cowplot")   # exporting ggplots
 library ("formula.tools") # better formatting of formulas
-library("stringr")    # better string concatenation
-
+library ("stringr")    # better string concatenation
+library ("magrittr")  # back-piping (only used for type conversion)
 #' Functions
 
 # Loaded from helper script:
@@ -109,8 +109,6 @@ calculate_model <- function(formula_item, data_item){
 
   return(model)
 }
-
-
 
 #' # Model definitions
 #' 
@@ -189,15 +187,43 @@ model_input_data <- suppressWarnings(lapply(model_input_files,
   function(listed_file)  read_csv(listed_file, col_types = cols('X1' = col_skip()))))
 names(model_input_data) <- model_input_files
 
-#' # Obtain modelling results
+
+
+#' # Obtaining modelling results
 #'
+#' ## Initialize results table
+#' 
+#' So that it can be filled in the loop.
+
+analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))
+analysis_summaries <- as_tibble(analysis_summaries)
+analysis_summaries <- setNames(analysis_summaries, c("DIDX", "FIDX"))
+analysis_summaries <- analysis_summaries %>% add_column(AIC = 0, DATA = 0, FRML = 0, SIGN = 0)
+
+analysis_summaries$AIC  %<>% as.double
+analysis_summaries$DATA %<>% as.character
+analysis_summaries$FRML  %<>% as.character
+analysis_summaries$SIGN  %<>% as.double
+
+# data sets are at 
+as.integer(analysis_summaries[1, 1])
+
+# formulas are at 
+as.integer(analysis_summaries[1, 2])
 
 # use this approach to get around the loop - later
-# define all possible combinations for mapply call
-combinations_model_data <- expand.grid(seq(model_input_data), seq(full_formulae))
-setNames(analysis_combinations, c("model", "formula"))
+#   define all possible combinations for mapply call
+#   for later - starting point
+#   analysis_combinations <- expand.grid(seq(model_input_data), seq(full_formulae))
+#   setNames(analysis_combinations, c("model_index", "formula_index"))
+#   for later - starting point
+#   list(model_input_data, full_formulae)
 
-#' Initially using loops, for sanity reasons.
+#'
+#' ## Calculating Results
+#' 
+#' Initially using loops, for sanity reasons. While looping fill results table
+#' `analysis_summaries`.
 
 # loop over formulae
 for (i in seq(full_formulae)){
@@ -227,18 +253,19 @@ for (i in seq(full_formulae)){
   message("\nGetting Model Summary: ")
   sm <- summary(full_model)
   print(sm)
-     
-   message("\nGetting Model ANOVA: ")
-   an <- try(anova(full_model, null_model))
-   print(sm)
-   try(print(an))
-   # plot model coefficients
-   message("\nPlotting Model Coefficients: ")
-   plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,
-     type = "std", 
-     title = paste("Coefficients for formula \"", as.character(full_formula),
-     "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",
-     basename(names(model_input_data)[[j]]), "\"." ))
+      
+  message("\nGetting Model ANOVA: ")
+  an <- try(anova(full_model, null_model))
+  print(sm)
+  try(print(an))
+
+  # plot model coefficients
+  message("\nPlotting Model Coefficients: ")
+  plot <- plot_model(full_model, show.values = TRUE, value.offset = .3,
+   type = "std", 
+   title = paste("Coefficients for formula \"", as.character(full_formula),
+   "\" and variables \"", str_c(names(model_data), collapse = "\", \""),"\" of input file: \"",
+   basename(names(model_input_data)[[j]]), "\"." ))
     
   print(plot)
 

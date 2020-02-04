@@ -1869,7 +1869,12 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * **pending**: sort by AIC
     * **pending**: get useful summary render, take notes (and mail off)
     * **pending**: improve looping
-
+    * commit `730112fb8ab984d254d80db9a399eb869a4ce0f3`
+* **04.02.2020** - swapping in Mandana's new data 
+  * commit before implementing the following models
+    * `Unifrac ~ VOY_FREQ + env similarity + ecoregion + random port effects`
+    * `Unifrac ~ B_FON_NOECO + env similarity + ecoregion + random port effects`
+    * `Unifrac ~ B_HON_NOECO + env similarity + ecoregion + random port effects`
 
 ## Todo
 
