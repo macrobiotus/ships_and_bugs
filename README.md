@@ -1875,7 +1875,13 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * `Unifrac ~ VOY_FREQ + env similarity + ecoregion + random port effects`
     * `Unifrac ~ B_FON_NOECO + env similarity + ecoregion + random port effects`
     * `Unifrac ~ B_HON_NOECO + env similarity + ecoregion + random port effects`
-    * emailled off draft - commit:
+    * emailed off draft - commit: `5695e9a69e4c59c240812718b7b396a5fcf2876f`
+* **06.02.2020** - running models as discussed at phone call today
+  * see `/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R`
+* **13.02.2020** - running models as discussed at phone call today
+  * see `/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R`
+  * rendered html and sent off for AAAS meeting
+
 
 ## Todo
 

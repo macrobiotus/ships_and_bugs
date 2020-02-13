@@ -110,17 +110,32 @@ calculate_model <- function(formula_item, data_item){
 full_formulae <- list(
   
   # Original by Paul 
-  as.formula(RESP_UNIFRAC ~ PRED_TRIPS + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  # as.formula(RESP_UNIFRAC ~ PRED_TRIPS + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
   
   # as per email 04.02.2020
   # Unifrac ~ VOY_FREQ + env similarity + ecoregion + random port effects
-  as.formula(RESP_UNIFRAC ~ VOY_FREQ + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  # as.formula(RESP_UNIFRAC ~ VOY_FREQ + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
    
   # Unifrac ~ B_FON_NOECO + env similarity + ecoregion + random port effects
-  as.formula(RESP_UNIFRAC ~ B_FON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  # as.formula(RESP_UNIFRAC ~ B_FON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
   
   # Unifrac ~ B_HON_NOECO + env similarity + ecoregion + random port effects
-  as.formula(RESP_UNIFRAC ~ B_HON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))
+  # as.formula(RESP_UNIFRAC ~ B_HON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))
+  
+  # Models as per Jose's email after phone conference 6.02.2020
+  # Model 4:
+  as.formula(RESP_UNIFRAC ~ B_FON_NOECO + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+
+  # Model 5:
+  as.formula(RESP_UNIFRAC ~ B_HON_NOECO  + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  
+  # as per email 13.02.2020 - Erin Grey
+  # Model 4:
+  as.formula(RESP_UNIFRAC ~ F_FON_NOECO + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  
+  # Model 5:
+  as.formula(RESP_UNIFRAC ~ F_HON_NOECO  + ECO_DIFF + (1 | PORT) + (1 | DEST))
+
 )
 
 #' 
@@ -131,17 +146,33 @@ full_formulae <- list(
 null_formulae <- list(
   
   # Original by Paul 
-  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  # as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
   
   # as per email 04.02.2020
   # Unifrac ~ VOY_FREQ + env similarity + ecoregion + random port effects
-  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  # as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
    
   # Unifrac ~ B_FON_NOECO + env similarity + ecoregion + random port effects
-  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  # as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
   
   # Unifrac ~ B_HON_NOECO + env similarity + ecoregion + random port effects
-  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))
+  # as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))
+  
+  # Models as per Jose's email after phone conference 6.02.2020
+  # Model 4:
+  as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST)),
+
+  # Model 5:
+  as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  
+  # as per email 13.02.2020 - Erin Grey
+  # Model 4:
+  as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  
+  # Model 5:
+  as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST))
+
+
 )
 
 #' # Read in and format data
@@ -161,6 +192,21 @@ model_input_files <- list.files(path=model_input_folder,
 model_input_data <- suppressWarnings(lapply(model_input_files, 
   function(listed_file)  read_csv(listed_file, col_types = cols('X1' = col_skip()))))
 names(model_input_data) <- model_input_files
+
+# After phone call 6.2.2020 keep only one dataset in list
+
+    # select dataset
+    # model_input_data <- model_input_data[2]  # deep rarefaction depth
+    model_input_data <- model_input_data[10]   # shallow rarefaction depth 
+ 
+    # print raw input data
+    print(model_input_data[[1]])
+  
+    # set names
+    # model_input_files <- model_input_files[2]  # deep rarefaction depth
+      model_input_files <- model_input_files[10] # shallow rarefaction depth 
+      print(model_input_files[[1]])
+
 
 #' # Obtaining modelling results
 #'
