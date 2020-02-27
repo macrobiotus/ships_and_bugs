@@ -1,7 +1,7 @@
 #' ---
 #' title: "Extend modelling input"
 #' author: "Paul Czechowski"
-#' date: "31-January-2020"
+#' date: "27-February-2020"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -90,13 +90,14 @@ left_join_using_port_sets = function(tab_in_list, tab_single_cleaned){
 
 # define file path components for listing 
 model_input_folder <- "/Users/paul/Documents/CU_combined/Zenodo/Results"
-model_input_pattern <- glob2rx("??_results_euk_*_model_data_*.csv")
+model_input_pattern <- glob2rx("??_results_euk_*_model_data_*Feb-27*.csv") # adjust here for other / newer data sets
 
 # read all file into lists for `lapply()` usage
 model_input_files <- list.files(path=model_input_folder, pattern = model_input_pattern, full.names = TRUE)
 
 # store all tables in list and save input filenames alongside - skipping "X1" 
 #  in case previous tables have column numbers, which they should not have anymore.
+#  Warnings for column names X1 are not a worry.
 model_input_data <- lapply(model_input_files, function(listed_file)  read_csv(listed_file, col_types = cols('X1' = col_skip())))
 names(model_input_data) <- model_input_files
 
@@ -127,12 +128,41 @@ names(all_model_data)
 # read in Mandana's results and name columns
 # old incomplete data (19.11.2019)
 # mandanas_data <- read_csv("/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/191105_shipping_estimates.csv")
-# newer more complete data
-mandanas_data <- read_csv("/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/280120_all_links_1997_2018.csv")
+
+# newer more complete data 2020-01-28
+# mandanas_data <- read_csv("/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/200128_all_links_1997_2018.csv")
+# names(mandanas_data)
+# 
+# old names
+# ---------
+#     "source"              "target"              "voyage_freq"         "Ballast FON noEco"   "Ballast HON noEco"   "Ballast FON sameEco"
+#     "Ballast HON sameEco" "Fouling FON noEco"   "Fouling HON noEco"   "Fouling FON sameEco" "Fouling HON sameEco
+#
+# new names 
+# ---------
+#      "PORT",                "DEST",              "VOY_FREQ",           "B_FON_NOECO",        "B_HON_NOECO",        "B_FON_SMECO", 
+#      "B_HON_SMECO",         "F_FON_NOECO",       "F_HON_NOECO",        "F_FON_SMECO",        "F_HON_SMECO")
+
+
+# latest data 2020
+mandanas_data <- read_csv("/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/200227_All_links_1997_2018_updated.csv")
 names(mandanas_data)
 
+# old names
+# ---------
+#      "source"                  "target"                  "voyage_freq"             "Ballast FON noEco"       "Ballast HON noEco"      
+#      "Ballast FON sameEco"     "Ballast HON sameEco"     "Ballast FON noEco_noEnv" "Ballast HON noEco_noEnv" "Fouling FON noEco"      
+#      "Fouling HON noEco"       "Fouling FON sameEco"     "Fouling HON sameEco"     "Fouling FON noEco_noEnv" "Fouling HON noEco_noEnv"
+# new names 
+# ---------
+#      "PORT",                   "DEST",                   "VOY_FREQ",               "B_FON_NOECO",            "B_HON_NOECO",
+#      "B_FON_SMECO",            "B_HON_SMECO",            "B_FON_NOECO_NOENV",      "B_HON_NOECO_NOENV",      "F_FON_NOECO", 
+#      "F_HON_NOECO",            "F_FON_SMECO",            "F_HON_SMECO",            "F_FON_NOECO_NOENV",      "F_HON_NOECO_NOENV"
 
-names(mandanas_data) <- c("PORT", "DEST", "VOY_FREQ", "B_FON_NOECO", "B_HON_NOECO", "B_FON_SMECO", "B_HON_SMECO", "F_FON_NOECO", "F_HON_NOECO", "F_FON_SMECO", "F_HON_SMECO")
+names(mandanas_data) <- c("PORT", "DEST", "VOY_FREQ", "B_FON_NOECO", "B_HON_NOECO", "B_FON_SMECO",
+                          "B_HON_SMECO", "B_FON_NOECO_NOENV", "B_HON_NOECO_NOENV",  "F_FON_NOECO", 
+                          "F_HON_NOECO", "F_FON_SMECO", "F_HON_SMECO", "F_FON_NOECO_NOENV", 
+                          "F_HON_NOECO_NOENV")
 
 
 # rename SY to SI to match my data

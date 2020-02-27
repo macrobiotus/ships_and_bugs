@@ -124,18 +124,30 @@ full_formulae <- list(
   
   # Models as per Jose's email after phone conference 6.02.2020
   # Model 4:
-  as.formula(RESP_UNIFRAC ~ B_FON_NOECO + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  # as.formula(RESP_UNIFRAC ~ B_FON_NOECO + ECO_DIFF + (1 | PORT) + (1 | DEST)),
 
   # Model 5:
-  as.formula(RESP_UNIFRAC ~ B_HON_NOECO  + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  # as.formula(RESP_UNIFRAC ~ B_HON_NOECO  + ECO_DIFF + (1 | PORT) + (1 | DEST)),
   
   # as per email 13.02.2020 - Erin Grey
   # Model 4:
-  as.formula(RESP_UNIFRAC ~ F_FON_NOECO + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  # as.formula(RESP_UNIFRAC ~ F_FON_NOECO + ECO_DIFF + (1 | PORT) + (1 | DEST)),
   
   # Model 5:
-  as.formula(RESP_UNIFRAC ~ F_HON_NOECO  + ECO_DIFF + (1 | PORT) + (1 | DEST))
-
+  # as.formula(RESP_UNIFRAC ~ F_HON_NOECO  + ECO_DIFF + (1 | PORT) + (1 | DEST))
+  
+  # as per email 27.02.2020
+  # 
+  # Model A:
+  as.formula(RESP_UNIFRAC ~ PRED_TRIPS + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  # Model B: 
+  as.formula(RESP_UNIFRAC ~ B_FON_NOECO + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  # Model C:
+  as.formula(RESP_UNIFRAC ~ B_HON_NOECO + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  # Model D:
+  as.formula(RESP_UNIFRAC ~ B_FON_NOECO_NOENV + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  # Model E: 
+  as.formula(RESP_UNIFRAC ~ B_HON_NOECO_NOENV + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))
 )
 
 #' 
@@ -160,18 +172,30 @@ null_formulae <- list(
   
   # Models as per Jose's email after phone conference 6.02.2020
   # Model 4:
-  as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  # as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST)),
 
   # Model 5:
-  as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  # as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST)),
   
   # as per email 13.02.2020 - Erin Grey
   # Model 4:
-  as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  # as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST)),
   
   # Model 5:
-  as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST))
-
+  # as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST))
+  
+  # as per email 27.02.2020
+  # 
+  # Model A:
+  as.formula(RESP_UNIFRAC ~ PRED_ENV+ ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  # Model B: 
+  as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  # Model C:
+  as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  # Model D:
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  # Model E: 
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))
 
 )
 
@@ -181,7 +205,7 @@ null_formulae <- list(
 
 # define file path components for listing 
 model_input_folder <- "/Users/paul/Documents/CU_combined/Zenodo/Results"
-model_input_pattern <- glob2rx("??_results_euk_*_model_data_*.csv")
+model_input_pattern <- glob2rx("??_results_euk_asv00*UNIF_model_data_*_with_hon_info.csv")
 
 # read all file into lists for `lapply()` usage
 model_input_files <- list.files(path=model_input_folder, 
@@ -193,20 +217,19 @@ model_input_data <- suppressWarnings(lapply(model_input_files,
   function(listed_file)  read_csv(listed_file, col_types = cols('X1' = col_skip()))))
 names(model_input_data) <- model_input_files
 
-# After phone call 6.2.2020 keep only one dataset in list
+# After phone call 6.2.2020 keep only one dataset in list.
+# After email call 27.2.2020 keep only one dataset in list. Same as previous.
 
-    # select dataset
-    # model_input_data <- model_input_data[2]  # deep rarefaction depth
-    model_input_data <- model_input_data[10]   # shallow rarefaction depth 
- 
-    # print raw input data
-    print(model_input_data[[1]])
+# subset datasets
+model_input_data <- list(model_input_data[[2]], model_input_data[[4]])
+print(model_input_data)
   
-    # set names
-    # model_input_files <- model_input_files[2]  # deep rarefaction depth
-      model_input_files <- model_input_files[10] # shallow rarefaction depth 
-      print(model_input_files[[1]])
+# subset names
+model_input_files <- list(model_input_files[[2]], model_input_files[[4]])
+print(model_input_files)
 
+# set names
+names(model_input_data) <- model_input_files
 
 #' # Obtaining modelling results
 #'

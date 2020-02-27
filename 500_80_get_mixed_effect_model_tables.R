@@ -15,7 +15,7 @@
 #' preparation. Also check `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh`
 #'
 #' This code commentary is included in the R code itself and can be rendered at
-#' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R")`.
+#' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_tables.R")`.
 #' Please check the session info at the end of the document for further 
 #' notes on the coding environment.
 #' 

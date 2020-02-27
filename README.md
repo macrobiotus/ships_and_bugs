@@ -1881,6 +1881,24 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
 * **13.02.2020** - running models as discussed at phone call today
   * see `/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R`
   * rendered html and sent off for AAAS meeting
+  * commit `f0550950a0f3070cefda6efe872aa373fd1d2fb1`
+  * for comments on results check `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190220_working_notes/200214_modelling_results_nterpretation_EG.pdf`
+* **13.02.2020** - new models and data received
+  * models to run and data to use are documented: 
+    * in `/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/200227_models_to_run.pdf`
+    * in `/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/200227_data_info_mandana.pdf`
+    * raw data is in `/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/200227_All_links_1997_2018_updated.csv`
+      * update variable names
+        * to match file `/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/200128_all_links_1997_2018.csv`
+        * in, and to be used with, script `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R`
+    * running script `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_tables.R` via
+      * script `~/Documents/CU_combined/Github/210_get_mixed_effect_model_tables.sh` - seems to be running ok.
+    * adjusted `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R`
+    * erased superflous, previous output files of `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R`
+    * **started** adjusting script: `/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R`
+      * as per `/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/200227_models_to_run.pdf`
+    * **pending** - get new data for shallow rarefaction depth
+      
 
 
 ## Todo
