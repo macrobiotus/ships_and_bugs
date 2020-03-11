@@ -35,6 +35,9 @@ library ("cowplot")   # exporting ggplots
 library ("formula.tools") # better formatting of formulas
 library ("stringr")    # better string concatenation
 library ("magrittr")  # back-piping (only used for type conversion)
+library ("knitr")   # to output results table
+library("rmarkdown") # to output results table
+
 #' Functions
 
 # Loaded from helper script:
@@ -46,10 +49,11 @@ source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")
 #' Function to subset data to fit model variables. Currently there are more 
 #' incomplete cases among Notre-Dame predictors then among Cornell predictors.
 #' Consider running an extra analysis \n with Cornell data trimmed so as to match Notre Dame data.
-match_data_to_formula <- function (formula_item, data_item){
+match_data_to_formula <- function (formula_item, data_item, path_and_basename){
   
   # package loading
   require ("tidyverse")
+  require ("openxlsx")
   
   # message
   message("\nData is subset to fit model variables, but currently there are more incomplete cases among Notre-Dame predictors then among Cornell predictors. Consider running an extra analysis with Cornell data trimmed so as to match Notre Dame data.")
@@ -65,11 +69,20 @@ match_data_to_formula <- function (formula_item, data_item){
   #   for debugging only
   # print(head(data_item))
   
-        
   # remove superflous columns
   vars_to_keep <- all.vars (formula_item)
 
-  message("- Input dimensions are: ", paste0( (dim(data_item)), " "),  ".")
+  # create names for unmodified files (before subsetting)  
+  path_unmod_file <-  paste(path_and_basename, "_unmodified_input_data.xlsx", sep = "", collapse = NULL)
+
+
+  # diagnostic message
+  message("- Input dimensions are: ", paste0( (dim(data_item)), " "),  " written to \"", path_unmod_file, "\"")
+
+  
+  # and write
+  write.xlsx(data_item, file = path_unmod_file, colNames = TRUE, borders = "surrounding")
+  
   message("- Removed variables are: ", paste0( names(data_item)[which(names(data_item) %!in% vars_to_keep)], " "), ".")
   message("- Kept variables are: ", paste0(vars_to_keep, " "), ".")
   
@@ -78,11 +91,19 @@ match_data_to_formula <- function (formula_item, data_item){
   message("- Intermediate dimensions are: ", paste0( (dim(data_item)), " "), ".")
   
   # remove superflous rows
-  message("- Undefined rows have been removed, assuming they were real \"NA\" and not \"0\".")
+  message("- Undefined rows have been removed, less predictors available then UNIFRAC responses. Check output files.")
   
   data_item <- data_item %>% filter(complete.cases(.))
   
-  message("- Final dimensions are: ", paste0( (dim(data_item)), " "), ".")
+  # create names for modified files (after subsetting)  
+  path_mod_file <-  paste(path_and_basename, "_subset_input_table.xlsx", sep = "", collapse = NULL)
+
+  # diagnostic message.
+  message("- Final dimensions are: ", paste0( (dim(data_item)), " "), " written to \"", path_mod_file, "\"")
+  
+  
+  # and write
+  write.xlsx(data_item, file = path_mod_file, colNames = TRUE, borders = "surrounding")
   
   # return table object suitable for modelling with model formula
   return(data_item)
@@ -109,43 +130,18 @@ calculate_model <- function(formula_item, data_item){
 
 full_formulae <- list(
   
-  # Original by Paul 
-  # as.formula(RESP_UNIFRAC ~ PRED_TRIPS + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
-  
-  # as per email 04.02.2020
-  # Unifrac ~ VOY_FREQ + env similarity + ecoregion + random port effects
-  # as.formula(RESP_UNIFRAC ~ VOY_FREQ + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
-   
-  # Unifrac ~ B_FON_NOECO + env similarity + ecoregion + random port effects
-  # as.formula(RESP_UNIFRAC ~ B_FON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
-  
-  # Unifrac ~ B_HON_NOECO + env similarity + ecoregion + random port effects
-  # as.formula(RESP_UNIFRAC ~ B_HON_NOECO + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))
-  
-  # Models as per Jose's email after phone conference 6.02.2020
-  # Model 4:
-  # as.formula(RESP_UNIFRAC ~ B_FON_NOECO + ECO_DIFF + (1 | PORT) + (1 | DEST)),
-
-  # Model 5:
-  # as.formula(RESP_UNIFRAC ~ B_HON_NOECO  + ECO_DIFF + (1 | PORT) + (1 | DEST)),
-  
-  # as per email 13.02.2020 - Erin Grey
-  # Model 4:
-  # as.formula(RESP_UNIFRAC ~ F_FON_NOECO + ECO_DIFF + (1 | PORT) + (1 | DEST)),
-  
-  # Model 5:
-  # as.formula(RESP_UNIFRAC ~ F_HON_NOECO  + ECO_DIFF + (1 | PORT) + (1 | DEST))
-  
-  # as per email 27.02.2020
-  # 
   # Model A:
-  as.formula(RESP_UNIFRAC ~ PRED_TRIPS + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  as.formula(RESP_UNIFRAC ~ VOY_FREQ + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  
   # Model B: 
   as.formula(RESP_UNIFRAC ~ B_FON_NOECO + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  
   # Model C:
   as.formula(RESP_UNIFRAC ~ B_HON_NOECO + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  
   # Model D:
   as.formula(RESP_UNIFRAC ~ B_FON_NOECO_NOENV + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  
   # Model E: 
   as.formula(RESP_UNIFRAC ~ B_HON_NOECO_NOENV + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))
 )
@@ -157,43 +153,18 @@ full_formulae <- list(
 
 null_formulae <- list(
   
-  # Original by Paul 
-  # as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
-  
-  # as per email 04.02.2020
-  # Unifrac ~ VOY_FREQ + env similarity + ecoregion + random port effects
-  # as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
-   
-  # Unifrac ~ B_FON_NOECO + env similarity + ecoregion + random port effects
-  # as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
-  
-  # Unifrac ~ B_HON_NOECO + env similarity + ecoregion + random port effects
-  # as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))
-  
-  # Models as per Jose's email after phone conference 6.02.2020
-  # Model 4:
-  # as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST)),
-
-  # Model 5:
-  # as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST)),
-  
-  # as per email 13.02.2020 - Erin Grey
-  # Model 4:
-  # as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST)),
-  
-  # Model 5:
-  # as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST))
-  
-  # as per email 27.02.2020
-  # 
   # Model A:
-  as.formula(RESP_UNIFRAC ~ PRED_ENV+ ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  as.formula(RESP_UNIFRAC ~ VOY_FREQ + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  
   # Model B: 
   as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  
   # Model C:
   as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  
   # Model D:
   as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  
   # Model E: 
   as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))
 
@@ -222,7 +193,6 @@ names(model_input_data) <- model_input_files
 
 # subset datasets
 model_input_data <- list(model_input_data[[2]], model_input_data[[4]])
-print(model_input_data)
   
 # subset names
 model_input_files <- list(model_input_files[[2]], model_input_files[[4]])
@@ -240,12 +210,13 @@ names(model_input_data) <- model_input_files
 analysis_summaries <- expand.grid(seq(model_input_data), seq(full_formulae))
 analysis_summaries <- as_tibble(analysis_summaries)
 analysis_summaries <- setNames(analysis_summaries, c("DIDX", "FIDX"))
-analysis_summaries <- analysis_summaries %>% add_column(AKAI = 0, PVAL = 0, FRML = 0, DATA = 0)
+analysis_summaries <- analysis_summaries %>% add_column(AKAI = 0, PVAL = 0, FRML = 0, DATA = 0, BASENAME = 0)
 
 analysis_summaries$AKAI  %<>% as.double
 analysis_summaries$DATA %<>% as.character
 analysis_summaries$FRML  %<>% as.character
 analysis_summaries$PVAL  %<>% as.double
+analysis_summaries$BASENAME %<>% as.character
 
 # use this approach to get around the loop - later
 #   define all possible combinations for mapply call
@@ -261,6 +232,9 @@ analysis_summaries$PVAL  %<>% as.double
 #' Initially using loops, for sanity reasons. While looping fill results table
 #' `analysis_summaries`. 
 #' Check raw model outputs below for `Writing above results to results table row: n` and look up `n` in both results tables all the way at the end of this page.
+
+results_folder <- "/Users/paul/Documents/CU_combined/Zenodo/Results/"
+results_basename <- "20201103_Rscrpt-500-83_mme_result"
 
 # loop over formulae
 for (i in seq(full_formulae)){
@@ -279,9 +253,11 @@ for (i in seq(full_formulae)){
     # define current data table for subsetting
     model_data_raw <- model_input_data[[j]]
          
+    # define filename to pass to function
+    path_and_basename <- paste(results_folder, results_basename, "_DIDX_", j, "_FIDX_", i, "_", sep = "", collapse = NULL)
+       
     # match input table dimensions to current model formulae
-    model_data <- match_data_to_formula(full_formula, model_data_raw)
-    print(model_data, n = Inf)
+    model_data <- match_data_to_formula(full_formula, model_data_raw, path_and_basename)
   
     # calculate full model
     full_model <- calculate_model(full_formula, model_data)
@@ -290,13 +266,13 @@ for (i in seq(full_formulae)){
     null_model <- calculate_model(null_formula, model_data)
      
     # print model summary and evaluations
-    message("\nGetting Model Summary: ")
+    message("\nModel Summary: ")
     sm <- summary(full_model)
     print(sm)
-    message("\nGetting Model Coefficients from Summary: ")
+    message("\nModel Coefficients from Summary: ")
     print(sm$coefficients)
       
-    message("\nGetting Model ANOVA: ")
+    message("\nAttempting Model ANOVA: ")
     an <- try(anova(null_model, full_model))
     try(print(an))
 
@@ -320,6 +296,7 @@ for (i in seq(full_formulae)){
     analysis_summaries[crnt_row, ]$DATA <- as.character(basename(names(model_input_data)[[j]]))
     analysis_summaries[crnt_row, ]$FRML <- as.character(full_formulae[[i]])
     analysis_summaries[crnt_row, ]$PVAL <- an[2,8]
+    analysis_summaries[crnt_row, ]$BASENAME <- path_and_basename
   
     # keep in mind for further elements from anova object:
     #  > str(an)
@@ -347,11 +324,18 @@ analysis_summaries <- arrange(analysis_summaries, AKAI)
 
 #' Show results table interactively:
 
-analysis_summaries
+# analysis_summaries
+kableExtra::kable(analysis_summaries) %>%
+  kable_styling("striped", full_width = T)
 
 #' Show results table on screen:
 
+
 print(analysis_summaries, n = Inf)
+
+
+
+
 
 #' # On warning ?`isSingular`
 #' 

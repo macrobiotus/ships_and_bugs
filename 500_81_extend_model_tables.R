@@ -1,7 +1,7 @@
 #' ---
 #' title: "Extend modelling input"
 #' author: "Paul Czechowski"
-#' date: "27-February-2020"
+#' date: "11-March-2020"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -15,7 +15,7 @@
 #' preparation. Also check `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh`
 #'
 #' This code commentary is included in the R code itself and can be rendered at
-#' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R")`.
+#' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R")`.
 #' Please check the session info at the end of the document for further 
 #' notes on the coding environment.
 #' 
@@ -90,7 +90,7 @@ left_join_using_port_sets = function(tab_in_list, tab_single_cleaned){
 
 # define file path components for listing 
 model_input_folder <- "/Users/paul/Documents/CU_combined/Zenodo/Results"
-model_input_pattern <- glob2rx("??_results_euk_*_model_data_*Feb-27*.csv") # adjust here for other / newer data sets
+model_input_pattern <- glob2rx("??_results_euk_asv00_*_UNIF_model_data_2020-Mar-11-12*.csv") # adjust here for other / newer data sets
 
 # read all file into lists for `lapply()` usage
 model_input_files <- list.files(path=model_input_folder, pattern = model_input_pattern, full.names = TRUE)

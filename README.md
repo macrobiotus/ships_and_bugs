@@ -1897,7 +1897,46 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * erased superflous, previous output files of `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R`
     * **started** adjusting script: `/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R`
       * as per `/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/200227_models_to_run.pdf`
-    * **pending** - get new data for shallow rarefaction depth
+    * **pending** / **deferred** - get new data for shallow rarefaction depth
+    * **pending** / **deferred** - check out old commit - re-render, and compare results
+* **11.03.2020**
+  * implement changes from Post-It note for phone call tomorrow.
+    * test if files used are the ones that Erin has sent and declared the latest.
+      * `[[ "$(tail -n +2 /Users/paul/Documents/CU_combined/Zenodo/HON_predictors/200227_All_links_1997_2018_updated.csv)" == "$(tail -n +2 /Users/paul/Desktop/All_links_1997_2018_updated.csv)" ]] && echo "same" || echo "not same"`
+      * files are the same - **ok**
+    * use `VOYAGE` variable instead of `PRED_TRIPS` - **ok**
+    * output tables as Excel files - **ok**
+      * check for presence of incomplete cases - **chasing possible inconsistencies**
+        * Mandana's data has 200 rows in file `/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/200227_All_links_1997_2018_updated.csv`
+        * re-running `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_tables.R`
+          * via running `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_tables.sh`
+          * all three checked of eight datasets have 70 rows - **ok**
+        * re-running `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R` 
+          * only considering relevant files (`"^.._results_euk_asv00_.*_UNIF_model_data_2020-Mar-11-12.*\\.csv$"`)
+          * created files:
+            * `/Users/paul/Documents/CU_combined/Zenodo/Results/01_results_euk_asv00_deep_UNIF_model_data_2020-Mar-11-12-49-54_with_hon_info.csv`
+            * `/Users/paul/Documents/CU_combined/Zenodo/Results/05_results_euk_asv00_shal_UNIF_model_data_2020-Mar-11-12-50-38_with_hon_info.csv`
+            * `/Users/paul/Documents/CU_combined/Zenodo/Results/01_results_euk_asv00_deep_UNIF_model_data_2020-Mar-11-12-49-54_no_ph_with_hon_info.csv`
+            * `/Users/paul/Documents/CU_combined/Zenodo/Results/05_results_euk_asv00_shal_UNIF_model_data_2020-Mar-11-12-50-38_no_ph_with_hon_info.csv`
+            * with 70 rows (including PH) and 65 rows (excluding PH), respectively  - **ok**
+        * adjusting data selection to current files and re-running `/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R`
+          * spot checking input data  `/Users/paul/Documents/CU_combined/Zenodo/Results/20201103_Rscrpt-500-83_mme_result_DIDX_1_FIDX_1__unmodified_input_data.xlsx`
+            * 70 rows - **ok**
+            * missing from Mandanas data in file (examples only: `AD-BT`, `AD-HT`, `AD-WL`) - **check Mandanas original data file**
+            * checking Mandana's data file: `AD-BT`, `AD-HT`, `AD-WL` missing in Mandanas file, and others **need new data or ignore**
+  * mail off results to Cornell - **ok** 
+    * HTML file created today - **ok** 
+    * collection of results tables (zipped) -  **ok** 
+      * connections among 18 ports with Mandanas data and Unifrac values (and M's voyage data): - ~49 connections
+      * connections among 19 ports with Mandanas data and Unifrac values (and P's voyage data): - ~70 connections
+    * chase rarefaction depth **ok**
+     * from `/Users/paul/Documents/CU_combined/Github/170_get_core_metrics_phylogenetic.sh`
+       * deep: `49974` sequences per sample in each of five samples per port
+       * shallow: `32982` sequences per sample in each of five samples per port
+     * included ports (from mapping file `/Users/paul/Documents/CU_combined/Zenodo/Manifest/131_18S_5-sample-euk-metadata_deep_all_grouped.tsv`):
+       * Adelaide	Antwerp	Buenos-Aires	Baltimore	Coos-Bay	Chicago	Cornell	Ghent	Honolulu	Haines	Houston	Long_Beach	Miami	Milne_Inlet	New-Orleans	Nanaimo	Oakland	Portland	Puerto-Madryn	Richmond	Rotterdam	Singapore	Vancouver	Wilmington	Zeebrugge
+       * AD	      AW	    BA	          BT	      CB	      CH	    CU	    GH	   HN     	HS	    HT	    LB	        MI	  ML	        NO	        NX	    OK	    PL	      PM	          RC	      RT	       SI     	VN	      WL        	ZB
+    
       
 
 
