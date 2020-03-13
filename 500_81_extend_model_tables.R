@@ -1,7 +1,7 @@
 #' ---
 #' title: "Extend modelling input"
 #' author: "Paul Czechowski"
-#' date: "11-March-2020"
+#' date: "13-March-2020"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -77,7 +77,7 @@ left_join_using_port_sets = function(tab_in_list, tab_single_cleaned){
   
   # keep only non-duplicated entries in table
   return_tabl <- return_tabl  %>%  distinct(PORT, DEST, RESP_UNIFRAC, PRED_ENV,
-    PRED_TRIPS, ECO_PORT, ECO_DEST, ECO_DIFF, VOY_FREQ, B_FON_NOECO, 
+    ECO_PORT, ECO_DEST, ECO_DIFF, VOY_FREQ, B_FON_NOECO, 
     B_HON_NOECO, B_FON_SMECO, B_HON_SMECO, F_FON_NOECO, F_HON_NOECO, F_FON_SMECO,
     F_HON_SMECO, .keep_all = TRUE)
   
@@ -90,7 +90,7 @@ left_join_using_port_sets = function(tab_in_list, tab_single_cleaned){
 
 # define file path components for listing 
 model_input_folder <- "/Users/paul/Documents/CU_combined/Zenodo/Results"
-model_input_pattern <- glob2rx("??_results_euk_asv00_*_UNIF_model_data_2020-Mar-11-12*.csv") # adjust here for other / newer data sets
+model_input_pattern <- glob2rx("??_results_euk_asv00_*_UNIF_model_data_2020-Mar-13-13*.csv") # adjust here for other / newer data sets
 
 # read all file into lists for `lapply()` usage
 model_input_files <- list.files(path=model_input_folder, pattern = model_input_pattern, full.names = TRUE)
@@ -143,7 +143,6 @@ names(all_model_data)
 #      "PORT",                "DEST",              "VOY_FREQ",           "B_FON_NOECO",        "B_HON_NOECO",        "B_FON_SMECO", 
 #      "B_HON_SMECO",         "F_FON_NOECO",       "F_HON_NOECO",        "F_FON_SMECO",        "F_HON_SMECO")
 
-
 # latest data 2020
 mandanas_data <- read_csv("/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/200227_All_links_1997_2018_updated.csv")
 names(mandanas_data)
@@ -174,12 +173,43 @@ mandanas_data$DEST[is.na(mandanas_data$DEST)] <- "NX"
 # check full table 
 mandanas_data <- mandanas_data %>% arrange(PORT, DEST) %>% print(n = Inf)
 
+# make bidirectional information unidirectional: 
+
+##  re-sort routes
+
+mandanas_data %>% print(n = Inf)
+mandanas_data[ ,1:2] <- as_tibble(t(apply(mandanas_data[ ,1:2], 1,  sort)))
+mandanas_data %>% print(n = Inf)
+
+##  check for duplicates (to and fro should be together in the following table)
+mandanas_data_by_route <- mandanas_data %>% group_by(PORT, DEST) %>% arrange_all %>% print(n = Inf)
+
+mandanas_data_by_route_summed <- mandanas_data_by_route %>% summarise_if(is.numeric, sum, na.rm = TRUE) %>% print(n = Inf)
+
+
+
 
 ## Left-join Mandana's results to model data 
 ## -----------------------------------------
 
 # add Mandanas information to model data tables 
-all_model_data_appended <- lapply(all_model_data, left_join_using_port_sets, mandanas_data)
+all_model_data_appended <- lapply(all_model_data, left_join_using_port_sets, mandanas_data_by_route_summed)
+
+# set all NA's in the following variables to 0 - although I don't like the idea
+#  doin this on request of Cornell team only
+
+selected_vars <- c("VOY_FREQ", "B_FON_NOECO", "B_HON_NOECO", "B_FON_SMECO",
+                   "B_HON_SMECO", "B_FON_NOECO_NOENV", "B_HON_NOECO_NOENV",
+                   "F_FON_NOECO", "F_HON_NOECO", "F_FON_SMECO", "F_HON_SMECO",
+                   "F_FON_NOECO_NOENV", "F_HON_NOECO_NOENV")
+
+
+# quick and really dirty - should be written as function 
+# message("Attention! Attention! Setting NAs is implemented hastily and needs to be checked if input files change.")
+all_model_data_appended[[1]][c(selected_vars)][is.na(all_model_data_appended[[1]][c(selected_vars)])] <- 0
+all_model_data_appended[[2]][c(selected_vars)][is.na(all_model_data_appended[[2]][c(selected_vars)])] <- 0
+all_model_data_appended[[3]][c(selected_vars)][is.na(all_model_data_appended[[3]][c(selected_vars)])] <- 0
+all_model_data_appended[[4]][c(selected_vars)][is.na(all_model_data_appended[[4]][c(selected_vars)])] <- 0
 
 # correct list labels as these will be used as file names
 names(all_model_data_appended) <- gsub(".csv", "_with_hon_info.csv", names(all_model_data_appended))

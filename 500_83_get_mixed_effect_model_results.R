@@ -37,6 +37,7 @@ library ("stringr")    # better string concatenation
 library ("magrittr")  # back-piping (only used for type conversion)
 library ("knitr")   # to output results table
 library("rmarkdown") # to output results table
+library("kableExtra") # better table formatting in this script
 
 #' Functions
 
@@ -137,13 +138,13 @@ full_formulae <- list(
   as.formula(RESP_UNIFRAC ~ B_FON_NOECO + ECO_DIFF + (1 | PORT) + (1 | DEST)),
   
   # Model C:
-  as.formula(RESP_UNIFRAC ~ B_HON_NOECO + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  # as.formula(RESP_UNIFRAC ~ B_HON_NOECO + ECO_DIFF + (1 | PORT) + (1 | DEST)),
   
   # Model D:
-  as.formula(RESP_UNIFRAC ~ B_FON_NOECO_NOENV + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  as.formula(RESP_UNIFRAC ~ B_FON_NOECO_NOENV + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))
   
   # Model E: 
-  as.formula(RESP_UNIFRAC ~ B_HON_NOECO_NOENV + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))
+  # as.formula(RESP_UNIFRAC ~ B_HON_NOECO_NOENV + PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))
 )
 
 #' 
@@ -160,13 +161,13 @@ null_formulae <- list(
   as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST)),
   
   # Model C:
-  as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  # as.formula(RESP_UNIFRAC ~ ECO_DIFF + (1 | PORT) + (1 | DEST)),
   
   # Model D:
-  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST)),
+  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))
   
   # Model E: 
-  as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))
+  # as.formula(RESP_UNIFRAC ~ PRED_ENV + ECO_DIFF + (1 | PORT) + (1 | DEST))
 
 )
 

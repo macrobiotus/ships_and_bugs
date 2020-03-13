@@ -1944,18 +1944,33 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * `Switched to a new branch 'full_unifrac'`
   * todo
     * don't filter UNIFRCA with Jim Corbetts data - add fon 0s - **ok**
-    * Erin get HON variables from Mandana  - **pending**
-    * Mandana's data - set all FON to 0 - what with HON variable?  - **pending**
-    * HON add up in Erins data if scaled to 1  - **pending**
+    * HON add up in Erins data if scaled to 1  - **ok**
+    * Erin get HON variables from Mandana  - **ok** (script does the summing now)
+    * Mandana's data - set all FON to 0 - what with HON variable?  - **ok**
     * re-run Model A B D - all Fon is 0  - **pending**
     * zero columns possibly all variables included in FON  - **pending**
   * adjusting script `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_tables.R` - **ok**
     * re-running via script `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_tables.sh` **ok**
     * new tables created in `/Users/paul/Documents/CU_combined/Zenodo/Results`
-        
-
-      
-
+    * commit `b42cc52956b71418050383a3f147ffbd47d29cec`
+  * adjusting script `~/Documents/CU_combined/Github/500_81_extend_model_tables.R` - **ok**
+    * to and fro information needs to be unified to make bidirectional information unidirectional - choosing plain summing for simplicity - **ok**
+    * **Attention! Attention! Setting NAs is implemented hastily and needs to be checked if input files change.**
+  * adjusting script `/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R`
+    * temporarily commenting out models `C` and `E`.
+  * todo
+    * test results wit NA setting - **ok**
+      * `/Users/paul/Documents/CU_combined/Github/500_83_mixed_effect_model_results_NAs_set_to_0.html`
+      * `/Users/paul/Documents/CU_combined/Zenodo/Results/20201103_Rscrpt-500-83_mme_result_NAs_set_to_0.zip`
+    * test results without NA setting - **ok**
+      * `/Users/paul/Documents/CU_combined/Github/500_83_mixed_effect_model_results_NAs_excluded.html`
+      * `/Users/paul/Documents/CU_combined/Zenodo/Results/20201103_Rscrpt-500-83_mme_result_NAs_excluded.zip`
+    * in `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R` - **pending**
+      * rewrite left joining function based on alphabetical sorting in  - pending  - **pending**
+      * instead of summing values, use mean() to stay in scale from 0 to 1  - **pending**
+      * scale env dit value from 0 to 1  - **pending**
+    * test results again with NA setting - **pending**
+    * test results again without NA setting - **pending**
 
 ## Todo
 
