@@ -1937,6 +1937,23 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
        * Adelaide	Antwerp	Buenos-Aires	Baltimore	Coos-Bay	Chicago	Cornell	Ghent	Honolulu	Haines	Houston	Long_Beach	Miami	Milne_Inlet	New-Orleans	Nanaimo	Oakland	Portland	Puerto-Madryn	Richmond	Rotterdam	Singapore	Vancouver	Wilmington	Zeebrugge
        * AD	      AW	    BA	          BT	      CB	      CH	    CU	    GH	   HN     	HS	    HT	    LB	        MI	  ML	        NO	        NX	    OK	    PL	      PM	          RC	      RT	       SI     	VN	      WL        	ZB
   * commit  ` dc5a3e522d44e9958b316c9c9632a94d6a6a4852`
+* **13.03.2020** - starting to work on new branch (`full_unifrac`)
+  * creating branch
+    * `git checkout -b full_unifrac`
+    * for more info check `https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging`
+    * `Switched to a new branch 'full_unifrac'`
+  * todo
+    * don't filter UNIFRCA with Jim Corbetts data - add fon 0s - **ok**
+    * Erin get HON variables from Mandana  - **pending**
+    * Mandana's data - set all FON to 0 - what with HON variable?  - **pending**
+    * HON add up in Erins data if scaled to 1  - **pending**
+    * re-run Model A B D - all Fon is 0  - **pending**
+    * zero columns possibly all variables included in FON  - **pending**
+  * adjusting script `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_tables.R` - **ok**
+    * re-running via script `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_tables.sh` **ok**
+    * new tables created in `/Users/paul/Documents/CU_combined/Zenodo/Results`
+        
+
       
 
 

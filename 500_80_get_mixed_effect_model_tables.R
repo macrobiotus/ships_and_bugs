@@ -1,7 +1,7 @@
 #' ---
 #' title: "Get input dat tables for Mixed Effect Models"
 #' author: "Paul Czechowski"
-#' date: "12-November-2019"
+#' date: "13-March-2020"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -28,16 +28,8 @@ rm(list=ls())
 #' Load Packages
 
 library ("tidyverse") # dplyr and friends
-library ("ggplot2")   # for ggCaterpillar
-# library ("ggbiplot")  # better PCoA plotting, get via `library(devtools); install_github("vqv/ggbiplot")`
-                      # uses `plyr` and needs to be loaded before `dplyr` in `tidyverse` 
 library ("gdata")     # matrix functions
 library ("reshape2")  # melting
-library ("lme4")      # mixed effect model
-library ("sjPlot")    # mixed effect model - with plotting
-
-library ("vegan")     # metaMDS
-library ("cowplot")   # exporting ggplots
 
 #' Functions
 
@@ -125,19 +117,7 @@ if (length(args)==0) {
 #'
 #' # Data read-in
 #'
-#' ## Predictors 1 of 2: Voyages
-#'
-#' This data is only available for ports in between which voyages exist.
-#' (Risk Formula is currently `(log(src_heap$ROUT$TRIPS) + 1) * (1 / src_heap$ROUT$EDST)`
-#' as defined in `500_30_shape_matrices.R`. Using voyages only for now)
-
-# loading matrix with trips (not risks), not loading "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output__mat_risks_full.Rdata"
-load("/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output_mat_trips_full.Rdata")
-
-# checking - see debugging notes: row- and colnames are undefined
-mat_trips[35:50, 35:50]
-
-#' ## Predictors 2 of 2: Environmental Distances
+#' ## Predictors 1 of 1: Environmental Distances
 #'
 #' This data is available for many ports (more ports then shipping routes)
 load("/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output__mat_env_dist_full.Rdata")
@@ -164,8 +144,6 @@ resp_path <- args[1]
 # message("Using distance matrix path from test condition.")
 # resp_path <- c("/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_Eukaryotes_core_metrics_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv")
 # resp_path <- c("/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_Eukaryote-shallow_core_metrics_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv")
-
-
 
 resp_mat  <- read.table(file = resp_path, sep = '\t', header = TRUE)
 
@@ -212,20 +190,8 @@ dim(r_mat_clpsd)
 #'
 #' <!-- -------------------------------------------------------------------- -->
 #'      
-#' ## Predictors 1 of 2: Voyages
-#'
-
-# to save memory: discard completely undefined rows and columns (shrinks from
-#  6651 * 6651 to 2332 * 2332
-dim(mat_trips)
-mat_trips <- mat_trips[rowSums(is.na(mat_trips))!=ncol(mat_trips), colSums(is.na(mat_trips))!=nrow(mat_trips) ]
-dim(mat_trips) 
-
-# manual lookup done for subsetting via:
-#   `open  -a "Microsoft Excel" "/Users/paul/Dropbox/NSF NIS-WRAPS Data/raw data for Mandana/PlacesFile_updated_Aug2017.xlsx"`
 
 message("Port names of current matrix are: ",  paste0(colnames(r_mat_clpsd), " "))
-
 
 # 12-Jun-2019 for automatic calling a safety check to enable crude automatisation. 
 # 05-Sep-2019 for automatic calling large if loop implemented.
@@ -289,24 +255,10 @@ if ( identical (colnames (r_mat_clpsd), expected_colnames_deepest)) {
 #  "238",  "193", "4777",  "830",  "311",
 # "4538", "7975", "1675"
 
-head(mat_trips)
-
-# 05-Sep-2019 vector define via if loop above 
-mat_trips <- mat_trips[port_number_subset, port_number_subset]
 
 # find spelling mistakes in rout port number subset:
 # port_number_subset %in% rownames(mat_trips)
 
-# Keep lower triangle
-mat_trips[lower.tri(mat_trips, diag = FALSE)] <- NA
-
-# predictors - copy names - make automatic !! 
-colnames(mat_trips) <- colnames(r_mat_clpsd)
-rownames(mat_trips) <- rownames(r_mat_clpsd)
-
-#' Finished matrix - Trips. Needs to be used to filter all other matrices
-#' (Other predictors and responses) to the same non-`NA` before analysis.
-# mat_trips
 
 #'
 #' ## Predictors 2 of 2: Environmental distances
@@ -328,16 +280,11 @@ rownames(mat_env_dist) <- rownames(r_mat_clpsd)
 
 message("Environmental distance matrix is:")
 print(mat_env_dist)
+message("With ", sum( !is.na( mat_env_dist ) )," elements.")
 
 message("Response distance matrix is:")
 print(r_mat_clpsd) 
-
-#' Finished matrix -
-#' to match predictors influenced by available voyages before analysis.
-
-# 19-06-2019
-# commented out since no inspection necessary in automated execution
-# mat_env_dist
+message("With ", sum( !is.na( r_mat_clpsd ) )," elements.")
 
 #'
 #' <!-- #################################################################### -->
@@ -348,9 +295,9 @@ print(r_mat_clpsd)
 #' ## Getting Dataframes for modelling 
 
 # create named list with objects
-mat_list <- list (r_mat_clpsd, mat_env_dist, mat_trips) 
+mat_list <- list (r_mat_clpsd, mat_env_dist)
 
-mat_list <- setNames(mat_list, c("resp_unifrac", "pred_env", "pred_trips"))
+mat_list <- setNames(mat_list, c("resp_unifrac", "pred_env"))
 
 # Are all matrix dimesions are the same?
 var(c(sapply (mat_list, dim))) == 0
@@ -382,7 +329,7 @@ model_data <- model_data_raw %>% filter(complete.cases(.))
 class(model_data)
 model_data
 
-# add ecoregion as per:  # <-- continue here
+# add ecoregion as per:
 #   @Costello, M. J., Tsai, P., Wong, P. S., Cheung, A. K. L., Basher, Z. 
 #   and Chaudhary, C. (2017) “Marine biogeographic realms and species endemicity,” 
 #   Nature Communications. Springer US, 8(1), p. 1057. doi: 10.1038/s41467-017-01121-2..
@@ -417,17 +364,11 @@ model_data <- model_data %>% mutate (ECO_DIFF = ifelse(ECO_PORT == ECO_DEST , FA
 #'
 
 # Sorting columns
-model_data <- model_data %>% arrange(PORT, desc(PRED_TRIPS), DEST)
-
-# correcting trips for Pearl Harbour
-model_data <- model_data %>% mutate (PRED_TRIPS = ifelse(PORT  == "PH", "0", PRED_TRIPS))
-model_data <- model_data %>% mutate (PRED_TRIPS = ifelse(DEST  == "PH", "0", PRED_TRIPS))
+model_data <- model_data %>% arrange(PORT, DEST)
 
 model_data$PORT <- as.factor(model_data$PORT)
 model_data$DEST <- as.factor(model_data$DEST)
 model_data$ECO_DIFF <- as.factor(model_data$ECO_DIFF)
-model_data$PRED_TRIPS <- as.numeric(model_data$PRED_TRIPS)
-
 
 # write data as per input path - keep close to variable selection below
 write_csv(model_data, path = args[4])
