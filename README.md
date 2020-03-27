@@ -1971,6 +1971,44 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * scale env dit value from 0 to 1  - **pending**
     * test results again with NA setting - **pending**
     * test results again without NA setting - **pending**
+* **25.03.2020** - continuing work on new branch (`full_unifrac`)
+  * implementing new modelling technique and new data
+  * using new data, verified by Erin
+    * file (work on copy): `/Users/paul/Documents/CU_NIS-WRAPS/170720_code_collaborators/200325_EG_code.R` 
+    * check and incorporate - **pending**
+  * using new modeling technique as in guide received by Jose
+    * file: `/Users/paul/Documents/CU_NIS-WRAPS/200325_ja_glm_approach/ZeroInflated_GLM_guide_PaulC_24March20.pdf`
+    *  check and incorporate - **pending**
+    * postponed
+* **27.03.2020** - continuing work on new branch (`full_unifrac`)
+  * continuing with last work days items
+  * from where is file `Paul_2020_03_12.csv` in Erins R script?
+  * saved back from email `/Users/paul/Documents/CU_combined/Zenodo/Results/20201103_Rscrpt-500-83_mme_results.zip`
+    * comparing hashes of sent files:
+      * `MD5 (/Users/paul/Documents/CU_combined/Zenodo/Results/20201103_Rscrpt-500-83_mme_result_NAs_excluded.zip) = 06a9dbcecbf8a5624d2bd095f67a5703`
+      * `MD5 (/Users/paul/Documents/CU_combined/Zenodo/Results/20201103_Rscrpt-500-83_mme_result_NAs_set_to_0.zip) = 94a5d6b6d40c53e7fa32ff05ced9ff00`
+      * `MD5 (/Users/paul/Documents/CU_combined/Zenodo/Results/20201103_Rscrpt-500-83_mme_results.zip) = 405b0b182b071f0b449a44d0be5caa80`
+      * all different, last, pertinent file is from 11.03.2019 as re-downloaded from my own mail
+        * `MD5 (/Users/paul/Documents/CU_combined/Zenodo/Results/20201103_Rscrpt-500-83_mme_results.zip) = 405b0b182b071f0b449a44d0be5caa80`
+   * unpacking and checking that file:
+     * file name patterns are:
+       * `/Users/paul/Documents/CU_combined/Zenodo/Results/20201103_Rscrpt-500-83_mme_results/20201103_Rscrpt-500-83_mme_result_DIDX_1_FIDX_1__subset_input_table.xlsx`
+       * `/Users/paul/Documents/CU_combined/Zenodo/Results/20201103_Rscrpt-500-83_mme_results/20201103_Rscrpt-500-83_mme_result_DIDX_1_FIDX_1__unmodified_input_data.xlsx`
+       * `/Users/paul/Documents/CU_combined/Zenodo/Results/20201103_Rscrpt-500-83_mme_results/20201103_Rscrpt-500-83_mme_result_DIDX_1_FIDX_2__subset_input_table.xlsx`
+       * `/Users/paul/Documents/CU_combined/Zenodo/Results/20201103_Rscrpt-500-83_mme_results/20201103_Rscrpt-500-83_mme_result_DIDX_1_FIDX_2__unmodified_input_data.xlsx`
+    * as per email - trace history of file `20201103_Rscrpt-500-83_mme_result_DIDX_2_FIDX_3__unmodified_input_data`
+      * written by `/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R`
+      * file is copy of one of the input `.csv` files in `/Users/paul/Documents/CU_combined/Zenodo/Results`
+    * committing before doing the following
+      * commit
+    * checking Erins script with file: `/Users/paul/Documents/CU_combined/Zenodo/Results/01_results_euk_asv00_deep_UNIF_model_data_2020-Mar-13-13-16-52_no_ph_with_hon_info.csv`.
+      * checking `/Users/paul/Documents/CU_combined/Github/500_83_mixed_effect_model_results_NAs_set_to_0.html`
+      * script results should
+        * have dimensions 210 x 20, 
+        * be the same as: `/Users/paul/Documents/CU_combined/Zenodo/Results/20201103_Rscrpt-500-83_mme_result_DIDX_1_FIDX_1__unmodified_input_data.xlsx`
+      * and the result of Erins script 
+        * should be similar to: `/Users/paul/Documents/CU_combined/Zenodo/Results/20201103_Rscrpt-500-83_mme_result_DIDX_1_FIDX_1__subset_input_table.xlsx"`
+        * with dimensions 210 X 6
 
 ## Todo
 
@@ -1994,7 +2032,6 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * Voyages summary per year - **add bioregions**
     * taxon plots - **continue parser, update phyloseq object, plot** (correct grouping of Blast variables)
   * email Costello for a GIS layer
-
   * `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
     * possibly re-run modeling scripts and output full route tables for `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_main_results_calculations.R`
     * split modeling functions from `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`

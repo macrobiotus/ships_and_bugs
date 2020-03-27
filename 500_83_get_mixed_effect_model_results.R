@@ -76,11 +76,9 @@ match_data_to_formula <- function (formula_item, data_item, path_and_basename){
   # create names for unmodified files (before subsetting)  
   path_unmod_file <-  paste(path_and_basename, "_unmodified_input_data.xlsx", sep = "", collapse = NULL)
 
-
   # diagnostic message
-  message("- Input dimensions are: ", paste0( (dim(data_item)), " "),  " written to \"", path_unmod_file, "\"")
+  message("- Input dimensions are: ", paste0( (dim(data_item)), " "), " written to \"", path_unmod_file, "\"")
 
-  
   # and write
   write.xlsx(data_item, file = path_unmod_file, colNames = TRUE, borders = "surrounding")
   
@@ -101,7 +99,6 @@ match_data_to_formula <- function (formula_item, data_item, path_and_basename){
 
   # diagnostic message.
   message("- Final dimensions are: ", paste0( (dim(data_item)), " "), " written to \"", path_mod_file, "\"")
-  
   
   # and write
   write.xlsx(data_item, file = path_mod_file, colNames = TRUE, borders = "surrounding")
@@ -331,11 +328,7 @@ kableExtra::kable(analysis_summaries) %>%
 
 #' Show results table on screen:
 
-
 print(analysis_summaries, n = Inf)
-
-
-
 
 
 #' # On warning ?`isSingular`
