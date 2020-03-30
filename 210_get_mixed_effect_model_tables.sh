@@ -15,7 +15,7 @@ if [[ "$HOSTNAME" != "Pauls-MacBook-Pro.local" ]] && [[ "$HOSTNAME" != "macmini-
     printf "${bold}$(date):${normal} Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
     cores="$(nproc --all)"
-elif [[ "$HOSTNAME" == "macmini-fastpost.local" ]]  || [[ "$HOSTNAME" = "macmini-fastpost.staff.uod.otago.ac.nz" ]]; then
+elif [[ "$HOSTNAME" == "Pauls-MacBook-Pro.local" ]]  || [[ "$HOSTNAME" = "macmini-fastpost.staff.uod.otago.ac.nz" ]]; then
     bold=$(tput bold)
     normal=$(tput sgr0)
     printf "${bold}$(date):${normal} Execution on local...\n"

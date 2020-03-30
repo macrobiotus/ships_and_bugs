@@ -2020,6 +2020,7 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * for sanity reasons - rerunning:
     * `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_tables.sh`
     * `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_tables.R`
+      * files are dated `2020-Mar-31-11-18`
 
 
 
