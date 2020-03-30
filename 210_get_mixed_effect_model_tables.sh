@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 27.02.2020 - Paul Czechowski - paul.czechowski@gmail.com 
+# 31.03.2020 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 
 # abort on error
@@ -9,7 +9,7 @@ set -e
 
 # Paths need to be adjusted for remote execution
 # ==============================================
-if [[ "$HOSTNAME" != "macmini-fastpost.local" ]] && [[ "$HOSTNAME" != "macmini-fastpost.staff.uod.otago.ac.nz" ]]; then
+if [[ "$HOSTNAME" != "Pauls-MacBook-Pro.local" ]] && [[ "$HOSTNAME" != "macmini-fastpost.staff.uod.otago.ac.nz" ]]; then
     bold=$(tput bold)
     normal=$(tput sgr0)
     printf "${bold}$(date):${normal} Execution on remote...\n"
@@ -65,7 +65,7 @@ logfile="$trpth"/"$output_dir"210_model_data_export_log.txt
 printf "Exiting conda environment, to have system-wide R available.\n"
 
 set +e
-conda deactivate
+# conda deactivate
 set -e
 
 for i in "${!input_dm[@]}"; do

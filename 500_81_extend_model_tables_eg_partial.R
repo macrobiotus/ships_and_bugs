@@ -11,8 +11,31 @@ lapply(packages, require, character.only=T) # load required packages
 
 # Load and format Mandana's dataset
 mdat <- read.table("/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/200227_All_links_1997_2018_updated.csv", sep=",", header=TRUE) # read in Mandana's data
-mdat$Combo1 <- paste(mdat$source, mdat$target, sep="-") #Combine two ports into one character string (source-target direction)
-mdat$Combo2 <- paste(mdat$target, mdat$source, sep="-") #Combine ports into one character string (target-source direction)
+
+# to make compatible - rename column headers
+#  carried over from `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R`
+
+names(mdat)
+
+# old names
+# ---------
+#      "source"                  "target"                  "voyage_freq"             "Ballast FON noEco"       "Ballast HON noEco"      
+#      "Ballast FON sameEco"     "Ballast HON sameEco"     "Ballast FON noEco_noEnv" "Ballast HON noEco_noEnv" "Fouling FON noEco"      
+#      "Fouling HON noEco"       "Fouling FON sameEco"     "Fouling HON sameEco"     "Fouling FON noEco_noEnv" "Fouling HON noEco_noEnv"
+# new names 
+# ---------
+#      "PORT",                   "DEST",                   "VOY_FREQ",               "B_FON_NOECO",            "B_HON_NOECO",
+#      "B_FON_SMECO",            "B_HON_SMECO",            "B_FON_NOECO_NOENV",      "B_HON_NOECO_NOENV",      "F_FON_NOECO", 
+#      "F_HON_NOECO",            "F_FON_SMECO",            "F_HON_SMECO",            "F_FON_NOECO_NOENV",      "F_HON_NOECO_NOENV"
+
+names(mdat) <- c("PORT", "DEST", "VOY_FREQ", "B_FON_NOECO", "B_HON_NOECO", "B_FON_SMECO",
+                          "B_HON_SMECO", "B_FON_NOECO_NOENV", "B_HON_NOECO_NOENV",  "F_FON_NOECO", 
+                          "F_HON_NOECO", "F_FON_SMECO", "F_HON_SMECO", "F_FON_NOECO_NOENV", 
+                          "F_HON_NOECO_NOENV")
+
+
+mdat$Combo1 <- paste(mdat$PORT, mdat$DEST, sep="-") #Combine two ports into one character string (source-target direction)
+mdat$Combo2 <- paste(mdat$DEST, mdat$PORT, sep="-") #Combine ports into one character string (target-source direction)
 head(mdat) #quick eye check of Mandana's data
 
 # Load and format Paul's dataset
@@ -21,9 +44,12 @@ pdat$Combo <-paste(pdat$PORT, pdat$DEST, sep="-") #Combine two ports into one ch
 head(pdat)# quick eye check of Paul's data
 
 # Merge Madana's into Paul by summing up to two directed risk estimates for every port pair into one undirected estimate
-output <- cbind(pdat,data.frame(matrix(nrow=dim(pdat)[1], ncol=13, 0)))  # create and output data frame - start with Paul's data then add Mandana's variables all set to 0
+#   create output data frame
+output <- cbind(pdat,data.frame(matrix(nrow=dim(pdat)[1], ncol=13, 0)))   
 colnames(output)[9:21] <- colnames(mdat)[3:15] # name Mandana's risk columns
 head(output) # quick eye check of the empty output data
+
+# 27.03.2019 - this doesn't make sense to me - try alternative adding approach
 
 for (i in 1:dim(output)[1]) # loop through each of Pauls Combo to find and sum Mandana's directed risk estimates
 {

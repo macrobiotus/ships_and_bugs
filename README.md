@@ -2000,7 +2000,7 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * written by `/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R`
       * file is copy of one of the input `.csv` files in `/Users/paul/Documents/CU_combined/Zenodo/Results`
     * committing before doing the following
-      * commit
+      * commit `d661557ff882cf63bd7cc6954de7717412d9144`
     * checking Erins script with file: `/Users/paul/Documents/CU_combined/Zenodo/Results/01_results_euk_asv00_deep_UNIF_model_data_2020-Mar-13-13-16-52_no_ph_with_hon_info.csv`.
       * checking `/Users/paul/Documents/CU_combined/Github/500_83_mixed_effect_model_results_NAs_set_to_0.html`
       * script results should
@@ -2009,6 +2009,21 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * and the result of Erins script 
         * should be similar to: `/Users/paul/Documents/CU_combined/Zenodo/Results/20201103_Rscrpt-500-83_mme_result_DIDX_1_FIDX_1__subset_input_table.xlsx"`
         * with dimensions 210 X 6
+      * **script results so far can't be replicated - options:** 
+        * use alternative adding approach
+        * check again script `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables_eg_partial.R`
+* **31.03.2020** - continuing work on new branch (`full_unifrac`)
+  * implement corrected adding approach 
+     * encode alternative adding approach
+     * scale variables
+     * check with Erins results at `/Users/paul/Documents/CU_NIS-WRAPS/170720_code_collaborators/200331_Erins_sums
+  * for sanity reasons - rerunning:
+    * `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_tables.sh`
+    * `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_tables.R`
+
+
+
+
 
 ## Todo
 
