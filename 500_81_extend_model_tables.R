@@ -22,7 +22,6 @@ rm(list=ls())
 
 # Load Packages
 library ("tidyverse") # dplyr and friends
-library ("ggplot2")   # for ggCaterpillar
 
 # Functions
 # ---------
@@ -180,7 +179,7 @@ mandanas_data_bi %>% arrange(PORT, DEST) %>% group_by(PORT, DEST) %>%
 
 # define file path components for listing 
 model_input_folder <- "/Users/paul/Documents/CU_combined/Zenodo/Results"
-model_input_pattern <- glob2rx("??_results_euk_asv00_*_UNIF_model_data_2020-Mar-31-11*.csv") # adjust here for other / newer data sets
+model_input_pattern <- glob2rx("??_results_euk_asv00_*_UNIF_model_data_2020-Apr-01-11*.csv") # adjust here for other / newer data sets
 
 # read all file into lists for `lapply()` usage
 model_input_files <- list.files(path=model_input_folder, pattern = model_input_pattern, full.names = TRUE)
@@ -222,6 +221,10 @@ all_model_data[[1]] %>% print(n = Inf)
 
 model_data_joined <- lapply(all_model_data, left_join_data, mandanas_data_bi)
 
+# change file names
+names(model_data_joined) <- gsub(".csv", "_joined.csv", names(model_data_joined))
+
+
 # Create datasets with and without zeros
 # =======================================
 
@@ -257,19 +260,19 @@ all_model_data_scaled <- lapply(all_model_data, scale_variables, selected_vars)
 # Adjust names in data set copy
 names(all_model_data_scaled) <- gsub(".csv", "_scaled.csv", names(all_model_data_scaled))
 
-# Combine lists of tables with NA and 0 data
-all_model_data_appended <- append(model_data_joined, all_model_data_scaled)
-names(all_model_data_appended)
+# Combine lists of tables with scaled and unscaled data
+data_to_write <- append(all_model_data, all_model_data_scaled)
+names(data_to_write)
 
 # Write files
 # ===========
-for (i  in seq(1:length(all_model_data_appended))){
+for (i  in seq(1:length(data_to_write))){
    # set destination path from list label
-   path = names(all_model_data_appended[i])
+   path = names(data_to_write[i])
    # diagnostic message
    message ("Writing \"", path , "\".")
    # write files
-   write_csv(all_model_data_appended[[i]], path)
+   write_csv(data_to_write[[i]], path)
 }
 
 # Session info

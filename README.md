@@ -2013,7 +2013,7 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
         * use alternative adding approach
         * check again script `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables_eg_partial.R`
 * **31.03.2020** - continuing work on new branch (`full_unifrac`)
-  * **todo**: implement corrected adding approach 
+  * adjust `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R` 
      * encode alternative adding approach - **ok**
      * scale variables - **ok**
      * check with Erins results at `/Users/paul/Documents/CU_NIS-WRAPS/170720_code_collaborators/200331_Erins_sums` - **ok**
@@ -2027,11 +2027,26 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * in a copy of all data pertinent variables are scaled and centered - **ok**
     * archived results: `/Users/paul/Documents/CU_combined/Zenodo/Results/200319_500_81_extend_model_tables__temp__input_output.zip`
     * emailed off results 
-    * committed: ``
+    * committed: `fe3324f23cf126206b0d3bb17d9bc85673948fa8`
     * **next steps** 
       * implement new modelling as per Jose - **pending**
       * graph variables - **pending**
       * check residuals of model as per Erin - **pending**
+* **01.04.2020** - continuing work on new branch (`full_unifrac`)
+  * created `/Users/paul/Documents/CU_combined/Github/500_83_test_zero-inflated_glms.R`
+  * for appropriate file naming - rerunning:
+    * `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_tables.sh`
+    * `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_tables.R`
+    * adjusting and running `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R`
+      * further processed only:
+        * `05_results_euk_asv00_shal_UNIF_model_data_2020-Apr-01-11-14-16.csv`
+        * `01_results_euk_asv00_deep_UNIF_model_data_2020-Apr-01-11-13-59.csv`
+    * working through `/Users/paul/Documents/CU_NIS-WRAPS/200325_ja_glm_approach/ZeroInflated_GLM_guide_PaulC_24March20.pdf`
+      * none of this makes sense to me - seems to be tailored to count data ?
+      * working with files `/Users/paul/Documents/CU_combined/Zenodo/Results/200401_500_81_extend_model_tables__temp__input_output.zip`
+      * emailing off files and script `/Users/paul/Documents/CU_combined/Github/500_83_test_zero-inflated_glms.R`
+      * commit ``
+  
 
 
 
