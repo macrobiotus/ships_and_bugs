@@ -1,27 +1,21 @@
 #' ---
 #' title: "Extend modelling input"
 #' author: "Paul Czechowski"
-#' date: "13-March-2020"
+#' date: "31-March-2020"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
 #' bibliography: ./references.bib
 #' ---
 #' 
-#' This script needs all R scripts named `500_*.R` to have run successfully,
-#' apart from `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
-#' It should then be called using a shell script. It will only accept certain files
-#' currently, and otherwise abort. For further information understand section Environment
-#' preparation. Also check `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh`
-#'
 #' This code commentary is included in the R code itself and can be rendered at
 #' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R")`.
 #' Please check the session info at the end of the document for further 
 #' notes on the coding environment.
-#' 
 
-## Environment preparation
-## -----------------------
+
+# Environment preparation
+# =======================
 
 # Clear Environment
 rm(list=ls())
@@ -31,66 +25,162 @@ library ("tidyverse") # dplyr and friends
 library ("ggplot2")   # for ggCaterpillar
 
 # Functions
+# ---------
 
 # Loaded from helper script:
 source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")
 
-# Function to remove "PH" rows from input data - written for `lapply` call
+# Function removing "PH" rows via `lapply` call
 remove_ph_rows = function(listed_table){
   require("tidyverse")
   listed_table %>% filter(!PORT %in% c("PH")) %>% filter(!DEST %in% c("PH")) -> listed_table
   return(listed_table)
 }
 
-# Function to merge Mandanas dat with my data, minding the differences in orders of source and
-#  destination columns - written for `lapply` call
-left_join_using_port_sets = function(tab_in_list, tab_single_cleaned){
+# Function for sorting columns in a Tibble to prepare left join
+prepare_join = function (list_element) {
   
-  # needed for pretty much all this function does
-  require("dplyr")
+  require ("tidyverse")
+   
+  # Step 1: In each line sort values in `PORT`, and `DEST` columns alphabetically
+  # for joining with downstream data
+  list_element[ ,1:2] <- as_tibble(t(apply(list_element[ ,1:2], 1,  sort)))
   
-  # function to add port pairs in both orientations 
-  add_concatenated_pairs = function (any_table){
-    require("dplyr")
-    any_table %>% mutate(ORIA = paste0(PORT,"-", DEST)) %>% arrange(PORT, DEST) -> any_table
-    any_table %>% mutate(ORIB = paste0(DEST,"-", PORT)) %>% arrange(PORT, DEST) -> any_table
-    message("Attention, table has been sorted.")
-    return(any_table)
-  }
+  # Step 2: Re-sort
+  list_element <- list_element %>% arrange(PORT, DEST)
   
-  # add columns to allow left-joining regardsles of port id order
-  tab_in_list <- add_concatenated_pairs(tab_in_list)
-  tab_single_cleaned <- add_concatenated_pairs(tab_single_cleaned)
+  return(list_element)
+}
 
-  # match up port-ids independent of their order in in table pair being matched
-  return_tabl <- bind_rows (
-    left_join(tab_in_list, tab_single_cleaned, by = "ORIA"),
-    left_join(tab_in_list, tab_single_cleaned, by = "ORIB"),
-    left_join(tab_in_list, tab_single_cleaned, by = c("ORIA","ORIB")),
-    left_join(tab_in_list, tab_single_cleaned, by = c("ORIB","ORIA")),
-  ) 
-  
-  # data needs to be uniform to identify duplicates - remove variables used to join data 
-  return_tabl <- return_tabl  %>% 
-    select (-c(ORIA, ORIB, ORIB.x, PORT.y, DEST.y, ORIB.y, ORIA.x, ORIA.y)) %>%
-    rename(PORT = PORT.x) %>% rename(DEST = DEST.x) %>% arrange(PORT, DEST)
-  
-  # keep only non-duplicated entries in table
-  return_tabl <- return_tabl  %>%  distinct(PORT, DEST, RESP_UNIFRAC, PRED_ENV,
-    ECO_PORT, ECO_DEST, ECO_DIFF, VOY_FREQ, B_FON_NOECO, 
-    B_HON_NOECO, B_FON_SMECO, B_HON_SMECO, F_FON_NOECO, F_HON_NOECO, F_FON_SMECO,
-    F_HON_SMECO, .keep_all = TRUE)
-  
-  return(return_tabl)
+# Function to left-join column-corrected data. 
+left_join_data <- function (tibble_list, tibble_single){
+
+  # copy data within function 
+  data_left <- tibble_list
+  data_right <- tibble_single
+
+  # in each data set, create ROUTE variables at beginning of tibble
+  data_left  <- data_left %>% unite(ROUTE, PORT, DEST, sep = "-", remove = FALSE) %>%
+ 			  select(ROUTE, everything()) 
+  data_right <- data_right %>% unite(ROUTE, PORT, DEST, sep = "-", remove = FALSE) %>%
+                select(ROUTE, everything())
+
+  # join by route variable by route vector
+  data_joined <- left_join(data_left, data_right, by = "ROUTE") # %>% print(n = Inf)
+
+  # reformat table - 1: delete superfluous columns; 2: rename columns
+  data_joined <- data_joined %>% select(-one_of("ROUTE", "PORT.y", "DEST.y")) %>% 
+                 rename(PORT = PORT.x, DEST = DEST.x) # %>% print(n = Inf)
+
+  # return data
+  return (data_joined)
 
 }
 
-## Read in and format data
-## -----------------------
+# Function to convert NA values to 0 values
+set_zeros <- function (tibble_list, variables){
+  
+  # set zeros for in cases where there are NA's among selected columns
+  tibble_list[c(variables)][is.na(tibble_list[c(variables)])] <- 0
+  
+  return(tibble_list)
+}
+
+# Function to standardize selected variables
+scale_variables <- function (tibble_list, variables){
+  
+  message("Scaling and centering a copy of the data")
+  
+  tibble_list <- tibble_list %>% mutate_at(variables, funs(c(scale(., center = TRUE, scale = TRUE))))
+  
+  return(tibble_list)
+}
+
+# Read and format network predictors 
+# ==================================
+
+# data  from 19.11.2019
+# ---------------------
+# mandanas_data <- read_csv("/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/191105_shipping_estimates.csv")
+#
+# data from 28.01.2020
+# ---------------------
+# mandanas_data <- read_csv("/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/200128_all_links_1997_2018.csv")
+#
+# data from 27.02.2020
+# ---------------------
+
+mandanas_data <- read_csv("/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/200227_All_links_1997_2018_updated.csv")
+names(mandanas_data)
+
+# correct variable names for downstream compatibility 
+# ----------------------------------------------------
+# notes for names correction:
+# 
+# old names
+#     "source"              "target"              "voyage_freq"         "Ballast FON noEco"   "Ballast HON noEco"   "Ballast FON sameEco"
+#     "Ballast HON sameEco" "Fouling FON noEco"   "Fouling HON noEco"   "Fouling FON sameEco" "Fouling HON sameEco
+#
+# new names 
+#      "PORT",                "DEST",              "VOY_FREQ",           "B_FON_NOECO",        "B_HON_NOECO",        "B_FON_SMECO", 
+#      "B_HON_SMECO",         "F_FON_NOECO",       "F_HON_NOECO",        "F_FON_SMECO",        "F_HON_SMECO")
+
+names(mandanas_data) <- c("PORT", "DEST", "VOY_FREQ", "B_FON_NOECO", "B_HON_NOECO", "B_FON_SMECO",
+                          "B_HON_SMECO", "B_FON_NOECO_NOENV", "B_HON_NOECO_NOENV",  "F_FON_NOECO", 
+                          "F_HON_NOECO", "F_FON_SMECO", "F_HON_SMECO", "F_FON_NOECO_NOENV", 
+                          "F_HON_NOECO_NOENV")
+
+# correct port names for downstream compatibility 
+# -----------------------------------------------
+
+mandanas_data$PORT[which (mandanas_data$PORT == "SY")] <- "SI"
+mandanas_data$DEST[which (mandanas_data$DEST == "SY")] <- "SI"
+mandanas_data$PORT[is.na(mandanas_data$PORT)] <- "NX"
+mandanas_data$DEST[is.na(mandanas_data$DEST)] <- "NX"
+
+# make bidirectional information unidirectional 
+# ----------------------------------------------
+
+# Step 1: Check groups and tally of unmodified data.  
+#  200 groups and each group with 1 PORT and DEST combination (= route)
+mandanas_data %>% arrange(PORT, DEST) %>% group_by(PORT, DEST) %>% 
+                  add_tally() %>% print(n = Inf)
+
+# Step 2: In each line sort values in `PORT`, and `DEST` columns alphabetically
+#  for regrouping
+mandanas_data_bi <- mandanas_data # copy for sanity reasons.
+# could also call function 
+mandanas_data_bi <- prepare_join(mandanas_data_bi)
+
+# Step 3: Check groups and tally of unmodified data.  
+#  113 groups and each group with 2 or 1 PORT and DEST combination (= route)
+mandanas_data_bi %>% arrange(PORT, DEST) %>% group_by(PORT, DEST) %>% 
+                     add_tally() %>% print(n = Inf)
+
+# Step 4: Apply re-grouping. 
+mandanas_data_bi <- mandanas_data_bi %>% arrange(PORT, DEST) %>% group_by(PORT, DEST) %>%
+                    print(n = Inf)
+
+# Step 5: Sum routes within newly defined groups 
+# not averaging so as to not disort data with only one original connection 
+mandanas_data_bi <- mandanas_data_bi %>% summarise_if(is.numeric, sum, na.rm = TRUE) %>%
+                    arrange(PORT, DEST) %>% print(n = Inf)
+
+# Step 6: Check groups and tally of modified data.  
+#  113 groups and each group with 1 PORT and DEST combination (= route) - ok!
+mandanas_data_bi %>% arrange(PORT, DEST) %>% group_by(PORT, DEST) %>% 
+                     add_tally() %>% print(n = Inf)
+
+
+# Read-in and format biological responses and environmental predictors
+# ====================================================================
+
+# Create list of data frames for downstream application
+# -----------------------------------------------------
 
 # define file path components for listing 
 model_input_folder <- "/Users/paul/Documents/CU_combined/Zenodo/Results"
-model_input_pattern <- glob2rx("??_results_euk_asv00_*_UNIF_model_data_2020-Mar-13-13*.csv") # adjust here for other / newer data sets
+model_input_pattern <- glob2rx("??_results_euk_asv00_*_UNIF_model_data_2020-Mar-31-11*.csv") # adjust here for other / newer data sets
 
 # read all file into lists for `lapply()` usage
 model_input_files <- list.files(path=model_input_folder, pattern = model_input_pattern, full.names = TRUE)
@@ -101,120 +191,78 @@ model_input_files <- list.files(path=model_input_folder, pattern = model_input_p
 model_input_data <- lapply(model_input_files, function(listed_file)  read_csv(listed_file, col_types = cols('X1' = col_skip())))
 names(model_input_data) <- model_input_files
 
-##  Copy data but exclude `PH` rows
-## ----------------------------------
-
-# checking filtering command - full data
-# model_input_data[[1]] %>% rmarkdown::paged_table()
-
-# checking filtering command - filtered data
-# model_input_data[[1]] %>% filter(!PORT %in% c("PH")) %>% filter(!DEST %in% c("PH")) %>% rmarkdown::paged_table()
+# Copy data but exclude `PH` rows
+# --------------------------------
 
 # remove "PH entries in copied table data and modify list labels for later file names 
 model_no_ph_data <- lapply(model_input_data, remove_ph_rows)
 names(model_no_ph_data) <- gsub(".csv", "_no_ph.csv", names(model_no_ph_data))
 
-
-## Combine lists of tables with PH and non-PH data
-## -----------------------------------------------
+# Combine lists of tables with PH and non-PH data
+# -----------------------------------------------
 
 all_model_data <- append(model_input_data, model_no_ph_data)
 names(all_model_data)
 
+# match PORT DEST columns with Mandana's format to simplify downstream joining
+# ---------------------------------------------------------------------------
 
-## Read and format Mandana's results
-## ---------------------------------
+# for debugging only - unmodified data
+all_model_data[[1]] %>% print(n = Inf)
 
-# read in Mandana's results and name columns
-# old incomplete data (19.11.2019)
-# mandanas_data <- read_csv("/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/191105_shipping_estimates.csv")
+# sort PORT DEST columns and re-sort columns for subsequent left joining
+all_model_data <-  lapply(all_model_data, prepare_join)
 
-# newer more complete data 2020-01-28
-# mandanas_data <- read_csv("/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/200128_all_links_1997_2018.csv")
-# names(mandanas_data)
-# 
-# old names
-# ---------
-#     "source"              "target"              "voyage_freq"         "Ballast FON noEco"   "Ballast HON noEco"   "Ballast FON sameEco"
-#     "Ballast HON sameEco" "Fouling FON noEco"   "Fouling HON noEco"   "Fouling FON sameEco" "Fouling HON sameEco
-#
-# new names 
-# ---------
-#      "PORT",                "DEST",              "VOY_FREQ",           "B_FON_NOECO",        "B_HON_NOECO",        "B_FON_SMECO", 
-#      "B_HON_SMECO",         "F_FON_NOECO",       "F_HON_NOECO",        "F_FON_SMECO",        "F_HON_SMECO")
-
-# latest data 2020
-mandanas_data <- read_csv("/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/200227_All_links_1997_2018_updated.csv")
-names(mandanas_data)
-
-# old names
-# ---------
-#      "source"                  "target"                  "voyage_freq"             "Ballast FON noEco"       "Ballast HON noEco"      
-#      "Ballast FON sameEco"     "Ballast HON sameEco"     "Ballast FON noEco_noEnv" "Ballast HON noEco_noEnv" "Fouling FON noEco"      
-#      "Fouling HON noEco"       "Fouling FON sameEco"     "Fouling HON sameEco"     "Fouling FON noEco_noEnv" "Fouling HON noEco_noEnv"
-# new names 
-# ---------
-#      "PORT",                   "DEST",                   "VOY_FREQ",               "B_FON_NOECO",            "B_HON_NOECO",
-#      "B_FON_SMECO",            "B_HON_SMECO",            "B_FON_NOECO_NOENV",      "B_HON_NOECO_NOENV",      "F_FON_NOECO", 
-#      "F_HON_NOECO",            "F_FON_SMECO",            "F_HON_SMECO",            "F_FON_NOECO_NOENV",      "F_HON_NOECO_NOENV"
-
-names(mandanas_data) <- c("PORT", "DEST", "VOY_FREQ", "B_FON_NOECO", "B_HON_NOECO", "B_FON_SMECO",
-                          "B_HON_SMECO", "B_FON_NOECO_NOENV", "B_HON_NOECO_NOENV",  "F_FON_NOECO", 
-                          "F_HON_NOECO", "F_FON_SMECO", "F_HON_SMECO", "F_FON_NOECO_NOENV", 
-                          "F_HON_NOECO_NOENV")
+# for debugging only - prepared data 
+all_model_data[[1]] %>% print(n = Inf)
 
 
-# rename SY to SI to match my data
-mandanas_data$PORT[which (mandanas_data$PORT == "SY")] <- "SI"
-mandanas_data$DEST[which (mandanas_data$DEST == "SY")] <- "SI"
-mandanas_data$PORT[is.na(mandanas_data$PORT)] <- "NX"
-mandanas_data$DEST[is.na(mandanas_data$DEST)] <- "NX"
+# Left-join Mandana's results to model data 
+# =========================================
 
-# check full table 
-mandanas_data <- mandanas_data %>% arrange(PORT, DEST) %>% print(n = Inf)
+model_data_joined <- lapply(all_model_data, left_join_data, mandanas_data_bi)
 
-# make bidirectional information unidirectional: 
+# Create datasets with and without zeros
+# =======================================
 
-##  re-sort routes
-
-mandanas_data %>% print(n = Inf)
-mandanas_data[ ,1:2] <- as_tibble(t(apply(mandanas_data[ ,1:2], 1,  sort)))
-mandanas_data %>% print(n = Inf)
-
-##  check for duplicates (to and fro should be together in the following table)
-mandanas_data_by_route <- mandanas_data %>% group_by(PORT, DEST) %>% arrange_all %>% print(n = Inf)
-
-mandanas_data_by_route_summed <- mandanas_data_by_route %>% summarise_if(is.numeric, sum, na.rm = TRUE) %>% print(n = Inf)
-
-
-
-
-## Left-join Mandana's results to model data 
-## -----------------------------------------
-
-# add Mandanas information to model data tables 
-all_model_data_appended <- lapply(all_model_data, left_join_using_port_sets, mandanas_data_by_route_summed)
-
-# set all NA's in the following variables to 0 - although I don't like the idea
-#  doin this on request of Cornell team only
-
+# Which variables to be set to 0? 
 selected_vars <- c("VOY_FREQ", "B_FON_NOECO", "B_HON_NOECO", "B_FON_SMECO",
                    "B_HON_SMECO", "B_FON_NOECO_NOENV", "B_HON_NOECO_NOENV",
                    "F_FON_NOECO", "F_HON_NOECO", "F_FON_SMECO", "F_HON_SMECO",
                    "F_FON_NOECO_NOENV", "F_HON_NOECO_NOENV")
 
+# Replace NA's with 0 in dat set copy
+model_na_to_zero <- lapply(model_data_joined, set_zeros, selected_vars)
 
-# quick and really dirty - should be written as function 
-# message("Attention! Attention! Setting NAs is implemented hastily and needs to be checked if input files change.")
-all_model_data_appended[[1]][c(selected_vars)][is.na(all_model_data_appended[[1]][c(selected_vars)])] <- 0
-all_model_data_appended[[2]][c(selected_vars)][is.na(all_model_data_appended[[2]][c(selected_vars)])] <- 0
-all_model_data_appended[[3]][c(selected_vars)][is.na(all_model_data_appended[[3]][c(selected_vars)])] <- 0
-all_model_data_appended[[4]][c(selected_vars)][is.na(all_model_data_appended[[4]][c(selected_vars)])] <- 0
+# Adjust names in data set copy
+names(model_na_to_zero) <- gsub(".csv", "_no-nas.csv", names(model_na_to_zero))
 
-# correct list labels as these will be used as file names
-names(all_model_data_appended) <- gsub(".csv", "_with_hon_info.csv", names(all_model_data_appended))
+# Combine lists of tables with NA and 0 data
+all_model_data <- append(model_data_joined, model_na_to_zero)
+names(all_model_data)
 
-# write files
+
+# Create scaled and unscaled data sets 
+# =======================================
+
+# Which variables to be set to scale? 
+selected_vars <- c("RESP_UNIFRAC", "PRED_ENV", "VOY_FREQ","B_FON_NOECO", "B_HON_NOECO", "B_FON_SMECO",
+                   "B_HON_SMECO", "B_FON_NOECO_NOENV", "B_HON_NOECO_NOENV", "F_FON_NOECO",
+                   "F_HON_NOECO", "F_FON_SMECO", "F_HON_SMECO", "F_FON_NOECO_NOENV",
+                   "F_HON_NOECO_NOENV")
+
+# Scale variables data set copy
+all_model_data_scaled <- lapply(all_model_data, scale_variables, selected_vars)
+
+# Adjust names in data set copy
+names(all_model_data_scaled) <- gsub(".csv", "_scaled.csv", names(all_model_data_scaled))
+
+# Combine lists of tables with NA and 0 data
+all_model_data_appended <- append(model_data_joined, all_model_data_scaled)
+names(all_model_data_appended)
+
+# Write files
+# ===========
 for (i  in seq(1:length(all_model_data_appended))){
    # set destination path from list label
    path = names(all_model_data_appended[i])
@@ -224,13 +272,12 @@ for (i  in seq(1:length(all_model_data_appended))){
    write_csv(all_model_data_appended[[i]], path)
 }
 
-#' <!-- #################################################################### -->
-#'
-#' # Session info
-#'
+# Session info
+# ============
+
+
 #' The code and output in this document were tested and generated in the
 #' following computing environment:
 #+ echo=FALSE
 sessionInfo()
 
-#' # References

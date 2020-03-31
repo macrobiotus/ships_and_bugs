@@ -2013,15 +2013,25 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
         * use alternative adding approach
         * check again script `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables_eg_partial.R`
 * **31.03.2020** - continuing work on new branch (`full_unifrac`)
-  * implement corrected adding approach 
-     * encode alternative adding approach
-     * scale variables
-     * check with Erins results at `/Users/paul/Documents/CU_NIS-WRAPS/170720_code_collaborators/200331_Erins_sums
+  * **todo**: implement corrected adding approach 
+     * encode alternative adding approach - **ok**
+     * scale variables - **ok**
+     * check with Erins results at `/Users/paul/Documents/CU_NIS-WRAPS/170720_code_collaborators/200331_Erins_sums` - **ok**
   * for sanity reasons - rerunning:
     * `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_tables.sh`
     * `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_tables.R`
       * files are dated `2020-Mar-31-11-18`
-
+    * re-creating `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables_new.R`
+      * adding of Mandana's data now newly implemented -  **ok**
+      * in a copy of all data all `NA`'s are set to `0` -  **ok**
+      * in a copy of all data pertinent variables are scaled and centered - **ok**
+    * archived results: `/Users/paul/Documents/CU_combined/Zenodo/Results/200319_500_81_extend_model_tables__temp__input_output.zip`
+    * emailed off results 
+    * committed: ``
+    * **next steps** 
+      * implement new modelling as per Jose - **pending**
+      * graph variables - **pending**
+      * check residuals of model as per Erin - **pending**
 
 
 
