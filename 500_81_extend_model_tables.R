@@ -1,7 +1,7 @@
 #' ---
 #' title: "Extend modelling input"
 #' author: "Paul Czechowski"
-#' date: "31-March-2020"
+#' date: "09-April-2020"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -12,7 +12,6 @@
 #' any stage using `rmarkdown::render ("/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R")`.
 #' Please check the session info at the end of the document for further 
 #' notes on the coding environment.
-
 
 # Environment preparation
 # =======================
@@ -95,6 +94,13 @@ scale_variables <- function (tibble_list, variables){
   return(tibble_list)
 }
 
+remove_self_connections <- function(tibble) {
+  tibble <- tibble  %>% filter(PORT != DEST)
+  return (tibble)
+}
+
+# Function to remove intra-port rows
+
 # Read and format network predictors 
 # ==================================
 
@@ -149,14 +155,14 @@ mandanas_data %>% arrange(PORT, DEST) %>% group_by(PORT, DEST) %>%
 #  for regrouping
 mandanas_data_bi <- mandanas_data # copy for sanity reasons.
 # could also call function 
-mandanas_data_bi <- prepare_join(mandanas_data_bi)
+mandanas_data_bi <- prepare_join(mandanas_data_bi) %>% print(n = Inf)
 
 # Step 3: Check groups and tally of unmodified data.  
 #  113 groups and each group with 2 or 1 PORT and DEST combination (= route)
 mandanas_data_bi %>% arrange(PORT, DEST) %>% group_by(PORT, DEST) %>% 
                      add_tally() %>% print(n = Inf)
 
-# Step 4: Apply re-grouping. 
+# Step 4: Apply re-grouping.
 mandanas_data_bi <- mandanas_data_bi %>% arrange(PORT, DEST) %>% group_by(PORT, DEST) %>%
                     print(n = Inf)
 
@@ -179,7 +185,7 @@ mandanas_data_bi %>% arrange(PORT, DEST) %>% group_by(PORT, DEST) %>%
 
 # define file path components for listing 
 model_input_folder <- "/Users/paul/Documents/CU_combined/Zenodo/Results"
-model_input_pattern <- glob2rx("??_results_euk_asv00_*_UNIF_model_data_2020-Apr-01-11*.csv") # adjust here for other / newer data sets
+model_input_pattern <- glob2rx("??_results_euk_*2020-Apr-09*.csv") # adjust here for other / newer data sets
 
 # read all file into lists for `lapply()` usage
 model_input_files <- list.files(path=model_input_folder, pattern = model_input_pattern, full.names = TRUE)
@@ -249,7 +255,7 @@ names(all_model_data)
 # =======================================
 
 # Which variables to be set to scale? 
-selected_vars <- c("RESP_UNIFRAC", "PRED_ENV", "VOY_FREQ","B_FON_NOECO", "B_HON_NOECO", "B_FON_SMECO",
+selected_vars <- c("PRED_ENV", "VOY_FREQ","B_FON_NOECO", "B_HON_NOECO", "B_FON_SMECO",
                    "B_HON_SMECO", "B_FON_NOECO_NOENV", "B_HON_NOECO_NOENV", "F_FON_NOECO",
                    "F_HON_NOECO", "F_FON_SMECO", "F_HON_SMECO", "F_FON_NOECO_NOENV",
                    "F_HON_NOECO_NOENV")
@@ -263,6 +269,13 @@ names(all_model_data_scaled) <- gsub(".csv", "_scaled.csv", names(all_model_data
 # Combine lists of tables with scaled and unscaled data
 data_to_write <- append(all_model_data, all_model_data_scaled)
 names(data_to_write)
+
+
+# Remove intra-port rows 
+# =========================
+
+data_to_write <- lapply(data_to_write, remove_self_connections)
+
 
 # Write files
 # ===========

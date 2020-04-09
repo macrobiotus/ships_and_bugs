@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 31.03.2020 - Paul Czechowski - paul.czechowski@gmail.com 
+# 09.04.2020 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 
 # abort on error

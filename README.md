@@ -2045,10 +2045,21 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * none of this makes sense to me - seems to be tailored to count data ?
       * working with files `/Users/paul/Documents/CU_combined/Zenodo/Results/200401_500_81_extend_model_tables__temp__input_output.zip`
       * emailing off files and script `/Users/paul/Documents/CU_combined/Github/500_83_test_zero-inflated_glms.R`
-      * commit ``
-  
-
-
+      * commit `8d2f09f7cbd198e05b233b0d1fec202d6b92ff5d`
+* **09.04.2020** - continuing work on new branch (`full_unifrac`)
+  * running `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_tables.sh`
+  * thus running `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_tables.R`
+  * continue working on `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables_new.R`
+    * don't standardize response - **ok**
+    * remove intra-port values - **ok**
+    * check summing - **ok**
+  * preparing results for mail off:
+    * `mkdir 200409_model_input`
+    * `cp ??_results_euk_asv00_deep*_joined_no-nas* 200409_model_input/`
+    * `cp ../../Github/500_81_extend_model_tables.R 200409_model_input/`
+  * email: (1) request modeling from Jose, (2) send off data sets - **ok**
+    * mailed off `/Users/paul/Documents/CU_combined/Zenodo/Results/200409_model_input.zip`   
+  * commit 
 
 
 ## Todo

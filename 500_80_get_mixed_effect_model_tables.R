@@ -1,7 +1,7 @@
 #' ---
-#' title: "Get input dat tables for Mixed Effect Models"
+#' title: "Get input data tables for Mixed Effect Models"
 #' author: "Paul Czechowski"
-#' date: "13-March-2020"
+#' date: "09-April-2020"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
