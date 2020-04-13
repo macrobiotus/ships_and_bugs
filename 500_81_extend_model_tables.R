@@ -1,7 +1,7 @@
 #' ---
 #' title: "Extend modelling input"
 #' author: "Paul Czechowski"
-#' date: "09-April-2020"
+#' date: "13-April-2020"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -114,8 +114,12 @@ remove_self_connections <- function(tibble) {
 #
 # data from 27.02.2020
 # ---------------------
+# mandanas_data <- read_csv("/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/200227_All_links_1997_2018_updated.csv")
+# names(mandanas_data)
 
-mandanas_data <- read_csv("/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/200227_All_links_1997_2018_updated.csv")
+# data from 11.04.2020
+# ---------------------
+mandanas_data <- read_csv("/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/200413_All_links_JaccardScores_1997_2018.csv")
 names(mandanas_data)
 
 # correct variable names for downstream compatibility 
@@ -123,17 +127,27 @@ names(mandanas_data)
 # notes for names correction:
 # 
 # old names
-#     "source"              "target"              "voyage_freq"         "Ballast FON noEco"   "Ballast HON noEco"   "Ballast FON sameEco"
-#     "Ballast HON sameEco" "Fouling FON noEco"   "Fouling HON noEco"   "Fouling FON sameEco" "Fouling HON sameEco
-#
-# new names 
-#      "PORT",                "DEST",              "VOY_FREQ",           "B_FON_NOECO",        "B_HON_NOECO",        "B_FON_SMECO", 
-#      "B_HON_SMECO",         "F_FON_NOECO",       "F_HON_NOECO",        "F_FON_SMECO",        "F_HON_SMECO")
+#  [1] "source"                    "target"                    "voyage_freq"              
+#  [4] "Ballast FON noEco"         "Ballast HON noEco"         "Ballast FON sameEco"      
+#  [7] "Ballast HON sameEco"       "Ballast FON noEco_noEnv"   "Ballast HON noEco_noEnv"  
+# [10] "Fouling FON noEco"         "Fouling HON noEco"         "Fouling FON sameEco"      
+# [13] "Fouling HON sameEco"       "Fouling FON noEco_noEnv"   "Fouling HON noEco_noEnv"  
+# [16] "J_voyage_freq"             "J_Ballast FON noEco"       "J_Ballast HON noEco"      
+# [19] "J_Ballast FON sameEco"     "J_Ballast HON sameEco"     "J_Ballast FON noEco_noEnv"
+# [22] "J_Ballast HON noEco_noEnv" "J_Fouling FON noEco"       "J_Fouling HON noEco"      
+# [25] "J_Fouling FON sameEco"     "J_Fouling HON sameEco"     "J_Fouling FON noEco_noEnv"
+# [28] "J_Fouling HON noEco_noEnv"
 
-names(mandanas_data) <- c("PORT", "DEST", "VOY_FREQ", "B_FON_NOECO", "B_HON_NOECO", "B_FON_SMECO",
-                          "B_HON_SMECO", "B_FON_NOECO_NOENV", "B_HON_NOECO_NOENV",  "F_FON_NOECO", 
-                          "F_HON_NOECO", "F_FON_SMECO", "F_HON_SMECO", "F_FON_NOECO_NOENV", 
-                          "F_HON_NOECO_NOENV")
+
+
+# new names 
+names(mandanas_data) <- c("PORT", "DEST", "VOY_FREQ", "B_FON_NOECO", "B_HON_NOECO", 
+  "B_FON_SMECO", "B_HON_SMECO", "B_FON_NOECO_NOENV", "B_HON_NOECO_NOENV", "F_FON_NOECO",
+  "F_HON_NOECO", "F_FON_SMECO", "F_HON_SMECO", "F_FON_NOECO_NOENV", "F_HON_NOECO_NOENV",
+  "J_VOY_FREQ", "J_B_FON_NOECO", "J_B_HON_NOECO", "J_B_FON_SMECO", "J_B_HON_SMECO", 
+  "J_B_FON_NOECO_NOENV", "J_B_HON_NOECO_NOENV", "J_F_FON_NOECO", "J_F_HON_NOECO", 
+  "J_F_FON_SMECO", "J_F_HON_SMECO", "J_F_FON_NOECO_NOENV", "J_F_HON_NOECO_NOENV")
+
 
 # correct port names for downstream compatibility 
 # -----------------------------------------------
@@ -147,7 +161,7 @@ mandanas_data$DEST[is.na(mandanas_data$DEST)] <- "NX"
 # ----------------------------------------------
 
 # Step 1: Check groups and tally of unmodified data.  
-#  200 groups and each group with 1 PORT and DEST combination (= route)
+#  462 groups and each group with 1 PORT and DEST combination (= route)
 mandanas_data %>% arrange(PORT, DEST) %>% group_by(PORT, DEST) %>% 
                   add_tally() %>% print(n = Inf)
 
@@ -158,13 +172,13 @@ mandanas_data_bi <- mandanas_data # copy for sanity reasons.
 mandanas_data_bi <- prepare_join(mandanas_data_bi) %>% print(n = Inf)
 
 # Step 3: Check groups and tally of unmodified data.  
-#  113 groups and each group with 2 or 1 PORT and DEST combination (= route)
+#  231 groups and each group with 2 or 1 PORT and DEST combination (= route)
 mandanas_data_bi %>% arrange(PORT, DEST) %>% group_by(PORT, DEST) %>% 
-                     add_tally() %>% print(n = Inf)
+                     add_tally() %>% print(n = Inf) 
 
 # Step 4: Apply re-grouping.
 mandanas_data_bi <- mandanas_data_bi %>% arrange(PORT, DEST) %>% group_by(PORT, DEST) %>%
-                    print(n = Inf)
+                    print(n = Inf) 
 
 # Step 5: Sum routes within newly defined groups 
 # not averaging so as to not disort data with only one original connection 
@@ -172,10 +186,9 @@ mandanas_data_bi <- mandanas_data_bi %>% summarise_if(is.numeric, sum, na.rm = T
                     arrange(PORT, DEST) %>% print(n = Inf)
 
 # Step 6: Check groups and tally of modified data.  
-#  113 groups and each group with 1 PORT and DEST combination (= route) - ok!
+#  231 groups and each group with 1 PORT and DEST combination (= route) - ok!
 mandanas_data_bi %>% arrange(PORT, DEST) %>% group_by(PORT, DEST) %>% 
-                     add_tally() %>% print(n = Inf)
-
+                     add_tally() %>% print(n = Inf) %>% View
 
 # Read-in and format biological responses and environmental predictors
 # ====================================================================
@@ -235,10 +248,12 @@ names(model_data_joined) <- gsub(".csv", "_joined.csv", names(model_data_joined)
 # =======================================
 
 # Which variables to be set to 0? 
-selected_vars <- c("VOY_FREQ", "B_FON_NOECO", "B_HON_NOECO", "B_FON_SMECO",
-                   "B_HON_SMECO", "B_FON_NOECO_NOENV", "B_HON_NOECO_NOENV",
-                   "F_FON_NOECO", "F_HON_NOECO", "F_FON_SMECO", "F_HON_SMECO",
-                   "F_FON_NOECO_NOENV", "F_HON_NOECO_NOENV")
+selected_vars <- c("PRED_ENV", "VOY_FREQ", "B_FON_NOECO", "B_HON_NOECO", 
+  "B_FON_SMECO", "B_HON_SMECO", "B_FON_NOECO_NOENV", "B_HON_NOECO_NOENV", "F_FON_NOECO",
+  "F_HON_NOECO", "F_FON_SMECO", "F_HON_SMECO", "F_FON_NOECO_NOENV", "F_HON_NOECO_NOENV",
+  "J_VOY_FREQ", "J_B_FON_NOECO", "J_B_HON_NOECO", "J_B_FON_SMECO", "J_B_HON_SMECO", 
+  "J_B_FON_NOECO_NOENV", "J_B_HON_NOECO_NOENV", "J_F_FON_NOECO", "J_F_HON_NOECO", 
+  "J_F_FON_SMECO", "J_F_HON_SMECO", "J_F_FON_NOECO_NOENV", "J_F_HON_NOECO_NOENV")
 
 # Replace NA's with 0 in dat set copy
 model_na_to_zero <- lapply(model_data_joined, set_zeros, selected_vars)
@@ -255,10 +270,12 @@ names(all_model_data)
 # =======================================
 
 # Which variables to be set to scale? 
-selected_vars <- c("PRED_ENV", "VOY_FREQ","B_FON_NOECO", "B_HON_NOECO", "B_FON_SMECO",
-                   "B_HON_SMECO", "B_FON_NOECO_NOENV", "B_HON_NOECO_NOENV", "F_FON_NOECO",
-                   "F_HON_NOECO", "F_FON_SMECO", "F_HON_SMECO", "F_FON_NOECO_NOENV",
-                   "F_HON_NOECO_NOENV")
+selected_vars <- c("PRED_ENV", "VOY_FREQ", "B_FON_NOECO", "B_HON_NOECO", 
+  "B_FON_SMECO", "B_HON_SMECO", "B_FON_NOECO_NOENV", "B_HON_NOECO_NOENV", "F_FON_NOECO",
+  "F_HON_NOECO", "F_FON_SMECO", "F_HON_SMECO", "F_FON_NOECO_NOENV", "F_HON_NOECO_NOENV",
+  "J_VOY_FREQ", "J_B_FON_NOECO", "J_B_HON_NOECO", "J_B_FON_SMECO", "J_B_HON_SMECO", 
+  "J_B_FON_NOECO_NOENV", "J_B_HON_NOECO_NOENV", "J_F_FON_NOECO", "J_F_HON_NOECO", 
+  "J_F_FON_SMECO", "J_F_HON_SMECO", "J_F_FON_NOECO_NOENV", "J_F_HON_NOECO_NOENV")
 
 # Scale variables data set copy
 all_model_data_scaled <- lapply(all_model_data, scale_variables, selected_vars)

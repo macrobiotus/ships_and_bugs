@@ -2059,7 +2059,13 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * `cp ../../Github/500_81_extend_model_tables.R 200409_model_input/`
   * email: (1) request modeling from Jose, (2) send off data sets - **ok**
     * mailed off `/Users/paul/Documents/CU_combined/Zenodo/Results/200409_model_input.zip`   
-  * commit 
+  * commit `c76eecf0e2b9cb1b4756789ad6f2d9df1578268`
+* **13.04.2020** - continuing work on new branch (`full_unifrac`)
+  * working on `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R`
+  * including new data file `/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/200413_All_links_JaccardScores_1997_2018.csv`
+  * update results - **ok**
+  * send-off - **ok** - files is `/Users/paul/Documents/CU_combined/Zenodo/Results/200412_model_input.zip`
+  * commit - **ok** -
 
 
 ## Todo
