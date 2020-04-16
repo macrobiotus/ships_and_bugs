@@ -1,7 +1,7 @@
 #' ---
 #' title: "Extend modelling input"
 #' author: "Paul Czechowski"
-#' date: "13-April-2020"
+#' date: "17-April-2020"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -42,7 +42,7 @@ prepare_join = function (list_element) {
    
   # Step 1: In each line sort values in `PORT`, and `DEST` columns alphabetically
   # for joining with downstream data
-  list_element[ ,1:2] <- as_tibble(t(apply(list_element[ ,1:2], 1,  sort)))
+  list_element[ ,1:2] <- as_tibble(t(apply(list_element[ ,1:2], 1,  sort)), .name_repair = "minimal")
   
   # Step 2: Re-sort
   list_element <- list_element %>% arrange(PORT, DEST)
@@ -149,6 +149,18 @@ names(mandanas_data) <- c("PORT", "DEST", "VOY_FREQ", "B_FON_NOECO", "B_HON_NOEC
   "J_F_FON_SMECO", "J_F_HON_SMECO", "J_F_FON_NOECO_NOENV", "J_F_HON_NOECO_NOENV")
 
 
+# 17-April-2019: Select relevant columns.
+# ---------------------------------------
+# To get back older code state check commit `4b6ea97ad468b1aa5739672261e8e61a9947a796`
+
+mandanas_data <- mandanas_data %>% select(., contains(c("PORT", "DEST",  "J_VOY_FREQ", 
+  "J_B_FON_NOECO", "J_B_HON_NOECO", 
+  "J_B_FON_SMECO", "J_B_HON_SMECO", 
+  "J_B_FON_NOECO_NOENV", "J_B_HON_NOECO_NOENV", 
+  "J_F_FON_NOECO", "J_F_HON_NOECO", 
+  "J_F_FON_SMECO", "J_F_HON_SMECO", 
+  "J_F_FON_NOECO_NOENV", "J_F_HON_NOECO_NOENV" ))) 
+
 # correct port names for downstream compatibility 
 # -----------------------------------------------
 
@@ -157,8 +169,10 @@ mandanas_data$DEST[which (mandanas_data$DEST == "SY")] <- "SI"
 mandanas_data$PORT[is.na(mandanas_data$PORT)] <- "NX"
 mandanas_data$DEST[is.na(mandanas_data$DEST)] <- "NX"
 
-# make bidirectional information unidirectional 
-# ----------------------------------------------
+# 17-April-2019: Erase every second Jaccard value
+# ---------------------------------------
+#   Formerly: make bidirectional information unidirectional 
+#   To get back older code state check commit `4b6ea97ad468b1aa5739672261e8e61a9947a796`
 
 # Step 1: Check groups and tally of unmodified data.  
 #  462 groups and each group with 1 PORT and DEST combination (= route)
@@ -175,15 +189,18 @@ mandanas_data_bi <- prepare_join(mandanas_data_bi) %>% print(n = Inf)
 #  231 groups and each group with 2 or 1 PORT and DEST combination (= route)
 mandanas_data_bi %>% arrange(PORT, DEST) %>% group_by(PORT, DEST) %>% 
                      add_tally() %>% print(n = Inf) 
-
 # Step 4: Apply re-grouping.
 mandanas_data_bi <- mandanas_data_bi %>% arrange(PORT, DEST) %>% group_by(PORT, DEST) %>%
                     print(n = Inf) 
 
-# Step 5: Sum routes within newly defined groups 
-# not averaging so as to not disort data with only one original connection 
-mandanas_data_bi <- mandanas_data_bi %>% summarise_if(is.numeric, sum, na.rm = TRUE) %>%
-                    arrange(PORT, DEST) %>% print(n = Inf)
+# Step 5: Isolate distinct rows within newly defined groups
+#   To get back older code state check commit `4b6ea97ad468b1aa5739672261e8e61a9947a796`
+mandanas_data_bi <- distinct(mandanas_data_bi) 
+
+# # **old** Step 5: Sum routes within newly defined groups 
+# # not averaging so as to not disort data with only one original connection 
+# mandanas_data_bi <- mandanas_data_bi %>% summarise_if(is.numeric, sum, na.rm = TRUE) %>%
+#                     arrange(PORT, DEST) %>% print(n = Inf)
 
 # Step 6: Check groups and tally of modified data.  
 #  231 groups and each group with 1 PORT and DEST combination (= route) - ok!
@@ -198,7 +215,7 @@ mandanas_data_bi %>% arrange(PORT, DEST) %>% group_by(PORT, DEST) %>%
 
 # define file path components for listing 
 model_input_folder <- "/Users/paul/Documents/CU_combined/Zenodo/Results"
-model_input_pattern <- glob2rx("??_results_euk_*2020-Apr-09*.csv") # adjust here for other / newer data sets
+model_input_pattern <- glob2rx("*_results_euk_asv00_deep_UNIF_model_data_2020-Apr-17*") # adjust here for other / newer data sets
 
 # read all file into lists for `lapply()` usage
 model_input_files <- list.files(path=model_input_folder, pattern = model_input_pattern, full.names = TRUE)
@@ -248,12 +265,13 @@ names(model_data_joined) <- gsub(".csv", "_joined.csv", names(model_data_joined)
 # =======================================
 
 # Which variables to be set to 0? 
-selected_vars <- c("PRED_ENV", "VOY_FREQ", "B_FON_NOECO", "B_HON_NOECO", 
-  "B_FON_SMECO", "B_HON_SMECO", "B_FON_NOECO_NOENV", "B_HON_NOECO_NOENV", "F_FON_NOECO",
-  "F_HON_NOECO", "F_FON_SMECO", "F_HON_SMECO", "F_FON_NOECO_NOENV", "F_HON_NOECO_NOENV",
-  "J_VOY_FREQ", "J_B_FON_NOECO", "J_B_HON_NOECO", "J_B_FON_SMECO", "J_B_HON_SMECO", 
-  "J_B_FON_NOECO_NOENV", "J_B_HON_NOECO_NOENV", "J_F_FON_NOECO", "J_F_HON_NOECO", 
-  "J_F_FON_SMECO", "J_F_HON_SMECO", "J_F_FON_NOECO_NOENV", "J_F_HON_NOECO_NOENV")
+selected_vars <- c("PRED_ENV", "J_VOY_FREQ", 
+  "J_B_FON_NOECO", "J_B_HON_NOECO", 
+  "J_B_FON_SMECO", "J_B_HON_SMECO", 
+  "J_B_FON_NOECO_NOENV", "J_B_HON_NOECO_NOENV", 
+  "J_F_FON_NOECO", "J_F_HON_NOECO", 
+  "J_F_FON_SMECO", "J_F_HON_SMECO", 
+  "J_F_FON_NOECO_NOENV", "J_F_HON_NOECO_NOENV" )
 
 # Replace NA's with 0 in dat set copy
 model_na_to_zero <- lapply(model_data_joined, set_zeros, selected_vars)
@@ -270,12 +288,13 @@ names(all_model_data)
 # =======================================
 
 # Which variables to be set to scale? 
-selected_vars <- c("PRED_ENV", "VOY_FREQ", "B_FON_NOECO", "B_HON_NOECO", 
-  "B_FON_SMECO", "B_HON_SMECO", "B_FON_NOECO_NOENV", "B_HON_NOECO_NOENV", "F_FON_NOECO",
-  "F_HON_NOECO", "F_FON_SMECO", "F_HON_SMECO", "F_FON_NOECO_NOENV", "F_HON_NOECO_NOENV",
-  "J_VOY_FREQ", "J_B_FON_NOECO", "J_B_HON_NOECO", "J_B_FON_SMECO", "J_B_HON_SMECO", 
-  "J_B_FON_NOECO_NOENV", "J_B_HON_NOECO_NOENV", "J_F_FON_NOECO", "J_F_HON_NOECO", 
-  "J_F_FON_SMECO", "J_F_HON_SMECO", "J_F_FON_NOECO_NOENV", "J_F_HON_NOECO_NOENV")
+selected_vars <- c("PRED_ENV", "J_VOY_FREQ", 
+  "J_B_FON_NOECO", "J_B_HON_NOECO", 
+  "J_B_FON_SMECO", "J_B_HON_SMECO", 
+  "J_B_FON_NOECO_NOENV", "J_B_HON_NOECO_NOENV", 
+  "J_F_FON_NOECO", "J_F_HON_NOECO", 
+  "J_F_FON_SMECO", "J_F_HON_SMECO", 
+  "J_F_FON_NOECO_NOENV", "J_F_HON_NOECO_NOENV" )
 
 # Scale variables data set copy
 all_model_data_scaled <- lapply(all_model_data, scale_variables, selected_vars)

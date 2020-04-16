@@ -2065,7 +2065,13 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * including new data file `/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/200413_All_links_JaccardScores_1997_2018.csv`
   * update results - **ok**
   * send-off - **ok** - files is `/Users/paul/Documents/CU_combined/Zenodo/Results/200412_model_input.zip`
-  * commit - **ok** -
+  * commit `4b6ea97ad468b1aa5739672261e8e61a9947a796`
+* **17.04.2020** - after meeting - removing summing of MS's Jaccard values
+  * running `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_tables.sh`
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R`
+    * removing summing code altogether most likely
+    * changing variable selection
+    * check for last commit if old code needs to come back
 
 
 ## Todo
@@ -2100,7 +2106,8 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * adjust display items (Procrustes and Mantel results)
   * adjust text (shallow depth sampel inclusion from table summary)
   * check all script marked yellow for required corrections
-
+  
+  
 #### Less important 
   * accomodate randomized matrices
   * run and render `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R` - manual port lookup necessary
@@ -2115,7 +2122,7 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
 #### Done
   * ~~Correlate identified invasives with high shipping traffic, for this isolate and inspect highly connected ports only.~~
   * ~~Include latest reference data~~
-  * ~~Accomodate Chinase data~~
+  * ~~Accomodate Chinese data~~
 
 ## Known issues and bugs
 
