@@ -1,7 +1,7 @@
 #' ---
 #' title: "Extend modelling input"
 #' author: "Paul Czechowski"
-#' date: "17-April-2020"
+#' date: "18-April-2020"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -138,8 +138,6 @@ names(mandanas_data)
 # [25] "J_Fouling FON sameEco"     "J_Fouling HON sameEco"     "J_Fouling FON noEco_noEnv"
 # [28] "J_Fouling HON noEco_noEnv"
 
-
-
 # new names 
 names(mandanas_data) <- c("PORT", "DEST", "VOY_FREQ", "B_FON_NOECO", "B_HON_NOECO", 
   "B_FON_SMECO", "B_HON_SMECO", "B_FON_NOECO_NOENV", "B_HON_NOECO_NOENV", "F_FON_NOECO",
@@ -148,18 +146,6 @@ names(mandanas_data) <- c("PORT", "DEST", "VOY_FREQ", "B_FON_NOECO", "B_HON_NOEC
   "J_B_FON_NOECO_NOENV", "J_B_HON_NOECO_NOENV", "J_F_FON_NOECO", "J_F_HON_NOECO", 
   "J_F_FON_SMECO", "J_F_HON_SMECO", "J_F_FON_NOECO_NOENV", "J_F_HON_NOECO_NOENV")
 
-
-# 17-April-2019: Select relevant columns.
-# ---------------------------------------
-# To get back older code state check commit `4b6ea97ad468b1aa5739672261e8e61a9947a796`
-
-mandanas_data <- mandanas_data %>% select(., contains(c("PORT", "DEST",  "J_VOY_FREQ", 
-  "J_B_FON_NOECO", "J_B_HON_NOECO", 
-  "J_B_FON_SMECO", "J_B_HON_SMECO", 
-  "J_B_FON_NOECO_NOENV", "J_B_HON_NOECO_NOENV", 
-  "J_F_FON_NOECO", "J_F_HON_NOECO", 
-  "J_F_FON_SMECO", "J_F_HON_SMECO", 
-  "J_F_FON_NOECO_NOENV", "J_F_HON_NOECO_NOENV" ))) 
 
 # correct port names for downstream compatibility 
 # -----------------------------------------------
@@ -170,9 +156,10 @@ mandanas_data$PORT[is.na(mandanas_data$PORT)] <- "NX"
 mandanas_data$DEST[is.na(mandanas_data$DEST)] <- "NX"
 
 # 17-April-2019: Erase every second Jaccard value
-# ---------------------------------------
-#   Formerly: make bidirectional information unidirectional 
-#   To get back older code state check commit `4b6ea97ad468b1aa5739672261e8e61a9947a796`
+# -----------------------------------------------
+#   and make bidirectional information unidirectional. 
+#   To get back older code state check commit 
+#   `4b6ea97ad468b1aa5739672261e8e61a9947a796`.
 
 # Step 1: Check groups and tally of unmodified data.  
 #  462 groups and each group with 1 PORT and DEST combination (= route)
@@ -186,26 +173,38 @@ mandanas_data_bi <- mandanas_data # copy for sanity reasons.
 mandanas_data_bi <- prepare_join(mandanas_data_bi) %>% print(n = Inf)
 
 # Step 3: Check groups and tally of unmodified data.  
-#  231 groups and each group with 2 or 1 PORT and DEST combination (= route)
+#  462 groups and each group with 2 or 1 PORT and DEST combination (= route)
 mandanas_data_bi %>% arrange(PORT, DEST) %>% group_by(PORT, DEST) %>% 
-                     add_tally() %>% print(n = Inf) 
-# Step 4: Apply re-grouping.
+                     add_tally() %>% select(n) %>% print(n = Inf) 
+
+# Step 4: Apply re-grouping and tally, also add cumulative sums for each group for erasing 
 mandanas_data_bi <- mandanas_data_bi %>% arrange(PORT, DEST) %>% group_by(PORT, DEST) %>%
-                    print(n = Inf) 
+                    add_tally() %>% mutate(m = cumsum(n)) %>% print(n = Inf) 
 
-# Step 5: Isolate distinct rows within newly defined groups
-#   To get back older code state check commit `4b6ea97ad468b1aa5739672261e8e61a9947a796`
-mandanas_data_bi <- distinct(mandanas_data_bi) 
+#  231 groups and each group with 2 or 1 PORT and DEST combin
+mandanas_data_bi %>% select(n, m) %>% print(n = Inf) 
 
-# # **old** Step 5: Sum routes within newly defined groups 
-# # not averaging so as to not disort data with only one original connection 
-# mandanas_data_bi <- mandanas_data_bi %>% summarise_if(is.numeric, sum, na.rm = TRUE) %>%
-#                     arrange(PORT, DEST) %>% print(n = Inf)
+# Step 5: Set Mandana's duplicated Jacquard values to zero, so that they can be alongside the 
+#  other values. 
+#  Set variables to shorten subsequent command.
+sv <- c("J_VOY_FREQ", "J_B_FON_NOECO", "J_B_HON_NOECO", "J_B_FON_SMECO", "J_B_HON_SMECO", 
+  "J_B_FON_NOECO_NOENV", "J_B_HON_NOECO_NOENV", "J_F_FON_NOECO", "J_F_HON_NOECO", 
+  "J_F_FON_SMECO", "J_F_HON_SMECO", "J_F_FON_NOECO_NOENV", "J_F_HON_NOECO_NOENV")
 
-# Step 6: Check groups and tally of modified data.  
-#  231 groups and each group with 1 PORT and DEST combination (= route) - ok!
-mandanas_data_bi %>% arrange(PORT, DEST) %>% group_by(PORT, DEST) %>% 
-                     add_tally() %>% print(n = Inf) %>% View
+#  set zeros (231 groups)
+mandanas_data_bi <- mandanas_data_bi %>% mutate_at(vars(sv) , funs(ifelse(m == 4, 0,. )))  %>% print(n = Inf) 
+
+
+# Step 6: Sum routes within newly defined groups 
+#   not averaging so as to not disort data with only one original connection 
+mandanas_data_bi <- mandanas_data_bi %>% summarise_if(is.numeric, sum, na.rm = TRUE) %>%
+                     arrange(PORT, DEST) %>% print(n = Inf)
+
+# step 7: Check grouping and erase grouping counters
+mandanas_data_bi %>% arrange(PORT, DEST) %>% group_by(PORT, DEST)  %>% 
+  select(n, m) %>% print(n = Inf)
+  
+mandanas_data_bi <- mandanas_data_bi %>% select(-c(n, m))
 
 # Read-in and format biological responses and environmental predictors
 # ====================================================================

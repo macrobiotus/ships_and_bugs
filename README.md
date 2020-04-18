@@ -2067,11 +2067,13 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * send-off - **ok** - files is `/Users/paul/Documents/CU_combined/Zenodo/Results/200412_model_input.zip`
   * commit `4b6ea97ad468b1aa5739672261e8e61a9947a796`
 * **17.04.2020** - after meeting - removing summing of MS's Jaccard values
+  * erased old results
   * running `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_tables.sh`
   * adjusting and running `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R`
     * removing summing code altogether most likely
     * changing variable selection
     * check for last commit if old code needs to come back
+    * commit `07983628d2b3c6cda85f8f248cb33780e37d3f69`
 
 
 ## Todo
