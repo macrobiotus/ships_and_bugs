@@ -6,8 +6,6 @@ library("tidyverse")
 #   `/Users/paul/Documents/CU_combined/Github/131_get_core_metrics_non_phylogenetic_collpased.sh`
 #   any grouping in this file is unnecessary, and the writing of the final objects has been disabled. 
 
-
-
 # data read-in 
 #   read in metadata file - `/Users/paul/Documents/CU_combined/Zenodo/Manifest/06_18S_merged_metadata.tsv`
 #   read in frequency per sample file
@@ -22,68 +20,78 @@ fcount <- read_csv("/Users/paul/Documents/CU_combined/Zenodo/Qiime/120_18S_eDNA_
 
 fmerge <- left_join(fmdata, fcount, by = "SampleID")
 
+# check counts 
+fcount %>% print.data.frame
+fmerge %>% print.data.frame
+
 #   isolate eDNA samples from other samples
 #   remove all samples below
 #     49000 features per sample for normal depth - confirm visually using `/Users/paul/Documents/CU_combined/Zenodo/Qiime/120_18S_eDNA_samples_tab_Eukaryotes.qzv`
 #     (ignore here - needed later: 40000 features per sample for shallow depth - confirm visually using `/Users/paul/Documents/CU_combined/Zenodo/Qiime/120_18S_eDNA_samples_tab_Eukaryotes.qzv`)
 
+# isolate eDNA samples - will be 1 items in sample-type grouped lists
 fmlist <- fmerge %>% group_by(Type, add = TRUE) %>% group_split() 
 fmeDNA <- fmlist[[4]] 
 
 #   remove all "RID"s with with less then 5 samples
-#   store in an (ordered) vector: from each "Location" get well covered samples, and discard all locations that don't have five samples 
-keep <- fmeDNA %>% group_by(Location, add = TRUE) %>% filter(Count  >= 49700 ) %>% tally(.) %>% filter(n >= 5) %>% select(Location)
+#   store in an (ordered) vector: from each "Location" get covered samples as per README.md, and discard all locations that don't have five samples 
+keep_hi <- fmeDNA %>% group_by(Location, add = TRUE) %>% filter(Count  >= 49900 ) %>% tally(.) %>% filter(n >= 5) %>% select(Location)
+keep_lo <- fmeDNA %>% group_by(Location, add = TRUE) %>% filter(Count  >= 37900 ) %>% tally(.) %>% filter(n >= 5) %>% select(Location)
 
 #   recreate table order as in above vector, and the use vector to subest input table, finally choose random five samples per location
-hi_covrd <- fmeDNA %>% group_by(Location, add = TRUE) %>% filter(Count  >= 49700 ) %>% filter(Location %in% keep$Location) %>% sample_n(5)
+covrd_hi <- fmeDNA %>% group_by(Location, add = TRUE) %>% filter(Count  >= 49700 ) %>% filter(Location %in% keep_hi$Location) %>% sample_n(5)
+covrd_lo <- fmeDNA %>% group_by(Location, add = TRUE) %>% filter(Count  >= 37900 ) %>% filter(Location %in% keep_lo$Location) %>% sample_n(5)
 
 #   restore grouping
-hi_covrd <- hi_covrd %>% group_by(RID, Location)
+covrd_hi <- covrd_hi %>% group_by(RID, Location)
+covrd_lo <- covrd_lo %>% group_by(RID, Location)
 
 #   inspect table before subsetting
-hi_covrd %>% rmarkdown::paged_table()
+covrd_hi %>% print.data.frame()
+covrd_lo %>% print.data.frame()
 
-# keep Singapore Yacht Club 
-# keep Adelaide Container Dock 1 
+# keep Singapore Yacht Club and Adelaide Container Dock 1 but no other samples
+# from Singapore or Adelaide
 
 excl_locs <- c("Adelaide_Container_Channel", "Adelaide_Container_Dock_II",
                "Adelaide_Fuel_Dock", "Adelaide_Marina_Dock", "Singapore_Woodlands") 
-slctDNA <- hi_covrd %>% filter(!Location %in% excl_locs)
+slctDNA_hi <- covrd_hi %>% filter(!Location %in% excl_locs)
+slctDNA_lo <- covrd_lo %>% filter(!Location %in% excl_locs)
 
 #   inspect table after subsetting
-slctDNA %>% rmarkdown::paged_table()
-
+slctDNA_hi %>% print.data.frame()
+slctDNA_lo %>% print.data.frame()
 
 
 ## subset table - re-build table
-# port-collapse
-grpdDNA <- slctDNA %>% sample_n(1)
+# port-collapse - not done anymore
+# grpdDNA <- slctDNA %>% sample_n(1)
 
 # recreate full tables
-fmlist_fll <- fmlist
-fmlist_grp <- fmlist
+fmlist_hi <- fmlist
+fmlist_lo <- fmlist
 
-fmlist_fll[[4]] <- slctDNA
-fmlist_grp[[4]] <- grpdDNA
+fmlist_hi[[4]] <- slctDNA_hi
+fmlist_lo[[4]] <- slctDNA_lo
 
-fmerge_fll <- bind_rows(fmlist_fll)
-fmerge_grp <- bind_rows(fmlist_grp)
+fmerge_hi <- bind_rows(fmlist_hi)
+fmerge_lo <- bind_rows(fmlist_lo)
 
 # sorting for convenience
-fmerge_fll <- fmerge_fll %>% group_by(Type, RID) %>%  arrange(., RID, Type)
-fmerge_grp <- fmerge_grp %>% group_by(Type, RID) %>%  arrange(., RID, Type)
+fmerge_hi <- fmerge_hi %>% group_by(Type, RID) %>%  arrange(., RID, Type)
+fmerge_lo <- fmerge_lo %>% group_by(Type, RID) %>%  arrange(., RID, Type)
 
 # recombine eDNA samples from other samples
 # write two new metadata files for further processing
 #   to `/Users/paul/Documents/CU_combined/Zenodo/Manifest`
 
-# all samples - normal depth 
-write_tsv(fmerge_fll, "/Users/paul/Documents/CU_combined/Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_all.tsv")
+# all samples - deep depth 
+write_tsv(fmerge_hi, "/Users/paul/Documents/CU_combined/Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_all.tsv")
 # collapsed samples - normal depth 
 # write_tsv(fmerge_grp, "/Users/paul/Documents/CU_combined/Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_grp.tsv")
 
 # all samples - shallow depth 
-write_tsv(fmerge_fll, "/Users/paul/Documents/CU_combined/Zenodo/Manifest/127_18S_5-sample-euk-metadata_shll_all.tsv")
+write_tsv(fmerge_lo, "/Users/paul/Documents/CU_combined/Zenodo/Manifest/127_18S_5-sample-euk-metadata_shll_all.tsv")
 
 # collapsed samples - shallow depth 
 # write_tsv(fmerge_grp, "/Users/paul/Documents/CU_combined/Zenodo/Manifest/127_18S_5-sample-euk-metadata_shll_grp.tsv")

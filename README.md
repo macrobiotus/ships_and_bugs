@@ -2080,9 +2080,40 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
 * **23.04.2020** - preparations for re-work
   * re-work to get two more ports as per `/Users/paul/Documents/CU_NIS-WRAPS/170724_internal_meetings/200423_cu_conference_call/200421_on rarefaction.pdf`
   * duplicating project directory and keep one version compressed with current date
-  * commit
+  * commit - **ok**
   * merge current branch `full_unifrac`
+  * last Time Machine backup was 12:33ßß
+  * calling `gzip -ktvl --best /Users/paul/Documents/CU_combined`
+    * keep for later `/Users/paul/Documents/200423_CU_combined.tar.gz`
+    * moved file to macmini archive using SFTP client
+    * backing up 15:42
+    * erased file from macbook pro
+  * **re-work** - stepping through pipeline again two include two more samples
+    * creating `/Users/paul/Documents/CU_combined/Scratch/Qiime`
+      * for superfluous results files in `/Users/paul/Documents/CU_combined/Zenodo/Qiime`
+      * for superfluous scripts moved to `/Users/paul/Documents/CU_combined/Scratch/Shell`
+    * checking scripts and Qiime files
+      * script to scratch `/Users/paul/Documents/CU_combined/Scratch/Shell/110_cluster_sequences.sh`
+    * re-working sample selection script `/Users/paul/Documents/CU_combined/Github/127_select_random_samples.R`
+      * checking again pertinent visualisation `/Users/paul/Documents/CU_combined/Zenodo/Qiime/120_18S_eDNA_samples_tab_Eukaryotes.qzv`
+      * **deep** depth (for Eukaryotes) was `49974`, **now:** `49900`
+        * retains 10,279,400 (36.64%) features in 206 (81.42%) samples at the specifed sampling depth
+        * 19 port included (per graph): AD, AW, BT, CB, GH, HS, HN, HT, LB, MI, NO, OK, PT, PM, RI, RO, SY, WI, ZB
+      * **shallow** depth (for Eukaryotes) was `32982`, **now** `37900`
+        * retains 8,262,200 (29.45%) features in 218 (86.17%) samples at the specifed sampling depth.
+        * 21 port included (per graph): AD, AW, BT, CB, GH, HS, HN, HT, LB, MI, NX, NO, OK, PT, PM, RI, RO, SY, VN, WI, ZB
+    * with finished script re-wrote new mapping files for sampling selection:
+      * `/Users/paul/Documents/CU_combined/Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_all.tsv`
+      * `/Users/paul/Documents/CU_combined/Zenodo/Manifest/127_18S_5-sample-euk-metadata_shll_all.tsv`
+    * **next** continue revision of `/Users/paul/Documents/CU_combined/Github/128_adjust_sample_counts.sh`
+        
 
+
+
+
+
+
+  
 ## Todo
 
 ### More important 
