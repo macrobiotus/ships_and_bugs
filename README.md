@@ -2074,7 +2074,14 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * changing variable selection
     * check for last commit if old code needs to come back
     * commit `07983628d2b3c6cda85f8f248cb33780e37d3f69`
-
+* **18.04.2019** - reworking `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R`
+  * Mandana's duplicated Jaccard values are now set to 0 (one per pair) before summing the whole table.
+  * commit `ba548bd31613d2fdfd1a2c511fd10bd13ae602e4`
+* **23.04.2020** - preparations for re-work
+  * re-work to get two more ports as per `/Users/paul/Documents/CU_NIS-WRAPS/170724_internal_meetings/200423_cu_conference_call/200421_on rarefaction.pdf`
+  * duplicating project directory and keep one version compressed with current date
+  * commit
+  * merge current branch `full_unifrac`
 
 ## Todo
 
