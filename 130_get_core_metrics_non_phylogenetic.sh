@@ -1,32 +1,32 @@
 #!/usr/bin/env bash
 
-# 11.11.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 24.04.2020 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Applies a collection of diversity metrics (both phylogenetic and non-
 #   phylogenetic) to a feature table.
 # also see for an explanation of metrics
 #  https://forum.qiime2.org/t/alpha-and-beta-diversity-explanations-and-commands/2282
 
+# For debugging only
+# ------------------ 
+# set -x
 set -e
+set -u
 
 # Paths need to be adjusted for remote execution
 # ==============================================
-if [[ "$HOSTNAME" != "macmini.local" ]] && [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
+if [[ "$HOSTNAME" != "Pauls-MacBook-Pro.local" ]] && [[ "$HOSTNAME" != "macmini-fastpost.staff.uod.otago.ac.nz" ]]; then
     bold=$(tput bold)
     normal=$(tput sgr0)
     printf "${bold}$(date):${normal} Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
     cores="$(nproc --all)"
-elif [[ "$HOSTNAME" == "macmini.local" ]]  || [[ "$HOSTNAME" = "macmini.staff.uod.otago.ac.nz" ]]; then
+elif [[ "$HOSTNAME" == "Pauls-MacBook-Pro.local" ]]  || [[ "$HOSTNAME" = "macmini-fastpost.staff.uod.otago.ac.nz" ]]; then
     bold=$(tput bold)
     normal=$(tput sgr0)
     printf "${bold}$(date):${normal} Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
 fi
-
-# define relative input locations - Qiime files
-# --------------------------------------------------------
-inpth_map='Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_all.tsv'
 
 # define relative input locations - feature tables
 # ------------------------------------------------
@@ -72,11 +72,11 @@ for i in "${!inpth_tab[@]}"; do
       echo "${bold}Depth set to $depth for Unassigned...${normal}"
       ;;
     *"Eukaryotes"* )
-      depth=49974
+      depth=49899
       echo "${bold}Depth set to $depth for Eukaryotes...${normal}"
       ;;
     *"Eukaryote-shallow"* )
-      depth=32982
+      depth=37899
       echo "${bold}Depth set to $depth for Eukaryotes (shallow set)...${normal}"
       ;;
     *"Eukaryote-non-metazoans"* )
@@ -98,6 +98,15 @@ for i in "${!inpth_tab[@]}"; do
     # Qiime calls   
     printf "${bold}$(date):${normal} Starting analysis of \"$(basename "${inpth_tab[$i]}")\"...\n"  
   
+    # setting correct sampling selection file
+    if [[ "${inpth_tab[$i]}" == *"shallow"* ]]; then
+      inpth_map="Zenodo/Manifest/127_18S_5-sample-euk-metadata_shll_all.tsv"
+      printf "${bold}Detected shallow set, using:${normal} $trpth/$inpth_map \n"
+    elif [[ "${inpth_tab[$i]}" != *"shallow"* ]]; then
+      inpth_map="Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_all.tsv"
+      printf "${bold}Using normal sample set:${normal} $trpth/$inpth_map \n"
+    fi
+    
     qiime diversity core-metrics \
       --i-table "${inpth_tab[$i]}" \
       --m-metadata-file "$trpth"/"$inpth_map" \

@@ -2111,8 +2111,20 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * adjusted and ran `/Users/paul/Documents/CU_combined/Github/128_adjust_sample_counts.sh`
     * this script is important
     * all output file were re-written
-    * 
-        
+    * commit `7bcc985471ef62b521d4c3f5fe28bd9bebda8aa7`
+  * adjusted and ran `/Users/paul/Documents/CU_combined/Github/129_summarize_data_non_phylogenetic.sh`
+    * replaced all output files
+  * adjusted and ran `/Users/paul/Documents/CU_combined/Github/130_get_core_metrics_non_phylogenetic.sh`
+    * replaced all output files
+    * erased all log files
+  * moved away `/Users/paul/Documents/CU_combined/Scratch/Shell/131_get_core_metrics_non_phylogenetic_collpased.sh`
+  * re-running `/Users/paul/Documents/CU_combined/Github/135_seq_align.sh`
+  * re-running `/Users/paul/Documents/CU_combined/Github/140_seq_align_mask.sh`
+  * re-running `/Users/paul/Documents/CU_combined/Github/145_alignment_export.sh`
+  * re-running `/Users/paul/Documents/CU_combined/Github/150_calculate_fasttree.sh`
+  * re-running `/Users/paul/Documents/CU_combined/Github/155_filter_data_to_match_trees.sh`
+  * adjusted and re-running `/Users/paul/Documents/CU_combined/Github/160_alpha_rarefaction_curves_phylogenetic.sh`
+    * **running**
 
 
 

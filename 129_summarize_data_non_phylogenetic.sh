@@ -1,23 +1,24 @@
 #!/usr/bin/env bash
 
-# 11.11.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 24.04.2020 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Visualising reads after denoising and merging procedure.
 
-# for debugging only
+# For debugging only
 # ------------------ 
 # set -x
 set -e
+set -u
 
 # Paths need to be adjusted for remote execution
 # ==============================================
-if [[ "$HOSTNAME" != "macmini.local" ]] && [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
+if [[ "$HOSTNAME" != "Pauls-MacBook-Pro.local" ]] && [[ "$HOSTNAME" != "macmini-fastpost.staff.uod.otago.ac.nz" ]]; then
     bold=$(tput bold)
     normal=$(tput sgr0)
     printf "${bold}$(date):${normal} Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
     cores="$(nproc --all)"
-elif [[ "$HOSTNAME" == "macmini.local" ]]  || [[ "$HOSTNAME" = "macmini.staff.uod.otago.ac.nz" ]]; then
+elif [[ "$HOSTNAME" == "Pauls-MacBook-Pro.local" ]]  || [[ "$HOSTNAME" = "macmini-fastpost.staff.uod.otago.ac.nz" ]]; then
     bold=$(tput bold)
     normal=$(tput sgr0)
     printf "${bold}$(date):${normal} Execution on local...\n"
@@ -27,7 +28,6 @@ fi
 
 # define relative input locations - Qiime files
 # --------------------------------------------------------
-inpth_map='Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_all.tsv'
 inpth_tax='Zenodo/Qiime/075_18S_denoised_seq_taxonomy_assignment.qza'
 
 # define relative input locations - sequence files
@@ -134,7 +134,16 @@ for i in "${!inpth_seq[@]}"; do
     printf "\n${bold}$(date):${normal} Calling Qiime in iteration $i...\n"
     
     if [ ! -f "$plot_file_vis_path" ]; then
-    
+      
+      # setting correct sampling selection file
+      if [[ "${inpth_seq[$i]}" == *"shallow"* ]]; then
+        inpth_map="Zenodo/Manifest/127_18S_5-sample-euk-metadata_shll_all.tsv"
+        printf "${bold}Detected shallow set, using:${normal} $trpth/$inpth_map \n"
+      elif [[ "${inpth_seq[$i]}" != *"shallow"* ]]; then
+        inpth_map="Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_all.tsv"
+        printf "${bold}Using normal sample set:${normal} $trpth/$inpth_map \n"
+      fi
+     
       qiime feature-table tabulate-seqs \
         --i-data "${inpth_seq[$i]}" \
         --o-visualization "$seq_file_vis_path" \

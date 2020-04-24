@@ -1,36 +1,29 @@
 #!/usr/bin/env bash
 
-# 06.11.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 24.04.2020 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
-# Generate interactive alpha rarefaction curves by computing rarefactions
-#   between `min_depth` and `max_depth`. The number of intermediate depths to
-#   compute is controlled by the `steps` parameter, with n `iterations` being
-#   computed at each rarefaction depth. If sample metadata is provided,
-#   samples may be grouped based on distinct values within a metadata column.
 
-# abort on error
-# --------------- 
+# For debugging only
+# ------------------ 
+# set -x
 set -e
+set -u
 
 # Paths need to be adjusted for remote execution
 # ==============================================
-if [[ "$HOSTNAME" != "macmini.local" ]] && [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
+if [[ "$HOSTNAME" != "Pauls-MacBook-Pro.local" ]] && [[ "$HOSTNAME" != "macmini-fastpost.staff.uod.otago.ac.nz" ]]; then
     bold=$(tput bold)
     normal=$(tput sgr0)
     printf "${bold}$(date):${normal} Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
     cores="$(nproc --all)"
-elif [[ "$HOSTNAME" == "macmini.local" ]]  || [[ "$HOSTNAME" = "macmini.staff.uod.otago.ac.nz" ]]; then
+elif [[ "$HOSTNAME" == "Pauls-MacBook-Pro.local" ]]  || [[ "$HOSTNAME" = "macmini-fastpost.staff.uod.otago.ac.nz" ]]; then
     bold=$(tput bold)
     normal=$(tput sgr0)
     printf "${bold}$(date):${normal} Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
-    cores="2"
+    cores='2'
 fi
-
-# define relative input locations - Qiime files
-# --------------------------------------------------------
-inpth_map='Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_all.tsv' # (should be  `b16888550ab997736253f741eaec47b`)
 
 # define relative input locations - feature tables
 # ------------------------------------------------
@@ -66,8 +59,6 @@ unset IFS
 printf '%s\n'
 printf '%s\n' "$(basename ${inpth_tree[@]})"
 
-exit
-
 # feature tables (an trees)
 
 for i in "${!inpth_tab[@]}"; do
@@ -101,14 +92,24 @@ for i in "${!inpth_tab[@]}"; do
     
       # Qiime calls   
       printf "${bold}$(date):${normal} Starting analysis of \"$(basename "${inpth_tab[$i]}")\"...\n"
+      
+      # setting correct sampling selection file
+      if [[ "${inpth_tab[$i]}" == *"shallow"* ]]; then
+        inpth_map="Zenodo/Manifest/127_18S_5-sample-euk-metadata_shll_all.tsv"
+        printf "${bold}Detected shallow set, using:${normal} $trpth/$inpth_map \n"
+      elif [[ "${inpth_tab[$i]}" != *"shallow"* ]]; then
+        inpth_map="Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_all.tsv"
+        printf "${bold}Using normal sample set:${normal} $trpth/$inpth_map \n"
+      fi
+      
       qiime diversity alpha-rarefaction \
         --i-table "${inpth_tab[$i]}" \
         --i-phylogeny "${inpth_tree[$i]}" \
         --m-metadata-file "$trpth"/"$inpth_map" \
-        --p-max-depth 60000 \
+        --p-max-depth 55000 \
         --p-min-depth 1 \
         --p-steps 1000 \
-        --p-iterations 5 \
+        --p-iterations 4 \
         --o-visualization "$plot_vis_name" \
         --verbose
       printf "${bold}$(date):${normal} ...finished analysis of \"$(basename "${inpth_tab[$i]}")\".\n"
