@@ -2106,6 +2106,12 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * `/Users/paul/Documents/CU_combined/Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_all.tsv`
       * `/Users/paul/Documents/CU_combined/Zenodo/Manifest/127_18S_5-sample-euk-metadata_shll_all.tsv`
     * **next** continue revision of `/Users/paul/Documents/CU_combined/Github/128_adjust_sample_counts.sh`
+    * commit `a9f82be7c92f4cf7fa4b8aeca3279b00ac89f3ae`
+* **24.04.2020** - continuing getting more ports
+  * adjusted and ran `/Users/paul/Documents/CU_combined/Github/128_adjust_sample_counts.sh`
+    * this script is important
+    * all output file were re-written
+    * 
         
 
 
