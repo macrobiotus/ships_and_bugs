@@ -2124,7 +2124,24 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * re-running `/Users/paul/Documents/CU_combined/Github/150_calculate_fasttree.sh`
   * re-running `/Users/paul/Documents/CU_combined/Github/155_filter_data_to_match_trees.sh`
   * adjusted and re-running `/Users/paul/Documents/CU_combined/Github/160_alpha_rarefaction_curves_phylogenetic.sh`
-    * **running**
+  * commit `d06c2537a3157a32563b5b10e3abf27a524e984a`
+* **27.04.2020** - continuing getting more ports
+  * re-running `/Users/paul/Documents/CU_combined/Github/165_summarize_data_phylogenetic.sh`
+  * re-running `/Users/paul/Documents/CU_combined/Github/170_get_core_metrics_phylogenetic.sh`
+  * moving `/Users/paul/Documents/CU_combined/Scratch/Shell/171_get_core_metrics_phylogenetic_collapsed.sh`
+  * re-running `/Users/paul/Documents/CU_combined/Github/175_export_all_qiime_artifacts_phylogenetic.sh`
+    * calls `/Users/paul/Documents/CU_combined/Github/177_parse_otu_tables.R`
+  * re-running `/Users/paul/Documents/CU_combined/Github/180_export_all_qiime_artifacts_non_phylogenetic.sh`
+    * calls `/Users/paul/Documents/CU_combined/Github/177_parse_otu_tables.R`
+  * re-running 
+    * `/Users/paul/Documents/CU_combined/Github/185_export_UNIFRAC_distance_artefacts.sh`
+    * `/Users/paul/Documents/CU_combined/Github/190_export_JAQUARD_distance_artefacts.sh`  
+  * moving to scratch:
+    * `/Users/paul/Documents/CU_combined/Github/205_compare_matrices_shallow.sh`
+    * `/Users/paul/Documents/CU_combined/Github/205_compare_matrices.sh`
+    * `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices_shallow.sh`
+    * `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices.sh`
+    
 
 
 

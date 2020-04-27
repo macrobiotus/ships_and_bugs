@@ -1,31 +1,29 @@
 #!/usr/bin/env bash
 
-# 11.11.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 27.04.2020 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 
-# abort on error
-# --------------- 
+# For debugging only
+# ------------------ 
+# set -x
 set -e
+set -u
 
 # Paths need to be adjusted for remote execution
 # ==============================================
-if [[ "$HOSTNAME" != "macmini.local" ]] && [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
+if [[ "$HOSTNAME" != "Pauls-MacBook-Pro.local" ]] && [[ "$HOSTNAME" != "macmini-fastpost.staff.uod.otago.ac.nz" ]]; then
     bold=$(tput bold)
     normal=$(tput sgr0)
     printf "${bold}$(date):${normal} Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
     cores="$(nproc --all)"
-elif [[ "$HOSTNAME" == "macmini.local" ]]  || [[ "$HOSTNAME" = "macmini.staff.uod.otago.ac.nz" ]]; then
+elif [[ "$HOSTNAME" == "Pauls-MacBook-Pro.local" ]]  || [[ "$HOSTNAME" = "macmini-fastpost.staff.uod.otago.ac.nz" ]]; then
     bold=$(tput bold)
     normal=$(tput sgr0)
     printf "${bold}$(date):${normal} Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
-    cores="2"
+    cores='2'
 fi
-
-# define relative input locations - Qiime files
-# --------------------------------------------------------
-inpth_map='Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_all.tsv'
 
 # define relative input locations - feature tables
 # ------------------------------------------------
@@ -92,36 +90,45 @@ for i in "${!inpth_tab[@]}"; do
     
     # setting depths
     case "${inpth_tab[$i]}" in
-      *"Unassigned"* )
-        depth=650
-        echo "${bold}Depth set to $depth for Unassigned...${normal}"
-        ;;
-      *"Eukaryotes"* )
-        depth=49974
-        echo "${bold}Depth set to $depth for Eukaryotes...${normal}"
-        ;;
-      *"Eukaryote-shallow"* )
-        depth=32982
-        echo "${bold}Depth set to $depth for Eukaryotes (shallow set)...${normal}"
-        ;;
-      *"Eukaryote-non-metazoans"* )
-        depth=40000
-        echo "${bold}Depth set to $depth for Non-metazoan Eukaryotes...${normal}"
-        ;;
-      *"Metazoans"* )
-        depth=3500
-        echo "${bold}Depth set to $depth for Metazoans...${normal}"
-        ;;
-      *)
-        echo "Depth setting error in case statement, aborting."
-        exit
-        ;;
+    *"Unassigned"* )
+      depth=650
+      echo "${bold}Depth set to $depth for Unassigned...${normal}"
+      ;;
+    *"Eukaryotes"* )
+      depth=49899
+      echo "${bold}Depth set to $depth for Eukaryotes...${normal}"
+      ;;
+    *"Eukaryote-shallow"* )
+      depth=37899
+      echo "${bold}Depth set to $depth for Eukaryotes (shallow set)...${normal}"
+      ;;
+    *"Eukaryote-non-metazoans"* )
+      depth=40000
+      echo "${bold}Depth set to $depth for Non-metazoan Eukaryotes...${normal}"
+      ;;
+    *"Metazoans"* )
+      depth=3500
+      echo "${bold}Depth set to $depth for Metazoans...${normal}"
+      ;;
+    *)
+      echo "Depth setting error in case statement, aborting."
+      exit
+      ;;
     esac
   
     if [ ! -d "$output_name" ]; then
     
       # Qiime calls   
       printf "${bold}$(date):${normal} Starting analysis of \"$(basename "${inpth_tab[$i]}")\"...\n"
+      
+      # setting correct sampling selection file
+      if [[ "${inpth_tab[$i]}" == *"shallow"* ]]; then
+        inpth_map="Zenodo/Manifest/127_18S_5-sample-euk-metadata_shll_all.tsv"
+        printf "${bold}Detected shallow set, using:${normal} $trpth/$inpth_map \n"
+      elif [[ "${inpth_tab[$i]}" != *"shallow"* ]]; then
+        inpth_map="Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_all.tsv"
+        printf "${bold}Using normal sample set:${normal} $trpth/$inpth_map \n"
+      fi
     
       qiime diversity core-metrics-phylogenetic \
         --i-phylogeny "${inpth_tree[$i]}" \

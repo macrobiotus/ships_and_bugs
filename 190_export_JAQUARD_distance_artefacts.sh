@@ -1,26 +1,28 @@
 #!/usr/bin/env bash
 
-# 11.11.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 27.04.2020 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 
-# abort on error
-# --------------- 
+# For debugging only
+# ------------------ 
+# set -x
 set -e
+set -u
 
 # Paths need to be adjusted for remote execution
 # ==============================================
-if [[ "$HOSTNAME" != "macmini.local" ]] && [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]]; then
+if [[ "$HOSTNAME" != "Pauls-MacBook-Pro.local" ]] && [[ "$HOSTNAME" != "macmini-fastpost.staff.uod.otago.ac.nz" ]]; then
     bold=$(tput bold)
     normal=$(tput sgr0)
     printf "${bold}$(date):${normal} Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
     cores="$(nproc --all)"
-elif [[ "$HOSTNAME" == "macmini.local" ]]  || [[ "$HOSTNAME" = "macmini.staff.uod.otago.ac.nz" ]]; then
+elif [[ "$HOSTNAME" == "Pauls-MacBook-Pro.local" ]]  || [[ "$HOSTNAME" = "macmini-fastpost.staff.uod.otago.ac.nz" ]]; then
     bold=$(tput bold)
     normal=$(tput sgr0)
     printf "${bold}$(date):${normal} Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
-    cores="2"
+    cores='2'
 fi
 
 # define relative input and output locations
