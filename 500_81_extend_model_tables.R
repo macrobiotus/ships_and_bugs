@@ -1,7 +1,7 @@
 #' ---
 #' title: "Extend modelling input"
 #' author: "Paul Czechowski"
-#' date: "18-April-2020"
+#' date: "27-April-2020"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -98,6 +98,15 @@ remove_self_connections <- function(tibble) {
   tibble <- tibble  %>% filter(PORT != DEST)
   return (tibble)
 }
+
+# Function to remove selected variables
+drop_variables <- function (tibble_list, variables){
+
+  tibble_list <- tibble_list %>% select(-c(all_of(variables)))
+  
+  return(tibble_list)
+}
+
 
 # Function to remove intra-port rows
 
@@ -214,7 +223,7 @@ mandanas_data_bi <- mandanas_data_bi %>% select(-c(n, m))
 
 # define file path components for listing 
 model_input_folder <- "/Users/paul/Documents/CU_combined/Zenodo/Results"
-model_input_pattern <- glob2rx("*_results_euk_asv00_deep_UNIF_model_data_2020-Apr-17*") # adjust here for other / newer data sets
+model_input_pattern <- glob2rx("*_results_euk_asv00_*_UNIF_model_data_2020-Apr-27*") # adjust here for other / newer data sets
 
 # read all file into lists for `lapply()` usage
 model_input_files <- list.files(path=model_input_folder, pattern = model_input_pattern, full.names = TRUE)
@@ -264,18 +273,17 @@ names(model_data_joined) <- gsub(".csv", "_joined.csv", names(model_data_joined)
 # =======================================
 
 # Which variables to be set to 0? 
-selected_vars <- c("PRED_ENV", "J_VOY_FREQ", 
-  "J_B_FON_NOECO", "J_B_HON_NOECO", 
-  "J_B_FON_SMECO", "J_B_HON_SMECO", 
-  "J_B_FON_NOECO_NOENV", "J_B_HON_NOECO_NOENV", 
-  "J_F_FON_NOECO", "J_F_HON_NOECO", 
-  "J_F_FON_SMECO", "J_F_HON_SMECO", 
-  "J_F_FON_NOECO_NOENV", "J_F_HON_NOECO_NOENV" )
+selected_vars <- c("PRED_ENV", "J_VOY_FREQ", "J_B_FON_NOECO", "J_B_HON_NOECO", 
+  "J_B_FON_SMECO", "J_B_HON_SMECO", "J_B_FON_NOECO_NOENV", "J_B_HON_NOECO_NOENV", 
+  "J_F_FON_NOECO", "J_F_HON_NOECO", "J_F_FON_SMECO", "J_F_HON_SMECO", 
+  "J_F_FON_NOECO_NOENV", "J_F_HON_NOECO_NOENV")
+
 
 # Replace NA's with 0 in dat set copy
 model_na_to_zero <- lapply(model_data_joined, set_zeros, selected_vars)
 
 # Adjust names in data set copy
+
 names(model_na_to_zero) <- gsub(".csv", "_no-nas.csv", names(model_na_to_zero))
 
 # Combine lists of tables with NA and 0 data
@@ -290,10 +298,7 @@ names(all_model_data)
 selected_vars <- c("PRED_ENV", "J_VOY_FREQ", 
   "J_B_FON_NOECO", "J_B_HON_NOECO", 
   "J_B_FON_SMECO", "J_B_HON_SMECO", 
-  "J_B_FON_NOECO_NOENV", "J_B_HON_NOECO_NOENV", 
-  "J_F_FON_NOECO", "J_F_HON_NOECO", 
-  "J_F_FON_SMECO", "J_F_HON_SMECO", 
-  "J_F_FON_NOECO_NOENV", "J_F_HON_NOECO_NOENV" )
+  "J_B_FON_NOECO_NOENV", "J_B_HON_NOECO_NOENV") 
 
 # Scale variables data set copy
 all_model_data_scaled <- lapply(all_model_data, scale_variables, selected_vars)
@@ -311,6 +316,15 @@ names(data_to_write)
 
 data_to_write <- lapply(data_to_write, remove_self_connections)
 
+# Drop some of Mandanas superflous variables
+# ==========================================
+
+vrs <- c( "B_FON_SMECO", "B_HON_SMECO", "F_FON_NOECO", "F_HON_NOECO", 
+  "F_FON_SMECO", "F_HON_SMECO", "F_FON_NOECO_NOENV", "F_HON_NOECO_NOENV",
+  "J_B_FON_SMECO", "J_B_HON_SMECO", "J_F_FON_NOECO", "J_F_HON_NOECO", 
+  "J_F_FON_SMECO", "J_F_HON_SMECO", "J_F_FON_NOECO_NOENV", "J_F_HON_NOECO_NOENV" )
+
+data_to_write <- lapply(data_to_write, drop_variables, vrs)
 
 # Write files
 # ===========
@@ -322,6 +336,7 @@ for (i  in seq(1:length(data_to_write))){
    # write files
    write_csv(data_to_write[[i]], path)
 }
+
 
 # Session info
 # ============

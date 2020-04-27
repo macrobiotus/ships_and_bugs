@@ -2141,6 +2141,17 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * `/Users/paul/Documents/CU_combined/Github/205_compare_matrices.sh`
     * `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices_shallow.sh`
     * `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices.sh`
+  * commit `eadd2eee145c4e720d7ec9e982b3e291e23693c6`
+  * updated `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_tables.sh`
+  * updated script `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_tables.R`
+  * emptied directory `/Users/paul/Documents/CU_combined/Zenodo/Results`
+  * running `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_tables.sh`
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R`
+  * generated results and mailed off
+  * archive file is `/Users/paul/Documents/CU_combined/Zenodo/Results/200427_model_tables.zip`
+  * next
+    * check, adjust and run `500_05_test_sampling_effort.R`
+    * check all other script in directory.
     
 
 

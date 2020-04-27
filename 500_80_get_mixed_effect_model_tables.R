@@ -1,7 +1,7 @@
 #' ---
 #' title: "Get input data tables for Mixed Effect Models"
 #' author: "Paul Czechowski"
-#' date: "09-April-2020"
+#' date: "27-April-2020"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -134,15 +134,13 @@ mat_env_dist_full[35:50, 35:50]
 #'
 #' First command line parameter
 
-# for testing only - comment out later *****************
-# resp_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_Eukaryotes_core_metrics_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv"
-
-
 resp_path <- args[1]
 
-# test condition, comment out - if-else statement didn't work
 # message("Using distance matrix path from test condition.")
+
+# deep set - currently tested
 # resp_path <- c("/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_Eukaryotes_core_metrics_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv")
+# deep set - not yet tested
 # resp_path <- c("/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_Eukaryote-shallow_core_metrics_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv")
 
 resp_mat  <- read.table(file = resp_path, sep = '\t', header = TRUE)
@@ -179,9 +177,9 @@ any(colnames(resp_mat) == rownames(resp_mat))
 r_mat_clpsd <- get_collapsed_responses_matrix(resp_mat)
 
 # Collapsed matrix should receive data for samples: 
-# (unclustered) Unifrac input:  PH SI AD BT HN HT LB MI AW CB HS NO OK PL PM RC RT GH WL ZB 
-# (clustered)   Jaquard input:  PH SI AD BT HN HT LB MI AW CB HS NO OK PL PM RC RT GH WL ZB
-                                
+#    (deep) Unifrac input:  PH SI AD BT HN HT LB MI AW CB HS NO OK PL PM RC RT GH WL ZB
+# (shallow) Unifrac input:  PH SI AD BT HN HT LB MI AW CB HS NA NO OK PL PM RC RT VN GH WL ZB
+
 r_mat_clpsd <- fill_collapsed_responses_matrix(r_mat_clpsd, resp_mat)
 
 ## Commenting out matrix writing 12.11.2019
@@ -193,19 +191,22 @@ dim(r_mat_clpsd)
 
 message("Port names of current matrix are: ",  paste0(colnames(r_mat_clpsd), " "))
 
-# 12-Jun-2019 for automatic calling a safety check to enable crude automatisation. 
-# 05-Sep-2019 for automatic calling large if loop implemented.
+# 12-Jun-2019 for automatic implementation here a safety check to enable crude automatisation. 
+# 05-Sep-2019 if loop implemented.
+# 27-Apr-2020 used `open "/Users/paul/Documents/CU_NIS-WRAPS/170727_port_information/190926_PlacesFile_updated_Aug2017.xlsx" -a "Microsoft Excel"` for corrections
+#              as previously 
 
 expected_colnames_deepest <- c("PH", "SI", "AD", "BT", "HN", 
                                "HT", "LB", "MI", "AW", "CB", 
                                "HS", "NO", "OK", "PL", "PM", 
                                "RC", "RT", "GH", "WL", "ZB")
-
+                               
 # After Antwerp ("AW") Buenos Aires ("BA") added before Coos Bay ("CB")
-expected_colnames_shallow <- c("PH", "SI", "AD", "BT", "HN", 
-                               "HT", "LB", "MI", "AW", "CB", 
-                               "HS", "NO", "OK", "PL", "PM", 
-                               "RC", "RT", "GH", "WL", "ZB")
+expected_colnames_shallow <- c("PH", "SI", "AD", "BT", "HN",
+                               "HT", "LB", "MI", "AW", "CB",
+                               "HS", "NA", "NO", "OK", "PL",
+                               "PM", "RC", "RT", "VN", "GH",
+                               "WL", "ZB")
 
 # Set port numbers, nbased on detected columns
 if ( identical (colnames (r_mat_clpsd), expected_colnames_deepest)) { 
@@ -229,36 +230,17 @@ if ( identical (colnames (r_mat_clpsd), expected_colnames_deepest)) {
     
     port_number_subset <- c("2503", "1165", "3110",  "854", "2503", 
                             "2331", "7597", "4899",  "576", "2141", 
-                            "3367", "3381", "7598",  "238",  "193", 
-                            "4777",  "830", "4538", "7975", "1675")
+                            "3367", "3108", "3381", "7598",  "238", 
+                            "193", "4777",  "830",  "311", "4538",
+                            "7975", "1675")
     } else {
     
     stop( "Port names can't be matched automatically. Manual intervention is necessary.\n", call.=FALSE)
     
 }
 
-# "PH" "SW" "SY" "AD" "BT"
-# "HN" "HT" "LB" "MI" "AW"
-# "CB" "HS" "NA" "NO" "OK"
-# "PL" "PM" "RC" "RT" "VN"
-# "GH" "WL" "ZB"
-#
-
-##### erase custom ports when necessary ##### 
-# r_mat_clpsd <- r_mat_clpsd[, colnames(r_mat_clpsd) != "CH"]
-# r_mat_clpsd <- r_mat_clpsd[rownames(r_mat_clpsd) != "CH", ]
-# 
-# 
-# "2503", "1165", "1165", "3110",  "854",
-# "2503", "2331", "7597", "4899",  "576",
-# "2141", "3367", "3108", "3381", "7598",
-#  "238",  "193", "4777",  "830",  "311",
-# "4538", "7975", "1675"
-
-
 # find spelling mistakes in rout port number subset:
 # port_number_subset %in% rownames(mat_trips)
-
 
 #'
 #' ## Predictors 2 of 2: Environmental distances
@@ -267,7 +249,7 @@ if ( identical (colnames (r_mat_clpsd), expected_colnames_deepest)) {
 #   use order  of response matrix (!!!)
 #   here "PH","SP","AD","CH", "BT", "HN", "HT", "LB", "MI"
 #   improve (!!!) this. Manual lookup via:
-#   `open /Users/paul/Dropbox/NSF\ NIS-WRAPS\ Data/raw\ data\ for\ Mandana/PlacesFile_updated_Aug2017.xlsx -a "Microsoft Excel"`
+#   `open "/Users/paul/Documents/CU_NIS-WRAPS/170727_port_information/190926_PlacesFile_updated_Aug2017.xlsx" -a "Microsoft Excel"`
 
 # 05-Sep-2019 vector define via if loop above 
 mat_env_dist <- mat_env_dist_full[port_number_subset, port_number_subset]
