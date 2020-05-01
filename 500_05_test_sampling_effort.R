@@ -1,7 +1,7 @@
 #' ---
 #' title: "UNIFRAC value change in dependence of included samples."
 #' author: "Paul Czechowski"
-#' date: "13-Nov-2019"
+#' date: "01-Mai-2020"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -394,17 +394,10 @@ get_results_vector_list_current_port = function(port_matrix, limit, ports_pairs)
 paths <- list(
   "/Users/paul/Documents/CU_combined/Scratch/Data/distance-matrix.tsv",
   "/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_Eukaryotes_core_metrics_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv",
-  "/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_clustered99_Eukaryotes_core_metrics_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv",
-  "/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_Eukaryotes_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv",
-  "/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_clustered99_Eukaryotes_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv",
-  "/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_Eukaryote-shallow_core_metrics_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv",
-  "/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_clustered99_Eukaryote-shallow_core_metrics_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv",
-  "/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_Eukaryote-shallow_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv",
-  "/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_clustered99_Eukaryote-shallow_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv"
+  "/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_Eukaryote-shallow_core_metrics_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv"
   )
-
-   
-raw_unifrac_values <- read_tsv(paths[[1]])
+ 
+raw_unifrac_values <- read_tsv(paths[[1]]) # using test matrix above
 
 #'
 #' ## Data formatting
@@ -450,7 +443,7 @@ n_pairs_orig <- length(names(unifrac_matrix_list))
 #' 
 #' Number of bootstrap replicates is defined by the square of `limit`:
 
-limit <- 10000 # loading data for 10000 replicates below 
+limit <- 100 #10000 # loading data for 10000 replicates below 
 
 # 20.09.2018 - `ports_pairs_available` can be set manually as function parameter of 
 #   get_results_vector_list_current_port(), when `get_dim_indices_bootstrap()`
@@ -461,15 +454,15 @@ ports_pairs_available <- 5 # slow at 20, 04.04.2018 reduced from 10 to 5
 # get the list - main work, may take a long time for limit > 35 - 20.09.2018 `port_pairs` introduced as parameter
 # ***updated results 04.04.2019 - comment this line out and load below***
 
-# bootstrap_results_list <- lapply(unifrac_matrix_list, get_results_vector_list_current_port, limit, ports_pairs_available)
+bootstrap_results_list <- lapply(unifrac_matrix_list, get_results_vector_list_current_port, limit, ports_pairs_available)
 
 # obtaining results can be time intensive, save and load here (15 MB for 10000 replicates at 15 pairs)
 # ***updated results 05.04.2019 - comment this line out and load below***
 
-# save(bootstrap_results_list, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_05_UNIFRAC_behaviour_10k_results_list.Rdata")
+save(bootstrap_results_list, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_05_100_bootstraps_test.Rdata")
 
 # ***updated results 05.04.2019 - load below***
-load("/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_05_UNIFRAC_behaviour_10k_results_list.Rdata")
+load("/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_05_100_bootstraps_test.Rdata")
 
 # reformat nested list to (very large) data table
 bootstrap_results <- rbindlist(bootstrap_results_list, idcol = TRUE, use.names=TRUE, fill = TRUE)

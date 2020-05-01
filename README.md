@@ -2149,20 +2149,31 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * adjusting and running `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R`
   * generated results and mailed off
   * archive file is `/Users/paul/Documents/CU_combined/Zenodo/Results/200427_model_tables.zip`
+  * commit `d40ba78c91da0c1fbdc3a030b15b4f2d6f29`
   * next
     * check, adjust and run `500_05_test_sampling_effort.R`
     * check all other script in directory.
-    
-
-
-
-
-
+* **01.05.2020** - continuing with supplemental scripts
+  * not touching - should be fine:
+    * `/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R`
+    * `/Users/paul/Documents/CU_combined/Github/500_20_get_predictor_euklidian_distances.R`
+    * `/Users/paul/Documents/CU_combined/Github/500_30_shape_matrices.R`
+    * `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R`
+  * trying re-run of:
+    * `/Users/paul/Documents/CU_combined/Github/500_05_test_sampling_effort.R`
+      * `get_many_matrices_from_input_matrix` still doesn't work as expected - fix
+  * re-running file creation in `/Users/paul/Documents/CU_combined/Zenodo/Blast` via
+    * script `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa-deep.R`
+    * script `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa-shallow.R`
 
   
 ## Todo
 
 ### More important 
+  * re-implement `/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R`
+  * correct `/Users/paul/Documents/CU_combined/Github/500_05_test_sampling_effort.R`
+    * `get_many_matrices_from_input_matrix` still doesn't work as expected - fix
+    * possibly manually correct copies of input data for correct name parsing
   * before re-run safe repository for spin-off - ecoregion paper
   * re-run for factors:
      * include Mandanas results for all voyage esrs
@@ -2195,7 +2206,7 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   
   
 #### Less important 
-  * accomodate randomized matrices
+  * accommodate randomized matrices
   * run and render `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R` - manual port lookup necessary
   * extend `/Users/paul/Documents/CU_combined/Github/205_compare_matrices.sh` - include more diversity metrics
   * get numbers and display items

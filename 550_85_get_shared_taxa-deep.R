@@ -1,7 +1,7 @@
 #' ---
 #' title: "Isolate Overlapping Features From eDNA Data"
 #' author: "Paul Czechowski"
-#' date: "10-June-2019"
+#' date: "1-Mai-2020"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -31,7 +31,6 @@ library("Biostrings")   # read fasta file
 library("phyloseq")     # filtering and utilities for such objects
 library("tidyverse")    # handling data frames
 library("data.table")   # possibly best for large data dimension
-library("Biostrings")   # work with sequence data
 
 #' ## Functions
 #' 
@@ -65,8 +64,8 @@ write_df_list <- function(df_list, file_path){
 #' ##  Data Read-in
 #'
 #' Set paths:
-sequ_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/180_18S_eDNA_samples_tab_Eukaryotes_qiime_artefacts_non_phylogenetic/dna-sequences.fasta" 
-biom_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/180_18S_eDNA_samples_tab_Eukaryotes_qiime_artefacts_non_phylogenetic/features-tax-meta.biom"
+sequ_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/175_eDNA_samples_Eukaryotes_features_tree-matched_qiime_artefacts/dna-sequences.fasta" 
+biom_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/175_eDNA_samples_Eukaryotes_features_tree-matched_qiime_artefacts/features-tax-meta.biom"
 
 #' Create Phyloseq object:
 biom_table <- phyloseq::import_biom (biom_path)
@@ -114,7 +113,7 @@ features_shared <- data.table(do.call("cbind", df_list), keep.rownames=TRUE)
 dfs_overlap_features <- split(features_shared, rowSums (features_shared != 0)-1 )
 
 #' Write Excel tables:
-write_df_list(dfs_overlap_features, "/Users/paul/Documents/CU_combined/Zenodo/Blast/500_85_18S_eDNA_samples_Eukaryotes_qiime_artefacts_non_phylogenetic_features_overlap.xlsx")
+write_df_list(dfs_overlap_features, "/Users/paul/Documents/CU_combined/Zenodo/Blast/500_85_18S_eDNA_samples_Eukaryotes-deep_overlap.xlsx")
 
 #'
 #' <!-- #################################################################### -->
@@ -134,7 +133,7 @@ for (i  in seq(1:length(dfs_overlap_sequences))){
   # One could use function `get_path()` as of 13-June-2019 here.
   
   # define path
-  path="/Users/paul/Documents/CU_combined/Zenodo/Blast/500_85_18S_eDNA_samples_Eukaryotes_qiime_artefacts_non_phylogenetic_seqeunces_overlap.fasta.gz"
+  path="/Users/paul/Documents/CU_combined/Zenodo/Blast/500_85_18S_eDNA_samples_Eukaryotes-deep_overlap.fasta.gz"
   
   # get file path without extensions
   prefix <- sub(pattern = "(.*?)\\..*$", replacement = "\\1", path)
