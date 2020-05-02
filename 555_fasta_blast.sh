@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 19.07.2019 - Paul Czechowski - paul.czechowski@gmail.com 
+# 02.05.2020 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Blast fasta file against locally installed copy of NCBI nt database. See
 #   https://stackoverflow.com/questions/45014279/running-locally-blastn-against-nt-db-thru-python-script.
@@ -17,7 +17,7 @@
 
 # paths need to be adjusted for remote execution
 # ----------------------------------------------
-if [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]] && [[ "$HOSTNAME" != anat-dock-46.otago.ac.nz ]] ; then
+if [[ "$HOSTNAME" != "Pauls-MacBook-Pro.local" ]] && [[ "$HOSTNAME" != "macmini-fastpost.staff.uod.otago.ac.nz" ]]; then
     printf "Execution on remote...\n"
     trpth="/workdir/pc683/CU_combined"
     cores="$(nproc --all)"
@@ -27,7 +27,7 @@ if [[ "$HOSTNAME" != "macmini.staff.uod.otago.ac.nz" ]] && [[ "$HOSTNAME" != ana
     dbpath="/workdir/pc683/BLAST_NCBI/nt"
     # files will be there after running "../Transport/350_sync_ncbi_nt_to_scratch.sh"
     #  on cluster
-elif [[ "$HOSTNAME" == "macmini.staff.uod.otago.ac.nz" ]] || [[ "$HOSTNAME" == anat-dock-46.otago.ac.nz ]]  ; then
+elif [[ "$HOSTNAME" != "Pauls-MacBook-Pro.local" ]] && [[ "$HOSTNAME" != "macmini-fastpost.staff.uod.otago.ac.nz" ]]; then
     printf "Execution on local...\n"
     trpth="/Users/paul/Documents/CU_combined"
     cores='3'
@@ -67,7 +67,9 @@ for fasta in "${inpth_seq[@]}";do
   # old call using complete data:
   # `tgt_file="${tmp_file%%.*}_blast_result.txt"`
   # for adjusted blast call 18.07.2019 using
-  tgt_file="${tmp_file%%.*}_blast_result_euk_only_no_env.txt"
+  # tgt_file="${tmp_file%%.*}_blast_result_euk_only_no_env.txt"
+  # for adjusted blast call 02.05.2020 using
+  tgt_file="${tmp_file%%.*}_blast_result_no_env.txt"
 
   # for debugging only 
   # printf "$fasta\n"

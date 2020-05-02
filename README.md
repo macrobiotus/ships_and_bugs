@@ -2165,11 +2165,15 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * re-running file creation in `/Users/paul/Documents/CU_combined/Zenodo/Blast` via
     * script `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa-deep.R`
     * script `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa-shallow.R`
+* **01.05.2020** - blast ans blast prep
+  * updated Transport scripts
 
   
 ## Todo
 
-### More important 
+### More important
+  * run blast
+    * possibly also convert to tabular using Galaxy
   * re-implement `/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R`
   * correct `/Users/paul/Documents/CU_combined/Github/500_05_test_sampling_effort.R`
     * `get_many_matrices_from_input_matrix` still doesn't work as expected - fix
