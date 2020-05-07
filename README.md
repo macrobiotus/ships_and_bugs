@@ -2165,8 +2165,11 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * re-running file creation in `/Users/paul/Documents/CU_combined/Zenodo/Blast` via
     * script `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa-deep.R`
     * script `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa-shallow.R`
-* **01.05.2020** - blast ans blast prep
-  * updated Transport scripts
+* **02.05.2020** - blast ans blast prep
+  * updated Transport scripts and Blast script
+  * moving to cluster for blasting
+  * commit ` 94491f45a547dbbb00738c6ea974e09315641951`
+  * **ok** prepare cluster, database, and blast - Blast completed
 
   
 ## Todo
