@@ -89,14 +89,25 @@ dist_df_collapsed <- dist_df_collapsed %>% reduce(inner_join, by = c("PORT", "va
 # remove incomplete cases - thereby ignoring lower diagonal half of input matrices matrices
 dist_df_collapsed <- dist_df_collapsed %>% filter(complete.cases(.))
 
-#' ## Plotting
+# remove self connections
+dist_df_collapsed <- dist_df_collapsed  %>% filter(PORT.A != PORT.B)
+
+#' ## Plotting and saving
 
 dist_df_collapsed
 
 ggplot(dist_df_collapsed, aes(UNIFRAC, JACCARD)) +
-  geom_text_repel(aes(label = paste(PORT.A,"-",PORT.B, sep = "", collapse = NULL) ,  color = PORT.A), size = 3) +
+  theme_bw() + 
+  # geom_text_repel(aes(label = paste(PORT.A,"-",PORT.B, sep = "", collapse = NULL) ,  color = PORT.A), size = 3) +
+  geom_smooth(method="auto", se=TRUE, fullrange=FALSE, level=0.95) +
   geom_point() + 
-  theme(legend.position= "none")
-  
+  theme(legend.position= "none") +
+  labs(title="Comparison of biological distances between 190 port pairs ",
+        x ="Unifrac distance", y = "Jaccard distance")
+
+ggsave("200512_DI_unifrac_vs_jaccard.pdf", plot = last_plot(), 
+         device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development",
+         scale = 1.0, width = 160, height = 80, units = c("mm"),
+         dpi = 500, limitsize = TRUE)
 
 

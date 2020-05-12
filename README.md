@@ -2165,14 +2165,17 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * re-running file creation in `/Users/paul/Documents/CU_combined/Zenodo/Blast` via
     * script `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa-deep.R`
     * script `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa-shallow.R`
-* **02.05.2020** - blast ans blast prep
+* **02.05.2020** - blast and blast prep
   * updated Transport scripts and Blast script
   * moving to cluster for blasting
   * commit ` 94491f45a547dbbb00738c6ea974e09315641951`
   * **ok** prepare cluster, database, and blast - Blast completed
   * hash key is `d6e754ec1fa1b695e5b02eb08062c468eb268fd8`
+* **12.05.2020** - working on Methods, Results, and Display itmes
+  * updated `/Users/paul/Documents/CU_combined/Github/200512_DI_map_curves.R`
+  * updated `/Users/paul/Documents/CU_combined/Github/200512_DI_unifrac_vs_jaccard.R`
+  * saved plots to `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development`
 
-  
 ## Todo
 
 ### More important

@@ -1,7 +1,7 @@
 #' ---
-#' title: "Mapping Samples for Many Presentation(s)"
+#' title: "Mapping Samples"
 #' author: "Paul Czechowski"
-#' date: "June 14, 2019"
+#' date: "12 May 2020"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -10,7 +10,6 @@
 #'
 #' # Preface
 #' 
-#' ` `.
 #' Please check the session info at the end of the document for further 
 #' notes on the coding environment.
 #'
@@ -19,15 +18,15 @@
 #' ## Package loading and cleaning of workspace
 #+ message=FALSE, results='hide'
 
-# library ("matrixStats") # here used (anymore?) for column median
-library ("readxl")      # to open excel files
-library ("reshape2")    # plotting, table manipulation
-library ("ggplot2")     # plotting, mapping
-library ("tidyverse")   # to `write_excel_csv()`
-library ("maps")        # mapping
-library ("ggrepel")     # plot labelling
-library ("grid")        # handle graphical objects
-library ("gridExtra")   # handle graphical objects
+library("readxl")      # to open excel files
+library("reshape2")    # plotting, table manipulation
+library("tidyverse")   # to `write_excel_csv()`
+library("maps")        # mapping
+library("ggrepel")     # plot labelling
+library("grid")        # handle graphical objects
+library("gridExtra")   # handle graphical objects
+library("rworldmap") 
+library("ggthemes")
 
 #' ## Flushing buffer
 #' 
@@ -53,60 +52,31 @@ load (file =
 #' 
 #' ## Adding `PID`'s to sample inventory 
 #' 
-#' Adding port IDs (`"PTID"`) to sampled ports in inventory file.
-#' Can't find Pearl Harbor in places file - likely because it is a
-#' military base (Jim Corbett). 23.8.2017: I am using Honolulus port ID from
-#' the Lloyd data for samples from Pearl Harbor. Pearl Harbour
-#' previously was marked `"0000"`, now `"2503"`. This ID will now in the
-#' data twice - be mindful of possible bugs downstream!
 
-# get port names from inventory file for MANUAL lookup 
-smpld_PORT <- unique (src_heap$INVE$PORT)
+# 12 May 2020 - updated with shallow port set from
+# /Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R 
 
-# added 25.04.2018 and 31.08.2018 - added ports for which re-processing from old project data
-#  was accomplished. This list will not grow so this is a (possibly shaky)
-#  solution. The proper (?) Alternative _may_ be to add these samples to `src_heap$INVE$PORT`
-#  via the input file in `/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R`
-smpld_PORT <- append(smpld_PORT, c("Adelaide", "Chicago", "Singapore", 
-                                   "Zeebrugge", "Ghent", "Antwerp", 
-                                   "Rotterdam", "Buenos Aires", "Puerto Madryn",
-                                   "Iqaluit"))
+smpld_PORT <- c("PH", "SI", "AD", "BT", "HN",
+                "HT", "LB", "MI", "AW", "CB",
+                "HS", "NA", "NO", "OK", "PL",
+                "PM", "RC", "RT", "VN", "GH",
+                "WL", "ZB")
 
-#' Manual lookup of sampled ports via 
-#' `open /Users/paul/Dropbox/NSF\ NIS-WRAPS\ Data/raw\ data\ for\ Mandana/PlacesFile_updated_Aug2017.xlsx -a "Microsoft Excel"`
-#' This file needs to be the same as used by `~/Box\ Sync/CU_NIS-WRAPS/170720_code/170830_10_cleanup_tables.R`.
-# must match order of `smpld_PORT`
-
-#  alternatively try a fuzzy match with agrep()
-#  Milne Inlet coded as Nanisivik (3371)
-#  Pearl Harbour coded as Honolulu (2503)
-# [1] "Haines_AK_USA"          "Coos_Bay_OR_USA"        "Guam_Apra_Harbor_USA"   "Nanaimo_BC_Canada"      "Long_Beach_CA_USA"      "Vancouver_BC_Canada"    "Pearl_Harbor_HI_USA"   
-# [8] "Honolulu_Harbor_HI_USA" "Portland_OR_USA"        "Churchill_MB_Canada"    "Oakland_CA_USA"         "Richmond_VA_USA"        "Wilmington_DE_USA"      "New_Orleans_LA_USA"    
-# [15] "Miami_FL_USA"           "Houston_TX_USA"         "Baltimore_MD_USA"       "Milne_Inlet_NU_CAN"     "Adelaide"               "Chicago"                "Singapore"             
-# [22] "Zeebrugge"              "Ghent"                  "Antwerp"                "Rotterdam"              "Buenos Aires"           "Puerto Madryn"          "Iqaluit"               
-
-# Correct names. "*": Nearest port in port database chosen for actual location.
-# Correct names. "**": No route information or data below standard.
-smpld_PORT <- c("Pearl Harbour", "Singpore Woodlands", "Singopre Yacht Club", "Adelaide", "Baltimore", "Honolulu", "Houston", "Long Beach", "Miami", 
-                "Antwerp", "Coos Bay", "Haines", "Nanaimo", "New Orleans", "Oakland", "Portland", "Puerto Madryn", "Richmond",
-                "Rotterdam", "Vancouver", "Ghent", "Wilmington", "Zeebrugge")               
-
-smpld_PID <- c("2503","1165","1165","3110", "854", 
-               "2503","2331","7597","4899", "576",
-               "2141","3367","3108","3381","7598",
-                "238", "193","4777", "830", "311",
-               "4538","7975","1675")
+smpld_PID <- c("2503", "1165", "3110",  "854", "2503", 
+               "2331", "7597", "4899",  "576", "2141", 
+               "3367", "3108", "3381", "7598",  "238", 
+               "193", "4777",  "830",  "311", "4538",
+               "7975", "1675")
 
 # create concise inventory tibble 
 # 23.08.2017 duplicate harbour ID "2503" does not appear to be a problem
 # 16.05.2019 - removed from abaove:
 # "Guam Apra", "2111",
 # "Coos Bay", "2141",
-smpld <- data_frame (PORT = smpld_PORT, PTID = smpld_PID)
+smpld <- tibble (PORT = smpld_PORT, PTID = smpld_PID)
 
 # this filename is variable and based on the script name 
-save (smpld, file = 
-  "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_40_get_maps_output__sampled_ports_df.Rdata")
+save(smpld, file =  "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200512_DI_map_curves__mapped_samples.Rdata")
 
 #' # Selecting and ranking of routes connecting to samples in the freezer (now and in the future)
 #'
@@ -130,9 +100,9 @@ srout <- filter(src_heap$ROUT,
 
 sum(complete.cases(srout)) / length(complete.cases(srout))
 
-#' Route data is incomplete no cases (see above comments):
+#' Route data is complete 
 
-srout [!complete.cases(srout), ] # %>% print(n = nrow(.))
+srout [!complete.cases(srout), ] %>% print(n = nrow(.))
 
 #' ## Add port names and countries
 #' 
@@ -162,9 +132,8 @@ srout <-  srout [ which (complete.cases (srout)), ]
 # copying object - points depiction needs full table down below but
 # `srout` will be shaped further in the following lines 
 
-srout_all <- srout 
-save (srout_all, file =
-  "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_40_get_maps_output__considered_routes.Rdata")
+srout_all <- srout
+save(srout_all, file =  "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200512_DI_map_curves__considered_routes.Rdata")
 
 #' ## Route filtering
 #' 
@@ -182,7 +151,14 @@ save (srout_all, file =
 
 # 3.10.2018 - route subsetting on focussed routes has already been done on step up
 # and doesn't need to be repeated. Selcted smaples is also needed for plotting, though
-selected_samples = c("2503","1165", "1165", "3110", "2907", "854", "2503", "2331", "7597", "4899")
+
+# 12.05.2020 - same port ids as in vector `smpld_PID`
+
+selected_samples = c("2503", "1165", "3110",  "854", "2503", 
+                     "2331", "7597", "4899",  "576", "2141", 
+                     "3367", "3108", "3381", "7598",  "238", 
+                     "193", "4777",  "830",  "311", "4538",
+                     "7975", "1675")
  
 # ## CHANGE THIS LINE IF NECESSARY 
 # srout <- srout %>% filter (PRTA %in% selected_samples | 
@@ -195,13 +171,14 @@ selected_samples = c("2503","1165", "1165", "3110", "2907", "854", "2503", "2331
 us_world <- srout %>% arrange (desc (RISK), desc (ROUTE))  %>%  print(n = nrow(.))
 
 #' Saving for R 
-save (us_world, file =
-  "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_40_get_maps_output__current_routes_sorted.Rdata")
+save (us_world, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200512_DI_map_curves__current_routes_sorted.Rdata")
 
 #' Saving for humans and external viewers:
-write_excel_csv (us_world, 
-                 "/Users/paul/Documents/CU_combined/Zenodo/Results/500_40_get_maps_output__current_routes_sorted.csv",
-                 na = "NA", append = FALSE, col_names = TRUE)
+
+# 12.05.2020 - not deemed necessary anymore
+# write_excel_csv (us_world, 
+#                  "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/200512_DI_map_curves__current_routes_sorted.csv",
+#                  na = "NA", append = FALSE, col_names = TRUE)
 
 # ' ## **Route ranking based on environmental distance and trips** - skipped 3.10.2018 
 # '
@@ -295,8 +272,9 @@ pointa <- dplyr::select(drawn_routes, c("ROUTE", "RISK", "EDST", "TRIPS",
                                         "PALATI", "PALONG", "PORTA", "COUNA"))
 pointb <- dplyr::select(drawn_routes, c("ROUTE", "RISK", "EDST", "TRIPS", 
                                         "PBLATI", "PBLONG", "PORTB", "COUNB"))
+
                                         
-#' Rename variables to match each other and other sata to be plotted:
+#' Rename variables to match each other and other data to be plotted:
 names(pointa) <- c("ROUTE", "RISK", "EDST", "TRIPS", "LATI", "LONG", "PORT",
                    "COUN")
                                         
@@ -328,7 +306,10 @@ available_samples <- smpld_PID [smpld_PID %!in% selected_samples]
 # 2.10.2018 not using mutate anymore, too complicated, using manual lookup 
 
 points_all$COLOR <- as.character("green")
-points_all$COLOR[which (points_all$PORT %in% c("Churchill"))] <- as.character("orange")
+
+points_all$COLOR[which (points_all$PORT %in% c("Nanaimo"))] <- as.character("yellow")
+points_all$COLOR[which (points_all$PORT %in% c("Vancouver"))] <- as.character("yellow")
+
 
 # 16.05.2019
 # "Milne Inlet" "Iqaluit**"
@@ -340,6 +321,11 @@ points_all$COLOR[which (points_all$PORT %in% c("Churchill"))] <- as.character("o
 
 world <- map_data("world")
 world <- world[ which (world$region != "Antarctica"), ]   # remove Antarctica
+
+
+worldMap <- getMap()
+mapworld_df <- fortify( worldMap )
+
 
 # bolted in: select port to label - find manually using `smpld %>% print(n = nrow(.))`
 # and `unique(points_all$PORT)`
@@ -353,26 +339,41 @@ world <- world[ which (world$region != "Antarctica"), ]   # remove Antarctica
 #' 
 #' US - WORLD connections - all
 
+
+## all for curvature
+# copy data
+foo <- points_all
+
+# add unique value, distinguishing routes
+foo <- foo %>% group_by(ROUTE) %>% mutate(POINT=row_number())
+# get long data for wideing
+foo <- melt(foo, id.vars=c("ROUTE", "POINT"))
+# widening data
+foo <- reshape2::dcast(foo, ROUTE~variable+POINT)
+
+# resetting types for mapping
+cols.num <- c("RISK_1", "RISK_2", "EDST_1", "EDST_2", "TRIPS_1", "TRIPS_2", "LATI_1", "LATI_2", "LONG_1", "LONG_2")
+foo[cols.num] <- sapply(foo[cols.num],as.numeric)
+
+cols.char <- c("ROUTE", "PORT_1", "PORT_2", "COUN_1", "COUN_2", "COLOR_1", "COLOR_2")
+foo[cols.char] <- sapply(foo[cols.char],as.character)
+
+
+
 m1 <-  ggplot() + 
-  geom_polygon (
-    data = world, 
-    aes (x=long, y = lat, group = group)
-  ) + 
-  coord_fixed (
-    xlim = c(-170, 175),  ylim = c(-50, 80), ratio = 1.3
-  ) +
- geom_line ( data = points_all, 
-    aes (x = LONG, y = LATI, group = ROUTE, colour = log(RISK))
-  ) +
-  scale_colour_gradient2 (
-     # low = "dodgerblue1", mid = "forestgreen" , high = "firebrick1" # changed for DL
-     low = "forestgreen", mid = "forestgreen" , high = "forestgreen" # changed for DL
-  ) + 
+  theme_bw() + 
+  geom_polygon(data= mapworld_df, aes(long,lat, group=group), fill="#deebf7") + 
+  coord_fixed ( xlim = c(-170, 175),  ylim = c(-50, 80), ratio = 1.3) +
+  
+  # geom_line ( data = points_all, aes (x = LONG, y = LATI, group = ROUTE, colour = TRIPS), curvature = 0.5, angle = 90, ncp = 5) +
+  # scale_colour_gradient2 ( low = "#3182bd", mid = "#3182bd" , high = "#3182bd") +   
+  
+  geom_curve (data = foo, aes (x = LONG_1, y = LATI_1, xend=LONG_2, yend=LATI_2), curvature = 0.4, angle = 90, ncp = 10, color="#3182bd") +  
   geom_label_repel ( 
     data = distinct (points_all , PORT, .keep_all = TRUE), # %>% filter (PORT %in% ports_to_label),
     aes (LONG, LATI, label = PORT), 
     size = 3,
-    segment.color = 'grey50'
+    segment.color = 'black'
   ) +
   
   geom_point (
@@ -393,17 +394,30 @@ m1 <-  ggplot() +
   ) +
   theme (
     plot.title = element_text (hjust = 0.5)
-  )
+  ) +
+  theme(plot.margin=grid::unit(c(5,5,5,5), "mm"))
+
 
 #' ## Map printing
 #'
 #' Use multiplot if desirable (likely won't render or render well) in `.pdf`
 print(m1)
 
-# ggsave("500_40_get_maps__map_cnnct.png", plot = last_plot(), 
-#         device = "png", path = "/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/180910_neobiota/180831_plot_without_connections.pdf",
-#         scale = 1, width = 8, height = 5, units = c("in"),
-#         dpi = 300, limitsize = TRUE)
+
+# ggsave("190917_1_map.pdf", plot = last_plot(), 
+#          device = "pdf", path = "/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190812_display_items_main/",
+#          scale = 2.5, width = 140, height = 105, units = c("mm"),
+#          dpi = 500, limitsize = TRUE)
+#          
+# ggsave("190816_sample_map_simple.pdf", plot = last_plot(), 
+#          device = "pdf", path = "/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190812_display_items_supplement/",
+#          scale = 1.5, width = 140, height = 105, units = c("mm"),
+#          dpi = 500, limitsize = TRUE)
+
+ggsave("200512_sample_map_simple.pdf", plot = last_plot(), 
+         device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
+         scale = 1.5, width = 140, height = 105, units = c("mm"),
+         dpi = 500, limitsize = TRUE)
 
 #'
 #' # Session info
@@ -414,4 +428,3 @@ print(m1)
 sessionInfo()
 
 #' # References 
-
