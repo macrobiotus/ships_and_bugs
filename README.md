@@ -2170,6 +2170,7 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * moving to cluster for blasting
   * commit ` 94491f45a547dbbb00738c6ea974e09315641951`
   * **ok** prepare cluster, database, and blast - Blast completed
+  * hash key is `d6e754ec1fa1b695e5b02eb08062c468eb268fd8`
 
   
 ## Todo
