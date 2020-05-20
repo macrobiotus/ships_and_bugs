@@ -2175,6 +2175,25 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * updated `/Users/paul/Documents/CU_combined/Github/200512_DI_map_curves.R`
   * updated `/Users/paul/Documents/CU_combined/Github/200512_DI_unifrac_vs_jaccard.R`
   * saved plots to `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development`
+  * commit `206569edbc77aeea3d6ef9097df4bd0f4a4232ac`
+* **20.05.2020** - working on new Blast results for Kara and ERin - deep and shallow
+  * Blast results in `/Users/paul/Documents/CU_combined/Zenodo/Blast`
+    * **done** - `unpigz /Users/paul/Documents/CU_combined/Zenodo/Blast/*no_env.txt.gz`
+  * copying code from script `/Users/paul/Documents/CU_combined/Github/190917_DI_main_results_calculations.R`
+  * into scripts:
+    * **created** - `/Users/paul/Documents/CU_combined/Github/560_process-blast_results_deep.R`
+      * started xml-read-in
+      * commit ``
+    * **pending** - `/Users/paul/Documents/CU_combined/Github/560_process-blast_results_shallow.R`
+  * **pending** - `pigz /Users/paul/Documents/CU_combined/Zenodo/Blast/*no_env.txt.gz`
+  * **pending** - mail of results
+
+
+
+
+
+  * **next** - bootstrapping code
+  * **next** - results scripts
 
 ## Todo
 
