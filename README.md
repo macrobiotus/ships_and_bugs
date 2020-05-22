@@ -2186,12 +2186,12 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * commit `12556b01271c55bfe57701cfbdf65ae0fd24a65e`
 * **20.05.2020** - working on new Blast results for Kara and ERin - deep and shallow
       * continuing from yesterday: started taxonomy lookup using Taxonomizr
-      * finished and mailed of - see script for saved locations
-
-    * **started** - `/Users/paul/Documents/CU_combined/Github/560_process-blast_results_shallow.R`
-  * **pending** - `pigz /Users/paul/Documents/CU_combined/Zenodo/Blast/*no_env.txt.gz`
-  * **started** - mail off results
-
+      * finished and mailed off - see script for saved locations
+    * **done** - `/Users/paul/Documents/CU_combined/Github/560_process-blast_results_shallow.R`
+      * commit `9b769eedde672a370bad90f8d9d68a44c2c60cd`
+  * **done** - `pigz /Users/paul/Documents/CU_combined/Zenodo/Blast/*no_env.txt`
+  * **done** - mail off results
+  * commit ``
 
 
 

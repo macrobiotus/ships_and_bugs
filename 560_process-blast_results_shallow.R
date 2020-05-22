@@ -30,7 +30,7 @@ blast_results_list <- furrr::future_map(blast_results_files, blastxml_dump, form
 
 # continue here after 21.05.2020  ********************* ********************* ********************* *********************
 
-save(blast_results_list, file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200520_560_blast-xml-conversion_shallow.Rdata")
+# save(blast_results_list, file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200520_560_blast-xml-conversion_shallow.Rdata")
 load(file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200520_560_blast-xml-conversion_shallow.Rdata", verbose = TRUE)
 
 
@@ -42,7 +42,7 @@ blast_results_list %>% bind_rows(, .id = "src" ) %>%        # add source file na
                        group_by(iteration_query_def) %>%    # isolate groups of hits per sequence hash
                        slice(which.max(hsp_bit_score)) -> blast_results # save subset
 
-nrow(blast_results) # 11978
+nrow(blast_results) # 12882
 
 # prepareDatabase not needed to be run multiple times
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -58,7 +58,7 @@ get_strng <- function(x) {getTaxonomy(x,"/Volumes/HGST1TB/Users/paul/Sequences/R
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 blast_results_appended <- blast_results %>% mutate(tax_id = get_taxid(hit_accession)) # takes some time... 
 
-# continue here 21.05.2020
+# continue here 22.05.2020
 # save(blast_results_appended, file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200520_560_blast-xml-conversion_shallow_with-tax-id.Rdata")
 load(file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200520_560_blast-xml-conversion_shallow_with-tax-id.Rdata", verbose=TRUE)
 
@@ -67,21 +67,21 @@ length(blast_results_appended$tax_id) # 11978
 # look up taxonomy table
 tax_table <- as_tibble(get_strng(blast_results_appended$tax_id), rownames = "tax_id") %>% mutate(tax_id= as.numeric(tax_id))
 
-# continue here 21.05.2020
-nrow(tax_table) # 11978
+# continue here 22.05.2020
+nrow(tax_table) # 12882
 
 # getting a tax table without duplicates to enable proper join command later
 tax_table <- tax_table %>% arrange(tax_id) %>% distinct(tax_id, superkingdom, phylum, class, order, family, genus, species, .keep_all= TRUE)
 
 # checks
 head(tax_table)
-nrow(tax_table)             # 3177 - as it should
+nrow(tax_table)             # 3298 - as it should
 all(!duplicated(tax_table)) #        and no duplicated tax ids anymore
-lapply(list(blast_results_appended,tax_table), nrow) # first 11978, second deduplicated and with 3177 - ok 
+lapply(list(blast_results_appended,tax_table), nrow) # first 12882, second deduplicated and with 3298 - ok 
 
 # https://stackoverflow.com/questions/5706437/whats-the-difference-between-inner-join-left-join-right-join-and-full-join
 blast_results_final <- left_join(blast_results_appended, tax_table, copy = TRUE) 
-nrow(blast_results_final) # 11978 - table has correct length now 
+nrow(blast_results_final) # 12882 - table has correct length now 
 
 # correcting factors
 blast_results_final %>% ungroup(.) %>% mutate(src = as.factor(src)) -> blast_results_final
@@ -119,7 +119,7 @@ blast_results_final$src <- factor(blast_results_final$src, levels = c("1 Port(s)
 #     theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 
-# save object and some time by reloading it
+# save object and save some time by reloading it
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # save(blast_results_final, file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200520_560_blast-xml-conversion_shallow_with-ncbi-info.Rdata")
 load(file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200520_560_blast-xml-conversion_shallow_with-ncbi-info.Rdata")
