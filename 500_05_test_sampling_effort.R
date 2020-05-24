@@ -148,7 +148,18 @@ get_many_matrices_from_input_matrix <- function (unifrac_matrix) {
   print(port_combinations)
   
   # generating matrices from input matrix, step 3 - get list of matrices from  port combinations
-  unifrac_matrices <- apply(port_combinations, 1, function (prt_elmt) get_matrix_from_port_pair(prt_elmt[1], prt_elmt[2], unifrac_matrix))
+  
+  
+  # commented out 24.05.2010
+  # unifrac_matrices <- apply(port_combinations, 1, function (prt_elmt) get_matrix_from_port_pair(prt_elmt[1], prt_elmt[2], unifrac_matrix))
+  
+  # replacement code 24.05.2010
+  unifrac_matrices <- by(port_combinations, 1:nrow(port_combinations), function (prt_elmt) get_matrix_from_port_pair(prt_elmt[1], prt_elmt[2], unifrac_matrix))
+  
+  unifrac_matrices[[1]]
+  
+    # get_matrix_from_port_pair("SI", "PH", unifrac_matrix)
+  # class(port_combinations)
   
   # debugging above call 13-11-2019
   #   works:
@@ -397,7 +408,7 @@ paths <- list(
   "/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_Eukaryote-shallow_core_metrics_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv"
   )
  
-raw_unifrac_values <- read_tsv(paths[[1]]) # using test matrix above
+raw_unifrac_values <- read_tsv(paths[[2]]) # using test matrix above
 
 #'
 #' ## Data formatting
@@ -407,6 +418,11 @@ raw_unifrac_values <- read_tsv(paths[[1]]) # using test matrix above
 unifrac_matrix <- as.matrix(raw_unifrac_values[1:nrow(raw_unifrac_values),2:ncol(raw_unifrac_values)])
 rownames(unifrac_matrix) <- raw_unifrac_values$X1
 colnames(unifrac_matrix) <- colnames(raw_unifrac_values[2:ncol(raw_unifrac_values)])
+head(unifrac_matrix)
+class(unifrac_matrix)
+str(unifrac_matrix)
+dim(unifrac_matrix)
+
 
 # get one smaller test unifrac matrix
 # test_matrix <- unifrac_matrix[c(105:155),c(105:155)]

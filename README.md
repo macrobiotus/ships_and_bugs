@@ -2191,7 +2191,18 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * commit `9b769eedde672a370bad90f8d9d68a44c2c60cd`
   * **done** - `pigz /Users/paul/Documents/CU_combined/Zenodo/Blast/*no_env.txt`
   * **done** - mail off results
-  * commit ``
+  * commit `12556b01271c55bfe57701cfbdf65ae0fd24a65`
+* **20.05.2020** - debugging sampling effort testing script 
+  * working on script `/Users/paul/Documents/CU_combined/Github/500_05_test_sampling_effort.R`
+    * in line ~154 now using `by()` instead of `apply()`:
+      * `# commented out 24.05.2010`
+      * `# unifrac_matrices <- apply(port_combinations, 1, function (prt_elmt) get_matrix_from_port_pair(prt_elmt[1], prt_elmt[2], unifrac_matrix))``
+      * ` # replacement code 24.05.2010
+      * ` unifrac_matrices <- by(port_combinations, 1:nrow(port_combinations), function (prt_elmt) get_matrix_from_port_pair(prt_elmt[1], prt_elmt[2], unifrac_matrix))
+    * seems to be working
+    * still **pending** run script with full bottstrapping, both files, and save intermediate files and display items!/
+
+    
 
 
 
