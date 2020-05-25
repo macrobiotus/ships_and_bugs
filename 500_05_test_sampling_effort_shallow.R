@@ -472,7 +472,7 @@ ports_pairs_available <- 5 # slow at 20, 04.04.2018 reduced from 10 to 5
 
 
 # TAKES LONG TIME
-bootstrap_results_list <- lapply(unifrac_matrix_list, get_results_vector_list_current_port, limit, ports_pairs_available)
+# bootstrap_results_list <- lapply(unifrac_matrix_list, get_results_vector_list_current_port, limit, ports_pairs_available)
 
 
 
@@ -480,10 +480,10 @@ bootstrap_results_list <- lapply(unifrac_matrix_list, get_results_vector_list_cu
 # obtaining results can be time intensive, save and load here (15 MB for 10000 replicates at 15 pairs)
 # ***updated results 25.05.2020 - comment this line out and load below***
 
-save(bootstrap_results_list, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_05_unweighted_unifrac_distance_matrix_shallow_10K.Rdata")
+# save(bootstrap_results_list, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200525_500_05_unweighted_unifrac_distance_matrix_shallow_10K.Rdata")
 
 # ***updated results 25.05.2020 - load below***
-load("/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_05_unweighted_unifrac_distance_matrix_shallow_10K.Rdata")
+load("/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200525_500_05_unweighted_unifrac_distance_matrix_shallow_10K.Rdata")
 
 # reformat nested list to (very large) data table
 bootstrap_results <- rbindlist(bootstrap_results_list, idcol = TRUE, use.names=TRUE, fill = TRUE)
@@ -554,7 +554,7 @@ ggplot (
   labs(x = "Samples Taken From Each Port of Pair", y = "Distribution of Means of Bootstrap-Replicated Matrices") +
   ggtitle ("Variability of UNIFRAC Values in Dependence of Sampling Effort", subtitle = paste("for", n_pairs, "randomly selected of",n_pairs_orig, "port pairs"))
 
-ggsave("200525_DI_bootstrapped_shallow_UNIFRAC_medians.pdf", plot = last_plot(), 
+ggsave("200525_DI_bootstrapped_shallow_UNIFRAC_means.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development",
          scale = 1.0, width = 200, height = 200, units = c("mm"),
          dpi = 500, limitsize = TRUE)
@@ -576,7 +576,7 @@ ggplot (
    axis.text.x = element_text(size = 6, angle = 45, hjust = 1),
    axis.text.y = element_text(size = 6, angle = 45, hjust = 1)
    ) +
-  labs(x = "Samples Taken From Each Port of Pair", y = "Median Absolute Deviation of Median of Bootstrap-Replicated Matrices") +
+  labs(x = "Samples Taken From Each Port of Pair", y = "Median Absolute Deviations of Medians of Bootstrap-Replicated Matrices") +
   ggtitle ("Variability of UNIFRAC Values in Dependence of Sampling Effort", subtitle = paste("for", n_pairs, "randomly selected of",n_pairs_orig, "port pairs"))
 
 ggsave("200525_DI_bootstrapped_shallow_UNIFRAC_MADs.pdf", plot = last_plot(), 
@@ -600,7 +600,7 @@ ggplot (
    axis.text.x = element_text(size = 6, angle = 45, hjust = 1),
    axis.text.y = element_text(size = 6, angle = 45, hjust = 1)
    ) +
-  labs(x = "Samples Taken From Each Port of Pair", y = "log of Median Absolute Deviation of Means of Bootstrap-Replicated Matrices") +
+  labs(x = "Samples Taken From Each Port of Pair", y = "log of Median Absolute Deviations of Means of Bootstrap-Replicated Matrices") +
   ggtitle ("Variability of UNIFRAC Values in Dependence of Sampling Effort", subtitle = paste("for", n_pairs, "randomly selected of",n_pairs_orig, "port pairs"))
 
 ggsave("200525_DI_bootstrapped_shallow_UNIFRAC_logMADs.pdf", plot = last_plot(), 

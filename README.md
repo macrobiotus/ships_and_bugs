@@ -2206,9 +2206,12 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * adjusting and running in parallel from command lines:
     * `/Users/paul/Documents/CU_combined/Github/500_05_test_sampling_effort_deep.R`
     * `/Users/paul/Documents/CU_combined/Github/500_05_test_sampling_effort_shallow.R`
-    * **next** - check and save display items in `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development`
-  * commit 
-  
+    * started 25.05.2020 - ~16:25
+  * commit `f14b7aeade353a0bcb8f785f9895d219a69a75c5`
+    * checked and save display items in `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development`
+    * commented out boot-strapping and saving in scripts above results are pulled from previous calculations
+  * commit ``
+
   * **next** - results scripts
 
 ## Todo
