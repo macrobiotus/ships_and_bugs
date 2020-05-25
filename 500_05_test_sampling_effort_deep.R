@@ -1,7 +1,7 @@
 #' ---
 #' title: "UNIFRAC value change in dependence of included samples."
 #' author: "Paul Czechowski"
-#' date: "01-Mai-2020"
+#' date: "25-Mai-2020"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -459,7 +459,7 @@ n_pairs_orig <- length(names(unifrac_matrix_list))
 #' 
 #' Number of bootstrap replicates is defined by the square of `limit`:
 
-limit <- 100 #10000 # loading data for 10000 replicates below 
+limit <- 10000 #10000 # loading data for 10000 replicates below 
 
 # 20.09.2018 - `ports_pairs_available` can be set manually as function parameter of 
 #   get_results_vector_list_current_port(), when `get_dim_indices_bootstrap()`
@@ -470,15 +470,20 @@ ports_pairs_available <- 5 # slow at 20, 04.04.2018 reduced from 10 to 5
 # get the list - main work, may take a long time for limit > 35 - 20.09.2018 `port_pairs` introduced as parameter
 # ***updated results 04.04.2019 - comment this line out and load below***
 
+
+# TAKES LONG TIME
 bootstrap_results_list <- lapply(unifrac_matrix_list, get_results_vector_list_current_port, limit, ports_pairs_available)
 
+
+
+
 # obtaining results can be time intensive, save and load here (15 MB for 10000 replicates at 15 pairs)
-# ***updated results 05.04.2019 - comment this line out and load below***
+# ***updated results 25.05.2020 - comment this line out and load below***
 
-save(bootstrap_results_list, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_05_100_bootstraps_test.Rdata")
+save(bootstrap_results_list, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_05_unweighted_unifrac_distance_matrix_deep_10K.Rdata")
 
-# ***updated results 05.04.2019 - load below***
-load("/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_05_100_bootstraps_test.Rdata")
+# ***updated results 25.05.2020 - load below***
+load("/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_05_unweighted_unifrac_distance_matrix_deep_10K.Rdata")
 
 # reformat nested list to (very large) data table
 bootstrap_results <- rbindlist(bootstrap_results_list, idcol = TRUE, use.names=TRUE, fill = TRUE)
@@ -546,8 +551,13 @@ ggplot (
    axis.text.x = element_text(size = 6, angle = 45, hjust = 1),
    axis.text.y = element_text(size = 6, angle = 45, hjust = 1)
    ) +
-  labs(x = "Samples Taken From Each Port of Pair", y = "Distribution of Medians of Bootstrap-Replicated Matrices") +
+  labs(x = "Samples Taken From Each Port of Pair", y = "Distribution of Means of Bootstrap-Replicated Matrices") +
   ggtitle ("Variability of UNIFRAC Values in Dependence of Sampling Effort", subtitle = paste("for", n_pairs, "randomly selected of",n_pairs_orig, "port pairs"))
+
+ggsave("200525_DI_bootstrapped_deep_UNIFRAC_medians.pdf", plot = last_plot(), 
+         device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development",
+         scale = 1.0, width = 200, height = 200, units = c("mm"),
+         dpi = 500, limitsize = TRUE)
 
 #' ## Plotting MAD-values
 #'
@@ -569,6 +579,11 @@ ggplot (
   labs(x = "Samples Taken From Each Port of Pair", y = "Median Absolute Deviation of Median of Bootstrap-Replicated Matrices") +
   ggtitle ("Variability of UNIFRAC Values in Dependence of Sampling Effort", subtitle = paste("for", n_pairs, "randomly selected of",n_pairs_orig, "port pairs"))
 
+ggsave("200525_DI_bootstrapped_deep_UNIFRAC_MADs.pdf", plot = last_plot(), 
+         device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development",
+         scale = 1.0, width = 200, height = 200, units = c("mm"),
+         dpi = 500, limitsize = TRUE)
+
 #' ## Plotting log-MAD-values
 #'
 ggplot (
@@ -587,6 +602,11 @@ ggplot (
    ) +
   labs(x = "Samples Taken From Each Port of Pair", y = "log of Median Absolute Deviation of Means of Bootstrap-Replicated Matrices") +
   ggtitle ("Variability of UNIFRAC Values in Dependence of Sampling Effort", subtitle = paste("for", n_pairs, "randomly selected of",n_pairs_orig, "port pairs"))
+
+ggsave("200525_DI_bootstrapped_deep_UNIFRAC_logMADs.pdf", plot = last_plot(), 
+         device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development",
+         scale = 1.0, width = 200, height = 200, units = c("mm"),
+         dpi = 500, limitsize = TRUE)
 
 #' # Discussion
 #'

@@ -2200,14 +2200,15 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * ` # replacement code 24.05.2010
       * ` unifrac_matrices <- by(port_combinations, 1:nrow(port_combinations), function (prt_elmt) get_matrix_from_port_pair(prt_elmt[1], prt_elmt[2], unifrac_matrix))
     * seems to be working
-    * still **pending** run script with full bottstrapping, both files, and save intermediate files and display items!/
-
-    
-
-
-
-
-  * **next** - bootstrapping code
+    * still **pending** run script with full bootstrapping, both files, and save intermediate files and display items!
+  * commit `3de6ba8a4872c2164680f6e042605156a09dd3e6`
+* **25.05.2020** - debugging sampling effort testing script
+  * adjusting and running in parallel from command lines:
+    * `/Users/paul/Documents/CU_combined/Github/500_05_test_sampling_effort_deep.R`
+    * `/Users/paul/Documents/CU_combined/Github/500_05_test_sampling_effort_shallow.R`
+    * **next** - check and save display items in `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development`
+  * commit 
+  
   * **next** - results scripts
 
 ## Todo
