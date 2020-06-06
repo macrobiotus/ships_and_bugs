@@ -1,7 +1,7 @@
 #' ---
 #' title: "Isolate Overlapping Features From eDNA Data"
 #' author: "Paul Czechowski"
-#' date: "1-Mai-2020"
+#' date: "28-Mai-2020"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -98,6 +98,9 @@ df_list <- lapply (df_list, rowSums)
 
 #' ... combining list elements to matrix and data.table. Feature id;'s are names "rs".
 features_shared <- data.table(do.call("cbind", df_list), keep.rownames=TRUE)
+
+#' Save this table for Kara (Requested 28. May 2020)
+openxlsx::write.xlsx(features_shared, "/Users/paul/Documents/CU_combined/Zenodo/Results/200528_550_85_get_shared_taxa-deep.xlsx")
 
 #'
 #' <!-- #################################################################### -->

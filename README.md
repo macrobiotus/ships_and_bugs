@@ -2210,7 +2210,16 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * commit `f14b7aeade353a0bcb8f785f9895d219a69a75c5`
     * checked and save display items in `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development`
     * commented out boot-strapping and saving in scripts above results are pulled from previous calculations
-  * commit ``
+  * commit `da1de50fae6821fdaadfd3d83f02c05e2e3cfa3a`
+* **28.05.2020** - preparing files for Kara
+  * modifying scripts 
+    * `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa-deep.R`
+    * `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa-shallow.R`
+  * to generate files for Kara:
+    * `/Users/paul/Documents/CU_combined/Zenodo/Results/200528_550_85_get_shared_taxa-deep.xlsx`
+    * `/Users/paul/Documents/CU_combined/Zenodo/Results/200528_550_85_get_shared_taxa-shallow.xlsx`
+* **06.06.2020** - worked on manuscript
+  * created and ran `/Users/paul/Documents/CU_mock/Github/140_plot_composition.R`
 
   * **next** - results scripts
 

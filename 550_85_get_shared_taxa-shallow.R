@@ -1,7 +1,7 @@
 #' ---
 #' title: "Isolate Overlapping Features From eDNA Data"
 #' author: "Paul Czechowski"
-#' date: "1-Mai-2020"
+#' date: "28-Mai-2020"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -64,12 +64,8 @@ write_df_list <- function(df_list, file_path){
 #' ##  Data Read-in
 #'
 #' Set paths:
-# sequ_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/180_18S_eDNA_samples_tab_Eukaryotes_qiime_artefacts_non_phylogenetic/dna-sequences.fasta" 
-# biom_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/180_18S_eDNA_samples_tab_Eukaryotes_qiime_artefacts_non_phylogenetic/features-tax-meta.biom"
-
 sequ_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/175_eDNA_samples_Eukaryote-shallow_features_tree-matched_qiime_artefacts/dna-sequences.fasta" 
 biom_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/175_eDNA_samples_Eukaryote-shallow_features_tree-matched_qiime_artefacts/features-tax-meta.biom"
-
 
 #' Create Phyloseq object:
 biom_table <- phyloseq::import_biom (biom_path)
@@ -102,6 +98,9 @@ df_list <- lapply (df_list, rowSums)
 
 #' ... combining list elements to matrix and data.table. Feature id;'s are names "rs".
 features_shared <- data.table(do.call("cbind", df_list), keep.rownames=TRUE)
+
+#' Save this table for Kara (Requested 28. May 2020)
+openxlsx::write.xlsx(features_shared, "/Users/paul/Documents/CU_combined/Zenodo/Results/200528_550_85_get_shared_taxa-shallow.xlsx")
 
 #'
 #' <!-- #################################################################### -->
