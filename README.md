@@ -2220,18 +2220,34 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * `/Users/paul/Documents/CU_combined/Zenodo/Results/200528_550_85_get_shared_taxa-shallow.xlsx`
 * **06.06.2020** - worked on manuscript
   * created and ran `/Users/paul/Documents/CU_mock/Github/140_plot_composition.R`
+  * commit `58889bb50b8225d5c7f1ea38abc653c6f6dd5cad`
+* **08.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
+  * akin to `/Users/paul/Documents/CU_combined/Zenodo/Qiime/120_18S_eDNA_samples_tab_Eukaryotes.qzv`
+    * **deep** depth (for Eukaryotes) was `49974`, **now:** `49900`
+      * retains 10,279,400 (36.64%) features in 206 (81.42%) samples at the specifed sampling depth
+      * 19 port included (per graph): AD, AW, BT, CB, GH, HS, HN, HT, LB, MI, NO, OK, PT, PM, RI, RO, SY, WI, ZB
+    * **shallow** depth (for Eukaryotes) was `32982`, **now** `37900`
+      * retains 8,262,200 (29.45%) features in 218 (86.17%) samples at the specifed sampling depth.
+      * 21 port included (per graph): AD, AW, BT, CB, GH, HS, HN, HT, LB, MI, NX, NO, OK, PT, PM, RI, RO, SY, VN, WI, ZB
+    * need to adjust similar script after sample subsetting to 5 samples per port
+  * check graphs for rarefaction curve export
+    * before subsetting:
+      * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/125_18S_eDNA_samples_tab_Eukaryote-shallow_non_phylogenetic_curves.qzv`
+      * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/125_18S_eDNA_samples_tab_Eukaryotes_non_phylogenetic_curves.qzv`
+    * for R script exporting observed OTUs per port to `.csv` file (`/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/200625_125_18S_eDNA_samples_tab_Eukaryotes_non_phylogenetic_curves.csv`)
+    * aborted R script - using Qiime graph for now (`/Users/paul/Documents/CU_combined/Github/200608_DI_asv_accumulations_per_ports.R`)
+    * (after subsetting): 
+      * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/160_eDNA_samples_Eukaryote-shallow_curves_tree-matched.qzv`
+      * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/160_eDNA_samples_Eukaryotes_curves_tree-matched.qzv`
 
-  * **next** - results scripts
+  * **next** - 
+    * continue with supplement: R script
+    * results scripts
 
 ## Todo
 
 ### More important
-  * run blast
-    * possibly also convert to tabular using Galaxy
   * re-implement `/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R`
-  * correct `/Users/paul/Documents/CU_combined/Github/500_05_test_sampling_effort.R`
-    * `get_many_matrices_from_input_matrix` still doesn't work as expected - fix
-    * possibly manually correct copies of input data for correct name parsing
   * before re-run safe repository for spin-off - ecoregion paper
   * re-run for factors:
      * include Mandanas results for all voyage esrs
@@ -2259,7 +2275,7 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * formalize implementation of `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
     * while doing so take care that matrix conflation is done using averages.
   * adjust display items (Procrustes and Mantel results)
-  * adjust text (shallow depth sampel inclusion from table summary)
+  * adjust text (shallow depth sample inclusion from table summary)
   * check all script marked yellow for required corrections
   
   
