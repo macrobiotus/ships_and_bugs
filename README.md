@@ -2234,11 +2234,14 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * before subsetting:
       * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/125_18S_eDNA_samples_tab_Eukaryote-shallow_non_phylogenetic_curves.qzv`
       * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/125_18S_eDNA_samples_tab_Eukaryotes_non_phylogenetic_curves.qzv`
-    * for R script exporting observed OTUs per port to `.csv` file (`/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/200625_125_18S_eDNA_samples_tab_Eukaryotes_non_phylogenetic_curves.csv`)
+    * for R script exporting observed OTUs per port to `.csv` file (`/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/200608_125_18S_eDNA_samples_tab_Eukaryotes_non_phylogenetic_curves.csv`)
     * aborted R script - using Qiime graph for now (`/Users/paul/Documents/CU_combined/Github/200608_DI_asv_accumulations_per_ports.R`)
     * (after subsetting): 
       * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/160_eDNA_samples_Eukaryote-shallow_curves_tree-matched.qzv`
       * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/160_eDNA_samples_Eukaryotes_curves_tree-matched.qzv`
+* **09.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
+  * finished `/Users/paul/Documents/CU_combined/Github/200608_DI_asv_accumulations_per_ports.R`
+  * commit ``
 
   * **next** - 
     * continue with supplement: R script
