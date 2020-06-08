@@ -1,7 +1,7 @@
 #' ---
 #' title: "Unifrac and Jaccard relationship."
 #' author: "Paul Czechowski"
-#' date: "15-Jan-2020"
+#' date: "09-Jun-2020"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -92,18 +92,52 @@ dist_df_collapsed <- dist_df_collapsed %>% filter(complete.cases(.))
 # remove self connections
 dist_df_collapsed <- dist_df_collapsed  %>% filter(PORT.A != PORT.B)
 
+## after https://gist.github.com/adamhsparks/e299e6d1beb82ed258c1052050d63bc5
+
+mod <- lm(JACCARD ~ UNIFRAC, data = dist_df_collapsed)
+summary(mod)
+# see that p-value: < 2.2e-16
+
+# function to create the text equation
+lm_eqn <- function(df, lm_object) {
+  eq <-
+    substitute(
+      italic(y) == a + b %.% italic(x) * "," ~  ~ italic(r) ^ 2 ~ "=" ~ r2,
+      list(
+        a = format(coef(lm_object)[1], digits = 2),
+        b = format(coef(lm_object)[2], digits = 2),
+        r2 = format(summary(lm_object)$r.squared, digits = 3),
+        p = format(summary(lm_object)$coefficients[,"Pr(>|t|)"][[2]],digits = 2)
+      )
+    )
+  as.character(as.expression(eq))
+}
+
+# get the equation object in a format for use in ggplot2
+eqn <- lm_eqn(dist_df_collapsed, mod)
+
 #' ## Plotting and saving
 
-dist_df_collapsed
-
-ggplot(dist_df_collapsed, aes(UNIFRAC, JACCARD)) +
+ggplot(data = dist_df_collapsed, aes(x = UNIFRAC, y = JACCARD)) +
+  geom_smooth(method="auto", se=TRUE, fullrange=FALSE, level=0.95) +
+  geom_point() +
+  annotate("text",
+           x = 0.8,
+           y = 0.7, 
+           label = "italic(p) <2e-16",
+           parse = TRUE) +
+  annotate("text",
+           x = 0.8,
+           y = 0.8, 
+           label = eqn,
+           parse = TRUE) +
   theme_bw() + 
   # geom_text_repel(aes(label = paste(PORT.A,"-",PORT.B, sep = "", collapse = NULL) ,  color = PORT.A), size = 3) +
   geom_smooth(method="auto", se=TRUE, fullrange=FALSE, level=0.95) +
   geom_point() + 
   theme(legend.position= "none") +
   labs(title="Comparison of biological distances between 190 port pairs ",
-        x ="Unifrac distance", y = "Jaccard distance")
+       x ="Unifrac distance", y = "Jaccard distance") 
 
 ggsave("200512_DI_unifrac_vs_jaccard.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development",

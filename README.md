@@ -2241,7 +2241,68 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/160_eDNA_samples_Eukaryotes_curves_tree-matched.qzv`
 * **09.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
   * finished `/Users/paul/Documents/CU_combined/Github/200608_DI_asv_accumulations_per_ports.R`
-  * commit ``
+  * commit `* **08.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
+  * akin to `/Users/paul/Documents/CU_combined/Zenodo/Qiime/120_18S_eDNA_samples_tab_Eukaryotes.qzv`
+    * **deep** depth (for Eukaryotes) was `49974`, **now:** `49900`
+      * retains 10,279,400 (36.64%) features in 206 (81.42%) samples at the specifed sampling depth
+      * 19 port included (per graph): AD, AW, BT, CB, GH, HS, HN, HT, LB, MI, NO, OK, PT, PM, RI, RO, SY, WI, ZB
+    * **shallow** depth (for Eukaryotes) was `32982`, **now** `37900`
+      * retains 8,262,200 (29.45%) features in 218 (86.17%) samples at the specifed sampling depth.
+      * 21 port included (per graph): AD, AW, BT, CB, GH, HS, HN, HT, LB, MI, NX, NO, OK, PT, PM, RI, RO, SY, VN, WI, ZB
+    * need to adjust similar script after sample subsetting to 5 samples per port
+  * check graphs for rarefaction curve export
+    * before subsetting:
+      * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/125_18S_eDNA_samples_tab_Eukaryote-shallow_non_phylogenetic_curves.qzv`
+      * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/125_18S_eDNA_samples_tab_Eukaryotes_non_phylogenetic_curves.qzv`
+    * for R script exporting observed OTUs per port to `.csv` file (`/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/200608_125_18S_eDNA_samples_tab_Eukaryotes_non_phylogenetic_curves.csv`)
+    * aborted R script - using Qiime graph for now (`/Users/paul/Documents/CU_combined/Github/200608_DI_asv_accumulations_per_ports.R`)
+    * (after subsetting): 
+      * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/160_eDNA_samples_Eukaryote-shallow_curves_tree-matched.qzv`
+      * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/160_eDNA_samples_Eukaryotes_curves_tree-matched.qzv`
+* **09.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
+  * finished `/Users/paul/Documents/CU_combined/Github/200608_DI_asv_accumulations_per_ports.R`
+  * commit `* **08.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
+  * akin to `/Users/paul/Documents/CU_combined/Zenodo/Qiime/120_18S_eDNA_samples_tab_Eukaryotes.qzv`
+    * **deep** depth (for Eukaryotes) was `49974`, **now:** `49900`
+      * retains 10,279,400 (36.64%) features in 206 (81.42%) samples at the specifed sampling depth
+      * 19 port included (per graph): AD, AW, BT, CB, GH, HS, HN, HT, LB, MI, NO, OK, PT, PM, RI, RO, SY, WI, ZB
+    * **shallow** depth (for Eukaryotes) was `32982`, **now** `37900`
+      * retains 8,262,200 (29.45%) features in 218 (86.17%) samples at the specifed sampling depth.
+      * 21 port included (per graph): AD, AW, BT, CB, GH, HS, HN, HT, LB, MI, NX, NO, OK, PT, PM, RI, RO, SY, VN, WI, ZB
+    * need to adjust similar script after sample subsetting to 5 samples per port
+  * check graphs for rarefaction curve export
+    * before subsetting:
+      * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/125_18S_eDNA_samples_tab_Eukaryote-shallow_non_phylogenetic_curves.qzv`
+      * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/125_18S_eDNA_samples_tab_Eukaryotes_non_phylogenetic_curves.qzv`
+    * for R script exporting observed OTUs per port to `.csv` file (`/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/200608_125_18S_eDNA_samples_tab_Eukaryotes_non_phylogenetic_curves.csv`)
+    * aborted R script - using Qiime graph for now (`/Users/paul/Documents/CU_combined/Github/200608_DI_asv_accumulations_per_ports.R`)
+    * (after subsetting): 
+      * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/160_eDNA_samples_Eukaryote-shallow_curves_tree-matched.qzv`
+      * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/160_eDNA_samples_Eukaryotes_curves_tree-matched.qzv`
+* **09.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
+  * finished `/Users/paul/Documents/CU_combined/Github/200608_DI_asv_accumulations_per_ports.R`
+  * commit `* **08.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
+  * akin to `/Users/paul/Documents/CU_combined/Zenodo/Qiime/120_18S_eDNA_samples_tab_Eukaryotes.qzv`
+    * **deep** depth (for Eukaryotes) was `49974`, **now:** `49900`
+      * retains 10,279,400 (36.64%) features in 206 (81.42%) samples at the specifed sampling depth
+      * 19 port included (per graph): AD, AW, BT, CB, GH, HS, HN, HT, LB, MI, NO, OK, PT, PM, RI, RO, SY, WI, ZB
+    * **shallow** depth (for Eukaryotes) was `32982`, **now** `37900`
+      * retains 8,262,200 (29.45%) features in 218 (86.17%) samples at the specifed sampling depth.
+      * 21 port included (per graph): AD, AW, BT, CB, GH, HS, HN, HT, LB, MI, NX, NO, OK, PT, PM, RI, RO, SY, VN, WI, ZB
+    * need to adjust similar script after sample subsetting to 5 samples per port
+  * check graphs for rarefaction curve export
+    * before subsetting:
+      * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/125_18S_eDNA_samples_tab_Eukaryote-shallow_non_phylogenetic_curves.qzv`
+      * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/125_18S_eDNA_samples_tab_Eukaryotes_non_phylogenetic_curves.qzv`
+    * for R script exporting observed OTUs per port to `.csv` file (`/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/200608_125_18S_eDNA_samples_tab_Eukaryotes_non_phylogenetic_curves.csv`)
+    * aborted R script - using Qiime graph for now (`/Users/paul/Documents/CU_combined/Github/200608_DI_asv_accumulations_per_ports.R`)
+    * (after subsetting): 
+      * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/160_eDNA_samples_Eukaryote-shallow_curves_tree-matched.qzv`
+      * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/160_eDNA_samples_Eukaryotes_curves_tree-matched.qzv`
+* **09.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
+  * finished `/Users/paul/Documents/CU_combined/Github/200608_DI_asv_accumulations_per_ports.R`
+  * commit `5c8154e392dfe89dce1997ea37123280f2de1ee2`
+  * updated `/Users/paul/Documents/CU_combined/Github/200512_DI_unifrac_vs_jaccard.R`
 
   * **next** - 
     * continue with supplement: R script
