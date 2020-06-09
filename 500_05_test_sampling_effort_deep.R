@@ -1,7 +1,7 @@
 #' ---
 #' title: "UNIFRAC value change in dependence of included samples."
 #' author: "Paul Czechowski"
-#' date: "25-Mai-2020"
+#' date: "10-June-2020"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -475,10 +475,10 @@ bootstrap_results_list <- lapply(unifrac_matrix_list, get_results_vector_list_cu
 # obtaining results can be time intensive, save and load here (15 MB for 10000 replicates at 15 pairs)
 # ***updated results 25.05.2020 - comment this line out and load below***
 
-save(bootstrap_results_list, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200525_500_05_unweighted_unifrac_distance_matrix_deep_10K.Rdata")
+save(bootstrap_results_list, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200610_500_05_unweighted_unifrac_distance_matrix_deep_10K.Rdata")
 
 # ***updated results 10.06.2020 for 7 ports - load below***
-load("/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200525_500_05_unweighted_unifrac_distance_matrix_deep_10K.Rdata")
+load("/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200610_500_05_unweighted_unifrac_distance_matrix_deep_10K.Rdata")
 
 # reformat nested list to (very large) data table
 bootstrap_results <- rbindlist(bootstrap_results_list, idcol = TRUE, use.names=TRUE, fill = TRUE)

@@ -2308,9 +2308,12 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
 * **10.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
   * updating bootstrapping scripts
     * `/Users/paul/Documents/CU_combined/Github/500_05_test_sampling_effort_deep.R`
-      * changed both script here, but upper one more, check revision history for cahnges
-      * commit ``
+      * changed both script here, but upper one more, check revision history for changes
+      * commit `8ccaf038f2348fb5f8b90fdf86114de29ba81043`
     * `/Users/paul/Documents/CU_combined/Github/500_05_test_sampling_effort_shallow.R`
+      * both script should be the same again now
+      * partial script code has been altered to produce full plots
+      * check revision history to revert back changes if needed (or check other plot code chunks)
 
 
   * **next** - 

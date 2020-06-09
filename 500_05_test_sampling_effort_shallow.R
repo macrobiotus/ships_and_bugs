@@ -1,7 +1,7 @@
 #' ---
 #' title: "UNIFRAC value change in dependence of included samples."
 #' author: "Paul Czechowski"
-#' date: "25-Mai-2020"
+#' date: "10-June-2020"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -475,10 +475,10 @@ bootstrap_results_list <- lapply(unifrac_matrix_list, get_results_vector_list_cu
 # obtaining results can be time intensive, save and load here (15 MB for 10000 replicates at 15 pairs)
 # ***updated results 25.05.2020 - comment this line out and load below***
 
-save(bootstrap_results_list, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200525_500_05_unweighted_unifrac_distance_matrix_shallow_10K.Rdata")
+save(bootstrap_results_list, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200610_500_05_unweighted_unifrac_distance_matrix_shallow_10K.Rdata")
 
 # ***updated results 25.05.2020 - load below***
-load("/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200525_500_05_unweighted_unifrac_distance_matrix_shallow_10K.Rdata")
+load("/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200610_500_05_unweighted_unifrac_distance_matrix_shallow_10K.Rdata")
 
 # reformat nested list to (very large) data table
 bootstrap_results <- rbindlist(bootstrap_results_list, idcol = TRUE, use.names=TRUE, fill = TRUE)
@@ -502,6 +502,7 @@ n_pairs = 9  # do not set this value higher then then the number of lines in `pa
              #   If you do, set `replace` to `TRUE`
 set.seed(123)
 rand_pairs <- sample_n(pair_list, n_pairs, replace = FALSE)
+rand_pairs<- arrange(sample_n(pair_list, nrow(pair_list), replace = FALSE), .id) # for full grpahic
 
 # I am not sure about the warning, but some pairs seem to contain more bootstrap results then
 #   but I think its caused by some port pairs having less ports available then
@@ -549,7 +550,7 @@ ggplot (
   labs(x = "Samples Taken From Each Port of Pair", y = "Distribution of Means of Bootstrap-Replicated Matrices") +
   ggtitle ("Variability of UNIFRAC Values in Dependence of Sampling Effort", subtitle = paste("for", n_pairs, "randomly selected of",n_pairs_orig, "port pairs"))
 
-ggsave("200525_DI_bootstrapped_shallow_UNIFRAC_means.pdf", plot = last_plot(), 
+ggsave("200610_DI_bootstrapped_shallow_UNIFRAC_means.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development",
          scale = 1.0, width = 200, height = 200, units = c("mm"),
          dpi = 500, limitsize = TRUE)
@@ -572,12 +573,12 @@ ggplot (
    axis.text.y = element_text(size = 6, angle = 45, hjust = 1)
    ) +
   labs(x = "Samples Taken From Each Port of Pair", y = "Median Absolute Deviations of Medians of Bootstrap-Replicated Matrices") +
-  ggtitle ("Variability of UNIFRAC Values in Dependence of Sampling Effort", subtitle = paste("for", n_pairs, "randomly selected of",n_pairs_orig, "port pairs"))
+  ggtitle ("Variability of UNIFRAC Values in Dependence of Sampling Effort", subtitle = paste("for all 380 port pairs"))
 
-ggsave("200525_DI_bootstrapped_shallow_UNIFRAC_MADs.pdf", plot = last_plot(), 
+ggsave("200610_DI_bootstrapped_shallow_UNIFRAC_MADs_full.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development",
-         scale = 1.0, width = 200, height = 200, units = c("mm"),
-         dpi = 500, limitsize = TRUE)
+         scale = 1.0, width = 1500, height = 1500, units = c("mm"),
+         dpi = 500, limitsize = FALSE)
 
 #' ## Plotting log-MAD-values
 #'
@@ -598,7 +599,7 @@ ggplot (
   labs(x = "Samples Taken From Each Port of Pair", y = "log of Median Absolute Deviations of Means of Bootstrap-Replicated Matrices") +
   ggtitle ("Variability of UNIFRAC Values in Dependence of Sampling Effort", subtitle = paste("for", n_pairs, "randomly selected of",n_pairs_orig, "port pairs"))
 
-ggsave("200525_DI_bootstrapped_shallow_UNIFRAC_logMADs.pdf", plot = last_plot(), 
+ggsave("200610_DI_bootstrapped_shallow_UNIFRAC_logMADs.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development",
          scale = 1.0, width = 200, height = 200, units = c("mm"),
          dpi = 500, limitsize = TRUE)
