@@ -156,9 +156,7 @@ get_many_matrices_from_input_matrix <- function (unifrac_matrix) {
   # replacement code 24.05.2010
   unifrac_matrices <- by(port_combinations, 1:nrow(port_combinations), function (prt_elmt) get_matrix_from_port_pair(prt_elmt[1], prt_elmt[2], unifrac_matrix))
   
-  unifrac_matrices[[1]]
-  
-    # get_matrix_from_port_pair("SI", "PH", unifrac_matrix)
+  # get_matrix_from_port_pair("SI", "PH", unifrac_matrix)
   # class(port_combinations)
   
   # debugging above call 13-11-2019
@@ -465,24 +463,21 @@ limit <- 10000 #10000 # loading data for 10000 replicates below
 #   get_results_vector_list_current_port(), when `get_dim_indices_bootstrap()`
 #   samples with replacement, and hence more indices then available in each
 #   source matrix dimension cane be sampled.
-ports_pairs_available <- 5 # slow at 20, 04.04.2018 reduced from 10 to 5
+ports_pairs_available <- 7 # slow at 20, 04.04.2018 reduced from 10 to 5
 
 # get the list - main work, may take a long time for limit > 35 - 20.09.2018 `port_pairs` introduced as parameter
 # ***updated results 04.04.2019 - comment this line out and load below***
 
 
 # TAKES LONG TIME
-# bootstrap_results_list <- lapply(unifrac_matrix_list, get_results_vector_list_current_port, limit, ports_pairs_available)
-
-
-
+bootstrap_results_list <- lapply(unifrac_matrix_list, get_results_vector_list_current_port, limit, ports_pairs_available)
 
 # obtaining results can be time intensive, save and load here (15 MB for 10000 replicates at 15 pairs)
 # ***updated results 25.05.2020 - comment this line out and load below***
 
-# save(bootstrap_results_list, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200525_500_05_unweighted_unifrac_distance_matrix_deep_10K.Rdata")
+save(bootstrap_results_list, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200525_500_05_unweighted_unifrac_distance_matrix_deep_10K.Rdata")
 
-# ***updated results 25.05.2020 - load below***
+# ***updated results 10.06.2020 for 7 ports - load below***
 load("/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200525_500_05_unweighted_unifrac_distance_matrix_deep_10K.Rdata")
 
 # reformat nested list to (very large) data table
@@ -506,7 +501,8 @@ n_pairs = 9  # do not set this value higher then then the number of lines in `pa
              #   you probably don't want to select more port pairs then available
              #   If you do, set `replace` to `TRUE`
 set.seed(123)
-rand_pairs <- sample_n(pair_list, n_pairs, replace = FALSE)
+rand_pairs <- sample_n(pair_list, n_pairs, replace = FALSE)                        # for partial graphic
+rand_pairs <- arrange(sample_n(pair_list, nrow(pair_list), replace = FALSE), .id) # for full grpahic
 
 # I am not sure about the warning, but some pairs seem to contain more bootstrap results then
 #   but I think its caused by some port pairs having less ports available then
@@ -554,7 +550,7 @@ ggplot (
   labs(x = "Samples Taken From Each Port of Pair", y = "Distribution of Means of Bootstrap-Replicated Matrices") +
   ggtitle ("Variability of UNIFRAC Values in Dependence of Sampling Effort", subtitle = paste("for", n_pairs, "randomly selected of",n_pairs_orig, "port pairs"))
 
-ggsave("200525_DI_bootstrapped_deep_UNIFRAC_means.pdf", plot = last_plot(), 
+ggsave("200610_DI_bootstrapped_deep_UNIFRAC_means.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development",
          scale = 1.0, width = 200, height = 200, units = c("mm"),
          dpi = 500, limitsize = TRUE)
@@ -577,12 +573,13 @@ ggplot (
    axis.text.y = element_text(size = 6, angle = 45, hjust = 1)
    ) +
   labs(x = "Samples Taken From Each Port of Pair", y = "Median Absolute Deviations of Means of Bootstrap-Replicated Matrices") +
-  ggtitle ("Variability of UNIFRAC Values in Dependence of Sampling Effort", subtitle = paste("for", n_pairs, "randomly selected of",n_pairs_orig, "port pairs"))
+  ggtitle ("Variability of UNIFRAC Values in Dependence of Sampling Effort", subtitle = paste("for all 380 port pairs"))
 
-ggsave("200525_DI_bootstrapped_deep_UNIFRAC_MADs.pdf", plot = last_plot(), 
+# change dimensions from 200 to 1500 for full plot
+ggsave("200610_DI_bootstrapped_deep_UNIFRAC_MADs.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development",
-         scale = 1.0, width = 200, height = 200, units = c("mm"),
-         dpi = 500, limitsize = TRUE)
+         scale = 1.0, width = 1500, height = 1500, units = c("mm"),
+         dpi = 500, limitsize = FALSE)
 
 #' ## Plotting log-MAD-values
 #'
@@ -603,7 +600,7 @@ ggplot (
   labs(x = "Samples Taken From Each Port of Pair", y = "log of Median Absolute Deviations of Means of Bootstrap-Replicated Matrices") +
   ggtitle ("Variability of UNIFRAC Values in Dependence of Sampling Effort", subtitle = paste("for", n_pairs, "randomly selected of",n_pairs_orig, "port pairs"))
 
-ggsave("200525_DI_bootstrapped_deep_UNIFRAC_logMADs.pdf", plot = last_plot(), 
+ggsave("200610_DI_bootstrapped_deep_UNIFRAC_logMADs.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development",
          scale = 1.0, width = 200, height = 200, units = c("mm"),
          dpi = 500, limitsize = TRUE)

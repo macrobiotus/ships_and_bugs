@@ -2303,6 +2303,15 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * finished `/Users/paul/Documents/CU_combined/Github/200608_DI_asv_accumulations_per_ports.R`
   * commit `5c8154e392dfe89dce1997ea37123280f2de1ee2`
   * updated `/Users/paul/Documents/CU_combined/Github/200512_DI_unifrac_vs_jaccard.R`
+  * commit `71bbc86e4044ddfec1fcfb0dc2242bce59ccc776`
+  * updated Jaccard vs. Unifrac plot.
+* **10.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
+  * updating bootstrapping scripts
+    * `/Users/paul/Documents/CU_combined/Github/500_05_test_sampling_effort_deep.R`
+      * changed both script here, but upper one more, check revision history for cahnges
+      * commit ``
+    * `/Users/paul/Documents/CU_combined/Github/500_05_test_sampling_effort_shallow.R`
+
 
   * **next** - 
     * continue with supplement: R script

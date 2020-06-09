@@ -136,12 +136,10 @@ ggplot(data = dist_df_collapsed, aes(x = UNIFRAC, y = JACCARD)) +
   geom_smooth(method="auto", se=TRUE, fullrange=FALSE, level=0.95) +
   geom_point() + 
   theme(legend.position= "none") +
-  labs(title="Comparison of biological distances between 190 port pairs ",
+  labs(title=" ",
        x ="Unifrac distance", y = "Jaccard distance") 
 
 ggsave("200512_DI_unifrac_vs_jaccard.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development",
          scale = 1.0, width = 160, height = 80, units = c("mm"),
          dpi = 500, limitsize = TRUE)
-
-

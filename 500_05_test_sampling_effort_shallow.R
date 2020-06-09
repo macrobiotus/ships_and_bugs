@@ -155,10 +155,8 @@ get_many_matrices_from_input_matrix <- function (unifrac_matrix) {
   
   # replacement code 24.05.2010
   unifrac_matrices <- by(port_combinations, 1:nrow(port_combinations), function (prt_elmt) get_matrix_from_port_pair(prt_elmt[1], prt_elmt[2], unifrac_matrix))
-  
-  unifrac_matrices[[1]]
-  
-    # get_matrix_from_port_pair("SI", "PH", unifrac_matrix)
+ 
+  # get_matrix_from_port_pair("SI", "PH", unifrac_matrix)
   # class(port_combinations)
   
   # debugging above call 13-11-2019
@@ -465,22 +463,19 @@ limit <- 10000 #10000 # loading data for 10000 replicates below
 #   get_results_vector_list_current_port(), when `get_dim_indices_bootstrap()`
 #   samples with replacement, and hence more indices then available in each
 #   source matrix dimension cane be sampled.
-ports_pairs_available <- 5 # slow at 20, 04.04.2018 reduced from 10 to 5
+ports_pairs_available <- 7 # slow at 20, 04.04.2018 reduced from 10 to 5
 
 # get the list - main work, may take a long time for limit > 35 - 20.09.2018 `port_pairs` introduced as parameter
 # ***updated results 04.04.2019 - comment this line out and load below***
 
 
 # TAKES LONG TIME
-# bootstrap_results_list <- lapply(unifrac_matrix_list, get_results_vector_list_current_port, limit, ports_pairs_available)
-
-
-
+bootstrap_results_list <- lapply(unifrac_matrix_list, get_results_vector_list_current_port, limit, ports_pairs_available)
 
 # obtaining results can be time intensive, save and load here (15 MB for 10000 replicates at 15 pairs)
 # ***updated results 25.05.2020 - comment this line out and load below***
 
-# save(bootstrap_results_list, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200525_500_05_unweighted_unifrac_distance_matrix_shallow_10K.Rdata")
+save(bootstrap_results_list, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200525_500_05_unweighted_unifrac_distance_matrix_shallow_10K.Rdata")
 
 # ***updated results 25.05.2020 - load below***
 load("/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200525_500_05_unweighted_unifrac_distance_matrix_shallow_10K.Rdata")
