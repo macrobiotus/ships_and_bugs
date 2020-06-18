@@ -2314,7 +2314,16 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * both script should be the same again now
       * partial script code has been altered to produce full plots
       * check revision history to revert back changes if needed (or check other plot code chunks)
-
+      *  commit `dba62bb2c93b89da5ffbeaefb6a241ff97005528`
+* **12.06.2020** - work on supplemental methods
+* **15.06.2020** - work on supplemental methods an mailed off
+* **16.06.2020** - going through main text 
+  * values to look up in new version of results script
+    * total read count
+    * total ASV count
+    * number of unique port pairs
+    * high, low, mean, median, sd of Unifrac values
+  * commit ``
 
   * **next** - 
     * continue with supplement: R script
