@@ -1,7 +1,7 @@
 #' ---
 #' title: "Unifrac and Jaccard relationship."
 #' author: "Paul Czechowski"
-#' date: "09-Jun-2020"
+#' date: "19-Jun-2020"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -60,13 +60,45 @@ dist_list_raw <- lapply(paths, read_tsv)
 #' ## Data formatting
 #' 
 #' Convert raw data to matrix with row- and colnames for speed reasons.
-dist_list_mat <- lapply(dist_list_raw, function(mat) mat %>% set_rownames(.$X1) %>% select(-X1) %>% as.matrix)
+#' Inserting "as.data.frame %>%" so as to be able to set rownames without furture errors
+dist_list_mat <- lapply(dist_list_raw, function(mat) mat %>% as.data.frame %>% set_rownames(.$X1) %>% select(-X1) %>% as.matrix)
 
 #' Create port-wise collapsed, but empty receiving matrices from input list ...
 dist_list_mat_collapsed <- lapply(dist_list_mat, get_collapsed_responses_matrix)
 
 #' ... and fill these matrices with values. 
 dist_list_mat_collapsed <- mapply(fill_collapsed_responses_matrix, dist_list_mat_collapsed, dist_list_mat, SIMPLIFY = FALSE)
+
+#' # Get stats for manuscript
+#'
+#' Using port-clloapsed matrices, as these were also used for modlling claculations.
+
+dist_list_stats <- dist_list_mat_collapsed
+
+# summarize only diagonal Unifrac values with PH - careful,
+#  chosen by position
+dist_list_stats[[1]] %>% diag(.) %>% .[-1] %>% summary
+
+# summarize only non-diagonal Unifrac values
+dist_list_stats_no_diag <- dist_list_stats[[1]]
+diag(dist_list_stats_no_diag) <- NA
+
+# again erasing PH values
+dist_list_stats_no_diag <- dist_list_stats_no_diag[!rownames(dist_list_stats_no_diag) %in% c("PH"), !colnames(dist_list_stats_no_diag) %in% c("PH")]
+summary(as.vector(dist_list_stats_no_diag))
+
+# getting number of analyzed port pairs
+dist_list_stats_vec <- as.vector(dist_list_stats_no_diag)
+dist_list_stats_vec[!is.na(dist_list_stats_vec)]
+length(dist_list_stats_vec)
+
+# getting pairs for exteme values
+min(dist_list_stats_vec, na.rm = TRUE)
+max(dist_list_stats_vec, na.rm = TRUE)
+
+which(dist_list_stats_no_diag == min(dist_list_stats_vec, na.rm = TRUE), arr.ind = T)
+which(dist_list_stats_no_diag == max(dist_list_stats_vec, na.rm = TRUE), arr.ind = T)
+
 
 #' Getting data for plotting, modified from section `Getting Dataframes for modelling`
 #' of script `~/Documents/CU_combined/Github/500_80_get_mixed_effect_model_tables.R`.

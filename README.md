@@ -2342,17 +2342,20 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * `/Users/paul/Documents/CU_combined/Zenodo/Manifest/127_18S_5-sample-euk-metadata_shll_all.tsv`
       * `/Users/paul/Documents/CU_combined/Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_all.tsv`
     * using qiime
-      `qiime feature-table filter-samples \
+      qiime feature-table filter-samples \
        --m-metadata-file /Users/paul/Documents/CU_combined/Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_all.tsv \
        --i-table /Users/paul/Documents/CU_combined/Zenodo/Qiime/128_18S_eDNA_samples_tab_Eukaryotes.qza \
        --p-exclude-ids \
        --p-where "RID IN ('PH')" \
-       --o-filtered-table /Users/paul/Documents/CU_combined/Zenodo/Qiime/200619_128_18S_eDNA_samples_tab_Eukaryotes.qza`
+       --o-filtered-table /Users/paul/Documents/CU_combined/Zenodo/Qiime/200619_128_18S_eDNA_samples_tab_Eukaryotes.qza
       
-      `qiime feature-table summarize \
+      qiime feature-table summarize \
        --m-sample-metadata-file /Users/paul/Documents/CU_combined/Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_all.tsv \
        --i-table /Users/paul/Documents/CU_combined/Zenodo/Qiime/200619_128_18S_eDNA_samples_tab_Eukaryotes.qza \
-       --o-visualization /Users/paul/Documents/CU_combined/Zenodo/Qiime/200619_128_18S_eDNA_samples_tab_Eukaryotes.qzv`
+       --o-visualization /Users/paul/Documents/CU_combined/Zenodo/Qiime/200619_128_18S_eDNA_samples_tab_Eukaryotes.qzv
+  
+  * to summarize Unifrac values in manuscript updating
+    * `200512_DI_unifrac_vs_jaccard.R`
 
   * **next** - 
     * in main text, update summary of Unifrac values
