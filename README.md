@@ -2356,8 +2356,17 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   
   * to summarize Unifrac values in manuscript updating
     * `200512_DI_unifrac_vs_jaccard.R`
+* **09.07.2020** - addressing revision remarks of todays meeting
+  * want a a Reingold-Tilford graph from BLAST results
+    * started in `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa-deep.R`
+    * not finished yet
+      * import to `Cytoscape` to `iGraph`: `/Users/paul/Documents/CU_combined/Zenodo/Results/200528_550_85_get_shared_taxa-deep.xlsx`
+      * look at Erin's graph and iGraph manual
+      * commit 
+
 
   * **next** - 
+    * get taxonomy graph
     * in main text, update summary of Unifrac values
 
 ## Todo
