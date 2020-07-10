@@ -13,6 +13,8 @@ rm(list=ls(all=TRUE)) # clear memory
 
 library("tidyverse")  # work using tibbles
 library("data.tree")  # https://cran.r-project.org/web/packages/data.tree/vignettes/data.tree.html
+library("igraph")     # many graphs
+library("ggraph")     # many graphs, nicer
 
 
 # Part I: Load Blast results and read counts
@@ -39,12 +41,12 @@ head(BlRsSbsDf)
 # merge in read counts via hash field
 
 BlRsSbsDfJn <- full_join(BlRsSbsDf, read_counts, by = "iteration_query_def")
-
 head(BlRsSbsDfJn)
 
 
 # Part II: Format data for graphical purposes
 # -------------------------------------------
+#   https://cran.r-project.org/web/packages/data.tree/vignettes/applications.html
 
 # - everything below is clutter - consider treemap as in data.tree tutorial,
 #   link below 
@@ -53,139 +55,65 @@ BlRsSbsDfJn$pathString <- paste("18S",
   BlRsSbsDfJn$superkingdom, 
   BlRsSbsDfJn$phylum, 
   BlRsSbsDfJn$class, 
-  BlRsSbsDfJn$order, 
-  BlRsSbsDfJn$family,
-  BlRsSbsDfJn$species,
-  sep = "/")
+  sep = "+")
+
+#   BlRsSbsDfJn$order, 
+#   BlRsSbsDfJn$family,
+#   BlRsSbsDfJn$species,
 
 
 # create a data.tree data structure
-BlRsNds <- as.Node(BlRsSbsDfJn, pathDelimiter = "/")
-print(BlRsNds, "count", "iteration_query_def", "src", "tax_id", limit = 100)
+BlRsNds <- as.Node(BlRsSbsDfJn, pathDelimiter = "+")
+print(BlRsNds, "count", "iteration_query_def", "src", "tax_id", "class" limit = 20)
 
 
+# Part III: Get tree map   
+# -----------------------------------------------------
 
+# for treemap see: 
+#   https://cran.r-project.org/web/packages/data.tree/vignettes/applications.html#world-populationtreemap-visualization
 
-# ========== continue here ==========
-
-# check vignette
-# https://cran.r-project.org/web/packages/data.tree/vignettes/applications.html#world-populationtreemap-visualization
-
-
-
-
-
-treemap(blstRslSubs)
-
-
-
-
-
-
-
-
-
-######################## tree stuff below
-
-
-
-
-
-# ================ construction site
-
-# Libraries
-library(ggraph)
-library(igraph)
- 
-# create a data frame giving the hierarchical structure of your individuals. 
-# Origin on top, then groups, then subgroups
-d1 <- data.frame(from="origin", to=paste("group", seq(1,10), sep=""))
-d2 <- data.frame(from=rep(d1$to, each=10), to=paste("subgroup", seq(1,100), sep="_"))
-hierarchy <- rbind(d1, d2)
- 
-# create a vertices data.frame. One line per object of our hierarchy, giving features of nodes.
-vertices <- data.frame(name = unique(c(as.character(hierarchy$from), as.character(hierarchy$to))) ) 
-
-# Create a graph object with the igraph library
-mygraph <- graph_from_data_frame( hierarchy, vertices=vertices )
-# This is a network object, you visualize it as a network like shown in the network section!
- 
-# With igraph: 
-plot(mygraph, vertex.label="", edge.arrow.size=0, vertex.size=2)
- 
-# With ggraph:
-
-ggraph(mygraph, layout = 'dendrogram', circular = TRUE) + 
-  geom_edge_diagonal() +
-  theme_void()
-
-
-# ================
-
-
-
-
-
-
-
-
-
-
-
-
-# add pathString variable for data.tree package
-blast_results_final$pathString <- paste("18S", 
-  blast_results_final$superkingdom, 
-  blast_results_final$phylum, 
-  blast_results_final$class, 
-  blast_results_final$order, 
-  blast_results_final$family,
-  sep = "/")
-
-# blast_results_final$genus,
-# blast_results_final$species,
 
 # Part III: Get tree graph   
 # -----------------------------------------------------
+# for basics see https://www.r-graph-gallery.com/309-intro-to-hierarchical-edge-bundling.html
+# for more graphics see https://www.r-graph-gallery.com/310-custom-hierarchical-edge-bundling.html
 
-# *** Using networkD3 ***
-require("networkD3")
+# create a data frame giving the hierarchical structure of your individuals. 
+# Origin on top, then groups, then subgroups
 
-blast_results_final$superkingdom[which(is.na(blast_results_final$superkingdom))] <- "sk_na"
-blast_results_final$phylum[which(is.na(blast_results_final$phylum))] <- "ph_na"
-blast_results_final$class[which(is.na(blast_results_final$class))] <- "cl_na"
-blast_results_final$order[which(is.na(blast_results_final$order))] <- "or_na"
-blast_results_final$family[which(is.na(blast_results_final$family))] <- "fm_na"
-blast_results_final$genus[which(is.na(blast_results_final$genus))] <- "gn_na"
-blast_results_final$species[which(is.na(blast_results_final$species))] <- "sp_na"
+BlRsNdsNw <- ToDataFrameNetwork(BlRsNds, "count", "iteration_query_def", "src", "tax_id", "class")
+head(BlRsNdsNw)
+
+# Remove NA's from lebelling sstring
+BlRsNdsNw$class[which(is.na(BlRsNdsNw$class))] <- " "
+
+# create a vertices data.frame. One line per object of our hierarchy, giving features of nodes.
+#  extend this fro more plotting options
+
+length(BlRsNdsNw$from)
+length(BlRsNdsNw$to)
+
+vertices <- data.frame(name = unique(c(as.character(BlRsNdsNw$from), as.character(BlRsNdsNw$to))) ) 
 
 
-# create nodes
-useRtree <- as.Node(blast_results_final, pathDelimiter = "/")
-useRtreeList <- ToListExplicit(useRtree, unname = TRUE)
-radialNetwork(useRtreeList)  
+head(vertices)
+length(vertices$name)
 
+# Create a graph object with the igraph library
+mygraph <- graph_from_data_frame(BlRsNdsNw, vertices = vertices)
 
-# *** Using iGraph  *** 
-require("igraph")
+# igraph
+plot(mygraph, vertex.label = BlRsNdsNw$class, edge.arrow.size=0, vertex.size=2)
 
-# not working: 
-#  name NA instances uniquely for tree algorithm
-#  could likley be made prettier, but could find a better solution
+# Visualize with ggraph:
+#  see https://www.data-imaginist.com/2017/ggraph-introduction-edges/
+#  for customisation see https://www.r-graph-gallery.com/339-circular-dendrogram-with-ggraph.html
+#  vertices need more attributes
 
-# blast_results_final$superkingdom[which(is.na(blast_results_final$superkingdom))] <- paste(blast_results_final$superkingdom[which(is.na(blast_results_final$superkingdom))], seq_along(blast_results_final$superkingdom[which(is.na(blast_results_final$superkingdom))]), sep = "_" )
-# blast_results_final$phylum[which(is.na(blast_results_final$phylum))] <- paste(blast_results_final$phylum[which(is.na(blast_results_final$phylum))], seq_along(blast_results_final$phylum[which(is.na(blast_results_final$phylum))]), sep = "_" )
-# blast_results_final$class[which(is.na(blast_results_final$class))] <- paste(blast_results_final$class[which(is.na(blast_results_final$class))], seq_along(blast_results_final$class[which(is.na(blast_results_final$class))]), sep = "_" )
-# blast_results_final$order[which(is.na(blast_results_final$order))] <- paste(blast_results_final$order[which(is.na(blast_results_final$order))], seq_along(blast_results_final$order[which(is.na(blast_results_final$order))]), sep = "_" )
-# blast_results_final$family[which(is.na(blast_results_final$family))] <- paste(blast_results_final$family[which(is.na(blast_results_final$family))], seq_along(blast_results_final$family[which(is.na(blast_results_final$family))]), sep = "_" )
-# blast_results_final$genus[which(is.na(blast_results_final$genus))] <- paste(blast_results_final$genus[which(is.na(blast_results_final$genus))], seq_along(blast_results_final$genus[which(is.na(blast_results_final$genus))]), sep = "_" )
-# blast_results_final$species[which(is.na(blast_results_final$species))] <- paste(blast_results_final$species[which(is.na(blast_results_final$species))], seq_along(blast_results_final$species[which(is.na(blast_results_final$species))]), sep = "_" )
-
-# create nodes
-taxonomy <- as.Node(blast_results_final)
-
-# textual summary
-print(taxonomy, "src", limit = 500)
-
-# graphical summary
-plot(as.igraph(taxonomy, directed = TRUE, direction = "climb"))
+ggraph(mygraph, 'igraph', algorithm = 'tree', circular = TRUE) +
+  geom_edge_diagonal(aes(alpha = ..index.., label = class)) +
+  geom_node_point(aes(filter = degree(mygraph, mode = 'out') == 0), color = 'steelblue', size = 2) +
+  coord_fixed() +
+  theme_void() +
+  theme(legend.position = "none")

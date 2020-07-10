@@ -2369,11 +2369,8 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
      * running `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/165_eDNA_samples_Eukaryotes_features_tree-matched.qzv`
      * saving two `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/200706_165_eDNA_samples_Eukaryotes_features_tree-matched__feature-frequency-detail.csv`
 
-
-
-
   * **next** - 
-    * get taxonomy graph
+    * get taxonomy graph - check link in plotting script and restart with data frame
     * in main text, update summary of Unifrac values
 
 ## Todo
