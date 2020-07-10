@@ -2362,7 +2362,14 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * not finished yet
       * import to `Cytoscape` to `iGraph`: `/Users/paul/Documents/CU_combined/Zenodo/Results/200528_550_85_get_shared_taxa-deep.xlsx`
       * look at Erin's graph and iGraph manual
-      * commit 
+      * commit `c4ed3aa3887c23a74fa5ec62ee3eca3b6933f34a`
+*  **10.07.2020** - addressing revision remarks - creating a visualisation
+ * working on `/Users/paul/Documents/CU_combined/Github/200709_DI_blast_taxa_overview.R`
+   * getting feature (ASV) counts to merge with Blast results
+     * running `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/165_eDNA_samples_Eukaryotes_features_tree-matched.qzv`
+     * saving two `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/200706_165_eDNA_samples_Eukaryotes_features_tree-matched__feature-frequency-detail.csv`
+
+
 
 
   * **next** - 
