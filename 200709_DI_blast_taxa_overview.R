@@ -140,6 +140,7 @@ vertices = data.frame(
   name = unique(c(as.character(edges$from), as.character(edges$to))) , 
   value = runif(111)
 ) 
+
 # Let's add a column with the group of each name. It will be useful later to color points
 vertices$group = edges$from[ match( vertices$name, edges$to ) ]
  
