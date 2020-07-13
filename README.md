@@ -2370,6 +2370,12 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
      * saving to `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/200706_165_eDNA_samples_Eukaryotes_features_tree-matched__feature-frequency-detail.csv`
      * draft version with commit `ed9fc9e76a9dd2094e86b6cda88875d13948cda8`
      * probable should be rebuilt from data frame
+* **13.07.2020** - addressing revision remarks - creating a visualisation and further info
+  * keeping copy at `/Users/paul/Documents/CU_combined/Scratch/R/200709_DI_blast_taxa_overview.R`
+  * working on `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+  * commit
+  
+
 
   * **next** - 
     * get taxonomy graph - check link in plotting script and restart with data frame
