@@ -2373,13 +2373,17 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
 * **13.07.2020** - addressing revision remarks - creating a visualisation and further info
   * keeping copy at `/Users/paul/Documents/CU_combined/Scratch/R/200709_DI_blast_taxa_overview.R`
   * working on `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
-  * commit
+  * commit `370328a28cfed072190422bab4b80af69594e21`
+* **14.07.2020** - addressing revision remarks - creating a visualisation and further info
+  * adjusted code `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+  * saved to pertinent folders: `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/200714_12_most_common_sp.pdf`
+  * commit ``
   
 
 
-  * **next** - 
-    * get taxonomy graph - check link in plotting script and restart with data frame
-    * in main text, update summary of Unifrac values
+* **next** - 
+  * get full taxonomy plot on high level, on phylum level, coded by ecoregion
+  * in main text, update summary of Unifrac values
 
 ## Todo
 

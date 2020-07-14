@@ -57,6 +57,12 @@ BlRsSbsDfJn %>% select(superkingdom, phylum, class, order, family, genus, specie
 # subset for species plot
 Top12Spec <- BlRsSbsDfJn %>% slice_max(count, n = 12)   # %>% select(superkingdom, phylum, class, order, family, genus, species, count, src) %>% print
 
+# correct one name staring
+Top12Spec$species[which(Top12Spec$species == "Pelagostrobilidium sp. LS781")] <- "Pelagostrobilidium sp."
+
+Top12Spec$species <- paste(Top12Spec$species, "\n(", Top12Spec$class,")", sep ="")
+
+Top12Spec$species[10]
 
 # continue here with order aggregation and sorting
 
@@ -66,18 +72,22 @@ Top12Spec <- BlRsSbsDfJn %>% slice_max(count, n = 12)   # %>% select(superkingdo
 
 # 12 most common species, and ports
 
-foo <- melt(Top12Spec, id.vars = "species", measure.vars = c("count", "src"), na.rm = FALSE, factorsAsStrings = TRUE)
-
-ggplot(Top12Spec, aes(x = reorder(species, -count), y = count, fill = Top12Spec$src)) + 
+ggplot(Top12Spec, aes(x = reorder(species, +count), y = count, fill = src)) + 
     geom_bar(position="stack", stat="identity") +
-    geom_label_repel(label = Top12Spec$src) +
-    ggtitle("12 most common species") +
+    geom_label(label = Top12Spec$src, size = 1.5) +
     theme_bw() +
     theme(legend.position = "none") +
     theme(axis.text.x = element_text(angle = 45, hjust = 1),
-          axis.ticks.y = element_blank())
+          axis.text.y = element_text(hjust = 1), 
+          axis.ticks.y = element_blank()) +
+    labs( title = "Twelve most common species") + 
+    xlab("species") + 
+    ylab("sequence count") + 
+    coord_flip()
 
-#   geom_text(aes(x= reorder(species, -count), y = count+5, label=src), vjust=0)
-
+ggsave("200714_12_most_common_sp.pdf", plot = last_plot(), 
+         device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
+         scale = 1.5, width = 75, height = 100, units = c("mm"),
+         dpi = 500, limitsize = TRUE)
 
 # 12 most common orders
