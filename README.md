@@ -2379,10 +2379,13 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * saved to pertinent folders: `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/200714_12_most_common_sp.pdf`
   * commit `4490cecb2cfcc24a53760fec59e4184d08b5d7cc`
   * also created larger plot `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/200714_alll_phyla_at_all_ports.pdf`
+  * `07ccb08b1966840a7641d3470a64a06e33ea35ab`
+* **15.07.2020** - addressing revision remarks - creating a visualisation and further info
+  * in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R` summarize plotted columns to get rid of artefacts
 
 * **next** - 
-  * in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R` summarize plotted columns to get rid of artefacts
   * in main text, update summary of Unifrac values
+  * in main text revise other summaries
 
 ## Todo
 

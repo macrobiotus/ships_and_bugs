@@ -148,9 +148,13 @@ blast_results_final[(which (blast_results_final$iteration_query_def == "bb74f2d7
 # overwrite Silva taxonomy data in Phyloseq object with Blast taxonomy data
 tax_table(phsq_ob) <- tax_mat_new
 
-# Part II b: Format data for plotting
+# agglomerate on phylum level to avoid jagged barplots 
+
+# Part II c: Plotting data
 # -----------------------------------
 # Use Phyloseqs GGplot calls, otherwise melt dataframe and do yourself
+
+phsq_ob <- tax_glom(phsq_ob, taxrank = rank_names(phsq_ob)[2], NArm=FALSE, bad_empty=c(NA))
 
 phsq_ob_lng <- psmelt(phsq_ob)
 head(phsq_ob_lng)
@@ -162,14 +166,13 @@ ggplot(phsq_ob_lng, aes_string(x = "phylum", y = "Abundance", fill = "phylum")) 
   theme(legend.position = "none") +
   theme(strip.text.y = element_text(angle=0)) + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
-        axis.text.y = element_text(angle = 0, hjust = 1,  size = 5), 
+        axis.text.y = element_text(angle = 0, hjust = 1,  size = 7), 
         axis.ticks.y = element_blank()) +
   labs( title = "Phyla across all ports") + 
   xlab("phyla at all ports") + 
-  ylab("sequence counts for each port (scales variable)")
+  ylab("sequence counts for each port (y scales variable)")
 
-ggsave("200714_alll_phyla_at_all_ports.pdf", plot = last_plot(), 
+ggsave("200714_all_phyla_at_all_ports.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
          scale = 3, width = 75, height = 100, units = c("mm"),
          dpi = 500, limitsize = TRUE)
-
