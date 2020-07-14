@@ -10,11 +10,16 @@
 rm(list=ls(all=TRUE)) # clear memory
 
 library("tidyverse")  # work using tibbles
-library("ggrepel")
-library("data.tree")  # https://cran.r-project.org/web/packages/data.tree/vignettes/data.tree.html
 library("reshape2")   # long data frames for ggplot
 
-# Part I: Load Blast results and read counts
+library("ape")          # read tree file
+library("Biostrings")   # read fasta file
+library("phyloseq")     # filtering and utilities for such objects
+library("data.table")   # possibly best for large data dimension
+
+source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")
+
+# Part I a: Load Blast results and read counts
 # ------------------------------------------
 
 # Blast result
@@ -34,7 +39,7 @@ BlRsSbsDfJn <- full_join(blast_results_final, read_counts, by = "iteration_query
 
 head(BlRsSbsDfJn)
 
-# Part II: Sort data for summary purposes
+# Part I b: Sort data for summary purposes
 # ---------------------------------------
 # - by abundance
 # - possibly aggregate taxa
@@ -62,13 +67,9 @@ Top12Spec$species[which(Top12Spec$species == "Pelagostrobilidium sp. LS781")] <-
 
 Top12Spec$species <- paste(Top12Spec$species, "\n(", Top12Spec$class,")", sep ="")
 
-Top12Spec$species[10]
 
-# continue here with order aggregation and sorting
-
-
-# Part III: Format data for plotting
-# ----------------------------------
+# Part I c: Plot and save data.
+# ----------------------------
 
 # 12 most common species, and ports
 
@@ -90,4 +91,85 @@ ggsave("200714_12_most_common_sp.pdf", plot = last_plot(),
          scale = 1.5, width = 75, height = 100, units = c("mm"),
          dpi = 500, limitsize = TRUE)
 
-# 12 most common orders
+
+# Part II a: Load Qiime artifacts for full plotting
+# -------------------------------------------------
+
+# Set paths:
+sequ_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/175_eDNA_samples_Eukaryotes_features_tree-matched_qiime_artefacts/dna-sequences.fasta" 
+biom_path <- "/Users/paul/Documents/CU_combined/Zenodo/Qiime/175_eDNA_samples_Eukaryotes_features_tree-matched_qiime_artefacts/features-tax-meta.biom"
+
+# Create Phyloseq object:
+biom_table <- phyloseq::import_biom (biom_path)
+sequ_table <- Biostrings::readDNAStringSet(sequ_path)  
+  
+# Construct Object:
+phsq_ob <- merge_phyloseq(biom_table, sequ_table)
+
+
+# Part II b: Format data for plotting
+# -----------------------------------
+
+# Clean Data:
+phsq_ob <- remove_empty(phsq_ob)
+
+# set rank names to match Blast information
+colnames(tax_table(phsq_ob)) <- c("superkingdom", "phylum", "class", "order", "family",  "genus", "species")
+
+# overwrite taxonomy information with Blast data
+# ----------------------------------------------
+class(tax_table(phsq_ob))
+
+# export from Phyloseq object for merging
+tax_tibble <- as_tibble(as(tax_table(phsq_ob), "matrix"), rownames = "iteration_query_def")
+
+# get new taxonomy from blast results
+new_taxonomy <- select(blast_results_final, "iteration_query_def", "superkingdom", "phylum", "class", "order", "family",  "genus", "species")
+
+# join in new information, and correct column names
+tax_tibble_new <- left_join(tax_tibble, new_taxonomy, by = "iteration_query_def") %>%
+  select(-contains('.x')) %>%
+  rename_with(., ~ gsub("\\.y", "", .))
+
+# get a properly formatted matrix
+tax_mat_new <- as.matrix(tax_tibble_new[-1]) 
+rownames(tax_mat_new) <- tax_tibble_new$iteration_query_def
+colnames(tax_mat_new) <- names(tax_tibble_new)[-1]
+head(tax_mat_new)
+
+# Replace NA's with alternative string 
+# tax_mat_new[is.na(tax_mat_new)] <- "Undetermined"
+
+# check old and new data - seems to match ok
+tax_mat_new[(which (rownames(tax_mat_new) == "bb74f2d7c80cfd5b32c00f805caa44fe")), ]
+blast_results_final[(which (blast_results_final$iteration_query_def == "bb74f2d7c80cfd5b32c00f805caa44fe")), ] %>%
+  select ("superkingdom", "phylum", "class", "order", "family",  "genus", "species")
+
+# overwrite Silva taxonomy data in Phyloseq object with Blast taxonomy data
+tax_table(phsq_ob) <- tax_mat_new
+
+# Part II b: Format data for plotting
+# -----------------------------------
+# Use Phyloseqs GGplot calls, otherwise melt dataframe and do yourself
+
+phsq_ob_lng <- psmelt(phsq_ob)
+head(phsq_ob_lng)
+
+ggplot(phsq_ob_lng, aes_string(x = "phylum", y = "Abundance", fill = "phylum")) +
+  geom_bar(stat = "identity", position = "stack", colour = NA, size=0) +
+  facet_grid(Facility ~ ., shrink = TRUE, scales = "free_y") +
+  theme_bw() +
+  theme(legend.position = "none") +
+  theme(strip.text.y = element_text(angle=0)) + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+        axis.text.y = element_text(angle = 0, hjust = 1,  size = 5), 
+        axis.ticks.y = element_blank()) +
+  labs( title = "Phyla across all ports") + 
+  xlab("phyla at all ports") + 
+  ylab("sequence counts for each port (scales variable)")
+
+ggsave("200714_alll_phyla_at_all_ports.pdf", plot = last_plot(), 
+         device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
+         scale = 3, width = 75, height = 100, units = c("mm"),
+         dpi = 500, limitsize = TRUE)
+
