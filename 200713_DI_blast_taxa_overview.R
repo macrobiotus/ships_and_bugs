@@ -44,6 +44,11 @@ head(BlRsSbsDfJn)
 # - by abundance
 # - possibly aggregate taxa
 
+# remove Pearl Harbour samples - suing hash keys - hash keys obtained below - not done
+# [not done yet]
+
+BlRsSbsDfJn <- BlRsSbsDfJn 
+
 # remove 3 Bacterial ASVs - **report those: mismatch between NCBI and SILVA taxonomy assignment
 BlRsSbsDfJn <- BlRsSbsDfJn %>% filter(superkingdom == "Eukaryota")
 
@@ -148,12 +153,15 @@ blast_results_final[(which (blast_results_final$iteration_query_def == "bb74f2d7
 # overwrite Silva taxonomy data in Phyloseq object with Blast taxonomy data
 tax_table(phsq_ob) <- tax_mat_new
 
-# agglomerate on phylum level to avoid jagged barplots 
+# get list of PH phylotypes for above - remove PH samples and phylotypes
+# [not done yet]
+
 
 # Part II c: Plotting data
 # -----------------------------------
 # Use Phyloseqs GGplot calls, otherwise melt dataframe and do yourself
 
+# agglomerate on phylum level to avoid jagged barplots 
 phsq_ob <- tax_glom(phsq_ob, taxrank = rank_names(phsq_ob)[2], NArm=FALSE, bad_empty=c(NA))
 
 phsq_ob_lng <- psmelt(phsq_ob)

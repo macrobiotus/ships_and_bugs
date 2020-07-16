@@ -2382,6 +2382,11 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * `07ccb08b1966840a7641d3470a64a06e33ea35ab`
 * **15.07.2020** - addressing revision remarks - creating a visualisation and further info
   * in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R` summarize plotted columns to get rid of artefacts
+* **16.07.2020** - addressing revision remarks - revising visualisations
+  * need to remove PH samples from plots and counts
+  * started
+
+
 
 * **next** - 
   * in main text, update summary of Unifrac values
