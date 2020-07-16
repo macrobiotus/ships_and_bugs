@@ -45,9 +45,7 @@ head(BlRsSbsDfJn)
 # - possibly aggregate taxa
 
 # remove Pearl Harbour samples - suing hash keys - hash keys obtained below - not done
-# [not done yet]
-
-BlRsSbsDfJn <- BlRsSbsDfJn 
+# [not done yet - and not necessary - no phylotypes exclusively at PH, see below]
 
 # remove 3 Bacterial ASVs - **report those: mismatch between NCBI and SILVA taxonomy assignment
 BlRsSbsDfJn <- BlRsSbsDfJn %>% filter(superkingdom == "Eukaryota")
@@ -67,9 +65,19 @@ BlRsSbsDfJn %>% select(superkingdom, phylum, class, order, family, genus, specie
 # subset for species plot
 Top12Spec <- BlRsSbsDfJn %>% slice_max(count, n = 12)   # %>% select(superkingdom, phylum, class, order, family, genus, species, count, src) %>% print
 
+
+# getting indices to manually chnage factors - careful
+try(which(Top12Spec$"iteration_query_def" %in%  ph_asv$"iteration_query_def"))
+
+# manually changen factors - all one port less, as PH isn't conted
+Top12Spec$src[1] <- "2 Port(s)" # from 3 Ports
+Top12Spec$src[9] <- "3 Port(s)" # was 4 ports
+Top12Spec$src[12] <- "5 Port(s)" # was 6 ports
+
 # correct one name staring
 Top12Spec$species[which(Top12Spec$species == "Pelagostrobilidium sp. LS781")] <- "Pelagostrobilidium sp."
 
+# introduce line breaks
 Top12Spec$species <- paste(Top12Spec$species, "\n(", Top12Spec$class,")", sep ="")
 
 
@@ -154,7 +162,14 @@ blast_results_final[(which (blast_results_final$iteration_query_def == "bb74f2d7
 tax_table(phsq_ob) <- tax_mat_new
 
 # get list of PH phylotypes for above - remove PH samples and phylotypes
-# [not done yet]
+asv_table <- as_tibble(as(otu_table(phsq_ob), "matrix"), rownames = "iteration_query_def")
+
+# no phylotypes exclusively at PH - filtering necessary to port counts
+ph_asv <- asv_table %>% filter(., select(., contains("PH")) > 0 ) %>% select("iteration_query_def")
+
+# no phylotypes exclusively at PH - no filtering necessary to modify counts
+
+asv_table %>% filter(., select(., contains("PH")) > 0 ) %>% filter(., select(., -contains("PH")) == 0) 
 
 
 # Part II c: Plotting data
@@ -165,7 +180,8 @@ tax_table(phsq_ob) <- tax_mat_new
 phsq_ob <- tax_glom(phsq_ob, taxrank = rank_names(phsq_ob)[2], NArm=FALSE, bad_empty=c(NA))
 
 phsq_ob_lng <- psmelt(phsq_ob)
-head(phsq_ob_lng)
+phsq_ob_lng <- phsq_ob_lng %>% arrange(Sample, desc(Abundance)) %>% filter(Facility != c("PH"))
+
 
 ggplot(phsq_ob_lng, aes_string(x = "phylum", y = "Abundance", fill = "phylum")) +
   geom_bar(stat = "identity", position = "stack", colour = NA, size=0) +

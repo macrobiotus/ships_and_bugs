@@ -2384,8 +2384,8 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R` summarize plotted columns to get rid of artefacts
 * **16.07.2020** - addressing revision remarks - revising visualisations
   * need to remove PH samples from plots and counts
-  * started
-
+  * started `c7e39228112390629257724a1d8691f3b4dc6cac`
+  * successfully removed `PH` from display items and port counts in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
 
 
 * **next** - 
