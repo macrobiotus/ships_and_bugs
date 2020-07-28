@@ -2386,11 +2386,24 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * need to remove PH samples from plots and counts
   * started `c7e39228112390629257724a1d8691f3b4dc6cac`
   * successfully removed `PH` from display items and port counts in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+  * `bc0829d12997a21080355078941693836f2f122c`
+* **28.07.2020** - woking on plotting script 
+  * working on `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+  * check todo for ongoing and more work
 
-
-* **next** - 
-  * in main text, update summary of Unifrac values
-  * in main text revise other summaries
+* **next** 
+  * Blast and summarize negative and positive control data
+    * need to be working with - **pending**
+      * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_features.csv`
+      * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_features.tsv`
+      * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_seq.qza`
+    * export sequences - **pending**
+    * Blast sequences - **pending**
+  * build evaluation script - **pending** 
+  * in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+    * ASV summary counts need to be summed up across all samples. **done**
+    * run from start - **pending**
+    * continue at `# below: unfinished new code 28-7-2020` - **pending**
 
 ## Todo
 

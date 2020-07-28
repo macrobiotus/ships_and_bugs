@@ -47,7 +47,7 @@ head(BlRsSbsDfJn)
 # remove Pearl Harbour samples - suing hash keys - hash keys obtained below - not done
 # [not done yet - and not necessary - no phylotypes exclusively at PH, see below]
 
-# remove 3 Bacterial ASVs - **report those: mismatch between NCBI and SILVA taxonomy assignment
+# remove 3 Bacterial ASVs - **report those: mismatch between NCBI and SILVA taxonomy assignment**
 BlRsSbsDfJn <- BlRsSbsDfJn %>% filter(superkingdom == "Eukaryota")
 
 # sort by read count
@@ -59,14 +59,30 @@ BlRsSbsDfJn %>% distinct(order) %>% na.omit %>%  nrow # 418 distinct orders
 BlRsSbsDfJn %>% distinct(class) %>% na.omit %>% nrow # 134 distinct classes
 BlRsSbsDfJn %>% distinct(phylum) %>% na.omit %>% nrow # 40 distinct phyla
 
-# inspect data subset - taxonomy columns of 12 most abundant species
-BlRsSbsDfJn %>% select(superkingdom, phylum, class, order, family, genus, species, count, src) %>% print (n = 12)
+# below: new code 28-7-2020
+
+# get coverages per ASV - empty ASVs not yet filtered out!
+coverage_per_asv <- aggregate(BlRsSbsDfJn$count, by = list(iteration_query_def = BlRsSbsDfJn$iteration_query_def), FUN = sum)
+coverage_per_asv <- coverage_per_asv %>% arrange(desc(x))
+
+# add taxonomy to coverage list
+taxon_strings <- distinct(BlRsSbsDfJn[c("iteration_query_def", "superkingdom", "phylum", "class", "order", "family", "genus", "species")])
+coverage_per_asv <- left_join(coverage_per_asv, taxon_strings, by = c("iteration_query_def" = "iteration_query_def"))
+
+# inspect 
+head(coverage_per_asv, 12) # for now just this, summary below
+summary(coverage_per_asv)
+
+coverage_per_asv %>% filter(x != 0) %>% select(superkingdom, phylum, class, order, family, genus, species) %>%
+  destinct() %>% arrange(superkingdom, phylum, class, order, family, genus, species)
+
+
+# above: new code 28-7-2020
 
 # subset for species plot
 Top12Spec <- BlRsSbsDfJn %>% slice_max(count, n = 12)   # %>% select(superkingdom, phylum, class, order, family, genus, species, count, src) %>% print
 
-
-# getting indices to manually chnage factors - careful
+# getting indices to manually change factors - careful
 try(which(Top12Spec$"iteration_query_def" %in%  ph_asv$"iteration_query_def"))
 
 # manually changen factors - all one port less, as PH isn't conted
@@ -174,16 +190,18 @@ asv_table %>% filter(., select(., contains("PH")) > 0 ) %>% filter(., select(., 
 
 # Part II c: Plotting data
 # -----------------------------------
-# Use Phyloseqs GGplot calls, otherwise melt dataframe and do yourself
+# Melt dataframe and do yourself
+# ( in plot call abundances are aggregated in-call to avoid jagged edges)
+
 
 # agglomerate on phylum level to avoid jagged barplots 
 phsq_ob <- tax_glom(phsq_ob, taxrank = rank_names(phsq_ob)[2], NArm=FALSE, bad_empty=c(NA))
 
+# remove PH samples
 phsq_ob_lng <- psmelt(phsq_ob)
 phsq_ob_lng <- phsq_ob_lng %>% arrange(Sample, desc(Abundance)) %>% filter(Facility != c("PH"))
 
-
-ggplot(phsq_ob_lng, aes_string(x = "phylum", y = "Abundance", fill = "phylum")) +
+ggplot(phsq_ob_lng, aes_string(x = "phylum", y = ave(phsq_ob_lng$Abundance, phsq_ob_lng$phylum, FUN=sum), fill = "phylum")) +
   geom_bar(stat = "identity", position = "stack", colour = NA, size=0) +
   facet_grid(Facility ~ ., shrink = TRUE, scales = "free_y") +
   theme_bw() +
