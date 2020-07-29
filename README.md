@@ -2393,6 +2393,8 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * finished `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
   * updated manuscript and files
   * check todo for ongoing and more work
+  * commit `bf342271e47458be54f8b0df9bd0603792db6b69`
+  * changing plotting script - reverse to non-taxon agglomeration in last plot
   * commit ``
 
 * **next** 

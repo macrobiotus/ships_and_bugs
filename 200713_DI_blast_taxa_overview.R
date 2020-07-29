@@ -200,10 +200,11 @@ phsq_ob <- tax_glom(phsq_ob, taxrank = rank_names(phsq_ob)[2], NArm=FALSE, bad_e
 # remove PH samples
 phsq_ob_lng <- psmelt(phsq_ob)
 phsq_ob_lng <- phsq_ob_lng %>% arrange(Sample, desc(Abundance)) %>% filter(Facility != c("PH"))
-
-ggplot(phsq_ob_lng, aes_string(x = "phylum", y = ave(phsq_ob_lng$Abundance, phsq_ob_lng$phylum, FUN=sum), fill = "phylum")) +
+ 
+# ggplot(phsq_ob_lng, aes_string(x = "phylum", y = ave(phsq_ob_lng$Abundance, phsq_ob_lng$phylum, FUN=sum), fill = "phylum")) +
+ggplot(phsq_ob_lng, aes_string(x = "phylum", y = "Abundance", fill = "phylum")) +
   geom_bar(stat = "identity", position = "stack", colour = NA, size=0) +
-  facet_grid(Facility ~ ., shrink = TRUE, scales = "fixed") +
+  facet_grid(Facility ~ ., shrink = TRUE, scales = "free_y") +
   theme_bw() +
   theme(legend.position = "none") +
   theme(strip.text.y = element_text(angle=0)) + 
