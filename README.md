@@ -2389,7 +2389,11 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * `bc0829d12997a21080355078941693836f2f122c`
 * **28.07.2020** - woking on plotting script 
   * working on `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+* **29.07.2020** - woking on plotting script 
+  * finished `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+  * updated manuscript and files
   * check todo for ongoing and more work
+  * commit ``
 
 * **next** 
   * Blast and summarize negative and positive control data
@@ -2400,10 +2404,6 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * export sequences - **pending**
     * Blast sequences - **pending**
   * build evaluation script - **pending** 
-  * in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
-    * ASV summary counts need to be summed up across all samples. **done**
-    * run from start - **pending**
-    * continue at `# below: unfinished new code 28-7-2020` - **pending**
 
 ## Todo
 

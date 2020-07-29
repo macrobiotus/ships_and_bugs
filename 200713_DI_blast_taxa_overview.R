@@ -59,8 +59,6 @@ BlRsSbsDfJn %>% distinct(order) %>% na.omit %>%  nrow # 418 distinct orders
 BlRsSbsDfJn %>% distinct(class) %>% na.omit %>% nrow # 134 distinct classes
 BlRsSbsDfJn %>% distinct(phylum) %>% na.omit %>% nrow # 40 distinct phyla
 
-# below: new code 28-7-2020
-
 # get coverages per ASV - empty ASVs not yet filtered out!
 coverage_per_asv <- aggregate(BlRsSbsDfJn$count, by = list(iteration_query_def = BlRsSbsDfJn$iteration_query_def), FUN = sum)
 coverage_per_asv <- coverage_per_asv %>% arrange(desc(x))
@@ -73,16 +71,21 @@ coverage_per_asv <- left_join(coverage_per_asv, taxon_strings, by = c("iteration
 head(coverage_per_asv, 12) # for now just this, summary below
 summary(coverage_per_asv)
 
+# full unique species list, without 0 abundances
 coverage_per_asv %>% filter(x != 0) %>% select(superkingdom, phylum, class, order, family, genus, species) %>%
-  destinct() %>% arrange(superkingdom, phylum, class, order, family, genus, species)
-
-
-# above: new code 28-7-2020
+  distinct() %>% arrange(superkingdom, phylum, class, order, family) # 
 
 # subset for species plot
-Top12Spec <- BlRsSbsDfJn %>% slice_max(count, n = 12)   # %>% select(superkingdom, phylum, class, order, family, genus, species, count, src) %>% print
+# Top12Spec <- BlRsSbsDfJn %>% slice_max(count, n = 12)   # %>% select(superkingdom, phylum, class, order, family, genus, species, count, src) %>% print
 
-# getting indices to manually change factors - careful
+# below: unfinished new code 28-7-2020
+
+Top12Spec <- semi_join(BlRsSbsDfJn, head(coverage_per_asv, 12), by = c("iteration_query_def"))
+
+# above: unfinished new code 28-7-2020
+
+
+# getting indices to manually change factors - careful run part IIa below first
 try(which(Top12Spec$"iteration_query_def" %in%  ph_asv$"iteration_query_def"))
 
 # manually changen factors - all one port less, as PH isn't conted
@@ -115,11 +118,10 @@ ggplot(Top12Spec, aes(x = reorder(species, +count), y = count, fill = src)) +
     ylab("sequence count") + 
     coord_flip()
 
-ggsave("200714_12_most_common_sp.pdf", plot = last_plot(), 
+ggsave("200729_12_most_common_sp.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
          scale = 1.5, width = 75, height = 100, units = c("mm"),
          dpi = 500, limitsize = TRUE)
-
 
 # Part II a: Load Qiime artifacts for full plotting
 # -------------------------------------------------
@@ -180,13 +182,11 @@ tax_table(phsq_ob) <- tax_mat_new
 # get list of PH phylotypes for above - remove PH samples and phylotypes
 asv_table <- as_tibble(as(otu_table(phsq_ob), "matrix"), rownames = "iteration_query_def")
 
-# no phylotypes exclusively at PH - filtering necessary to port counts
+# some phylotypes are also founnd at exclusively at PH
 ph_asv <- asv_table %>% filter(., select(., contains("PH")) > 0 ) %>% select("iteration_query_def")
 
 # no phylotypes exclusively at PH - no filtering necessary to modify counts
-
 asv_table %>% filter(., select(., contains("PH")) > 0 ) %>% filter(., select(., -contains("PH")) == 0) 
-
 
 # Part II c: Plotting data
 # -----------------------------------
@@ -203,7 +203,7 @@ phsq_ob_lng <- phsq_ob_lng %>% arrange(Sample, desc(Abundance)) %>% filter(Facil
 
 ggplot(phsq_ob_lng, aes_string(x = "phylum", y = ave(phsq_ob_lng$Abundance, phsq_ob_lng$phylum, FUN=sum), fill = "phylum")) +
   geom_bar(stat = "identity", position = "stack", colour = NA, size=0) +
-  facet_grid(Facility ~ ., shrink = TRUE, scales = "free_y") +
+  facet_grid(Facility ~ ., shrink = TRUE, scales = "fixed") +
   theme_bw() +
   theme(legend.position = "none") +
   theme(strip.text.y = element_text(angle=0)) + 
@@ -212,9 +212,9 @@ ggplot(phsq_ob_lng, aes_string(x = "phylum", y = ave(phsq_ob_lng$Abundance, phsq
         axis.ticks.y = element_blank()) +
   labs( title = "Phyla across all ports") + 
   xlab("phyla at all ports") + 
-  ylab("sequence counts for each port (y scales variable)")
+  ylab("sequence counts for each port (y scales fixed)")
 
-ggsave("200714_all_phyla_at_all_ports.pdf", plot = last_plot(), 
+ggsave("200729_all_phyla_at_all_ports.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
          scale = 3, width = 75, height = 100, units = c("mm"),
          dpi = 500, limitsize = TRUE)
