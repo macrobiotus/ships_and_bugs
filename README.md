@@ -2387,15 +2387,22 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * started `c7e39228112390629257724a1d8691f3b4dc6cac`
   * successfully removed `PH` from display items and port counts in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
   * `bc0829d12997a21080355078941693836f2f122c`
-* **28.07.2020** - woking on plotting script 
+* **28.07.2020** - working on plotting script 
   * working on `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
-* **29.07.2020** - woking on plotting script 
+* **29.07.2020** - working on plotting script 
   * finished `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
   * updated manuscript and files
   * check todo for ongoing and more work
-  * commit `bf342271e47458be54f8b0df9bd0603792db6b69`
+    * commit `bf342271e47458be54f8b0df9bd0603792db6b69`
   * changing plotting script - reverse to non-taxon agglomeration in last plot
-  * commit ``
+    * commit ` 64dc8ba8781971e48dfd07000e53c1b9bf6c9892`
+* **30.07.2020** - working re-Blasting controls
+  * exporting control data - **ok**
+    * adjusted and ran `/Users/paul/Documents/CU_combined/Github/090-2_export_all_qiime_artifacts_controls.sh`
+    * results available in `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090-218S_controls_tab_qiime_artefacts_control`
+  * re-Blasting control data
+    * adjusting and running `/Users/paul/Documents/CU_combined/Github/090-3_control_blast.sh`
+
 
 * **next** 
   * Blast and summarize negative and positive control data
@@ -2403,9 +2410,12 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_features.csv`
       * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_features.tsv`
       * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_seq.qza`
-    * export sequences - **pending**
-    * Blast sequences - **pending**
-  * build evaluation script - **pending** 
+      * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_tab.qza`
+      * files in `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090-218S_controls_tab_qiime_artefacts_control`
+    * re-annotate taxonomy - **pending**
+      * adjust `/Users/paul/Documents/CU_combined/Github/090-4_process-blast_results_controls.R`
+    * build evaluation script - **pending** 
+      * adjust `/Users/paul/Documents/CU_combined/Github/090-5_DI_blast_control_overview.R`
 
 ## Todo
 
