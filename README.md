@@ -2408,7 +2408,11 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * for blast script creating `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090-218S_controls_tab_qiime_artefacts_control/dna-sequences.fasta.gz`
   * using negative GI list `/Users/paul/Documents/CU_combined/Zenodo/Blast/190718_gi_list_environmental.txt`
 * **03.08.2020** - re-Blasting controls - now done on cluster
-  * commit before upload
+  * commit before upload `81810a590c8cbff356aceacf45dbbc3f3827be0`
+  * files hae arrived on cluster
+  * starting Blast on `.gz` file
+  * done - zippimg didn't work (path needed adjustment - done now)
+  * pushing to cluter home
 
 
 * **next** 

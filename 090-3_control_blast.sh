@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 30.07.2020 - Paul Czechowski - paul.czechowski@gmail.com 
+# 03.08.2020 - Paul Czechowski - paul.czechowski@gmail.com 
 # ========================================================
 # Blast fasta file against locally installed copy of NCBI nt database. See
 #   https://stackoverflow.com/questions/45014279/running-locally-blastn-against-nt-db-thru-python-script.
@@ -62,7 +62,7 @@ unset IFS
 
 # loop over array of fasta files, create result file, call blast
 # ----------------------------------------------------------------
-for fasta in "${inpth_seq[@]}";do
+for fasta in "${inpth_seq[@]}"; do
   
   # create target file  names
   filename=$(dirname "$fasta")
@@ -83,7 +83,7 @@ for fasta in "${inpth_seq[@]}";do
     #   Needed by parser "http://sing-group.org/blasterjs/" is '-outfmt "0"' or '-outfmt "5"'.
     # Diagnostic message
     printf "\nOn $(date) querying \"$fasta\" against \"$dbpath\"...\n" && \
-    
+      gzip -dc "$fasta" | \
       blastn \
         -db "$dbpath" \
         -task blastn \
@@ -98,7 +98,7 @@ for fasta in "${inpth_seq[@]}";do
       { printf "Blastn failed at $(date +"%T") on \"$fasta\". \n" ; exit 1; }
     printf "\nOn $(date) Compressing \"$trpth//Zenodo/Qiime/090-2_18S_controls_tab_qiime_artefacts_control/$tgt_file\".\n"
     
-    gzip -9 "$trpth"/Zenodo/Blast/"$tgt_file"
+    gzip -9 "$trpth"/Zenodo/Qiime/090-218S_controls_tab_qiime_artefacts_control/"$tgt_file"
   
   fi
 
