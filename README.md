@@ -2396,12 +2396,19 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * commit `bf342271e47458be54f8b0df9bd0603792db6b69`
   * changing plotting script - reverse to non-taxon agglomeration in last plot
     * commit ` 64dc8ba8781971e48dfd07000e53c1b9bf6c9892`
-* **30.07.2020** - working re-Blasting controls
+* **30.07.2020** - working on re-Blasting controls
   * exporting control data - **ok**
     * adjusted and ran `/Users/paul/Documents/CU_combined/Github/090-2_export_all_qiime_artifacts_controls.sh`
     * results available in `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090-218S_controls_tab_qiime_artefacts_control`
   * re-Blasting control data
     * adjusting and running `/Users/paul/Documents/CU_combined/Github/090-3_control_blast.sh`
+    * `753e1611cdbffed4bf6695be83743979afa8a71c`
+* **30.07.2020** - working on re-Blasting controls
+  * adjusting `/Users/paul/Documents/CU_combined/Github/090-3_control_blast.sh`
+  * for blast script creating `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090-218S_controls_tab_qiime_artefacts_control/dna-sequences.fasta.gz`
+  * using negative GI list `/Users/paul/Documents/CU_combined/Zenodo/Blast/190718_gi_list_environmental.txt`
+* **03.08.2020** - re-Blasting controls - now done on cluster
+  * commit before upload
 
 
 * **next** 
@@ -2417,42 +2424,20 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * build evaluation script - **pending** 
       * adjust `/Users/paul/Documents/CU_combined/Github/090-5_DI_blast_control_overview.R`
 
-## Todo
+## Todo (al below possibly outdated, last refreshed 30-Jul-2020, but still outdated)
 
-### More important
-  * re-implement `/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R`
-  * before re-run safe repository for spin-off - ecoregion paper
-  * re-run for factors:
-     * include Mandanas results for all voyage esrs
-     * include 
-       * several modelling approaches
-       * many ports - high coverage
-       * clustered - unclustered
-       * follow word document with outline
-  * debug `rf_test` script with input data file in scratch folder - that file must be somehow differently formated then later version of distance matrices
-  * re run modelling and associated scripts to *resolve Singapore dichotomy* and to *recalculate UNIFRAC distances with single locations*
-    * deferred running `/Users/paul/Documents/CU_combined/Github/160_alpha_rarefaction_curves_phylogenetic.sh` - *pending*
-    * check summaries created by `/Users/paul/Documents/CU_combined/Github/165_summarize_data_phylogenetic.sh`  - *pending*
-    * importing tree and alignment files into Geneious (check for import date in Geneious)   - *pending*
-    * check modeling and re-run script
-    * re-run modelling with and without Pearl Harbour
+#### Less important 
+  * safe repository for spin-off - ecoregion paper
   * build display items in `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190821_main_results_calculations.R`
     * Voyages summary per year - **add bioregions**
-    * taxon plots - **continue parser, update phyloseq object, plot** (correct grouping of Blast variables)
   * email Costello for a GIS layer
   * `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
     * possibly re-run modeling scripts and output full route tables for `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_main_results_calculations.R`
     * split modeling functions from `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
     * possible re-write more concise R pipeline
+    * re-implement `/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R`
+  * remiplemnt modeeling using machine learning
   * revise `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_main_results_calculations.R`
-  * formalize implementation of `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
-    * while doing so take care that matrix conflation is done using averages.
-  * adjust display items (Procrustes and Mantel results)
-  * adjust text (shallow depth sample inclusion from table summary)
-  * check all script marked yellow for required corrections
-  
-  
-#### Less important 
   * accommodate randomized matrices
   * run and render `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R` - manual port lookup necessary
   * extend `/Users/paul/Documents/CU_combined/Github/205_compare_matrices.sh` - include more diversity metrics

@@ -51,7 +51,7 @@ while IFS=  read -r -d $'\0'; do
 # done < <(find "$trpth/Zenodo/Qiime" -name '105_18S_all_samples_subsampled_seq_clustered90_Vsearch_Metazoans_taxonomy_assignment_50.fasta.gz' -print0)
 
 # general query - comment in or out
-done < <(find "$trpth/Zenodo/Qiime/090-218S_controls_tab_qiime_artefacts_control" -type f \( -name "*.fasta" \) -print0)
+done < <(find "$trpth/Zenodo/Qiime/090-218S_controls_tab_qiime_artefacts_control" -type f \( -name "*.fasta.gz" \) -print0)
 
 # Sort array 
 IFS=$'\n' inpth_seq=($(sort <<<"${inpth_seq_unsorted[*]}"))
@@ -67,7 +67,7 @@ for fasta in "${inpth_seq[@]}";do
   # create target file  names
   filename=$(dirname "$fasta")
   src_dir=$(basename "$fasta")
-  tmp_file="090-3${src_dir:3}"
+  tmp_file="090-3_${src_dir:3}"
   # old call using complete data:
   # `tgt_file="${tmp_file%%.*}_blast_result.txt"`
   # for adjusted blast call 18.07.2019 using
@@ -84,7 +84,6 @@ for fasta in "${inpth_seq[@]}";do
     # Diagnostic message
     printf "\nOn $(date) querying \"$fasta\" against \"$dbpath\"...\n" && \
     
-    
       blastn \
         -db "$dbpath" \
         -task blastn \
@@ -92,12 +91,12 @@ for fasta in "${inpth_seq[@]}";do
         -max_hsps 5 \
         -outfmt 5 \
         -max_target_seqs 5 \
-        -out "$trpth"/Zenodo/Blast/"$tgt_file" \
+        -out "$trpth"/Zenodo/Qiime/090-218S_controls_tab_qiime_artefacts_control/"$tgt_file" \
         -num_threads "$cores" \
         -negative_gilist "$trpth"/Zenodo/Blast/190718_gi_list_environmental.txt && \
       printf "...on $(date) Blast finished writing to \"$trpth/Zenodo/Qiime/090-218S_controls_tab_qiime_artefacts_control/$tgt_file\".\n" || \
       { printf "Blastn failed at $(date +"%T") on \"$fasta\". \n" ; exit 1; }
-    printf "\nOn $(date) Compressing \"$trpth//Zenodo/Qiime/090-218S_controls_tab_qiime_artefacts_control/$tgt_file\".\n"
+    printf "\nOn $(date) Compressing \"$trpth//Zenodo/Qiime/090-2_18S_controls_tab_qiime_artefacts_control/$tgt_file\".\n"
     
     gzip -9 "$trpth"/Zenodo/Blast/"$tgt_file"
   
