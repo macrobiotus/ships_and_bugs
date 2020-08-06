@@ -2397,35 +2397,40 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * changing plotting script - reverse to non-taxon agglomeration in last plot
     * commit ` 64dc8ba8781971e48dfd07000e53c1b9bf6c9892`
 * **30.07.2020** - working on re-Blasting controls
+  * need to be working with - **pending**
+      * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_features.csv`
+      * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_features.tsv`
+      * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_seq.qza`
+      * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_tab.qza`
+      * files in `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090-218S_controls_tab_qiime_artefacts_control`
   * exporting control data - **ok**
     * adjusted and ran `/Users/paul/Documents/CU_combined/Github/090-2_export_all_qiime_artifacts_controls.sh`
     * results available in `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090-218S_controls_tab_qiime_artefacts_control`
   * re-Blasting control data
     * adjusting and running `/Users/paul/Documents/CU_combined/Github/090-3_control_blast.sh`
     * `753e1611cdbffed4bf6695be83743979afa8a71c`
-* **30.07.2020** - working on re-Blasting controls
+* **31.07.2020** - working on re-Blasting controls
   * adjusting `/Users/paul/Documents/CU_combined/Github/090-3_control_blast.sh`
   * for blast script creating `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090-218S_controls_tab_qiime_artefacts_control/dna-sequences.fasta.gz`
-  * using negative GI list `/Users/paul/Documents/CU_combined/Zenodo/Blast/190718_gi_list_environmental.txt`
+  * using unpacked negative GI list `/Users/paul/Documents/CU_combined/Zenodo/Blast/190718_gi_list_environmental.txt`
 * **03.08.2020** - re-Blasting controls - now done on cluster
   * commit before upload `81810a590c8cbff356aceacf45dbbc3f3827be0`
   * files hae arrived on cluster
   * starting Blast on `.gz` file
   * done - zippimg didn't work (path needed adjustment - done now)
   * pushing to cluter home
+* **04.08.2020** - re-Blasting controls - now done on cluster
+  * control Blast results are stored at `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090-218S_controls_tab_qiime_artefacts_control/090-3_-sequences_blast_result_no_env.txt`
+  * reading in control Blast results in script `/Users/paul/Documents/CU_combined/Github/090-4_process-blast_results_controls.R`
+    * continue in line `43` -  **ok**
+* **06.08.2020** - annotating Blast results
+  * finished script `/Users/paul/Documents/CU_combined/Github/090-4_process-blast_results_controls.R` - **ok**
+  * starting script `/Users/paul/Documents/CU_combined/Github/090-5_DI_blast_control_overview.R`
+    * continue in line 189 - **pending**
 
 
 * **next** 
-  * Blast and summarize negative and positive control data
-    * need to be working with - **pending**
-      * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_features.csv`
-      * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_features.tsv`
-      * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_seq.qza`
-      * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_tab.qza`
-      * files in `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090-218S_controls_tab_qiime_artefacts_control`
-    * re-annotate taxonomy - **pending**
-      * adjust `/Users/paul/Documents/CU_combined/Github/090-4_process-blast_results_controls.R`
-    * build evaluation script - **pending** 
+  * Blast and summarize negative and positive control data - **pending**
       * adjust `/Users/paul/Documents/CU_combined/Github/090-5_DI_blast_control_overview.R`
 
 ## Todo (al below possibly outdated, last refreshed 30-Jul-2020, but still outdated)
