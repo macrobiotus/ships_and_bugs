@@ -111,7 +111,6 @@ sequ_table <- Biostrings::readDNAStringSet(sequ_path)
 # Construct Object:
 phsq_ob <- merge_phyloseq(biom_table, sequ_table)
 
-
 # Part II b: Format data for plotting
 # -----------------------------------
 
@@ -151,6 +150,9 @@ tax_table(phsq_ob) <- tax_mat_new
 # get list of PH phylotypes for above - remove PH samples and phylotypes
 asv_table <- as_tibble(as(otu_table(phsq_ob), "matrix"), rownames = "iteration_query_def")
 
+# create a copy for later
+phsq_ob_cp <- phsq_ob
+
 
 # Part II c: Plotting data
 # -----------------------------------
@@ -186,3 +188,41 @@ ggsave("200806_all_phyla_at_all_working_locations_in_control.pdf", plot = last_p
 
 # Part III: Isolate and check controls further 
 # ---------------------------------------------
+# work with: 
+
+
+
+# plot controls by control type
+# ------------------------------
+
+phsq_ob_cp
+phsq_ob_cp_lng <- psmelt(phsq_ob_cp)
+
+unique(phsq_ob_cp_lng$Type)
+
+phsq_ob_cp_lng$Type[which(phsq_ob_cp_lng$Type %in% "ablk")] <- "PCR blank"
+phsq_ob_cp_lng$Type[which(phsq_ob_cp_lng$Type %in% "bblk")] <- "Cooler blank"
+phsq_ob_cp_lng$Type[which(phsq_ob_cp_lng$Type %in% "cblk")] <- "Filter blank"
+phsq_ob_cp_lng$Type[which(phsq_ob_cp_lng$Type %in% "xblk")] <- "Extraction blank"
+phsq_ob_cp_lng$Type[which(phsq_ob_cp_lng$Type %in% "moc")] <- "Mock community"
+
+ggplot(phsq_ob_cp_lng, aes_string(x = "phylum", y = "Abundance", fill = "phylum")) +
+  geom_bar(stat = "identity", position = "stack", colour = NA, size=0) +
+  facet_grid(Type ~ ., shrink = TRUE, scales = "free_y") +
+  theme_bw() +
+  theme(legend.position = "none") +
+  theme(strip.text.y = element_text(angle=0)) + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+        axis.text.y = element_text(angle = 0, hjust = 1,  size = 7), 
+        axis.ticks.y = element_blank()) +
+  labs( title = "Phyla in positive and negative controls") + 
+  xlab("phyla in controld types") + 
+  ylab("sequence counts for each work location (variable y scales)")
+  
+ggsave("200810_all_phyla_in_controls.pdf", plot = last_plot(), 
+         device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
+         scale = 3, width = 75, height = 100, units = c("mm"),
+         dpi = 500, limitsize = TRUE)
+
+# Inspect control types further - PCR blank and Mock community
+# ------------------------------------------------------------

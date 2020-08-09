@@ -2426,8 +2426,12 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
 * **06.08.2020** - annotating Blast results
   * finished script `/Users/paul/Documents/CU_combined/Github/090-4_process-blast_results_controls.R` - **ok**
   * starting script `/Users/paul/Documents/CU_combined/Github/090-5_DI_blast_control_overview.R`
-    * continue in line 189 - **pending**
-
+* **07.08.2020** - annotating Blast results
+  * after re-running part II from line `100` - continue working with `phsq_ob_cp` - **ok**
+* **10.08.2020** - annotating Blast results
+  * in `/Users/paul/Documents/CU_combined/Github/090-5_DI_blast_control_overview.R`
+    * plotted out phyla across controls - **ok**
+    * next: check PCR controls and mock content - **pending**
 
 * **next** 
   * Blast and summarize negative and positive control data - **pending**
