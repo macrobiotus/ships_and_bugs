@@ -201,10 +201,10 @@ phsq_ob_cp_lng <- psmelt(phsq_ob_cp)
 unique(phsq_ob_cp_lng$Type)
 
 phsq_ob_cp_lng$Type[which(phsq_ob_cp_lng$Type %in% "ablk")] <- "PCR blank"
-phsq_ob_cp_lng$Type[which(phsq_ob_cp_lng$Type %in% "bblk")] <- "Cooler blank"
-phsq_ob_cp_lng$Type[which(phsq_ob_cp_lng$Type %in% "cblk")] <- "Filter blank"
-phsq_ob_cp_lng$Type[which(phsq_ob_cp_lng$Type %in% "xblk")] <- "Extraction blank"
-phsq_ob_cp_lng$Type[which(phsq_ob_cp_lng$Type %in% "moc")] <- "Mock community"
+phsq_ob_cp_lng$Type[which(phsq_ob_cp_lng$Type %in% "bblk")] <- "cooler blank"
+phsq_ob_cp_lng$Type[which(phsq_ob_cp_lng$Type %in% "cblk")] <- "filter blank"
+phsq_ob_cp_lng$Type[which(phsq_ob_cp_lng$Type %in% "xblk")] <- "extraction blank"
+phsq_ob_cp_lng$Type[which(phsq_ob_cp_lng$Type %in% "moc")] <- "mock community"
 
 ggplot(phsq_ob_cp_lng, aes_string(x = "phylum", y = "Abundance", fill = "phylum")) +
   geom_bar(stat = "identity", position = "stack", colour = NA, size=0) +
@@ -221,7 +221,7 @@ ggplot(phsq_ob_cp_lng, aes_string(x = "phylum", y = "Abundance", fill = "phylum"
   
 ggsave("200810_all_phyla_in_controls.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
-         scale = 3, width = 75, height = 100, units = c("mm"),
+         scale = 3, width = 75, height = 50, units = c("mm"),
          dpi = 500, limitsize = TRUE)
 
 # Inspect control types further - PCR blank and Mock community

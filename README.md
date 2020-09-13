@@ -2432,10 +2432,17 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * in `/Users/paul/Documents/CU_combined/Github/090-5_DI_blast_control_overview.R`
     * plotted out phyla across controls - **ok**
     * next: check PCR controls and mock content - **pending**
-
+  * commit `31cbedddccd7e8d809b8873c2d95d77dc475c54`
+* **14.09.2020** - creating a figure showing all taxa and inavsive taxa by port
+  * opening `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+    * add NIS-data plots
+      * commit before further edits: ``
+      * splice in (via join) data from `/Users/paul/Documents/CU_combined/Zenodo/NIS_lookups/invasive_sp_multiple_ports.csv` - **pending**
+      * add plots - **pending**
+      
 * **next** 
-  * Blast and summarize negative and positive control data - **pending**
-      * adjust `/Users/paul/Documents/CU_combined/Github/090-5_DI_blast_control_overview.R`
+  * in `/Users/paul/Documents/CU_combined/Github/090-5_DI_blast_control_overview.R``
+     * Blast and summarize negative and positive control data - **pending**
 
 ## Todo (al below possibly outdated, last refreshed 30-Jul-2020, but still outdated)
 
