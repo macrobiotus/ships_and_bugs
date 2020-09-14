@@ -1,10 +1,7 @@
 # Get graphical representation of detected taxa
 # =============================================
-# akin to 
-# E. E. Sigsgaard, F. Torquato, T. G. Frøslev, A. B. M. Moore, J. M. Sørensen, 
-#   P. Range, R. Ben‐Hamadou, S. S. Bach, P. R. Møller, P. F. Thomsen, Using 
-#   vertebrate environmental DNA from seawater in biomonitoring of marine 
-#   habitats. Conserv. Biol. 34, 697–710 (2020). 
+#
+# last re-worked 14-Sep-2020 - also check Git history and README.md
 
 
 rm(list=ls(all=TRUE)) # clear memory
@@ -19,25 +16,38 @@ library("data.table")   # possibly best for large data dimension
 
 source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")
 
+
 # Part I a: Load Blast results and read counts
 # ------------------------------------------
 
 # Blast result
+# ~~~~~~~~~~~~
 load(file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200520_560_blast-xml-conversion_deep_with-ncbi-info.Rdata")
-
 head(blast_results_final)
 
 # load read counts
-
+# ~~~~~~~~~~~~~~~~
 read_counts <- read_csv("/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/200706_165_eDNA_samples_Eukaryotes_features_tree-matched__feature-frequency-detail.csv", col_names = FALSE)
-
 names(read_counts) <- c("iteration_query_def", "count")
 
 # merge in read counts via hash field
-
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 BlRsSbsDfJn <- full_join(blast_results_final, read_counts, by = "iteration_query_def")
-
 head(BlRsSbsDfJn)
+
+# load Kara's NIS list
+# ~~~~~~~~~~~~~~~~
+nis_kara <- read_csv("/Users/paul/Documents/CU_combined/Zenodo/NIS_lookups/invasive_sp_multiple_ports.csv", col_names = TRUE)
+
+# use extra column to mark Kara's NIS in current table
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+BlRsSbsDfJn$ISNIS <- FALSE 
+BlRsSbsDfJn$ISNIS[which(BlRsSbsDfJn$iteration_query_def %in% nis_kara$iteration_query_def)] <- TRUE 
+
+# check if NIS were transcribed ok - yes they were
+identical(nis_kara$iteration_query_def, BlRsSbsDfJn[which(BlRsSbsDfJn$ISNIS == TRUE ), ]$iteration_query_def)
+
+
 
 # Part I b: Sort data for summary purposes
 # ---------------------------------------
@@ -84,7 +94,6 @@ Top12Spec <- semi_join(BlRsSbsDfJn, head(coverage_per_asv, 12), by = c("iteratio
 
 # above: unfinished new code 28-7-2020
 
-
 # getting indices to manually change factors - careful run part IIa below first
 try(which(Top12Spec$"iteration_query_def" %in%  ph_asv$"iteration_query_def"))
 
@@ -100,11 +109,8 @@ Top12Spec$species[which(Top12Spec$species == "Pelagostrobilidium sp. LS781")] <-
 Top12Spec$species <- paste(Top12Spec$species, "\n(", Top12Spec$class,")", sep ="")
 
 
-# Part I c: Plot and save data.
-# ----------------------------
-
-# 12 most common species, and ports
-
+# Part I c: 12 most common species, and ports.
+# --------------------------------------------
 ggplot(Top12Spec, aes(x = reorder(species, +count), y = count, fill = src)) + 
     geom_bar(position="stack", stat="identity") +
     geom_label(label = Top12Spec$src, size = 1.5) +
@@ -122,6 +128,47 @@ ggsave("200729_12_most_common_sp.pdf", plot = last_plot(),
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
          scale = 1.5, width = 75, height = 100, units = c("mm"),
          dpi = 500, limitsize = TRUE)
+
+# Part I d: Plot all taxa and NIS per port  (as requested shortly before 14-Sep-2020)
+# ----------------------------------------------------------------------------------
+
+blast_results_nis_reads <- BlRsSbsDfJn %>% na.omit %>% filter(count != 0)
+
+ggplot(blast_results_nis_reads, aes(x = src, y = phylum, fill = phylum)) +
+  geom_bar(position="stack", stat="identity") +
+  labs( title = "phyla across ports") +
+  xlab("Ports") + 
+  ylab("Phyla") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.title.x = element_blank(), 
+        axis.text.y = element_blank(), 
+        axis.ticks.y = element_blank())
+
+ggsave("200914_all_taxa_across_ports.pdf", plot = last_plot(), 
+         device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
+         scale = 1.5, width = 100, height = 100, units = c("mm"),
+         dpi = 500, limitsize = TRUE)
+
+
+blast_results_nis_only_reads <- BlRsSbsDfJn %>% na.omit %>% filter(count != 0) %>% filter(ISNIS == TRUE)
+
+ggplot(blast_results_nis_only_reads, aes(x = src, y = phylum, fill = phylum)) +
+  geom_bar(position="stack", stat="identity") +
+  labs( title = "phyla across ports") +
+  xlab("Ports") + 
+  ylab("Phyla") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.title.x = element_blank(), 
+        axis.text.y = element_blank(), 
+        axis.ticks.y = element_blank())
+
+ggsave("200914_nis_taxa_acroos_ports.pdf", plot = last_plot(), 
+         device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
+         scale = 1.5, width = 75, height = 100, units = c("mm"),
+         dpi = 500, limitsize = TRUE)
+
 
 # Part II a: Load Qiime artifacts for full plotting
 # -------------------------------------------------

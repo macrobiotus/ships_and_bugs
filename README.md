@@ -2436,9 +2436,13 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
 * **14.09.2020** - creating a figure showing all taxa and inavsive taxa by port
   * opening `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
     * add NIS-data plots
-      * commit before further edits: ``
-      * splice in (via join) data from `/Users/paul/Documents/CU_combined/Zenodo/NIS_lookups/invasive_sp_multiple_ports.csv` - **pending**
-      * add plots - **pending**
+      * commit before further edits: `30631fb22eeb652552a4fa90239faca68abf150`
+      * splice in (via join) data from `/Users/paul/Documents/CU_combined/Zenodo/NIS_lookups/invasive_sp_multiple_ports.csv` - **ok**
+      * add plots - **ok**
+    * draft versions saved at:
+      * `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/200914_all_taxa_across_ports.pdf`
+      * `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/200914_nis_taxa_across_ports.pdf`
+  * commit ``
       
 * **next** 
   * in `/Users/paul/Documents/CU_combined/Github/090-5_DI_blast_control_overview.R``
