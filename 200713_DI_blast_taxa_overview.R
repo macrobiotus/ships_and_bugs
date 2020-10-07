@@ -1,8 +1,7 @@
 # Get graphical representation of detected taxa
 # =============================================
 #
-# last re-worked 14-Sep-2020 - also check Git history and README.md
-
+# check Git history and README.md
 
 rm(list=ls(all=TRUE)) # clear memory
 
@@ -14,8 +13,11 @@ library("Biostrings")   # read fasta file
 library("phyloseq")     # filtering and utilities for such objects
 library("data.table")   # possibly best for large data dimension
 
+library("openxlsx")   # write Excel tables
+
 source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")
 
+`%notin%` <- Negate(`%in%`)
 
 # Part I a: Load Blast results and read counts
 # ------------------------------------------
@@ -129,8 +131,12 @@ ggsave("200729_12_most_common_sp.pdf", plot = last_plot(),
          scale = 1.5, width = 75, height = 100, units = c("mm"),
          dpi = 500, limitsize = TRUE)
 
-# Part I d: Plot all taxa and NIS per port  (as requested shortly before 14-Sep-2020)
-# ----------------------------------------------------------------------------------
+# Part I d: Plot taxa and NIS per port  (as requested shortly before 14-Sep-2020)
+# -------------------------------------------------------------------------------
+# for details on what is plotted check the filtering command
+
+
+# - all taxa - including putative nis -
 
 blast_results_nis_reads <- BlRsSbsDfJn %>% na.omit %>% filter(count != 0)
 
@@ -150,6 +156,7 @@ ggsave("200914_all_taxa_across_ports.pdf", plot = last_plot(),
          scale = 1.5, width = 100, height = 100, units = c("mm"),
          dpi = 500, limitsize = TRUE)
 
+# - only nis -
 
 blast_results_nis_only_reads <- BlRsSbsDfJn %>% na.omit %>% filter(count != 0) %>% filter(ISNIS == TRUE)
 
@@ -165,6 +172,49 @@ ggplot(blast_results_nis_only_reads, aes(x = src, y = phylum, fill = phylum)) +
         axis.ticks.y = element_blank())
 
 ggsave("200914_nis_taxa_acroos_ports.pdf", plot = last_plot(), 
+         device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
+         scale = 1.5, width = 75, height = 100, units = c("mm"),
+         dpi = 500, limitsize = TRUE)
+
+# - only metazoan nis (manually filtered) -
+
+blast_results_nis_only_reads_metazoans <- BlRsSbsDfJn %>% 
+  na.omit %>% filter(count != 0) %>% filter(ISNIS == TRUE) %>% filter(phylum %notin% "Bacillariophyta")
+
+ggplot(blast_results_nis_only_reads_metazoans, aes(x = src, y = phylum, fill = phylum)) +
+  geom_bar(position="stack", stat="identity") +
+  labs( title = "putatively invasive metazoan phyla across ports") +
+  xlab("Ports") + 
+  ylab("Phyla") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.title.x = element_blank(), 
+        axis.text.y = element_blank(), 
+        axis.ticks.y = element_blank())
+
+ggsave("201007_nis_metazoans_acroos_ports.pdf", plot = last_plot(), 
+         device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
+         scale = 1.5, width = 75, height = 100, units = c("mm"),
+         dpi = 500, limitsize = TRUE)
+
+
+# - only non metazoan nis (manually filtered) -
+
+blast_results_nis_only_reads_non_metazoans <- BlRsSbsDfJn %>% 
+  na.omit %>% filter(count != 0) %>% filter(ISNIS == TRUE) %>% filter(phylum %in% "Bacillariophyta")
+
+ggplot(blast_results_nis_only_reads_non_metazoans, aes(x = src, y = phylum, fill = phylum)) +
+  geom_bar(position="stack", stat="identity") +
+  labs( title = "putatively invasive non-metazoan phyla across ports") +
+  xlab("Ports") + 
+  ylab("Phyla") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.title.x = element_blank(), 
+        axis.text.y = element_blank(), 
+        axis.ticks.y = element_blank())
+
+ggsave("201007_nis_non_metazoans_acroos_ports.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
          scale = 1.5, width = 75, height = 100, units = c("mm"),
          dpi = 500, limitsize = TRUE)
@@ -185,8 +235,8 @@ sequ_table <- Biostrings::readDNAStringSet(sequ_path)
 phsq_ob <- merge_phyloseq(biom_table, sequ_table)
 
 
-# Part II b: Format data for plotting
-# -----------------------------------
+# Part II b: Format data for plotting and species lists for collaborators
+# -----------------------------------------------------------------------
 
 # Clean Data:
 phsq_ob <- remove_empty(phsq_ob)
@@ -226,7 +276,26 @@ blast_results_final[(which (blast_results_final$iteration_query_def == "bb74f2d7
 # overwrite Silva taxonomy data in Phyloseq object with Blast taxonomy data
 tax_table(phsq_ob) <- tax_mat_new
 
-# get list of PH phylotypes for above - remove PH samples and phylotypes
+
+# Insert: get species list for collaborators - Honolulu, Pearl Harbour (7. Oct. 2020)
+# ----------------------------------------------------------------------------------
+
+phsq_ob_hi <- subset_samples(phsq_ob, Port == "Honolulu")
+phsq_ob_hi <- remove_empty(phsq_ob_hi)
+phsq_ob_hi_molten <- psmelt(phsq_ob_hi)
+write.xlsx(phsq_ob_hi_molten, "/Users/paul/Documents/CU_NIS-WRAPS/170728_external_presentations/201007_species_list_hi/200710_species_list_full_HI.xlsx", overwrite = FALSE)
+# omitting writing full PhylSeq object 
+
+phsq_ob_ar <- subset_samples(phsq_ob, Port == "Puerto-Madryn")
+phsq_ob_ar <- remove_empty(phsq_ob_ar)
+phsq_ob_ar_molten <- psmelt(phsq_ob_ar)
+write.xlsx(phsq_ob_ar_molten, "/Users/paul/Documents/CU_NIS-WRAPS/170728_external_presentations/201007_species_list_ar/200710_species_list_full_AR.xlsx", overwrite = FALSE)
+# omitting writing full PhylSeq object 
+
+
+
+# Insert:  get list of PH phylotypes for above - remove PH samples and phylotypes
+# --------------------------------------------------------------------------------
 asv_table <- as_tibble(as(otu_table(phsq_ob), "matrix"), rownames = "iteration_query_def")
 
 # some phylotypes are also founnd at exclusively at PH
@@ -234,6 +303,9 @@ ph_asv <- asv_table %>% filter(., select(., contains("PH")) > 0 ) %>% select("it
 
 # no phylotypes exclusively at PH - no filtering necessary to modify counts
 asv_table %>% filter(., select(., contains("PH")) > 0 ) %>% filter(., select(., -contains("PH")) == 0) 
+
+
+
 
 # Part II c: Plotting data
 # -----------------------------------

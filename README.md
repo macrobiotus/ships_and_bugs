@@ -2442,9 +2442,17 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * draft versions saved at:
       * `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/200914_all_taxa_across_ports.pdf`
       * `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/200914_nis_taxa_across_ports.pdf`
-  * commit ``
+  * commit `e1e1e23cbf1e20b276fa04483d842fece3953647`
+* **07.10.2020** - in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+    * added seqection: `get species list for collaborators - Honolulu, Pearl Harbour (7. Oct. 2020)`
+    * plot metazoans vs others - **partially done**
+    * plot ASV per port  - **pending**
+    * commit ``
       
 * **next** 
+  * in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R` - **pending**
+    * plot ASV per port  - **pending**
+    * plot metazoans vs others - **pending**
   * in `/Users/paul/Documents/CU_combined/Github/090-5_DI_blast_control_overview.R``
      * Blast and summarize negative and positive control data - **pending**
 
