@@ -293,7 +293,6 @@ write.xlsx(phsq_ob_ar_molten, "/Users/paul/Documents/CU_NIS-WRAPS/170728_externa
 # omitting writing full PhylSeq object 
 
 
-
 # Insert:  get list of PH phylotypes for above - remove PH samples and phylotypes
 # --------------------------------------------------------------------------------
 asv_table <- as_tibble(as(otu_table(phsq_ob), "matrix"), rownames = "iteration_query_def")
@@ -305,13 +304,12 @@ ph_asv <- asv_table %>% filter(., select(., contains("PH")) > 0 ) %>% select("it
 asv_table %>% filter(., select(., contains("PH")) > 0 ) %>% filter(., select(., -contains("PH")) == 0) 
 
 
-
-
-# Part II c: Plotting data
-# -----------------------------------
+# Part II c: Plotting data with sequence counts
+# -----------------------------------------------
 # Melt dataframe and do yourself
 # ( in plot call abundances are aggregated in-call to avoid jagged edges)
 
+# ~ plot sequence counts per port ~
 
 # agglomerate on phylum level to avoid jagged barplots 
 phsq_ob <- tax_glom(phsq_ob, taxrank = rank_names(phsq_ob)[2], NArm=FALSE, bad_empty=c(NA))
@@ -338,3 +336,40 @@ ggsave("200729_all_phyla_at_all_ports.pdf", plot = last_plot(),
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
          scale = 3, width = 75, height = 100, units = c("mm"),
          dpi = 500, limitsize = TRUE)
+
+
+# Part III: Plotting and analysing data based on ASV counts
+# ---------------------------------------------------------
+
+# adding presence-absence column for ASV count as we can't consider abundances
+phsq_ob_lng <- phsq_ob_lng %>%  mutate(Present = case_when(Abundance > 0 ~ 1, Abundance == 0  ~ 0)) %>% as_tibble()
+
+# checking new column - vectors of same length as they should? 
+length(phsq_ob_lng$Present == 0) == length(phsq_ob_lng$Present == 1)
+
+# checking new column - how many taxa are present or absent?
+sum(phsq_ob_lng$Present == 0)
+sum(phsq_ob_lng$Present == 1)
+
+phsq_ob_lng <- phsq_ob_lng %>% add_count(Facility, sort = FALSE, name = "ASVCountPertPort")
+
+ggplot(phsq_ob_lng, aes_string(x = "phylum", y = "Present", fill = "phylum")) +
+  geom_bar(stat = "identity", position = "stack", colour = NA, size=0) +
+  facet_grid(Facility ~ ., shrink = TRUE, scales = "free_y") +
+  theme_bw() +
+  theme(legend.position = "none") +
+  theme(strip.text.y = element_text(angle=0)) + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+        axis.text.y = element_text(angle = 90, hjust = 1,  size = 8), 
+        axis.ticks.y = element_blank()) +
+  labs( title = "Phyla across all ports") + 
+  xlab("phyla at all ports") + 
+  ylab("distinct phyla members per port")
+
+ggsave("201009_distinct_phyla_member_counts_all_ports.pdf", plot = last_plot(), 
+         device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
+         scale = 3, width = 75, height = 100, units = c("mm"),
+         dpi = 500, limitsize = TRUE)
+
+# to test compositions possibly use the  function anosimof the library vegan
+# use not-tree agglomerated object next? 

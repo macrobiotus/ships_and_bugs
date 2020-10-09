@@ -2447,12 +2447,17 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * added seqection: `get species list for collaborators - Honolulu, Pearl Harbour (7. Oct. 2020)`
     * plot metazoans vs others - **partially done**
     * plot ASV per port  - **pending**
-    * commit ``
-      
+    * commit `23ce5b20dd2151186077b93bb06a21b67241cfc5`
+* **09.10.2020** - in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+  * continued analysis at very end and wrote `201009_distinct_phyla_member_counts_all_ports.pdf`
+
 * **next** 
   * in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R` - **pending**
-    * plot ASV per port  - **pending**
+    * to test compositions possibly use the  function anosimof the library vegan - **pending**
+    * use not-tree agglomerated object next? - **pending**
+    * plot ASV per port - **pending**
     * plot metazoans vs others - **pending**
+    * "to test compositions possibly use the  function Anosimof the library vegan" - **pending**
   * in `/Users/paul/Documents/CU_combined/Github/090-5_DI_blast_control_overview.R``
      * Blast and summarize negative and positive control data - **pending**
 
