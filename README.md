@@ -2452,7 +2452,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * continued analysis at very end and wrote `201009_distinct_phyla_member_counts_all_ports.pdf`
 * **11.10.2020** - in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
   * working with un-agglomerated Phylsoseq object now in lin 343 onwards
-  * 
+  * commit `1eb6cc7b1686e26d3ceb090e626444184b61c400`
+  * revised code and overwrote old image
+  * next - make proportional
   
 
 * **next** 

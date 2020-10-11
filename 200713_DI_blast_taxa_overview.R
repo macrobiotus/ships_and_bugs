@@ -342,33 +342,37 @@ ggsave("200729_all_phyla_at_all_ports.pdf", plot = last_plot(),
 
 # Part III: Plotting and analysing data based on ASV counts
 # ---------------------------------------------------------
+# continue her on or after 12-Oct-2020
 
+# melting un-agglomerated Phyloseq object
 phsq_ob_full_lng  <- psmelt(phsq_ob_full)
+
+phsq_ob_full_lng <- phsq_ob_full_lng %>% filter(Facility != c("PH"))
 
 # adding presence-absence column for ASV count as we can't consider abundances
 phsq_ob_full_lng <- phsq_ob_full_lng %>%  mutate(Present = case_when(Abundance > 0 ~ 1, Abundance == 0  ~ 0)) %>% as_tibble()
 
 # checking new column - vectors of same length as they should? 
-length(phsq_ob_lng$Present == 0) == length(phsq_ob_lng$Present == 1)
+length(phsq_ob_full_lng$Present == 0) == length(phsq_ob_full_lng$Present == 1)
 
 # checking new column - how many taxa are present or absent?
-sum(phsq_ob_lng$Present == 0)
-sum(phsq_ob_lng$Present == 1)
+sum(phsq_ob_full_lng$Present == 0) # 1161517
+sum(phsq_ob_full_lng$Present == 1) # 36283
 
-phsq_ob_lng <- phsq_ob_lng %>% add_count(Facility, sort = FALSE, name = "ASVCountPertPort")
+# adding ASV per port just in case, should be the same everytwhere unless 0 cout OTUs are removed
+phsq_ob_full_lng <- phsq_ob_full_lng %>% add_count(Facility, sort = FALSE, name = "ASVCountPerPort")
 
-ggplot(phsq_ob_lng, aes_string(x = "phylum", y = "Present", fill = "phylum")) +
-  geom_bar(stat = "identity", position = "stack", colour = NA, size=0) +
-  facet_grid(Facility ~ ., shrink = TRUE, scales = "free_y") +
+# plot out
+ggplot(phsq_ob_full_lng, aes_string(x = "Facility", y = "Present", fill="phylum")) +
+  geom_bar(stat = "identity", position = "stack", size = 0) +
   theme_bw() +
-  theme(legend.position = "none") +
-  theme(strip.text.y = element_text(angle=0)) + 
+  theme(strip.text.y = element_text(angle = 0)) + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
         axis.text.y = element_text(angle = 90, hjust = 1,  size = 8), 
         axis.ticks.y = element_blank()) +
-  labs( title = "Phyla across all ports") + 
-  xlab("phyla at all ports") + 
-  ylab("distinct phyla members per port")
+  labs( title = "ASV counts across all ports") + 
+  xlab("ports") + 
+  ylab("ASV count per port")
 
 ggsave("201009_distinct_phyla_member_counts_all_ports.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
