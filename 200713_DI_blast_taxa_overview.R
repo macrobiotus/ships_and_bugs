@@ -311,7 +311,9 @@ asv_table %>% filter(., select(., contains("PH")) > 0 ) %>% filter(., select(., 
 
 # ~ plot sequence counts per port ~
 
-# agglomerate on phylum level to avoid jagged barplots 
+# agglomerate on phylum level to avoid jagged barplots - copy full object before discarding inforation 
+phsq_ob_full <- phsq_ob 
+
 phsq_ob <- tax_glom(phsq_ob, taxrank = rank_names(phsq_ob)[2], NArm=FALSE, bad_empty=c(NA))
 
 # remove PH samples
@@ -341,8 +343,10 @@ ggsave("200729_all_phyla_at_all_ports.pdf", plot = last_plot(),
 # Part III: Plotting and analysing data based on ASV counts
 # ---------------------------------------------------------
 
+phsq_ob_full_lng  <- psmelt(phsq_ob_full)
+
 # adding presence-absence column for ASV count as we can't consider abundances
-phsq_ob_lng <- phsq_ob_lng %>%  mutate(Present = case_when(Abundance > 0 ~ 1, Abundance == 0  ~ 0)) %>% as_tibble()
+phsq_ob_full_lng <- phsq_ob_full_lng %>%  mutate(Present = case_when(Abundance > 0 ~ 1, Abundance == 0  ~ 0)) %>% as_tibble()
 
 # checking new column - vectors of same length as they should? 
 length(phsq_ob_lng$Present == 0) == length(phsq_ob_lng$Present == 1)

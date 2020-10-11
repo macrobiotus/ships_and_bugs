@@ -2450,6 +2450,10 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * commit `23ce5b20dd2151186077b93bb06a21b67241cfc5`
 * **09.10.2020** - in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
   * continued analysis at very end and wrote `201009_distinct_phyla_member_counts_all_ports.pdf`
+* **11.10.2020** - in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+  * working with un-agglomerated Phylsoseq object now in lin 343 onwards
+  * 
+  
 
 * **next** 
   * in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R` - **pending**
