@@ -2453,17 +2453,23 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
 * **11.10.2020** - in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
   * working with un-agglomerated Phylsoseq object now in lin 343 onwards
   * commit `1eb6cc7b1686e26d3ceb090e626444184b61c400`
-  * revised code and overwrote old image
-  * next - make proportional
+  * revised code and overwrote old image - **ok**
+  * make proportional  - **ok**
+  * use not-tree agglomerated object next - **ok**
+  * plot ASV per port - **ok**
+  * commit `6e897dcf9a12f5f8a4e82c3210cdf6de17c51ba`
+* **13.10.2020** - in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+  * psychodelic barplots for David and analysis of diferences in phylum compostions - **ok**
+  * agglomerate counts for phyla - **ok**
+  * add ecoregion information as factor - **ok**
+  * to test compositions possibly use the  function anosimof the library vegan - **ok**
+    * no significant difference on phylum level per ecoregion  
   
 
 * **next** 
   * in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R` - **pending**
-    * to test compositions possibly use the  function anosimof the library vegan - **pending**
-    * use not-tree agglomerated object next? - **pending**
-    * plot ASV per port - **pending**
+   
     * plot metazoans vs others - **pending**
-    * "to test compositions possibly use the  function Anosimof the library vegan" - **pending**
   * in `/Users/paul/Documents/CU_combined/Github/090-5_DI_blast_control_overview.R``
      * Blast and summarize negative and positive control data - **pending**
 

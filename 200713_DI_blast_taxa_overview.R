@@ -340,44 +340,111 @@ ggsave("200729_all_phyla_at_all_ports.pdf", plot = last_plot(),
          dpi = 500, limitsize = TRUE)
 
 
-# Part III: Plotting and analysing data based on ASV counts
-# ---------------------------------------------------------
-# continue her on or after 12-Oct-2020
+# Part III: Plotting and data based on ASV counts
+# -----------------------------------------------
 
 # melting un-agglomerated Phyloseq object
 phsq_ob_full_lng  <- psmelt(phsq_ob_full)
 
+# remove PH and check
 phsq_ob_full_lng <- phsq_ob_full_lng %>% filter(Facility != c("PH"))
+unique(phsq_ob_full_lng$Facility)
 
-# adding presence-absence column for ASV count as we can't consider abundances
+# remove undefined Phyla and check (questionable because, missing phylum string doesn't indicate missing data)
+phsq_ob_full_lng <- phsq_ob_full_lng %>% filter(phylum != "NA") # NA here is a string, keep the ""
+unique(phsq_ob_full_lng$Facility)
+
+# remove 0 count Abundances
+summary(phsq_ob_full_lng$Abundance)
+phsq_ob_full_lng <- phsq_ob_full_lng %>% filter(Abundance != 0)
+summary(phsq_ob_full_lng$Abundance)
+
+# adding presence-absence to preserva Abundance column
+#   and check
 phsq_ob_full_lng <- phsq_ob_full_lng %>%  mutate(Present = case_when(Abundance > 0 ~ 1, Abundance == 0  ~ 0)) %>% as_tibble()
+sum(phsq_ob_full_lng$Present == 0) # 0 - zero counts wre filtered out 
+sum(phsq_ob_full_lng$Present == 1) # 32392 with NA's, 17784 without NA's  
 
-# checking new column - vectors of same length as they should? 
-length(phsq_ob_full_lng$Present == 0) == length(phsq_ob_full_lng$Present == 1)
-
-# checking new column - how many taxa are present or absent?
-sum(phsq_ob_full_lng$Present == 0) # 1161517
-sum(phsq_ob_full_lng$Present == 1) # 36283
-
-# adding ASV per port just in case, should be the same everytwhere unless 0 cout OTUs are removed
+# adding ASV counts per port, should be the same everywhere unless 0 cout OTUs are removed
 phsq_ob_full_lng <- phsq_ob_full_lng %>% add_count(Facility, sort = FALSE, name = "ASVCountPerPort")
+unique(phsq_ob_full_lng$ASVCountPerPort) # variable as expected, 19 values for 19 ports
 
-# plot out
-ggplot(phsq_ob_full_lng, aes_string(x = "Facility", y = "Present", fill="phylum")) +
+# adding ASV counts per port and phylum, should be the same everywhere unless 0 cout OTUs are removed
+phsq_ob_full_lng <- phsq_ob_full_lng %>% add_count(Facility, phylum, sort = FALSE, name = "ASVCountPerPortEachPhylum")
+unique(phsq_ob_full_lng$ASVCountPerPortEachPhylum) # variable as expected, more then 19 values as expected
+
+# add proportions of each phylum per port, for requested percentage plot
+phsq_ob_full_lng <- phsq_ob_full_lng %>% mutate(PhylumPortProp = ASVCountPerPortEachPhylum / ASVCountPerPort ) %>% as_tibble()
+
+# ***for plotting and subsequent analysis keeping distinct values only***
+phsq_ob_dstnct <- phsq_ob_full_lng %>% 
+  select (Facility, Location, phylum, Present, ASVCountPerPort, ASVCountPerPortEachPhylum, PhylumPortProp) %>%
+  arrange(Facility, phylum, ASVCountPerPort) %>%
+  distinct()
+
+# plot plain ASV per phylum and port
+ggplot(phsq_ob_dstnct, aes_string(x = "Facility", y = "ASVCountPerPortEachPhylum", fill="phylum")) +
   geom_bar(stat = "identity", position = "stack", size = 0) +
   theme_bw() +
   theme(strip.text.y = element_text(angle = 0)) + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
         axis.text.y = element_text(angle = 90, hjust = 1,  size = 8), 
         axis.ticks.y = element_blank()) +
-  labs( title = "ASV counts across all ports") + 
+  labs(title = "observed ASVs per phylum and ports") + 
   xlab("ports") + 
-  ylab("ASV count per port")
+  ylab("unique ASV count per port")
 
 ggsave("201009_distinct_phyla_member_counts_all_ports.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
-         scale = 3, width = 75, height = 100, units = c("mm"),
+         scale = 3, width = 75, height = 75, units = c("mm"),
          dpi = 500, limitsize = TRUE)
 
-# to test compositions possibly use the  function anosimof the library vegan
-# use not-tree agglomerated object next? 
+ggplot(phsq_ob_dstnct, aes_string(x = "Facility", y = "PhylumPortProp", fill="phylum")) +
+  geom_bar(stat = "identity", position = "stack", size = 0) +
+  theme_bw() +
+  theme(strip.text.y = element_text(angle = 0)) + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+        axis.text.y = element_text(angle = 90, hjust = 1,  size = 8), 
+        axis.ticks.y = element_blank()) +
+  labs(title = "observed ASVs per phylum and ports") + 
+  xlab("ports") + 
+  ylab("unique ASV proportion per port")
+
+ggsave("201012_distinct_phyla_member_counts_all_ports_proportional.pdf", plot = last_plot(), 
+         device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
+         scale = 3, width = 75, height = 75, units = c("mm"),
+         dpi = 500, limitsize = TRUE)
+
+
+# Part IV: Vegan analysis of ASV presence-absence (phyla)
+# ------------------------------------------------------
+
+# ~~~ format data ~~~
+
+# get a wide ASV table from input object 
+phsq_ob_dstnct_truncated <- as_tibble(data.table::dcast(setDT(phsq_ob_dstnct), Facility~phylum, value.var="ASVCountPerPortEachPhylum", fill=0))
+
+# correct column names
+phsq_ob_dstnct_truncated <- phsq_ob_dstnct_truncated %>% dplyr::rename(Port = Facility) 
+
+# add ecoregion
+phsq_ob_dstnct_truncated <- phsq_ob_dstnct_truncated %>% 
+  dplyr::mutate(Ecoregion = case_when(Port %in% c("AD") ~ "South_Australia",
+                               Port %in% c("AW", "ZB", "RT", "GH") ~ "Northeast_Atlantic",
+                               Port %in% c("NO", "HT", "BT",  "WL", "MI", "WL") ~ "Caribbean",
+                               Port %in% c("HS", "PL", "CB", "RC", "OK", "LB") ~ "North_Pacific",
+                               Port %in% c("HN") ~ "Mid South Tropical Pacific",
+                               Port %in% c("SI") ~ "Indo-Pacific",
+                               Port %in% c("PM") ~ "Rio de La Plata"))
+
+# tidy column order 
+phsq_ob_dstnct_truncated <- phsq_ob_dstnct_truncated %>% relocate(Port, Ecoregion) %>% arrange (Ecoregion,  Port) %>% data_frame
+
+
+# ~~~ ANOSIM ~~~
+
+#  following: https://jkzorz.github.io/2019/06/11/ANOSIM-test.html
+#  better done with UNIFRAC data?
+
+vegan::anosim(data.matrix(phsq_ob_dstnct_truncated[,3:ncol(phsq_ob_dstnct_truncated)]), phsq_ob_dstnct_truncated$Ecoregion, permutations = 2000, distance = "jaccard", strata = phsq_ob_dstnct_truncated$Port,
+    parallel = getOption("mc.cores"))
