@@ -2463,14 +2463,15 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * agglomerate counts for phyla - **ok**
   * add ecoregion information as factor - **ok**
   * to test compositions possibly use the  function anosimof the library vegan - **ok**
-    * no significant difference on phylum level per ecoregion  
-  
+    * no significant difference on phylum level per ecoregion
+  * commit `a4a375ca03fb955487f1dab678a134fa408c66e8`
+* **14.10.2020** - in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+ * revise code to seperate out plots for metazoans
 
 * **next** 
-  * in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R` - **pending**
-   
-    * plot metazoans vs others - **pending**
+  * add grouping to mapping file and find ecoregion differences in Qiime
   * in `/Users/paul/Documents/CU_combined/Github/090-5_DI_blast_control_overview.R``
+     * in vegan call remove `strata = phsq_ob_dstnct_truncated$Port`
      * Blast and summarize negative and positive control data - **pending**
 
 ## Todo (al below possibly outdated, last refreshed 30-Jul-2020, but still outdated)

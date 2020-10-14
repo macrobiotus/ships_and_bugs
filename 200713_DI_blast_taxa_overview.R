@@ -17,6 +17,10 @@ library("openxlsx")   # write Excel tables
 
 source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")
 
+
+# Functions
+# ~~~~~~~~~
+
 `%notin%` <- Negate(`%in%`)
 
 # Part I a: Load Blast results and read counts
@@ -56,20 +60,21 @@ identical(nis_kara$iteration_query_def, BlRsSbsDfJn[which(BlRsSbsDfJn$ISNIS == T
 # - by abundance
 # - possibly aggregate taxa
 
-# remove Pearl Harbour samples - suing hash keys - hash keys obtained below - not done
+# remove Pearl Harbour samples - using hash keys - hash keys obtained below - not done
 # [not done yet - and not necessary - no phylotypes exclusively at PH, see below]
 
 # remove 3 Bacterial ASVs - **report those: mismatch between NCBI and SILVA taxonomy assignment**
 BlRsSbsDfJn <- BlRsSbsDfJn %>% filter(superkingdom == "Eukaryota")
+BlRsSbsDfJn <- BlRsSbsDfJn %>% filter(phylum != "Proteobacteria")
 
 # sort by read count
 BlRsSbsDfJn <- BlRsSbsDfJn %>% arrange(desc(count))
 
 # get number of distinct eukaryote species, orders 
-BlRsSbsDfJn %>% distinct(species) %>% na.omit %>% nrow # 3171 distinct species
-BlRsSbsDfJn %>% distinct(order) %>% na.omit %>%  nrow # 418 distinct orders
-BlRsSbsDfJn %>% distinct(class) %>% na.omit %>% nrow # 134 distinct classes
-BlRsSbsDfJn %>% distinct(phylum) %>% na.omit %>% nrow # 40 distinct phyla
+BlRsSbsDfJn %>% distinct(species) %>% na.omit %>% nrow # 2410 distinct species
+BlRsSbsDfJn %>% distinct(order) %>% na.omit %>%  nrow # 336 distinct orders
+BlRsSbsDfJn %>% distinct(class) %>% na.omit %>% nrow # 111 distinct classes
+BlRsSbsDfJn %>% distinct(phylum) %>% na.omit %>% nrow # 39 distinct phyla
 
 # get coverages per ASV - empty ASVs not yet filtered out!
 coverage_per_asv <- aggregate(BlRsSbsDfJn$count, by = list(iteration_query_def = BlRsSbsDfJn$iteration_query_def), FUN = sum)
@@ -88,16 +93,11 @@ coverage_per_asv %>% filter(x != 0) %>% select(superkingdom, phylum, class, orde
   distinct() %>% arrange(superkingdom, phylum, class, order, family) # 
 
 # subset for species plot
-# Top12Spec <- BlRsSbsDfJn %>% slice_max(count, n = 12)   # %>% select(superkingdom, phylum, class, order, family, genus, species, count, src) %>% print
-
-# below: unfinished new code 28-7-2020
 
 Top12Spec <- semi_join(BlRsSbsDfJn, head(coverage_per_asv, 12), by = c("iteration_query_def"))
 
-# above: unfinished new code 28-7-2020
-
-# getting indices to manually change factors - careful run part IIa below first
-try(which(Top12Spec$"iteration_query_def" %in%  ph_asv$"iteration_query_def"))
+# getting indices to manually change factors - to be careful run part IIa below first
+try(which(Top12Spec$"iteration_query_def" %in% ph_asv$"iteration_query_def"))
 
 # manually changen factors - all one port less, as PH isn't conted
 Top12Spec$src[1] <- "2 Port(s)" # from 3 Ports
@@ -192,7 +192,7 @@ ggplot(blast_results_nis_only_reads_metazoans, aes(x = src, y = phylum, fill = p
         axis.text.y = element_blank(), 
         axis.ticks.y = element_blank())
 
-ggsave("201007_nis_metazoans_acroos_ports.pdf", plot = last_plot(), 
+ggsave("201007_nis_metazoans_across_ports.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
          scale = 1.5, width = 75, height = 100, units = c("mm"),
          dpi = 500, limitsize = TRUE)
@@ -214,7 +214,7 @@ ggplot(blast_results_nis_only_reads_non_metazoans, aes(x = src, y = phylum, fill
         axis.text.y = element_blank(), 
         axis.ticks.y = element_blank())
 
-ggsave("201007_nis_non_metazoans_acroos_ports.pdf", plot = last_plot(), 
+ggsave("201007_nis_non_metazoans_across_ports.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
          scale = 1.5, width = 75, height = 100, units = c("mm"),
          dpi = 500, limitsize = TRUE)
@@ -289,7 +289,7 @@ write.xlsx(phsq_ob_hi_molten, "/Users/paul/Documents/CU_NIS-WRAPS/170728_externa
 phsq_ob_ar <- subset_samples(phsq_ob, Port == "Puerto-Madryn")
 phsq_ob_ar <- remove_empty(phsq_ob_ar)
 phsq_ob_ar_molten <- psmelt(phsq_ob_ar)
-write.xlsx(phsq_ob_ar_molten, "/Users/paul/Documents/CU_NIS-WRAPS/170728_external_presentations/201007_species_list_ar/200710_species_list_full_AR.xlsx", overwrite = FALSE)
+write.xlsx(phsq_ob_ar_molten, "/Users/paul/Documents/CU_NIS-WRAPS/170728_external_presentations/201007_species_list_ar/200710_species_list_full_AR.xlsx", overwrite = TRUE)
 # omitting writing full PhylSeq object 
 
 
@@ -297,7 +297,7 @@ write.xlsx(phsq_ob_ar_molten, "/Users/paul/Documents/CU_NIS-WRAPS/170728_externa
 # --------------------------------------------------------------------------------
 asv_table <- as_tibble(as(otu_table(phsq_ob), "matrix"), rownames = "iteration_query_def")
 
-# some phylotypes are also founnd at exclusively at PH
+# some phylotypes are also found at exclusively at PH
 ph_asv <- asv_table %>% filter(., select(., contains("PH")) > 0 ) %>% select("iteration_query_def")
 
 # no phylotypes exclusively at PH - no filtering necessary to modify counts
@@ -346,8 +346,10 @@ ggsave("200729_all_phyla_at_all_ports.pdf", plot = last_plot(),
 # melting un-agglomerated Phyloseq object
 phsq_ob_full_lng  <- psmelt(phsq_ob_full)
 
-# remove PH and check
+# remove PH and superflous phyla and check
 phsq_ob_full_lng <- phsq_ob_full_lng %>% filter(Facility != c("PH"))
+phsq_ob_full_lng <- phsq_ob_full_lng %>% filter(phylum != "Proteobacteria")
+
 unique(phsq_ob_full_lng$Facility)
 
 # remove undefined Phyla and check (questionable because, missing phylum string doesn't indicate missing data)
@@ -359,70 +361,117 @@ summary(phsq_ob_full_lng$Abundance)
 phsq_ob_full_lng <- phsq_ob_full_lng %>% filter(Abundance != 0)
 summary(phsq_ob_full_lng$Abundance)
 
-# adding presence-absence to preserva Abundance column
+# split objects into metazoans and non-metazoaa
+metazoa <- c("Annelida", "Arthropoda", "Brachiopoda", "Bryozoa", "Chordata", "Cnidaria", "Ctenophora", "Echinodermata",
+             "Entoprocta", "Gastrotricha", "Hemichordata", "Mollusca", "Nematoda", "Mermertea", "Platyhelminthes", "Porifera", 
+             "Rotifera", "Tardigrada")
+
+phsq_ob_metazoan_lng <- phsq_ob_full_lng %>% filter(phylum %in% metazoa) %>% as_tibble()
+phsq_ob_nonmetaz_lng <- phsq_ob_full_lng %>% filter(phylum %notin% metazoa) %>% as_tibble()
+phsqs_wide <- list("metazoa" = phsq_ob_metazoan_lng, "nonmeta" = phsq_ob_nonmetaz_lng)
+
+
+# adding presence-absence to presence Abundance column (via lapply(<list-like-object>, function(x) <do stuff>))
 #   and check
-phsq_ob_full_lng <- phsq_ob_full_lng %>%  mutate(Present = case_when(Abundance > 0 ~ 1, Abundance == 0  ~ 0)) %>% as_tibble()
-sum(phsq_ob_full_lng$Present == 0) # 0 - zero counts wre filtered out 
-sum(phsq_ob_full_lng$Present == 1) # 32392 with NA's, 17784 without NA's  
+phsqs_wide <- lapply(phsqs_wide, function(x) mutate(x, Present = case_when(Abundance > 0 ~ 1, Abundance == 0  ~ 0)) %>% as_tibble())
+lapply(phsqs_wide, function(x) sum(x$Present == 0))
+lapply(phsqs_wide, function(x) sum(x$Present == 1))
 
 # adding ASV counts per port, should be the same everywhere unless 0 cout OTUs are removed
-phsq_ob_full_lng <- phsq_ob_full_lng %>% add_count(Facility, sort = FALSE, name = "ASVCountPerPort")
-unique(phsq_ob_full_lng$ASVCountPerPort) # variable as expected, 19 values for 19 ports
+phsqs_wide <- lapply(phsqs_wide, function(x) add_count(x, Facility, sort = FALSE, name = "ASVCountPerPort"))
+lapply(phsqs_wide, function (x) unique(x$ASVCountPerPort))
+# 19 values for 19 ports, metazoa not at all ports
 
 # adding ASV counts per port and phylum, should be the same everywhere unless 0 cout OTUs are removed
-phsq_ob_full_lng <- phsq_ob_full_lng %>% add_count(Facility, phylum, sort = FALSE, name = "ASVCountPerPortEachPhylum")
-unique(phsq_ob_full_lng$ASVCountPerPortEachPhylum) # variable as expected, more then 19 values as expected
+phsqs_wide <- lapply(phsqs_wide, function (x) add_count(x, Facility, phylum, sort = FALSE, name = "ASVCountPerPortEachPhylum"))
+lapply(phsqs_wide, function (x) unique(x$ASVCountPerPortEachPhylum)) # variable as expected, more then 19 values as expected
 
 # add proportions of each phylum per port, for requested percentage plot
-phsq_ob_full_lng <- phsq_ob_full_lng %>% mutate(PhylumPortProp = ASVCountPerPortEachPhylum / ASVCountPerPort ) %>% as_tibble()
+phsqs_wide <- lapply(phsqs_wide, function(x) mutate(x, PhylumPortProp = ASVCountPerPortEachPhylum / ASVCountPerPort ) %>% as_tibble())
 
 # ***for plotting and subsequent analysis keeping distinct values only***
-phsq_ob_dstnct <- phsq_ob_full_lng %>% 
+phsqs_wide_dstnct <- lapply(
+  phsqs_wide, function (x) x %>%  
   select (Facility, Location, phylum, Present, ASVCountPerPort, ASVCountPerPortEachPhylum, PhylumPortProp) %>%
   arrange(Facility, phylum, ASVCountPerPort) %>%
   distinct()
+  )
+
+remotes::install_github("coolbutuseless/ggpattern")
 
 # plot plain ASV per phylum and port
-ggplot(phsq_ob_dstnct, aes_string(x = "Facility", y = "ASVCountPerPortEachPhylum", fill="phylum")) +
+ggplot(phsqs_wide_dstnct[[1]], aes_string(x = "Facility", y = "ASVCountPerPortEachPhylum", fill="phylum")) +
   geom_bar(stat = "identity", position = "stack", size = 0) +
   theme_bw() +
   theme(strip.text.y = element_text(angle = 0)) + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
         axis.text.y = element_text(angle = 90, hjust = 1,  size = 8), 
         axis.ticks.y = element_blank()) +
-  labs(title = "observed ASVs per phylum and ports") + 
+  labs(title = "observed metazoan ASVs across ports") + 
   xlab("ports") + 
-  ylab("unique ASV count per port")
+  ylab("ASVs at each port")
 
-ggsave("201009_distinct_phyla_member_counts_all_ports.pdf", plot = last_plot(), 
+ggsave("201014_observed_metazoan_ASVs_across_ports.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
-         scale = 3, width = 75, height = 75, units = c("mm"),
+         scale = 3, width = 75, height = 50, units = c("mm"),
          dpi = 500, limitsize = TRUE)
 
-ggplot(phsq_ob_dstnct, aes_string(x = "Facility", y = "PhylumPortProp", fill="phylum")) +
+ggplot(phsqs_wide_dstnct[[2]], aes_string(x = "Facility", y = "ASVCountPerPortEachPhylum", fill="phylum")) +
   geom_bar(stat = "identity", position = "stack", size = 0) +
   theme_bw() +
   theme(strip.text.y = element_text(angle = 0)) + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
         axis.text.y = element_text(angle = 90, hjust = 1,  size = 8), 
         axis.ticks.y = element_blank()) +
-  labs(title = "observed ASVs per phylum and ports") + 
+  labs(title = "observed non-metazoan ASVs across ports") + 
+  xlab("ports") + 
+  ylab("ASVs at each port")
+
+ggsave("201014_observed_non-metazoan_ASVs_across_ports.pdf", plot = last_plot(), 
+         device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
+         scale = 3, width = 75, height = 50, units = c("mm"),
+         dpi = 500, limitsize = TRUE)
+
+# proportional plots 
+ggplot(phsqs_wide_dstnct[[1]], aes_string(x = "Facility", y = "PhylumPortProp", fill="phylum")) +
+  geom_bar(stat = "identity", position = "stack", size = 0) +
+  theme_bw() +
+  theme(strip.text.y = element_text(angle = 0)) + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+        axis.text.y = element_text(angle = 90, hjust = 1,  size = 8), 
+        axis.ticks.y = element_blank()) +
+  labs(title = "observed metazoan ASV proportions across ports") + 
   xlab("ports") + 
   ylab("unique ASV proportion per port")
 
-ggsave("201012_distinct_phyla_member_counts_all_ports_proportional.pdf", plot = last_plot(), 
+ggsave("201014_observed_metazoan_ASV_proportions_across_ports.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
-         scale = 3, width = 75, height = 75, units = c("mm"),
+         scale = 3, width = 75, height = 50, units = c("mm"),
          dpi = 500, limitsize = TRUE)
 
+ggplot(phsqs_wide_dstnct[[2]], aes_string(x = "Facility", y = "PhylumPortProp", fill="phylum")) +
+  geom_bar(stat = "identity", position = "stack", size = 0) +
+  theme_bw() +
+  theme(strip.text.y = element_text(angle = 0)) + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+        axis.text.y = element_text(angle = 90, hjust = 1,  size = 8), 
+        axis.ticks.y = element_blank()) +
+  labs(title = "observed non-metazoan ASV proportions across ports") + 
+  xlab("ports") + 
+  ylab("unique ASV proportion per port")
+
+ggsave("201014_observed_non-metazoan_ASV_proportions_across_ports.pdf", plot = last_plot(), 
+         device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
+         scale = 3, width = 75, height = 50, units = c("mm"),
+         dpi = 500, limitsize = TRUE)
 
 # Part IV: Vegan analysis of ASV presence-absence (phyla)
 # ------------------------------------------------------
 
 # ~~~ format data ~~~
 
-# get a wide ASV table from input object 
-phsq_ob_dstnct_truncated <- as_tibble(data.table::dcast(setDT(phsq_ob_dstnct), Facility~phylum, value.var="ASVCountPerPortEachPhylum", fill=0))
+# get a wide ASV table from input object - metazoa
+phsq_ob_dstnct_truncated <- as_tibble(data.table::dcast(setDT(phsqs_wide_dstnct[[1]]), Facility~phylum, value.var="ASVCountPerPortEachPhylum", fill=0))
 
 # correct column names
 phsq_ob_dstnct_truncated <- phsq_ob_dstnct_truncated %>% dplyr::rename(Port = Facility) 
@@ -438,7 +487,7 @@ phsq_ob_dstnct_truncated <- phsq_ob_dstnct_truncated %>%
                                Port %in% c("PM") ~ "Rio de La Plata"))
 
 # tidy column order 
-phsq_ob_dstnct_truncated <- phsq_ob_dstnct_truncated %>% relocate(Port, Ecoregion) %>% arrange (Ecoregion,  Port) %>% data_frame
+phsq_ob_dstnct_truncated <- phsq_ob_dstnct_truncated %>% relocate(Port, Ecoregion) %>% arrange (Ecoregion,  Port) %>% tibble()
 
 
 # ~~~ ANOSIM ~~~
@@ -446,5 +495,5 @@ phsq_ob_dstnct_truncated <- phsq_ob_dstnct_truncated %>% relocate(Port, Ecoregio
 #  following: https://jkzorz.github.io/2019/06/11/ANOSIM-test.html
 #  better done with UNIFRAC data?
 
-vegan::anosim(data.matrix(phsq_ob_dstnct_truncated[,3:ncol(phsq_ob_dstnct_truncated)]), phsq_ob_dstnct_truncated$Ecoregion, permutations = 2000, distance = "jaccard", strata = phsq_ob_dstnct_truncated$Port,
+vegan::anosim(data.matrix(phsq_ob_dstnct_truncated[,3:ncol(phsq_ob_dstnct_truncated)]), phsq_ob_dstnct_truncated$Ecoregion, permutations = 2000, distance = "bray",
     parallel = getOption("mc.cores"))
