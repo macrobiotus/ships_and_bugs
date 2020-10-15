@@ -2471,6 +2471,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
 * **15.10.2020** - in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
   * added numerous analyses to look at invasives and to complet results section
   * script messy now - if in doubt check commit history - **needs revision at some point**
+  * commit `4030c9180e31cd993d5fe147a00d416b35f63b0`
+  * added `try()`s for execution via `Rscript`
+  * re-ran unmonitored to refresh plot dates
   * commit ``
 
 

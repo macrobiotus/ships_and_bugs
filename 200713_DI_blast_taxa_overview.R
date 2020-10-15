@@ -102,7 +102,7 @@ try(which(Top10Spec$"iteration_query_def" %in% ph_asv$"iteration_query_def"))
 # manually changen factors - all one port less, as PH isn't conted
 Top10Spec$src[1] <- "2 Port(s)" # from 3 Ports
 Top10Spec$src[9] <- "3 Port(s)" # was 4 ports
-Top10Spec$src[12] <- "5 Port(s)" # was 6 ports
+# Top10Spec$src[12] <- "5 Port(s)" # was 6 ports
 
 # correct one name staring
 Top10Spec$species[which(Top10Spec$species == "Pelagostrobilidium sp. LS781")] <- "Pelagostrobilidium sp."
@@ -299,13 +299,13 @@ tax_table(phsq_ob) <- tax_mat_new
 phsq_ob_hi <- subset_samples(phsq_ob, Port == "Honolulu")
 phsq_ob_hi <- remove_empty(phsq_ob_hi)
 phsq_ob_hi_molten <- psmelt(phsq_ob_hi)
-write.xlsx(phsq_ob_hi_molten, "/Users/paul/Documents/CU_NIS-WRAPS/170728_external_presentations/201007_species_list_hi/200710_species_list_full_HI.xlsx", overwrite = FALSE)
+try(write.xlsx(phsq_ob_hi_molten, "/Users/paul/Documents/CU_NIS-WRAPS/170728_external_presentations/201007_species_list_hi/200710_species_list_full_HI.xlsx", overwrite = FALSE))
 # omitting writing full PhylSeq object 
 
 phsq_ob_ar <- subset_samples(phsq_ob, Port == "Puerto-Madryn")
 phsq_ob_ar <- remove_empty(phsq_ob_ar)
 phsq_ob_ar_molten <- psmelt(phsq_ob_ar)
-write.xlsx(phsq_ob_ar_molten, "/Users/paul/Documents/CU_NIS-WRAPS/170728_external_presentations/201007_species_list_ar/200710_species_list_full_AR.xlsx", overwrite = TRUE)
+try(write.xlsx(phsq_ob_ar_molten, "/Users/paul/Documents/CU_NIS-WRAPS/170728_external_presentations/201007_species_list_ar/200710_species_list_full_AR.xlsx", overwrite = TRUE))
 # omitting writing full PhylSeq object 
 
 
