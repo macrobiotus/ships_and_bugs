@@ -20,7 +20,6 @@ source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")
 
 # Functions
 # ~~~~~~~~~
-
 `%notin%` <- Negate(`%in%`)
 
 # Part I a: Load Blast results and read counts
@@ -53,8 +52,6 @@ BlRsSbsDfJn$ISNIS[which(BlRsSbsDfJn$iteration_query_def %in% nis_kara$iteration_
 # check if NIS were transcribed ok - yes they were
 identical(nis_kara$iteration_query_def, BlRsSbsDfJn[which(BlRsSbsDfJn$ISNIS == TRUE ), ]$iteration_query_def)
 
-
-
 # Part I b: Sort data for summary purposes
 # ---------------------------------------
 # - by abundance
@@ -84,38 +81,41 @@ coverage_per_asv <- coverage_per_asv %>% arrange(desc(x))
 taxon_strings <- distinct(BlRsSbsDfJn[c("iteration_query_def", "superkingdom", "phylum", "class", "order", "family", "genus", "species")])
 coverage_per_asv <- left_join(coverage_per_asv, taxon_strings, by = c("iteration_query_def" = "iteration_query_def"))
 
-# inspect 
-head(coverage_per_asv, 12) # for now just this, summary below
-summary(coverage_per_asv)
-
 # full unique species list, without 0 abundances
 coverage_per_asv %>% filter(x != 0) %>% select(superkingdom, phylum, class, order, family, genus, species) %>%
   distinct() %>% arrange(superkingdom, phylum, class, order, family) # 
 
+# inspect 
+head(coverage_per_asv, 12) # for now just this, summary below
+summary(coverage_per_asv)
+
+# get sequencing effort
+sum(coverage_per_asv$x)
+
 # subset for species plot
 
-Top12Spec <- semi_join(BlRsSbsDfJn, head(coverage_per_asv, 12), by = c("iteration_query_def"))
+Top10Spec <- semi_join(BlRsSbsDfJn, head(coverage_per_asv, 10), by = c("iteration_query_def"))
 
 # getting indices to manually change factors - to be careful run part IIa below first
-try(which(Top12Spec$"iteration_query_def" %in% ph_asv$"iteration_query_def"))
+try(which(Top10Spec$"iteration_query_def" %in% ph_asv$"iteration_query_def"))
 
 # manually changen factors - all one port less, as PH isn't conted
-Top12Spec$src[1] <- "2 Port(s)" # from 3 Ports
-Top12Spec$src[9] <- "3 Port(s)" # was 4 ports
-Top12Spec$src[12] <- "5 Port(s)" # was 6 ports
+Top10Spec$src[1] <- "2 Port(s)" # from 3 Ports
+Top10Spec$src[9] <- "3 Port(s)" # was 4 ports
+Top10Spec$src[12] <- "5 Port(s)" # was 6 ports
 
 # correct one name staring
-Top12Spec$species[which(Top12Spec$species == "Pelagostrobilidium sp. LS781")] <- "Pelagostrobilidium sp."
+Top10Spec$species[which(Top10Spec$species == "Pelagostrobilidium sp. LS781")] <- "Pelagostrobilidium sp."
 
 # introduce line breaks
-Top12Spec$species <- paste(Top12Spec$species, "\n(", Top12Spec$class,")", sep ="")
+Top10Spec$species <- paste(Top10Spec$species, "\n(", Top10Spec$class,")", sep ="")
 
 
 # Part I c: 12 most common species, and ports.
 # --------------------------------------------
-ggplot(Top12Spec, aes(x = reorder(species, +count), y = count, fill = src)) + 
+ggplot(Top10Spec, aes(x = reorder(species, +count), y = count, fill = src)) + 
     geom_bar(position="stack", stat="identity") +
-    geom_label(label = Top12Spec$src, size = 1.5) +
+    geom_label(label = Top10Spec$src, size = 1.5) +
     theme_bw() +
     theme(legend.position = "none") +
     theme(axis.text.x = element_text(angle = 45, hjust = 1),
@@ -160,6 +160,22 @@ ggsave("200914_all_taxa_across_ports.pdf", plot = last_plot(),
 
 blast_results_nis_only_reads <- BlRsSbsDfJn %>% na.omit %>% filter(count != 0) %>% filter(ISNIS == TRUE)
 
+
+# get number of distinct eukaryote species, orders 
+blast_results_nis_only_reads %>% distinct(species) %>% na.omit %>% nrow # 41 distinct species
+blast_results_nis_only_reads %>% distinct(order) %>% na.omit %>%  nrow # 21 distinct orders
+blast_results_nis_only_reads %>% distinct(class) %>% na.omit %>% nrow # 11 distinct classes
+blast_results_nis_only_reads %>% distinct(phylum) %>% na.omit %>% nrow # 7 distinct phyla
+
+# get coverages per ASV - empty ASVs not yet filtered out!
+coverage_per_nis_asv <- aggregate(blast_results_nis_only_reads$count, by = list(iteration_query_def = blast_results_nis_only_reads$iteration_query_def), FUN = sum)
+coverage_per_nis_asv <- coverage_per_nis_asv %>% arrange(desc(x))
+
+# add taxonomy to coverage list
+nis_taxon_strings <- distinct(blast_results_nis_only_reads[c("iteration_query_def", "superkingdom", "phylum", "class", "order", "family", "genus", "species")])
+nis_coverage_per_asv <- left_join(coverage_per_nis_asv, nis_taxon_strings, by = c("iteration_query_def" = "iteration_query_def"))
+
+
 ggplot(blast_results_nis_only_reads, aes(x = src, y = phylum, fill = phylum)) +
   geom_bar(position="stack", stat="identity") +
   labs( title = "phyla across ports") +
@@ -171,7 +187,7 @@ ggplot(blast_results_nis_only_reads, aes(x = src, y = phylum, fill = phylum)) +
         axis.text.y = element_blank(), 
         axis.ticks.y = element_blank())
 
-ggsave("200914_nis_taxa_acroos_ports.pdf", plot = last_plot(), 
+ggsave("200914_nis_taxa_across_ports.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
          scale = 1.5, width = 75, height = 100, units = c("mm"),
          dpi = 500, limitsize = TRUE)
@@ -339,7 +355,6 @@ ggsave("200729_all_phyla_at_all_ports.pdf", plot = last_plot(),
          scale = 3, width = 75, height = 100, units = c("mm"),
          dpi = 500, limitsize = TRUE)
 
-
 # Part III: Plotting and data based on ASV counts
 # -----------------------------------------------
 
@@ -361,14 +376,28 @@ summary(phsq_ob_full_lng$Abundance)
 phsq_ob_full_lng <- phsq_ob_full_lng %>% filter(Abundance != 0)
 summary(phsq_ob_full_lng$Abundance)
 
+# inditfy nis again
+phsq_ob_full_lng$ISNIS <- FALSE 
+phsq_ob_full_lng$ISNIS[which(phsq_ob_full_lng$OTU %in% nis_kara$iteration_query_def)] <- TRUE
+
+# get sample coverage to describe sequencing effort - doesn't match supplemnet - why? - currently not in manuscript
+phsq_ob_full_lng_sample_coverage <- phsq_ob_full_lng %>% as_tibble() %>% group_by(Sample) %>% 
+  summarise(SampleCoverage = sum(Abundance))
+sum(phsq_ob_full_lng_sample_coverage$SampleCoverage)
+summary(phsq_ob_full_lng_sample_coverage$SampleCoverage)
+
 # split objects into metazoans and non-metazoaa
 metazoa <- c("Annelida", "Arthropoda", "Brachiopoda", "Bryozoa", "Chordata", "Cnidaria", "Ctenophora", "Echinodermata",
              "Entoprocta", "Gastrotricha", "Hemichordata", "Mollusca", "Nematoda", "Mermertea", "Platyhelminthes", "Porifera", 
              "Rotifera", "Tardigrada")
-
 phsq_ob_metazoan_lng <- phsq_ob_full_lng %>% filter(phylum %in% metazoa) %>% as_tibble()
 phsq_ob_nonmetaz_lng <- phsq_ob_full_lng %>% filter(phylum %notin% metazoa) %>% as_tibble()
-phsqs_wide <- list("metazoa" = phsq_ob_metazoan_lng, "nonmeta" = phsq_ob_nonmetaz_lng)
+
+# get full NIS object
+phsq_ob_invasive_lng <- phsq_ob_full_lng %>% filter(ISNIS == TRUE ) %>% as_tibble()
+
+# get wide objects
+phsqs_wide <- list("metazoa" = phsq_ob_metazoan_lng, "nonmeta" = phsq_ob_nonmetaz_lng, "invasive" = phsq_ob_invasive_lng)
 
 
 # adding presence-absence to presence Abundance column (via lapply(<list-like-object>, function(x) <do stuff>))
@@ -397,7 +426,6 @@ phsqs_wide_dstnct <- lapply(
   distinct()
   )
 
-remotes::install_github("coolbutuseless/ggpattern")
 
 # plot plain ASV per phylum and port
 ggplot(phsqs_wide_dstnct[[1]], aes_string(x = "Facility", y = "ASVCountPerPortEachPhylum", fill="phylum")) +
@@ -432,6 +460,27 @@ ggsave("201014_observed_non-metazoan_ASVs_across_ports.pdf", plot = last_plot(),
          scale = 3, width = 75, height = 50, units = c("mm"),
          dpi = 500, limitsize = TRUE)
 
+ggplot(phsqs_wide_dstnct[[3]], aes_string(x = "Facility", y = "ASVCountPerPortEachPhylum", fill="phylum")) +
+  geom_bar(stat = "identity", position = "stack", size = 0) +
+  theme_bw() +
+  theme(strip.text.y = element_text(angle = 0)) + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+        axis.text.y = element_text(angle = 90, hjust = 1,  size = 8), 
+        axis.ticks.y = element_blank()) +
+  labs(title = "observed invasive ASVs across ports") + 
+  xlab("ports") + 
+  ylab("ASVs at each port")
+
+ggsave("201015_observed_invasive_ASVs_across_ports.pdf", plot = last_plot(), 
+         device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
+         scale = 3, width = 75, height = 50, units = c("mm"),
+         dpi = 500, limitsize = TRUE)
+
+summary(unique(phsqs_wide_dstnct[[3]]$ASVCountPerPort))
+phsqs_wide_dstnct[[3]] %>% arrange(desc(ASVCountPerPort), Location)
+phsqs_wide_dstnct[[3]] %>% arrange(ASVCountPerPort, Location)
+
+
 # proportional plots 
 ggplot(phsqs_wide_dstnct[[1]], aes_string(x = "Facility", y = "PhylumPortProp", fill="phylum")) +
   geom_bar(stat = "identity", position = "stack", size = 0) +
@@ -461,6 +510,22 @@ ggplot(phsqs_wide_dstnct[[2]], aes_string(x = "Facility", y = "PhylumPortProp", 
   ylab("unique ASV proportion per port")
 
 ggsave("201014_observed_non-metazoan_ASV_proportions_across_ports.pdf", plot = last_plot(), 
+         device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
+         scale = 3, width = 75, height = 50, units = c("mm"),
+         dpi = 500, limitsize = TRUE)
+         
+ggplot(phsqs_wide_dstnct[[3]], aes_string(x = "Facility", y = "PhylumPortProp", fill="phylum")) +
+  geom_bar(stat = "identity", position = "stack", size = 0) +
+  theme_bw() +
+  theme(strip.text.y = element_text(angle = 0)) + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+        axis.text.y = element_text(angle = 90, hjust = 1,  size = 8), 
+        axis.ticks.y = element_blank()) +
+  labs(title = "observed invasive ASV proportions across ports") + 
+  xlab("ports") + 
+  ylab("unique invasive ASV proportion per port")
+
+ggsave("201014_observed_invasive_ASV_proportions_across_ports.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
          scale = 3, width = 75, height = 50, units = c("mm"),
          dpi = 500, limitsize = TRUE)

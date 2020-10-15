@@ -2466,15 +2466,20 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * no significant difference on phylum level per ecoregion
   * commit `a4a375ca03fb955487f1dab678a134fa408c66e8`
 * **14.10.2020** - in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
- * revise code to seperate out plots for metazoans
+  * revise code to seperate out plots for metazoans
+  * commit `d1d60cbb05a9fd24e4114d984e67bbec35f68f5a`
+* **15.10.2020** - in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+  * added numerous analyses to look at invasives and to complet results section
+  * script messy now - if in doubt check commit history - **needs revision at some point**
+  * commit ``
 
-* **next** 
-  * add grouping to mapping file and find ecoregion differences in Qiime
-  * in `/Users/paul/Documents/CU_combined/Github/090-5_DI_blast_control_overview.R``
-     * in vegan call remove `strata = phsq_ob_dstnct_truncated$Port`
-     * Blast and summarize negative and positive control data - **pending**
 
-## Todo (al below possibly outdated, last refreshed 30-Jul-2020, but still outdated)
+## Todo
+  * check all sequence effort counts - values are inconsistent across scripts 
+  * clean code in `/Users/paul/Documents/CU_combined/Github/090-5_DI_blast_control_overview.R``
+  * Blast and summarize negative and positive control data - **pending**
+ 
+### outdated Todo (all below possibly outdated, last refreshed 30-Jul-2020, but still outdated)
 
 #### Less important 
   * safe repository for spin-off - ecoregion paper
