@@ -29,6 +29,7 @@ source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")
 # ~~~~~~~~~~~~
 load(file="/Users/paul/Documents/CU_combined/Zenodo/R_Objects/200520_560_blast-xml-conversion_deep_with-ncbi-info.Rdata")
 head(blast_results_final)
+names(blast_results_final)
 
 # load read counts
 # ~~~~~~~~~~~~~~~~
@@ -151,7 +152,7 @@ ggplot(blast_results_nis_reads, aes(x = src, y = phylum, fill = phylum)) +
         axis.text.y = element_blank(), 
         axis.ticks.y = element_blank())
 
-ggsave("200914_all_taxa_across_ports.pdf", plot = last_plot(), 
+ggsave("201015_all_taxa_across_ports.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
          scale = 1.5, width = 100, height = 100, units = c("mm"),
          dpi = 500, limitsize = TRUE)
@@ -208,7 +209,7 @@ ggplot(blast_results_nis_only_reads_metazoans, aes(x = src, y = phylum, fill = p
         axis.text.y = element_blank(), 
         axis.ticks.y = element_blank())
 
-ggsave("201007_nis_metazoans_across_ports.pdf", plot = last_plot(), 
+ggsave("201015_nis_metazoans_across_ports.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
          scale = 1.5, width = 75, height = 100, units = c("mm"),
          dpi = 500, limitsize = TRUE)
@@ -230,7 +231,7 @@ ggplot(blast_results_nis_only_reads_non_metazoans, aes(x = src, y = phylum, fill
         axis.text.y = element_blank(), 
         axis.ticks.y = element_blank())
 
-ggsave("201007_nis_non_metazoans_across_ports.pdf", plot = last_plot(), 
+ggsave("201015_nis_non_metazoans_across_ports.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
          scale = 1.5, width = 75, height = 100, units = c("mm"),
          dpi = 500, limitsize = TRUE)
@@ -350,7 +351,7 @@ ggplot(phsq_ob_lng, aes_string(x = "phylum", y = "Abundance", fill = "phylum")) 
   xlab("phyla at all ports") + 
   ylab("sequence counts for each port (y scales variable)")
 
-ggsave("200729_all_phyla_at_all_ports.pdf", plot = last_plot(), 
+ggsave("201015_all_phyla_at_all_ports.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
          scale = 3, width = 75, height = 100, units = c("mm"),
          dpi = 500, limitsize = TRUE)
@@ -439,7 +440,7 @@ ggplot(phsqs_wide_dstnct[[1]], aes_string(x = "Facility", y = "ASVCountPerPortEa
   xlab("ports") + 
   ylab("ASVs at each port")
 
-ggsave("201014_observed_metazoan_ASVs_across_ports.pdf", plot = last_plot(), 
+ggsave("201015_observed_metazoan_ASVs_across_ports.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
          scale = 3, width = 75, height = 50, units = c("mm"),
          dpi = 500, limitsize = TRUE)
@@ -455,7 +456,7 @@ ggplot(phsqs_wide_dstnct[[2]], aes_string(x = "Facility", y = "ASVCountPerPortEa
   xlab("ports") + 
   ylab("ASVs at each port")
 
-ggsave("201014_observed_non-metazoan_ASVs_across_ports.pdf", plot = last_plot(), 
+ggsave("201015_observed_non-metazoan_ASVs_across_ports.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
          scale = 3, width = 75, height = 50, units = c("mm"),
          dpi = 500, limitsize = TRUE)
@@ -493,7 +494,7 @@ ggplot(phsqs_wide_dstnct[[1]], aes_string(x = "Facility", y = "PhylumPortProp", 
   xlab("ports") + 
   ylab("unique ASV proportion per port")
 
-ggsave("201014_observed_metazoan_ASV_proportions_across_ports.pdf", plot = last_plot(), 
+ggsave("201015_observed_metazoan_ASV_proportions_across_ports.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
          scale = 3, width = 75, height = 50, units = c("mm"),
          dpi = 500, limitsize = TRUE)
@@ -525,7 +526,7 @@ ggplot(phsqs_wide_dstnct[[3]], aes_string(x = "Facility", y = "PhylumPortProp", 
   xlab("ports") + 
   ylab("unique invasive ASV proportion per port")
 
-ggsave("201014_observed_invasive_ASV_proportions_across_ports.pdf", plot = last_plot(), 
+ggsave("201015_observed_invasive_ASV_proportions_across_ports.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
          scale = 3, width = 75, height = 50, units = c("mm"),
          dpi = 500, limitsize = TRUE)
@@ -536,7 +537,7 @@ ggsave("201014_observed_invasive_ASV_proportions_across_ports.pdf", plot = last_
 # ~~~ format data ~~~
 
 # get a wide ASV table from input object - metazoa
-phsq_ob_dstnct_truncated <- as_tibble(data.table::dcast(setDT(phsqs_wide_dstnct[[1]]), Facility~phylum, value.var="ASVCountPerPortEachPhylum", fill=0))
+phsq_ob_dstnct_truncated <- as_tibble(data.table::dcast(setDT(phsqs_wide_dstnct[[3]]), Facility~phylum, value.var="ASVCountPerPortEachPhylum", fill=0))
 
 # correct column names
 phsq_ob_dstnct_truncated <- phsq_ob_dstnct_truncated %>% dplyr::rename(Port = Facility) 

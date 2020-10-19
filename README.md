@@ -2474,12 +2474,29 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * commit `4030c9180e31cd993d5fe147a00d416b35f63b0`
   * added `try()`s for execution via `Rscript`
   * re-ran unmonitored to refresh plot dates
-  * commit ``
-
+  * commit `0333655f77dc0f872d207cd9b0af53248b4bbe7`
+  * updated file names of exports
+* **16.10.2020** - for new analyses (Jaccard of Invasive taxa against traffic variables)
+  * from `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+    * sending off file for new NIS annotation to Kara
+* **16.10.2020** - received results from Kara for new analysis
+  * moving to scratch `mv /Users/paul/Documents/CU_combined/Github/200717_DI_main_results_calculations.R /Users/paul/Documents/CU_combined/Scratch/R`
+  * creating new file `touch /Users/paul/Documents/CU_combined/Github/201019_DI_main_results_calculations.R_DI_main_results_calculations.R`
+    * therein revising code of `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R` 
+  * received results from Kara - checked nis assignments
+    * saved at `/Users/paul/Documents/CU_combined/Zenodo/NIS_lookups/201019_nis_lookups_kara`
+      * `/Users/paul/Documents/CU_combined/Zenodo/NIS_lookups/201019_nis_lookups_kara/blast_results_final.csv`
+      * `/Users/paul/Documents/CU_combined/Zenodo/NIS_lookups/201019_nis_lookups_kara/reBLAST_WRiMS_10.17.2020.R`
+      * `/Users/paul/Documents/CU_combined/Zenodo/NIS_lookups/201019_nis_lookups_kara/reBLAST_wrims_10.17.2020.txt`
+      * `/Users/paul/Documents/CU_combined/Zenodo/NIS_lookups/201019_nis_lookups_kara/wrims_98_unambiguous_port_matrix.csv`
+      * `/Users/paul/Documents/CU_combined/Zenodo/NIS_lookups/201019_nis_lookups_kara/WRiMS_taxon.csv`
+  * long object ready for analysis
+    * in script `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
+    * do analogous to `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+  * commit ``   
 
 ## Todo
-  * check all sequence effort counts - values are inconsistent across scripts 
-  * clean code in `/Users/paul/Documents/CU_combined/Github/090-5_DI_blast_control_overview.R``
+  * implement new ASV analysis script - **pending**
   * Blast and summarize negative and positive control data - **pending**
  
 ### outdated Todo (all below possibly outdated, last refreshed 30-Jul-2020, but still outdated)
