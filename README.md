@@ -2479,7 +2479,7 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
 * **16.10.2020** - for new analyses (Jaccard of Invasive taxa against traffic variables)
   * from `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
     * sending off file for new NIS annotation to Kara
-* **16.10.2020** - received results from Kara for new analysis
+* **19.10.2020** - received results from Kara for new analysis
   * moving to scratch `mv /Users/paul/Documents/CU_combined/Github/200717_DI_main_results_calculations.R /Users/paul/Documents/CU_combined/Scratch/R`
   * creating new file `touch /Users/paul/Documents/CU_combined/Github/201019_DI_main_results_calculations.R_DI_main_results_calculations.R`
     * therein revising code of `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R` 
@@ -2491,12 +2491,22 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * `/Users/paul/Documents/CU_combined/Zenodo/NIS_lookups/201019_nis_lookups_kara/wrims_98_unambiguous_port_matrix.csv`
       * `/Users/paul/Documents/CU_combined/Zenodo/NIS_lookups/201019_nis_lookups_kara/WRiMS_taxon.csv`
   * long object ready for analysis
-    * in script `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
-    * do analogous to `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
-  * commit ``   
+    * in script `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R` - **started**
+    * do analogous to `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R` - **pending**
+  * commit `06712937fb301cddb84194b6d5b5901d4ddbeb92`
+* **20.10.2020** - updated `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
+   * I created a Jaccard distance matrix from putative NIS presences (henceforth: pNIS) across ports (as shown in plots below) and after “melting" the matrix to three columns, merged those Jaccard distances to one of our old modelling tables. The first couple of rows of the resulting table are shown in the R code below. 
+   * The correlation test, done subsequently, is also shown below.
+   * *pNIS Jaccard *distances* are negatively correlated with voyage counts (which is what we are testing mainly and hypothesized to see) and positive correlated with all other *distances*, also as expected. My interpretation of this is that we have a positive results as hypothesized.
+   * commit ``
+
+
 
 ## Todo
   * implement new ASV analysis script - **pending**
+    * new plots - (nis filter first) - **pending**
+    * add traffic data - **pending**
+    * new analysis - **pending**
   * Blast and summarize negative and positive control data - **pending**
  
 ### outdated Todo (all below possibly outdated, last refreshed 30-Jul-2020, but still outdated)
