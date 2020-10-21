@@ -1,10 +1,16 @@
-# Get graphical representation of detected taxa
-# =============================================
-#
-# check Git history and README.md
+#' ---
+#' title: "Get graphical representation of detected taxa"
+#' author: "Paul Czechowski"
+#' date: "21-Oct-2020"
+#' output: pdf_document
+#' ---
+#' 
+#' 
+#' Use `rmarkdown::render("/Users/paul/Documents/CU_combined/Github/201019_DI_main_results_calculations.R")` to render.
 
-# Prepare Environment
-# ===================
+#' # Prepare Environment
+#' 
+#' Empty memory
 rm(list=ls(all=TRUE)) # clear memory
 
 
@@ -19,7 +25,8 @@ library("future.apply") # faster handling of large tables
 
 library("scales")   # better axis labels
 
-library("vegan")    # distance calculation from community data 
+library("vegan")    # distance calculation from community data
+library("ppcor")    # partial correlations
 
 # Functions
 # --------
@@ -43,7 +50,7 @@ source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")
 # ~~~~~~~~~~~~~~~~~~~
 # checking what Kara did as documented in `/Users/paul/Documents/CU_combined/Zenodo/NIS_lookups/201019_nis_lookups_kara/reBLAST_WRiMS_10.17.2020.R`
 # loading relevant file
-blast_results_final_with_nis <- readr::read_csv("/Users/paul/Documents/CU_combined/Zenodo/NIS_lookups/201019_nis_lookups_kara/blast_results_final.csv", col_names = TRUE) %>% select(-X1)
+blast_results_final_with_nis <- readr::read_csv("/Users/paul/Documents/CU_combined/Zenodo/NIS_lookups/201019_nis_lookups_kara/blast_results_final.csv", col_names = TRUE) 
 
 # inspecting relevant columns and how many are there of each combination
 blast_results_final_with_nis %>% group_by(wrims, wrims_98_unambiguous) %>% count(group_n = n_distinct(wrims, wrims_98_unambiguous))
@@ -218,10 +225,43 @@ mdl_tb <- mdl_tb %>% arrange(PORT, DEST) %>% mutate(JoinKey = paste0(PORT, "_", 
 nis_corr <- dplyr::left_join(cd_pj, mdl_tb, by = c("JoinKey"), copy = TRUE, keep = FALSE)
 
 # tidying up
-nis_corr <- nis_corr %>% filter(!is.na(PORT.y)) %>% select(-one_of(c("JoinKey", "PORT.y", "DEST.y"))) %>% rename("PORT.x"= "PORT" , "DEST.x" = "DEST") %>% as_tibble()
+nis_corr <- nis_corr %>% filter(!is.na(PORT.y)) %>% dplyr::select(-one_of(c("JoinKey", "PORT.y", "DEST.y"))) %>% rename("PORT.x"= "PORT" , "DEST.x" = "DEST") %>% as_tibble()
 
-# - Checking Pearson correlation - 
-
+# check data 
 head(nis_corr)
-# all as expected
-cor(nis_corr %>% select(c("JACC_NIS", "PRED_ENV", "VOY_FREQ", "RESP_UNIFRAC")), method= "spearman")
+
+#  and subset for sorter command downstream 
+nis_corr_ss <- nis_corr %>% dplyr::select(c("JACC_NIS", "PRED_ENV", "VOY_FREQ"))
+
+# - plot variables of interests - 
+
+plot(nis_corr_ss, pch=20 , cex=1.5 , col="#69b3a2")
+
+# - Spearman correlations - 
+
+# just plain correlations between variables - 
+cor(nis_corr_ss, method="spearman")
+
+# - Partial Spearman correlation - 
+
+# partial correlation
+pcor(nis_corr_ss, method = c("spearman"))
+
+# partial correlation between "JACC_NIS" and "VOY_FREQ" given "PRED_ENV"s effect on both variables (possibly applicable)
+pcor.test(nis_corr_ss$"JACC_NIS",nis_corr_ss$"VOY_FREQ", nis_corr_ss$"PRED_ENV", method = c("spearman"))
+
+
+# - Semi-Partial Spearman correlation - 
+
+# Semi-partial correlation is the correlation of two variables with variation 
+#  from a third or more other variables removed only from the second variable. 
+#  When the determinant of variance-covariance matrix is numerically zero, 
+#  Moore-Penrose generalized matrix inverse is used. In this case, no p-value 
+#  and statistic will be provided if the number of variables are greater than
+#  or equal to the sample size.
+
+# sem-partial correlation
+spcor(nis_corr_ss, method = c("spearman"))
+
+# partial correlation between "JACC_NIS" and "VOY_FREQ" given "PRED_ENV"s removed from second variables (likely applicable)
+spcor.test(nis_corr_ss$"JACC_NIS",nis_corr_ss$"VOY_FREQ", nis_corr_ss$"PRED_ENV", method = c("spearman"))
