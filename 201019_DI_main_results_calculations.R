@@ -265,3 +265,37 @@ spcor(nis_corr_ss, method = c("spearman"))
 
 # partial correlation between "JACC_NIS" and "VOY_FREQ" given "PRED_ENV"s removed from second variables (likely applicable)
 spcor.test(nis_corr_ss$"JACC_NIS",nis_corr_ss$"VOY_FREQ", nis_corr_ss$"PRED_ENV", method = c("spearman"))
+
+# JA: partial correlation between "VOY_FREQ" and "JACC_NIS" given "PRED_ENV"s removed from second variables (possibly applicable)
+spcor.test(nis_corr_ss$"VOY_FREQ", nis_corr_ss$"JACC_NIS", nis_corr_ss$"PRED_ENV", method = c("spearman")) 
+
+### JA: Plotting of semipartial correlation of Jaccard NIS and traffic. (Jaccard NIS controlled for env similarity) ####  
+
+Jacc_resid<-resid(lm(JACC_NIS~PRED_ENV,nis_corr_ss))
+
+ggplot(nis_corr_ss, aes(x=VOY_FREQ, y=Jacc_resid)) +
+  geom_point() +
+  geom_smooth(method=lm) + 
+  labs(x="VOY_FREQ", y = "JACC_NIS | PRED_ENV")+
+  theme_classic() 
+
+
+# Remving outliers in VOY_FREQ 
+#  https://www.statsandr.com/blog/outliers-detection-in-r/#percentiles
+#  According to this method, all observations below 14 and above 35.175 will be considered as potential outliers. The row numbers of the observations outside of the interval can then be extracted with the which() function:
+
+lower_bound <- quantile(nis_corr_ss$"VOY_FREQ", 0.025)
+lower_bound
+upper_bound <- quantile(nis_corr_ss$"VOY_FREQ", 0.975)
+upper_bound
+outlier_ind <- which(nis_corr_ss$"VOY_FREQ" < lower_bound | nis_corr_ss$"VOY_FREQ" > upper_bound)
+
+nis_corr_ss <- nis_corr_ss[-outlier_ind, ]
+
+Jacc_resid<-resid(lm(JACC_NIS~PRED_ENV,nis_corr_ss))
+
+ggplot(nis_corr_ss, aes(x=VOY_FREQ, y=Jacc_resid)) +
+  geom_point() +
+  geom_smooth(method=lm) + 
+  labs(x="VOY_FREQ", y = "JACC_NIS | PRED_ENV")+
+  theme_classic() 

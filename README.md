@@ -2506,7 +2506,10 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
 * **21.10.2020** - updated `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
   * added partial correlation and semi-partial correlations
   * move to scratch: `/Users/paul/Documents/CU_combined/Scratch/R/200713_DI_blast_taxa_overview.R`
-  * commit ``
+  * commit `c121c8d7980b0a4b70ce416bdd4cb02b933fe3a1`
+* **22.10.2020** - updated `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
+  * added JA's way of plotting semi-partial correlations - with and without outliers removed
+
 
 ## Todo
   * in `/Users/paul/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
