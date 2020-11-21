@@ -54,35 +54,38 @@ model.FreqTrip <- GLMERSelect(modelData = portA,responseVar = "RESP_UNIFRAC",
                       fitInteractions=TRUE,
                       randomStruct = "(1|PORT)+(1|DEST)",verbose = TRUE)
                       
- model.JFreqTrip <- GLMERSelect(modelData = portA,responseVar = "RESP_UNIFRAC",
+model.JFreqTrip <- GLMERSelect(modelData = portA,responseVar = "RESP_UNIFRAC",
                       fitFamily = "gaussian",fixedFactors = "ECO_DIFF",
                       fixedTerms = list(PRED_ENV=1, J_VOY_FREQ=1),
                       fitInteractions=TRUE,
                       randomStruct = "(1|PORT)+(1|DEST)",verbose = TRUE) 
+
                       
-  model.JAC_B_F <- GLMERSelect(modelData = portA,responseVar = "RESP_UNIFRAC",
+
+model.JAC_B_F <- GLMERSelect(modelData = portA,responseVar = "RESP_UNIFRAC",
                       fitFamily = "gaussian",fixedFactors = "ECO_DIFF",
                       fixedTerms = list(PRED_ENV=1, J_B_FON_NOECO_NOENV=1),
                       fitInteractions=TRUE,
                       randomStruct = "(1|PORT)+(1|DEST)",verbose = TRUE)                    
                       
-  model.JAC_B_H <- GLMERSelect(modelData = portA,responseVar = "RESP_UNIFRAC",
+model.JAC_B_H <- GLMERSelect(modelData = portA,responseVar = "RESP_UNIFRAC",
                       fitFamily = "gaussian",fixedFactors = "ECO_DIFF",
                       fixedTerms = list(PRED_ENV=1, J_B_HON_NOECO_NOENV=1),
                       fitInteractions=TRUE,
                       randomStruct = "(1|PORT)+(1|DEST)",verbose = TRUE) 
  
- model.JAC_B_F.risk <- GLMERSelect(modelData = portA,responseVar = "RESP_UNIFRAC",
+model.JAC_B_F.risk <- GLMERSelect(modelData = portA,responseVar = "RESP_UNIFRAC",
                       fitFamily = "gaussian",fixedFactors = "ECO_DIFF",
                       fixedTerms = list(J_B_FON_NOECO=1),
                       fitInteractions=TRUE,
                       randomStruct = "(1|PORT)+(1|DEST)",verbose = TRUE) 
             
- model.JAC_B_H.risk <- GLMERSelect(modelData = portA,responseVar = "RESP_UNIFRAC",
+model.JAC_B_H.risk <- GLMERSelect(modelData = portA,responseVar = "RESP_UNIFRAC",
                       fitFamily = "gaussian",fixedFactors = "ECO_DIFF",
                       fixedTerms = list(J_B_HON_NOECO=1),
                       fitInteractions=TRUE,
                       randomStruct = "(1|PORT)+(1|DEST)",verbose = TRUE) 
+
                       
 model.B_F <- GLMERSelect(modelData = portA,responseVar = "RESP_UNIFRAC",
                       fitFamily = "gaussian",fixedFactors = "ECO_DIFF",
@@ -90,19 +93,19 @@ model.B_F <- GLMERSelect(modelData = portA,responseVar = "RESP_UNIFRAC",
                       fitInteractions=TRUE,
                       randomStruct = "(1|PORT)+(1|DEST)",verbose = TRUE) 
 
-  model.B_H <- GLMERSelect(modelData = portA,responseVar = "RESP_UNIFRAC",
+model.B_H <- GLMERSelect(modelData = portA,responseVar = "RESP_UNIFRAC",
                       fitFamily = "gaussian",fixedFactors = "ECO_DIFF",
                       fixedTerms = list(PRED_ENV=1, B_HON_NOECO_NOENV=1),
                       fitInteractions=TRUE,
                       randomStruct = "(1|PORT)+(1|DEST)",verbose = TRUE) 
 
- model.B_F.risk <- GLMERSelect(modelData = portA,responseVar = "RESP_UNIFRAC",
+model.B_F.risk <- GLMERSelect(modelData = portA,responseVar = "RESP_UNIFRAC",
                       fitFamily = "gaussian",fixedFactors = "ECO_DIFF",
                       fixedTerms = list(B_FON_NOECO=1),
                       fitInteractions=TRUE,
                       randomStruct = "(1|PORT)+(1|DEST)",verbose = TRUE) 
 
- model.B_H.risk <- GLMERSelect(modelData = portA,responseVar = "RESP_UNIFRAC",
+model.B_H.risk <- GLMERSelect(modelData = portA,responseVar = "RESP_UNIFRAC",
                       fitFamily = "gaussian",fixedFactors = "ECO_DIFF",
                       fixedTerms = list(B_HON_NOECO=1),
                       fitInteractions=TRUE,

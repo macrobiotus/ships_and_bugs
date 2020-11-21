@@ -1,16 +1,17 @@
 #' ---
 #' title: "Get graphical representation of detected taxa"
 #' author: "Paul Czechowski"
-#' date: "21-Oct-2020"
+#' date: "30-Oct-2020"
 #' output: pdf_document
 #' ---
 #' 
 #' 
 #' Use `rmarkdown::render("/Users/paul/Documents/CU_combined/Github/201019_DI_main_results_calculations.R")` to render.
-
+#'
 #' # Prepare Environment
 #' 
 #' Empty memory
+
 rm(list=ls(all=TRUE)) # clear memory
 
 
@@ -39,9 +40,7 @@ int_breaks <- function(x, n = 5) {
   l[abs(l %% 1) < .Machine$double.eps ^ 0.5] 
 }
 
-
 source("/Users/paul/Documents/CU_combined/Github/500_00_functions.R")
-
 
 # Loading data
 # ============
@@ -108,6 +107,10 @@ phsq_ob_unfiltered_molten_merged <- merge(phsq_ob_unfiltered_molten, blast_resul
 # understand data structures by counting unique elements among varibels and their products
 future_apply(phsq_ob_unfiltered_molten_merged, 2, function(x) length(unique(x)))
 
+# save data for collaborators
+save(phsq_ob_unfiltered_molten_merged, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/201019_DI_main_results_calculations.Rdata")
+
+
 
 # Data plotting and analysis - all ASV analysis and plotting
 # ==========================================================
@@ -115,8 +118,72 @@ future_apply(phsq_ob_unfiltered_molten_merged, 2, function(x) length(unique(x)))
 # Formatting and numerical summaries 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# - not done yet - 
+# added 21-11-2020
 
+# keep all - no-PH samples - eDNA samples - no bacteria
+all_asv_lng <- phsq_ob_unfiltered_molten_merged[RID != "PH" & Type == "eDNA" & superkingdom == "Eukaryota"]
+
+# remove Blast information (starting with "hsp_..." ) for clarity (at least temporarily)
+all_asv_lng[, grep("^hsp_", colnames(all_asv_lng)):=NULL]
+
+# understand data structures by counting unique elements among varibels and their products
+future_apply(all_asv_lng, 2, function(x) length(unique(x)))
+nrow(all_asv_lng)
+
+# aggregate on Port (=RID) level
+#   https://stackoverflow.com/questions/16513827/summarizing-multiple-columns-with-data-table
+all_asv_lng <- all_asv_lng[, lapply(.SD, sum, na.rm=TRUE), by=c("RID", "ASV", "src", "tax_id", "superkingdom",  "phylum",  "class",  "order",  "family",  "genus",  "species"), .SDcols=c("Abundance") ]
+
+#  resort for clarity
+keycol <-c("ASV","RID")
+setorderv(all_asv_lng, keycol)
+
+# add presence-absence abundance column
+all_asv_lng <- all_asv_lng[ , AsvPresent :=  fifelse(Abundance == 0 , 0, 1, na=NA)]
+
+# understand data structures
+future_apply(all_asv_lng, 2, function(x) length(unique(x)))
+head(all_asv_lng, 100)
+nrow(all_asv_lng)
+
+# Plots
+# ~~~~~
+
+# plot plain ASV per phylum and port - not facetted
+ggplot(all_asv_lng, aes_string(x = "RID", y = "AsvPresent", fill="phylum")) +
+  geom_bar(stat = "identity", position = "stack", size = 0) +
+  scale_y_continuous(breaks = int_breaks) +
+  theme_bw() +
+  theme(strip.text.y = element_text(angle = 0)) + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+        axis.text.y = element_text(angle = 0, hjust = 1,  size = 8), 
+        axis.ticks.y = element_blank()) +
+  labs(title = "present eukaryote ASVs") + 
+  xlab("ports") + 
+  ylab("present ASVs at each port (NA: no entry at taxonomic level)")
+
+ggsave("201121_observed_eukaryote_ASVs_across_ports.pdf", plot = last_plot(), 
+         device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
+         scale = 3, width = 75, height = 50, units = c("mm"),
+         dpi = 500, limitsize = TRUE)
+
+# plot plain ASV per phylum and port - facetted
+ggplot(all_asv_lng, aes_string(x = "RID", y = "AsvPresent", fill="phylum")) +
+  geom_bar(stat = "identity", position = "stack", size = 0) +
+  facet_grid(src ~ ., shrink = TRUE, scales = "free_y") + 
+  theme_bw() +
+  theme(strip.text.y = element_text(angle = 0)) + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+        axis.text.y = element_text(angle = 0, hjust = 1,  size = 8), 
+        axis.ticks.y = element_blank()) +
+  labs(title = "present eukaryote ASVs") + 
+  xlab("ports") + 
+  ylab("present ASVs at each port (NA: no entry at taxonomic level)")
+
+ggsave("201121_observed_eukaryote_ASVs_across_ports_facetted.pdf", plot = last_plot(), 
+         device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
+         scale = 3, width = 75, height = 50, units = c("mm"),
+         dpi = 500, limitsize = TRUE)
 
 
 # Data plotting and analysis -  NIS ASV analysis and plotting
@@ -202,7 +269,12 @@ ggsave("201020_observed_ASVs_across_ports.pdf", plot = last_plot(),
 
 # get Jaccard distance matrix for invasive taxa Jaccard distances between ports based on ASV presence
 cd <- as.matrix(data.table::dcast(setDT(nis_asv_lng), RID~ASV, value.var="AsvPresent", fill=0), rownames=TRUE)
+
+# just checking - row sums should all be larger then zero
+rowSums(cd)
+
 cd_dm <- vegdist(cd, method="jaccard", binary=FALSE, diag=TRUE, upper=TRUE, na.rm = FALSE)
+
 
 # melt for merging
 cd_pj <- reshape2::melt(as.matrix(cd_dm), varnames = c("PORT", "DEST"), value.name = "JACC_NIS")
@@ -213,11 +285,23 @@ cd_pj <- cd_pj %>% arrange(PORT, DEST) %>% mutate(JoinKey = paste0(PORT, "_", DE
 
 # - Prepare old model data for merging - 
 
-# read old model data (check - must be the same as Jose)
-mdl_tb <- readr::read_csv("/Users/paul/Documents/CU_combined/Zenodo/Results/01_results_euk_asv00_deep_UNIF_model_data_2020-Apr-27-16-48-06_joined_no-nas_scaled.csv", col_names = TRUE)
+# read old model data (check - must be the same as Jose) - using unscaled data
+mdl_tb <- readr::read_csv("/Users/paul/Documents/CU_combined/Zenodo/Results/01_results_euk_asv00_deep_UNIF_model_data_2020-Apr-27-16-48-06_no_ph_joined_no-nas.csv", col_names = TRUE)
 
 #  sort by RID for key creation  - create key for merging - move key to front for visibility
 mdl_tb <- mdl_tb %>% arrange(PORT, DEST) %>% mutate(JoinKey = paste0(PORT, "_", DEST)) %>% relocate(JoinKey)
+
+
+
+# UNIFRAC summary
+hist(mdl_tb$RESP_UNIFRAC)
+summary(mdl_tb$RESP_UNIFRAC)
+mean(mdl_tb$RESP_UNIFRAC)
+sd(mdl_tb$RESP_UNIFRAC)
+
+# routes are bidirectional - check both variables to see all 19 ports
+unique(mdl_tb$PORT)
+unique(mdl_tb$DEST)
 
 # - Merge data for further analysis - 
 
@@ -230,12 +314,22 @@ nis_corr <- nis_corr %>% filter(!is.na(PORT.y)) %>% dplyr::select(-one_of(c("Joi
 # check data 
 head(nis_corr)
 
-#  and subset for sorter command downstream 
-nis_corr_ss <- nis_corr %>% dplyr::select(c("JACC_NIS", "PRED_ENV", "VOY_FREQ"))
+
+#  and subset for sorter command downstream  
+#   not sure which variable to choose from Jose's modeling results using "J_VOY_FREQ" not "J_B_HON_NOECO_NOENV" 
+#   assuming this corresponds to highlighted model in Table 1
+#     Traffic | Stepping | UNIFRAC = ENV+ SHP + ENV*SHP + (ORG) + (DEST) | -479.34 | -457.35
+
+nis_corr_ss <- nis_corr %>% dplyr::select(c("JACC_NIS", "PRED_ENV", "J_VOY_FREQ"))
 
 # - plot variables of interests - 
 
 plot(nis_corr_ss, pch=20 , cex=1.5 , col="#69b3a2")
+hist(nis_corr_ss$"JACC_NIS")   # high values frequent - must be distance
+hist(nis_corr_ss$"J_VOY_FREQ") # low values frequent - looks like index - unstandardized  
+nis_corr_ss$"J_VOY_FREQ" <- 1 - nis_corr_ss$"J_VOY_FREQ" # convert index to distance - all others in table are distance, too
+hist(nis_corr_ss$"J_VOY_FREQ") # high values frequent - looks like distance now
+hist(nis_corr_ss$"PRED_ENV")   # just a normal distribution, distance goes from 0 to 4
 
 # - Spearman correlations - 
 
@@ -248,7 +342,7 @@ cor(nis_corr_ss, method="spearman")
 pcor(nis_corr_ss, method = c("spearman"))
 
 # partial correlation between "JACC_NIS" and "VOY_FREQ" given "PRED_ENV"s effect on both variables (possibly applicable)
-pcor.test(nis_corr_ss$"JACC_NIS",nis_corr_ss$"VOY_FREQ", nis_corr_ss$"PRED_ENV", method = c("spearman"))
+pcor.test(nis_corr_ss$"JACC_NIS",nis_corr_ss$"J_VOY_FREQ", nis_corr_ss$"PRED_ENV", method = c("spearman"))
 
 
 # - Semi-Partial Spearman correlation - 
@@ -263,39 +357,39 @@ pcor.test(nis_corr_ss$"JACC_NIS",nis_corr_ss$"VOY_FREQ", nis_corr_ss$"PRED_ENV",
 # sem-partial correlation
 spcor(nis_corr_ss, method = c("spearman"))
 
-# partial correlation between "JACC_NIS" and "VOY_FREQ" given "PRED_ENV"s removed from second variables (likely applicable)
-spcor.test(nis_corr_ss$"JACC_NIS",nis_corr_ss$"VOY_FREQ", nis_corr_ss$"PRED_ENV", method = c("spearman"))
+# partial correlation between "JACC_NIS" and "J_VOY_FREQ" given "PRED_ENV"s removed from second variables (likely applicable)
+#  assuming only first variale "JACC_NIS" affected by "PRED_ENV", but not, "J_VOY_FREQ" 
+#  still seems like the right choice to me 
+spcor.test(nis_corr_ss$"JACC_NIS",nis_corr_ss$"J_VOY_FREQ", nis_corr_ss$"PRED_ENV", method = c("spearman"))
 
-# JA: partial correlation between "VOY_FREQ" and "JACC_NIS" given "PRED_ENV"s removed from second variables (possibly applicable)
-spcor.test(nis_corr_ss$"VOY_FREQ", nis_corr_ss$"JACC_NIS", nis_corr_ss$"PRED_ENV", method = c("spearman")) 
+# JA: partial correlation between "J_VOY_FREQ" and "JACC_NIS" given "PRED_ENV"s removed from second variables (possibly applicable)
+spcor.test(nis_corr_ss$"J_VOY_FREQ", nis_corr_ss$"JACC_NIS", nis_corr_ss$"PRED_ENV", method = c("spearman")) 
 
 ### JA: Plotting of semipartial correlation of Jaccard NIS and traffic. (Jaccard NIS controlled for env similarity) ####  
 
-Jacc_resid<-resid(lm(JACC_NIS~PRED_ENV,nis_corr_ss))
+Jacc_resid<-resid(lm(JACC_NIS~J_VOY_FREQ,nis_corr_ss))
 
-ggplot(nis_corr_ss, aes(x=VOY_FREQ, y=Jacc_resid)) +
+ggplot(nis_corr_ss, aes(x=J_VOY_FREQ, y=Jacc_resid)) +
   geom_point() +
   geom_smooth(method=lm) + 
-  labs(x="VOY_FREQ", y = "JACC_NIS | PRED_ENV")+
-  theme_classic() 
+  labs(x="J_VOY_FREQ", y = "JACC_NIS | PRED_ENV")+
+  theme_bw() 
 
-
-# Remving outliers in VOY_FREQ 
+# Removing outliers in VOY_FREQ 
 #  https://www.statsandr.com/blog/outliers-detection-in-r/#percentiles
-#  According to this method, all observations below 14 and above 35.175 will be considered as potential outliers. The row numbers of the observations outside of the interval can then be extracted with the which() function:
-
-lower_bound <- quantile(nis_corr_ss$"VOY_FREQ", 0.025)
-lower_bound
-upper_bound <- quantile(nis_corr_ss$"VOY_FREQ", 0.975)
-upper_bound
-outlier_ind <- which(nis_corr_ss$"VOY_FREQ" < lower_bound | nis_corr_ss$"VOY_FREQ" > upper_bound)
-
-nis_corr_ss <- nis_corr_ss[-outlier_ind, ]
-
-Jacc_resid<-resid(lm(JACC_NIS~PRED_ENV,nis_corr_ss))
-
-ggplot(nis_corr_ss, aes(x=VOY_FREQ, y=Jacc_resid)) +
-  geom_point() +
-  geom_smooth(method=lm) + 
-  labs(x="VOY_FREQ", y = "JACC_NIS | PRED_ENV")+
-  theme_classic() 
+# 
+# lower_bound <- quantile(nis_corr_ss$"VOY_FREQ", 0.025)
+# lower_bound
+# upper_bound <- quantile(nis_corr_ss$"VOY_FREQ", 0.975)
+# upper_bound
+# outlier_ind <- which(nis_corr_ss$"VOY_FREQ" < lower_bound | nis_corr_ss$"VOY_FREQ" > upper_bound)
+# 
+# nis_corr_ss <- nis_corr_ss[-outlier_ind, ]
+# 
+# Jacc_resid<-resid(lm(JACC_NIS~PRED_ENV,nis_corr_ss))
+# 
+# ggplot(nis_corr_ss, aes(x=VOY_FREQ, y=Jacc_resid)) +
+#   geom_point() +
+#   geom_smooth(method=lm) + 
+#   labs(x="VOY_FREQ", y = "JACC_NIS | PRED_ENV")+
+#   theme_classic() 

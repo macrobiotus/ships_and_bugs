@@ -2509,6 +2509,21 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * commit `c121c8d7980b0a4b70ce416bdd4cb02b933fe3a1`
 * **22.10.2020** - updated `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
   * added JA's way of plotting semi-partial correlations - with and without outliers removed
+  * commit `b4743d68d3faacb3db809c5cf76510022e38401f`
+* **23.10.2020** - updated `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
+  * using unscaled data
+  * converting all variables to distances
+  * using `J_B_HON_NOECO_NOENV` as traffic variable until further notice
+  * with email requested help on correct variable to use - **resolved**
+  * no commit yet
+* **27.10.2020** - updated `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
+  * using `J_VOY_FREQ` as traffic variable until further notice
+* **30.10.2020** - updated `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
+  * just checking row-sums of presence absence data
+  * no commit yet
+* **21.10.2020** - updated `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
+  * verifying numbers isn `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/NSFPorts_eDNA_draft_21Nov20_PC.docx`
+  * 
 
 
 ## Todo
