@@ -1,7 +1,7 @@
 #' ---
 #' title: "Unifrac and Jaccard relationship."
 #' author: "Paul Czechowski"
-#' date: "19-Jun-2020"
+#' date: "24-Nov-2020"
 #' output: pdf_document
 #' toc: true
 #' highlight: zenburn
@@ -124,6 +124,9 @@ dist_df_collapsed <- dist_df_collapsed %>% filter(complete.cases(.))
 # remove self connections
 dist_df_collapsed <- dist_df_collapsed  %>% filter(PORT.A != PORT.B)
 
+# remove PH
+dist_df_collapsed <- dist_df_collapsed  %>% filter(PORT.A != "PH") %>% filter(PORT.B != "PH")
+
 ## after https://gist.github.com/adamhsparks/e299e6d1beb82ed258c1052050d63bc5
 
 mod <- lm(JACCARD ~ UNIFRAC, data = dist_df_collapsed)
@@ -151,25 +154,29 @@ eqn <- lm_eqn(dist_df_collapsed, mod)
 #' ## Plotting and saving
 
 ggplot(data = dist_df_collapsed, aes(x = UNIFRAC, y = JACCARD)) +
+  geom_smooth(method="lm", se=FALSE, fullrange=FALSE, level=0.95, color="red", linetype="dashed") +
   geom_smooth(method="auto", se=TRUE, fullrange=FALSE, level=0.95) +
   geom_point() +
   annotate("text",
            x = 0.8,
            y = 0.7, 
            label = "italic(p) <2e-16",
-           parse = TRUE) +
+           parse = TRUE, color="red") +
   annotate("text",
            x = 0.8,
            y = 0.8, 
            label = eqn,
-           parse = TRUE) +
+           parse = TRUE, color="red") +
+  annotate("text", x=0.525, y=0.8, label=paste("n =", length(dist_df_collapsed$UNIFRAC)), size=4) +
   theme_bw() + 
-  # geom_text_repel(aes(label = paste(PORT.A,"-",PORT.B, sep = "", collapse = NULL) ,  color = PORT.A), size = 3) +
-  geom_smooth(method="auto", se=TRUE, fullrange=FALSE, level=0.95) +
-  geom_point() + 
   theme(legend.position= "none") +
   labs(title=" ",
        x ="Unifrac distance", y = "Jaccard distance") 
+
+ggsave("201124_fig_S4_unifrac_jaccard.pdf", plot = last_plot(), 
+         device = "pdf", path = "/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/201124_di_supplement/",
+         scale = 1.0, width = 160, height = 80, units = c("mm"),
+         dpi = 500, limitsize = TRUE)
 
 ggsave("200512_DI_unifrac_vs_jaccard.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development",

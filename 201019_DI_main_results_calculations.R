@@ -1,7 +1,7 @@
 #' ---
 #' title: "Get graphical representation of detected taxa"
 #' author: "Paul Czechowski"
-#' date: "30-Oct-2020"
+#' date: "24-Nov-2020"
 #' output: pdf_document
 #' ---
 #' 
@@ -111,7 +111,6 @@ future_apply(phsq_ob_unfiltered_molten_merged, 2, function(x) length(unique(x)))
 save(phsq_ob_unfiltered_molten_merged, file = "/Users/paul/Documents/CU_combined/Zenodo/R_Objects/201019_DI_main_results_calculations.Rdata")
 
 
-
 # Data plotting and analysis - all ASV analysis and plotting
 # ==========================================================
 
@@ -158,12 +157,17 @@ ggplot(all_asv_lng, aes_string(x = "RID", y = "AsvPresent", fill="phylum")) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
         axis.text.y = element_text(angle = 0, hjust = 1,  size = 8), 
         axis.ticks.y = element_blank()) +
-  labs(title = "present eukaryote ASVs") + 
+  labs(title = "eukaryote ASVs (NCBI taxonomy)") + 
   xlab("ports") + 
-  ylab("present ASVs at each port (NA: no entry at taxonomic level)")
+  ylab("ASV count")
 
 ggsave("201121_observed_eukaryote_ASVs_across_ports.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
+         scale = 3, width = 75, height = 50, units = c("mm"),
+         dpi = 500, limitsize = TRUE)
+
+ggsave("201124_fig_S9_asv_at_ports.pdf", plot = last_plot(), 
+         device = "pdf", path = "/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/201124_di_supplement",
          scale = 3, width = 75, height = 50, units = c("mm"),
          dpi = 500, limitsize = TRUE)
 
@@ -176,9 +180,9 @@ ggplot(all_asv_lng, aes_string(x = "RID", y = "AsvPresent", fill="phylum")) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
         axis.text.y = element_text(angle = 0, hjust = 1,  size = 8), 
         axis.ticks.y = element_blank()) +
-  labs(title = "present eukaryote ASVs") + 
+  labs(title = "eukaryote ASVs (NCBI taxonomy)") + 
   xlab("ports") + 
-  ylab("present ASVs at each port (NA: no entry at taxonomic level)")
+  ylab("ASV count")
 
 ggsave("201121_observed_eukaryote_ASVs_across_ports_facetted.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
@@ -252,15 +256,21 @@ ggplot(nis_asv_lng, aes_string(x = "RID", y = "AsvPresent", fill="phylum")) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
         axis.text.y = element_text(angle = 0, hjust = 1,  size = 8), 
         axis.ticks.y = element_blank()) +
-  labs(title = "present putatively invasive ASVs") + 
+  labs(title = "putative eukaryote NIS ASVs (NCBI taxonomy)") + 
   xlab("ports") + 
-  ylab("present ASVs at each port")
+  ylab("ASV count")
 
 ggsave("201020_observed_ASVs_across_ports.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/",
          scale = 3, width = 75, height = 50, units = c("mm"),
          dpi = 500, limitsize = TRUE)
   
+ggsave("201124_fig_S10_asv_at_ports.pdf", plot = last_plot(), 
+         device = "pdf", path = "/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/201124_di_supplement",
+         scale = 3, width = 75, height = 50, units = c("mm"),
+         dpi = 500, limitsize = TRUE)
+
+
 
 # Further analysis
 # ~~~~~~~~~~~~~~~~
@@ -292,18 +302,17 @@ mdl_tb <- readr::read_csv("/Users/paul/Documents/CU_combined/Zenodo/Results/01_r
 mdl_tb <- mdl_tb %>% arrange(PORT, DEST) %>% mutate(JoinKey = paste0(PORT, "_", DEST)) %>% relocate(JoinKey)
 
 
-
-# UNIFRAC summary
+# UNIFRAC summary - 21.11.2020
 hist(mdl_tb$RESP_UNIFRAC)
 summary(mdl_tb$RESP_UNIFRAC)
 mean(mdl_tb$RESP_UNIFRAC)
 sd(mdl_tb$RESP_UNIFRAC)
 
-# routes are bidirectional - check both variables to see all 19 ports
+# routes are bidirectional - check both variables to see all 19 ports - 21.11.2020
 unique(mdl_tb$PORT)
 unique(mdl_tb$DEST)
 
-# - Merge data for further analysis - 
+# - Merge data for further analysis -  
 
 # merging
 nis_corr <- dplyr::left_join(cd_pj, mdl_tb, by = c("JoinKey"), copy = TRUE, keep = FALSE)
@@ -313,6 +322,82 @@ nis_corr <- nis_corr %>% filter(!is.na(PORT.y)) %>% dplyr::select(-one_of(c("Joi
 
 # check data 
 head(nis_corr)
+
+# - check response of Unifrac to and ecoregion crossing  - 24.11.2020
+
+uni_check <- nis_corr %>% dplyr::select("RESP_UNIFRAC", "PRED_ENV", "ECO_DIFF")
+
+uni_eco <- uni_check %>% dplyr::group_by(ECO_DIFF) %>%
+  mutate(MEANUNI = mean(RESP_UNIFRAC, na.rm = T))
+
+ggplot(uni_eco, aes (x=RESP_UNIFRAC, color = ECO_DIFF)) +  
+  geom_density() +
+  geom_vline(aes(xintercept=MEANUNI, color=ECO_DIFF),linetype="dashed") +
+  annotate("text", x=unique(uni_eco$MEANUNI), y=c(3.5, 4.5), label=paste("mean =", round(unique(uni_eco$MEANUNI), digits = 2)), size=4) +
+  annotate("text", x=0.525, y=5.75, label=paste("n =", length(uni_eco$RESP_UNIFRAC)), size=4) +
+  labs(title = "mean UNIFRAC values and crossing of marine realms") +
+  labs(x = "mean UNIFRAC distance between port pairs (5 samples per port)") +
+  labs(y = "Density") +
+  guides(color=guide_legend(title="realm crossed")) +
+  theme_bw()
+
+ggsave("201124_fig_S5_unifrac_realms.pdf", plot = last_plot(), 
+  device = "pdf", path = "/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/201124_di_supplement",
+  scale = 5, width = 30, height = 15, units = c("mm"),
+  dpi = 500, limitsize = TRUE)
+
+# - check response of Unifrac environmental distance  - 24.11.2020
+
+## after https://gist.github.com/adamhsparks/e299e6d1beb82ed258c1052050d63bc5
+
+mod <- lm(RESP_UNIFRAC ~ PRED_ENV, data = uni_check)
+summary(mod)
+# see that p-value: < 1.75e-07
+
+# function to create the text equation
+lm_eqn <- function(df, lm_object) {
+  eq <-
+    substitute(
+      italic(y) == a + b %.% italic(x) * "," ~  ~ italic(r) ^ 2 ~ "=" ~ r2,
+      list(
+        a = format(coef(lm_object)[1], digits = 2),
+        b = format(coef(lm_object)[2], digits = 2),
+        r2 = format(summary(lm_object)$r.squared, digits = 3),
+        p = format(summary(lm_object)$coefficients[,"Pr(>|t|)"][[2]],digits = 2)
+      )
+    )
+  as.character(as.expression(eq))
+}
+
+# get the equation object in a format for use in ggplot2
+eqn <- lm_eqn(uni_check, mod)
+
+#' ## Plotting and saving
+
+ggplot(data = uni_check, aes(x = RESP_UNIFRAC, y = PRED_ENV)) +
+  geom_smooth(method="auto", se=TRUE, fullrange=FALSE, level=0.95) +
+  geom_smooth(method="lm", se=FALSE, fullrange=FALSE, level=0.95, color="red", linetype="dashed") +
+  geom_point() +
+  annotate("text",
+           x = 0.85,
+           y = 0.15, 
+           label = "italic(p) < 1.75e-07",
+           parse = TRUE, color="red") +
+  annotate("text",
+           x = 0.85,
+           y = 0.35, 
+           label = eqn,
+           parse = TRUE, color="red") +
+  annotate("text", x=0.5, y=4, label=paste("n =", length(uni_check$RESP_UNIFRAC)), size=4) +
+  theme_bw() + 
+  theme(legend.position= "none") +
+  labs(title=" ",
+       x ="Unifrac distance", y = "Environmental Distance") 
+
+ggsave("201124_fig_S6_unifrac_env_dist.pdf", plot = last_plot(), 
+         device = "pdf", path = "/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/201124_di_supplement",
+         scale = 1.0, width = 200, height = 140, units = c("mm"),
+         dpi = 500, limitsize = TRUE)
 
 
 #  and subset for sorter command downstream  

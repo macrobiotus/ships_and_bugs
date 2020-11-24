@@ -2281,7 +2281,8 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/160_eDNA_samples_Eukaryotes_curves_tree-matched.qzv`
 * **09.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
   * finished `/Users/paul/Documents/CU_combined/Github/200608_DI_asv_accumulations_per_ports.R`
-  * commit `* **08.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
+  * commit 
+* **08.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
   * akin to `/Users/paul/Documents/CU_combined/Zenodo/Qiime/120_18S_eDNA_samples_tab_Eukaryotes.qzv`
     * **deep** depth (for Eukaryotes) was `49974`, **now:** `49900`
       * retains 10,279,400 (36.64%) features in 206 (81.42%) samples at the specifed sampling depth
@@ -2521,10 +2522,19 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
 * **30.10.2020** - updated `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
   * just checking row-sums of presence absence data
   * no commit yet
-* **21.10.2020** - updated `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
-  * verifying numbers isn `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/NSFPorts_eDNA_draft_21Nov20_PC.docx`
-  * 
-
+* **21.11.2020** - updated `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
+  * verifying numbers in `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/NSFPorts_eDNA_draft_21Nov20_PC.docx`
+  * commit `2eb9909296b8594e303e4d0d9c552434d7c3fb9`
+* **24.11.2020** - updating manuscript file
+  * `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/NSFPorts_eDNA_draft_21Nov20_PC _with_crossrefs_chnages_accepted.docx`
+  * `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/NSFPorts_eDNA_supplement_draft_23Nov20_PC.docx`
+    * in latter file checking read counts again in section `Obtaining biological response data` as done on **8-6-2020** above
+  * getting remaining display items by coding in `/Users/paul/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
+    * based on code in `/Users/paul/Documents/CU_combined/Scratch/R/190917_DI_main_results_calculations.R`
+    * based on code in `/Users/paul/Documents/CU_combined/Github/200512_DI_unifrac_vs_jaccard.R`
+  * updating `/Users/paul/Documents/CU_combined/Github/200512_DI_unifrac_vs_jaccard.R`
+  * sending file of to collaborators 
+  * commit 
 
 ## Todo
   * in `/Users/paul/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
