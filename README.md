@@ -2261,7 +2261,7 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/160_eDNA_samples_Eukaryotes_curves_tree-matched.qzv`
 * **09.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
   * finished `/Users/paul/Documents/CU_combined/Github/200608_DI_asv_accumulations_per_ports.R`
-  * commit `* **08.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
+  * commit `**08.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"`
   * akin to `/Users/paul/Documents/CU_combined/Zenodo/Qiime/120_18S_eDNA_samples_tab_Eukaryotes.qzv`
     * **deep** depth (for Eukaryotes) was `49974`, **now:** `49900`
       * retains 10,279,400 (36.64%) features in 206 (81.42%) samples at the specifed sampling depth
@@ -2534,7 +2534,10 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * based on code in `/Users/paul/Documents/CU_combined/Github/200512_DI_unifrac_vs_jaccard.R`
   * updating `/Users/paul/Documents/CU_combined/Github/200512_DI_unifrac_vs_jaccard.R`
   * sending file of to collaborators 
-  * commit 
+  * commit `adc2b9130b80f9edb8a706e9d7b7a69c18db211`
+* **03.02.2021** - pulling sequence data for Erin
+  * see `/Users/paul/Documents/CU_NIS-WRAPS/170728_external_presentations/210203_shallow_eukaryotes_data_extract.tar.gz`
+
 
 ## Todo
   * in `/Users/paul/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
