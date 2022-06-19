@@ -18,6 +18,7 @@ rm(list=ls(all=TRUE)) # clear memory
 # Packages
 # --------
 library("tidyverse")  # work using tibbles
+library("magrittr")   # more pipes
 library("Biostrings") # read fasta file
 library("phyloseq")   # filtering and utilities for such objects
 
@@ -28,6 +29,8 @@ library("scales")   # better axis labels
 
 library("vegan")    # distance calculation from community data
 library("ppcor")    # partial correlations
+
+library("openxlsx") # table export 
 
 # Functions
 # --------
@@ -125,7 +128,7 @@ all_asv_lng <- phsq_ob_unfiltered_molten_merged[RID != "PH" & Type == "eDNA" & s
 # remove Blast information (starting with "hsp_..." ) for clarity (at least temporarily)
 all_asv_lng[, grep("^hsp_", colnames(all_asv_lng)):=NULL]
 
-# understand data structures by counting unique elements among varibels and their products
+# understand data structures by counting unique elements among variables and their products
 future_apply(all_asv_lng, 2, function(x) length(unique(x)))
 nrow(all_asv_lng)
 
@@ -170,6 +173,14 @@ ggsave("201124_fig_S9_asv_at_ports.pdf", plot = last_plot(),
          device = "pdf", path = "/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/201124_di_supplement",
          scale = 3, width = 75, height = 50, units = c("mm"),
          dpi = 500, limitsize = TRUE)
+
+# 19.06.2022 for revisions on submission to Molecular Ecology create a table of above data
+#   export object prior to subsetting
+saveRDS(all_asv_lng, "/Users/paul/Documents/CU_NIS-WRAPS_manuscript/220616_Mol_Ecol_revision/220619_revisions_help_files/220619_all_asv_lng.rds")
+#   write table
+all_asv_lng %>% filter(AsvPresent != 0) %>% group_by(RID, phylum) %>%
+  summarize(UniqueAsvsPresentPort = n()) %>%
+  write.xlsx(., "/Users/paul/Documents/CU_NIS-WRAPS_manuscript/220616_Mol_Ecol_revision/220619_revisions_help_files/201121_observed_eukaryote_ASVs_across_ports_table.xlsx", asTable = TRUE)
 
 # plot plain ASV per phylum and port - facetted
 ggplot(all_asv_lng, aes_string(x = "RID", y = "AsvPresent", fill="phylum")) +
@@ -350,8 +361,16 @@ ggsave("201124_fig_S5_unifrac_realms.pdf", plot = last_plot(),
 
 ## after https://gist.github.com/adamhsparks/e299e6d1beb82ed258c1052050d63bc5
 
+# 22.06.2022: Reviewer wants to now effect of outlier in `uni_check`,
+#   I will will object and rerun plotting, the comment this out again
+
+uni_check_unfiltered <- uni_check
+uni_check %<>% filter(RESP_UNIFRAC > 0.5)
+uni_check <- uni_check_unfiltered 
+
 mod <- lm(RESP_UNIFRAC ~ PRED_ENV, data = uni_check)
 summary(mod)
+
 # see that p-value: < 1.75e-07
 
 # function to create the text equation
@@ -374,9 +393,9 @@ eqn <- lm_eqn(uni_check, mod)
 
 #' ## Plotting and saving
 
+# adjusting smoothing on 22.06.2022 for reviewer 2
 ggplot(data = uni_check, aes(x = RESP_UNIFRAC, y = PRED_ENV)) +
-  geom_smooth(method="auto", se=TRUE, fullrange=FALSE, level=0.95) +
-  geom_smooth(method="lm", se=FALSE, fullrange=FALSE, level=0.95, color="red", linetype="dashed") +
+  geom_smooth(method="lm", se=TRUE, fullrange=FALSE, level=0.95, color="red", linetype="dashed") +
   geom_point() +
   annotate("text",
            x = 0.85,
@@ -385,7 +404,7 @@ ggplot(data = uni_check, aes(x = RESP_UNIFRAC, y = PRED_ENV)) +
            parse = TRUE, color="red") +
   annotate("text",
            x = 0.85,
-           y = 0.35, 
+           y = 0.45, 
            label = eqn,
            parse = TRUE, color="red") +
   annotate("text", x=0.5, y=4, label=paste("n =", length(uni_check$RESP_UNIFRAC)), size=4) +
@@ -394,10 +413,18 @@ ggplot(data = uni_check, aes(x = RESP_UNIFRAC, y = PRED_ENV)) +
   labs(title=" ",
        x ="Unifrac distance", y = "Environmental Distance") 
 
-ggsave("201124_fig_S6_unifrac_env_dist.pdf", plot = last_plot(), 
+# path not reachable on 22.06.2022 on laptop, may be so on macmini
+ggsave("220619_fig_S6_unifrac_env_dist.pdf", plot = last_plot(), 
          device = "pdf", path = "/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/201124_di_supplement",
          scale = 1.0, width = 200, height = 140, units = c("mm"),
          dpi = 500, limitsize = TRUE)
+
+ggsave("220619_fig_S6_unifrac_env_dist.pdf", plot = last_plot(), 
+         device = "pdf", path = "/Users/paul/Documents/CU_NIS-WRAPS_manuscript/220616_Mol_Ecol_revision/220619_revisions_help_files",
+         scale = 1.0, width = 200, height = 140, units = c("mm"),
+         dpi = 500, limitsize = TRUE)
+
+
 
 
 #  and subset for sorter command downstream  

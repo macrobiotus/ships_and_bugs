@@ -2540,3 +2540,10 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
 * **16.06.2022**
   * including Joses script `/Users/paul/Documents/CU_combined/Github/220322_unifrac_glmer.R`
   * from `/Users/paul/Documents/CU_NIS-WRAPS_manuscript/220616_Mol_Ecol_revision/220416_scripts`
+* **16.06.2022**
+  * work on revision for Molecular Ecology:
+  * `/Users/paul/Documents/CU_NIS-WRAPS_manuscript/220616_Mol_Ecol_revision/220619_revisions_help_files`
+  * `/Users/paul/Documents/CU_NIS-WRAPS_manuscript/220616_Mol_Ecol_revision/220619_revision_help.docx`
+  * in script `/Users/paul/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
+  * only minor adjustments, if in doubt consult git
+  * commit ``
