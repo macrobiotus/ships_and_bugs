@@ -1,6 +1,7 @@
 # Analysing combined 18S data from all ports with available sequence data
 
 ## Abstract
+
 We tested if the null hypothesis "Increasing shipping traffic does not
 homogenize overall eukaryotic biodiversity between shipping ports" can be
 rejected. To do so, we used used a linear random effect model. Considered
@@ -17,6 +18,7 @@ caused by transport of organisms between ports, or the presence of depauperate
 communities in polluted port waters, or both.
 
 ## Notes
+
 This folder was created 24.01.2018 by copying folder
 `/Users/paul/Documents/CU_Pearl_Harbour`. Folder was and last updated
 23.03.2018. The `GitHub` and `Transport` folders are version tracked, and they
@@ -31,9 +33,10 @@ Data will be included via manifest files and metadate files linked in at
 Chicago, sourced from `/Users/paul/Documents/CU_SP_AD_CH` 7   * data of Pearl
 Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
 
-
 ## History and Progress Notes
-*  **24.01.2018** - creating and adjusted folder structure and contents
+
+### **24.01.2018** - creating and adjusted folder structure and contents
+
    * removed unneeded files from previous analysis
    * adjusted pathnames in work scripts: `find /Users/paul/Documents/CU_combined/Github -name '*.sh' -exec sed -i 's|CU_Pearl_Harbour|CU_combined|g' {} \;`
    * adjusted pathnames in transport scripts: `find /Users/paul/Documents/CU_combined/Transport -name '*.sh' -exec sed -i 's|CU_Pearl_Harbour|CU_combined|g' {} \;`
@@ -51,7 +54,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
        * throws error - move all to cluster - hopefully only low RAM error
     * copying files to cluster: `/Users/paul/Documents/CU_combined/Transport/250_update_remote_push.sh`
     * Chicago reads are "improperly paired" on cluster - deleted files on workdir
-* **25.01.2018**
+
+### **25.01.2018**
+
    * altered manifest file to pint to unmerged data, sorted for 18S primer
        * merged data pointed to: `/Users/paul/Documents/CU_inter_intra/Zenodo/Fastq/030_trimmed_18S/`
        * unmerged data now referenced: `/Users/paul/Documents/CU_inter_intra/Zenodo/Fastq/010_sorted/sorted_18S/`
@@ -59,23 +64,33 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
        * re-ran `~/Documents/CU_combined/Github/042_cut_adapt.sh`
        * `CH00-0301_62_L001_R1_001.fastq.gz` throws error again. Creating backup copy (`.bak`) and re-run 2 scripts from above, without incorporating Chicago reads.
        * `cutadapt` running successfully when Chicago data is excluded for the time being.
-* **26.01.2018**
+
+### **26.01.2018**
+
    * split `05_manifest_local` in three to allow importing and denoising on a per-run basis as recommended.
    * doing the same for `05_metadata_??.tsv`
    * renaming `05_barcode.tsv` to `05_barcode_PH.tsv`, others don't have barcode file
    * adjusted and running `040_imp_qiime.sh` to process individual _runs_.
    * adjusted and running `042_cut_adapt.sh` to process individual _runs_.
-* **15.02.2018**
+
+### **15.02.2018**
+
    * erased files created by `042_cut_adapt.sh`, as this is failing
    * creating manifest and `.tsv` metadata file for Singapore Yacht Club
    * `CH`, `SPW`, `SPY` manifest files point to trimmed 18S data at `/Users/paul/Documents/CU_inter_intra/Zenodo/Fastq/030_trimmed_18S`
    * re-trimming input data of `/Users/paul/Documents/CU_inter_intra/`, primers need to be removed
-* **16.02.2018**
+
+### **16.02.2018**
+
    * still re-trimming input data of `/Users/paul/Documents/CU_inter_intra/`, primers need to be removed
    * this is done on machine `cbsumm22`, check README.md of other project folder!
-* **18.02.2018**
+
+### **18.02.2018**
+
    * primer trimming completed successfully for `CU_inter_intra`
-* **19.02.2018**
+
+### **19.02.2018**
+
    * updated manifests, scripts 40 and 42, reset execution bits to run-ready scripts
    * import has to be done locally, PH data is difficult to move over to cluster
    * running `040_imp_qiime.sh` - merging is done after demultiplexing
@@ -98,7 +113,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
    * running denoising script `60...` on clsuter for `CH`, `PH`, `SPW`
    * files generated on cluster belong to root?
    * CH files are very small - processing error?
-* **20.02.2018**
+
+### **20.02.2018**
+
    * denoising finished - next time de-noise only for the necessary data, don't unnecessarily redo
    * pulled files to local - created and run `065_merge_data.sh`
    * created and ran `070_merge_metdata.sh`
@@ -115,7 +132,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
        * to include more sequences sampling frequency is set from median `6,964` to 1st quartile `847` (PH way more data)
        * metadate a bit dodgy unsurprisingly
     * training classifier with script `120`, running script `130`.
-* **26.02.2018** - re-running combination with reprocessed data.
+
+### **26.02.2018** - re-running combination with reprocessed data.
+
    * current samples include:
       * data of Singapore, Adelaide, Chicago, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
       * data of Pearl Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
@@ -127,7 +146,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
       * added line breaks to all isolated manifest files
       * add rearranged order of input array in script `65`
       * re-ran `./110_get_core_metrics.sh && ./130_classify_reads.sh && ./140_show_classification.sh` 
-* **16.03.2018** - getting rid of COI data and re-running
+
+### **16.03.2018** - getting rid of COI data and re-running
+
    * according to YY COI reads can be removed using COI primers:
       * mlCOI (Leray et al. 2013): `GGWACWGGWTGAACWGTWTAYCCYCC`
       * jgHCOI (Geller et al. 2013)`TAIACYTCIGGRTGICCRAARAAYCA`
@@ -139,12 +160,16 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
       * re-training classifier after removal of COI reads (in script `120...`) 
       * classify reads using script `130...`
       * showing classification using script `140...`
-* **19.03.2018** - _Clustering and Network trials_ - some tweaks and analysis start after meeting 
+
+### **19.03.2018** - _Clustering and Network trials_ - some tweaks and analysis start after meeting 
+
    * filtering alignment and feature table, expanding and re-running script `./100_` and thereafter (`./110...`,`./140...`) - do I need to re-filter the rep-sets after masking alignment? I could not solve this. Posted on Qiime forum.
    * Clustering at different thresholds in script `/Users/paul/Documents/CU_combined/Github/500_cluster_sequences.sh`
    * Created and ran cluster classification script `/Users/paul/Documents/CU_combined/Github/510_classify_clusters.sh`
    * Started and ran `520_convert_clusters.sh` (for Cytoscape import and Qiime 1)
-* **20.03.2018** - _Clustering and Network trials_ - network file generation
+
+### **20.03.2018** - _Clustering and Network trials_ - network file generation
+
    * implemented `530_get_networks.sh` and `540_get_bi_networks.sh`
    * loading files into Cytoscape 3.6.
       * filtering for OTUs more then one degree (6 max for 6 ports): ca. 10 discovered via network filter and collapsing ports
@@ -152,7 +177,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
       * via `grep "true"` see `/Users/paul/Documents/CU_combined/Zenodo/Cytoscape/180320_540_18S_097_cl_q1bnetw_shared_nodes_isolated.csv`
       * samples still contain control samples which will need to be filtered out
   * updated `/Users/paul/Box Sync/CU_NIS-WRAPS/170724_internal_meetings/180326_cu_group_meeting/180326_results.md`
-* **21.03.2018**
+
+### **21.03.2018**
+
   * expanded `Scratch` folder structure to hold scripts `500...` to `540...` at a later stage
   * copied `500_cluster_sequences.sh` to `200_cluster_sequences.sh` in order to start filtering (also copied output files and changed names)
   * started script `220...`: filtering should run (untested so far!), but grouping is not yet implemented (changed execution flags of scripts and committed)
@@ -176,16 +203,24 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
        * blasting and (contamination inspection) - Display Item 4 (and 5)
   * adjusted and ran successfully `210_filter_samples.sh`
   * set x bits and committed
-* **22.03.2018**
+
+### **22.03.2018**
+
   * wrote and running classification script `220...`. 
-* **23.03.2018**
+
+### **23.03.2018**
+
   * improved classification script `220...`, filenames set correctly now.
   * started to work on scrip `230...` and ran it.
   * updated script list
-* **02.04.2018**
+
+### **02.04.2018**
+
   * started to work on scripts `240...`, `250..` and `270...` and ran and ran them.
   * Blasting script 270 could be implemented in Python or employ parallel to be faster.
-* **03.04.2018**
+
+### **03.04.2018**
+
   * Blasting failed on local - not enough memory?
   * Extending Blast script to work on cluster
   * Commit and move to cluster
@@ -195,16 +230,22 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * adding download of taxonomy database to ncbi install script (in `Transport` folder)
   * taxdb looup doesn't work properly - email Qi? - changing wierd characters for proper "" and testing again - working now
   * blasting on cluster correctly, including taxonomy ID
-* **05.03.2018**
+
+### **05.03.2018**
+
   * blasting done 1:48 in the morning on 16 cores - copying out - chacelling reservation 88900 after 47 hours
-* **09.03.2018**
+
+### **09.03.2018**
+
   * wrote and ran script `260...`
   * started preliminary Cytoscape network
      * Cytoscape 3.6
      * importing Edge Table files as _network_ files
      * importing Node and other files as attribute _tables_
      * running Compound Spring Embedder (COSE) layout
-* **10.03.2018** - Cytoscape network testing
+
+### **10.03.2018** - Cytoscape network testing
+
   * collapsing ports, starting with Pearl Harbour
   * edit Node Type for collapsed groups and set colours
   * save style `180410_18S` and `180410_18S_0` in style file `180410_18S_style.xml`
@@ -215,7 +256,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * saving group of selected OTUS with name `higher_degree`
   * colouring `higher_degree` notes red via bypassing fill colour in Node options - image exported
   * trying Edge weighted force directed Layout
-* **11.03.2018** - Cytoscape
+
+### **11.03.2018** - Cytoscape
+
   * Cytoscape 
      * saving new layout as `180411_270_18S_97.cys`
      * inverting filter on network, erasing 1-degree nodes and saving as `180411_270_18S_97_subnet.cys`
@@ -232,16 +275,22 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
      * and contamination inspection) **PENDING**
    * **Display Item 6 (and 7)** (for talk only
      * maps of all routes and analysed routes **PENDING**
-* **12.04.2018** - Blast output to dedicated directory - R scripting
+
+### **12.04.2018** - Blast output to dedicated directory - R scripting
+
   * moving results of script `270...` there (`Blast` instead of `Qiime`)
   * starting R scripting:
     * Euler graphs, creating `/Users/paul/Documents/CU_combined/Github/500_functions.R`
     * to contain function, creating `/Users/paul/Documents/CU_combined/Github/550_euler.R`
     * Eulerr script is working - overlap numbers showing ok.
       * needs prettying up, possibly
-* **16.04.2018** - R scripting
+
+### **16.04.2018** - R scripting
+
   * copied over sample selection script to use with data feed in
-* **17.04.2018** - R scripting - Shell scripting 
+
+### **17.04.2018** - R scripting - Shell scripting 
+
   * finished permutation test design `/Users/paul/Documents/CU_combined/Github/500_permutation_test_design.R`
     * need to be evaluated by Giles Hooker
     * can be sped up
@@ -260,13 +309,17 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
       * control files are processed as well, but there are likely no usable results in those folders
   * copied `/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R` from `/Users/paul/Box Sync/CU_NIS-WRAPS/170912_code_r/170830_10_cleanup_tables.R`
     * input and output locations adjusted as well as `.Rdata files in `Zenodo/R_Objects`
-* **18.04.2018** - R scripting
+
+### **18.04.2018** - R scripting
+
   * test-rendered: `500_10_gather_predictor_tables.R` - reading / writing ok but using old storage files.
   * test-rendered: `500_20_get_predictor_euklidian_distances.pdf` - reading / writing ok but using old storage files. Copy of `/Users/paul/Box Sync/CU_NIS-WRAPS/170912_code_r/170901_20_calculate_distances.R`.
   * duplicating `/Users/paul/Documents/CU_combined/Github/500_select_samples_SCRATCH.R` and renaming 
     * for risk matrix creation (upper half of script): `/Users/paul/Documents/CU_combined/Github/500_30_get_predictor_risk_matrix.R`
     * foo maps and table creation (lower half of script): `/Users/paul/Documents/CU_combined/Github/500_40_get maps_and_tables.R`
-* **19.04.2018** - R scripting
+
+### **19.04.2018** - R scripting
+
   * improved stats test script after meeting Giles Hooker (and rendered it).
   * filled `/Users/paul/Documents/CU_combined/Github/500_40_get maps_and_tables.R` with lower half of original code, now only for mapping.
   * renamed `/Users/paul/Documents/CU_combined/Github/500_40_get maps_and_tables.R` to `/Users/paul/Documents/CU_combined/Github/500_40_get maps.R`
@@ -274,7 +327,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * last output file to be used by: `/Users/paul/Documents/CU_combined/Github/500_40_get maps.R`
     * second output file to be used by `/Users/paul/Documents/CU_combined/Github/600_matrix_comparison.R`
   * commit `8bffcbaaadb7267fbcefa9895aab186c1dbbebd6` - `/Users/paul/Documents/CU_combined/Github/500_30_get_predictor_risk_matrix.R` does not yield enough TRIPS to re-calculate environmental matrix
-* **24.04.2018** - R scripting
+
+### **24.04.2018** - R scripting
+
   * `working on /Users/paul/Documents/CU_combined/Github/500_30_get_predictor_risk_matrix.R`
     * renamed to `500_30_shape_matrices.R`
     * outputs for all port pairs: matrix with environmental distances `500_30_shape_matrices__output__mat_env_dist_full.Rdata`
@@ -284,7 +339,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * script was re-rendered
     * updated todo in this file
     * committed everthing
-* **25.04.2018** - R scripting
+
+### **25.04.2018** - R scripting
+
   * bug chase  - discovered 25.04.2018 -  debug route data not congruent between matrix and table
     * in `500_30_shape_matrices__output_predictor_data.Rdata` - test matrix shows route between ADL 3110 and SINGAPORE 1165
     * in `500_40_get_maps.R` tibble `srout` - does not show route between ADL 3110 and SINGAPORE 1165 - why?
@@ -295,15 +352,21 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * adjusted script `/Users/paul/Documents/CU_combined/Github/500_00_permutation_test_design.R` - `NA`s removed from vectorized matrices - committed
   * adjusted script `/Users/paul/Documents/CU_combined/Github/500_50_matrix_comparison_uni_env.R` - committed
   * adjusted script `/Users/paul/Documents/CU_combined/Github/500_60_matrix_comparison_uni_rsk.R` - need more then 2 routes - committed
-* **26.04.2018** - R scripting
+
+### **26.04.2018** - R scripting
+
   * created `/Users/paul/Documents/CU_combined/Github/500_70_matrix_comparison_uni_prd.R`
   * permutation test is moved to functions script
   * created `/Users/paul/Documents/CU_combined/Github/550_check_taxonomy.R`
-* **01.05.2018** - new data availaible
+
+### **01.05.2018** - new data availaible
+
   * commit
   * creating backup copy of this repository which is to be deleted later: `/Users/paul/Documents/CU_combined_BUP`
   * continue work in `/Users/paul/Documents/CU_combined`
-* **02.05.2018** - R scripting while new data is being processed
+
+### **02.05.2018** - R scripting while new data is being processed
+
   * `/Users/paul/Documents/CU_combined/Github/550_check_taxonomy.R` now generating a list output **BUT SEE ISSUES**
   * renaming `550_euler.R` to `550_80_euler.R` 
   * renaming `550_check_taxonomy.R`to `550_90_check_taxonomy.R`
@@ -312,7 +375,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * moved superseded `550_80_euler.R` to `/Users/paul/Documents/CU_combined/Scratch/R`
   * updated issues
   * commit
-* **03.05.2018** - data addition and shell scripting
+
+### **03.05.2018** - data addition and shell scripting
+
   * new data is available in `/Users/paul/Documents/CU_US_ports_a` , check that project `README.md`
   * adjusted and running (marked green):
      * `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh`
@@ -358,7 +423,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * adjusted `/Users/paul/Documents/CU_combined/Github/130_classify_reads.sh`
     * adjusted `/Users/paul/Documents/CU_combined/Github/220_classify_clusters.sh`
     * commit and daisy chain both script above overnight - last backup before startin 19:29 - 5 minutes ago
-* **04.05.2018** - data addition and shell scripting
+
+### **04.05.2018** - data addition and shell scripting
+
    * running adjusted `/Users/paul/Documents/CU_combined/Github/140_show_classification.sh`
    * visualisation `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/140_18S_taxvis_merged/visualization.qzv`
    * ran `/Users/paul/Documents/CU_combined/Github/230_summarize_features_and_sequences.sh`
@@ -373,39 +440,59 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
    * running `/Users/paul/Documents/CU_combined/Github/260_get_bi_networks.sh` - ok
    * commit and move to cluster to run `/Users/paul/Documents/CU_combined/Github/270_blast_clusters.sh`
    * **USE UPDATE FOR NEXT CLUSTER PULL** pulling back to local, blast results to be included later
-* **07.05.2018** - R script running
+
+### **07.05.2018** - R script running
+
    * pulled all files off cluster after BLAST completed yesterday
    * adjusted and ran `/Users/paul/Documents/CU_combined/Github/500_35_shape_overlap_matrices.R`
    * adjusted and ran `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R`
    * adjusted and ran `/Users/paul/Documents/CU_combined/Github/550_90_check_taxonomy.R`
    * composed `/Users/paul/Documents/CU_combined/Github/255_jackknifed_beta_diversity.sh` to generate 2d PCoA plots
-* **08.05.2018** - R scripting - implementing Mantel tests
+
+### **08.05.2018** - R scripting - implementing Mantel tests
+
    * created `/Users/paul/Documents/CU_combined/Github/500_80_mantel_comparison_uni_prd.R` as copy of `/Users/paul/Documents/CU_combined/Github/500_70_matrix_comparison_uni_prd.R`
    * moved `/Users/paul/Documents/CU_combined/Github/500_60_matrix_comparison_uni_rsk.R` to scratch
-* **10.05.2018** - R scripting - implementing mixed effect model during the last days
+
+### **10.05.2018** - R scripting - implementing mixed effect model during the last days
+
    * check commit history - this change to the README is committed as well and marks the pre-conference stage
    * played around for hours - git reset hard - everything rendered with result as in talk - committed 10.05.2018 - ca. 21:00 - also backup 
-* **10.07.2018** - organisation
+
+### **10.07.2018** - organisation
+
    * undo these steps by using a backup 10 Jul 2018 between 01:00 and 10:00 o'clock.
    * copying this folder "/Users/paul/Documents/CU_combined" to "180124-180510__CU_combined", locking, for later compression and moving to "/Users/paul/Archive/Cornell_superseeded_analyses"
    * continuing to work on this folder
-* **20.07.2018** - organisation and preparation for Fort Collins
+
+### **20.07.2018** - organisation and preparation for Fort Collins
+
    * commit current repository (11:14)
    * installing Qiime 2018.6 - updating conda
-* **31.07.2018** - check after data migration to SSD
+
+### **31.07.2018** - check after data migration to SSD
+
    * updated R and packages
    * checked commit history - seem all good
-* **02.08.2018** - coding of species accumulation curves
+
+### **02.08.2018** - coding of species accumulation curves
+
    * species accumulation curves encoded in `/Users/paul/Documents/CU_combined/Github/500_33_draw_otus_per_sample.R`
    * 18S data does not seem to reach plateau - needs to be filtered for metazoans - or establish that UNIFRAC distance is independant
-* **31.08.2018** - change of mapping code
+
+### **31.08.2018** - change of mapping code
+
    * see commnets therein
    * code in script `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R` was adjusted for David
    * code and dependencies were copied to `/Users/paul/Box Sync/CU_NIS-WRAPS/170728_external_presentations/180910_neobiota`
-* **25.09.2018** - preparation for Argentina
+
+### **25.09.2018** - preparation for Argentina
+
     * postponing Arctic data import, only correct Singapore, clean code, get new display items, make compatible with rarefaction test
     * needs backtracking to `/Users/paul/Documents/CU_SP_AD_CH`, moving there. 
-* **28.09.2018** - preparation for Argentina
+
+### **28.09.2018** - preparation for Argentina
+
     * see README.md `/Users/paul/Documents/CU_SP_AD_CH` for current progress of redenoising
        * takes very long and may not finish in time
        * attempting to rename old data of current dir as described in `https://forum.qiime2.org/t/change-sample-ids-after-running-dada2/3918`
@@ -424,7 +511,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * possible work around:
        * try script 135 with new debugging plot that crashed today at work end.
        * use `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata.tsv` with old data files in scripts `140...`, `150...`, use script `135...`, then use script `160...`, `170...`. Committing now, continuing denoising as fall-back. 
-* ***01.10.2018** - denoising finished yesterday on 24 core cluster
+
+### ***01.10.2018** - denoising finished yesterday on 24 core cluster
+
     * also check `/Users/paul/Documents/CU_SP_AD_CH/Github/README.md`
     * adjusted and ran `/065_merge_data.sh`
     * renamed metadata file `mv ../Manifest/05_18S_merged_metadata_for_rename.tsv ../Manifest/05_18S_merged_metadata.tsv` and kept only new sample ids
@@ -437,7 +526,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * 10x speed increase(?)
     * tested `qiime2r` on Github but decided to stick with adjusted shell solution: `./155...`
     * committed script folder for tomorrows R run
-* ***02.10.2018** - R scripting
+
+### ***02.10.2018** - R scripting
+
     * adjusted and running `/Users/paul/Documents/CU_combined/Github/155_get_unifrac_mat.sh`
     * adjusted and running `/Users/paul/Documents/CU_combined/Github/160_convert_artifact.sh`
     * last backup 11:21, 12:05 erasing old output files in
@@ -454,18 +545,26 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
         * `/Users/paul/Documents/CU_combined/Github/500_50_matrix_comparison_uni_env.R`
         * `/Users/paul/Documents/CU_combined/Github/500_70_matrix_comparison_uni_prd.R`
     * committing after running modeling again.
-* ***03.10.2018** - R scripting
+
+### ***03.10.2018** - R scripting
+
    * updated map with newly adjusted mapping script - lot of crap and clutter in there needs to be simplified - saved map - path might still be wonky (output file names)
    * erased blast results, moved all unused scripts to scratch
-* ***15.01.2019** - Happy New Year - R scripting
+
+### ***15.01.2019** - Happy New Year - R scripting
+
    * attempting implementation of marine realms as suggested by DL and noted in
       * Costello, M. J., Tsai, P., Wong, P. S., Cheung, A. K. L., Basher, Z. and Chaudhary, C. (2017) “Marine biogeographic realms and species endemicity,” Nature Communications. Springer US, 8(1), p. 1057. doi: 10.1038/s41467-017-01121-2.
       * modifying `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R` accordingly
       * commenting old code out
       * changes done, no change to results for preliminary set of ports, committing repository
-* **01.03.2019** - quick correction
+
+### **01.03.2019** - quick correction
+
    * accidentally messed around with classifier files, copied out and back in from `/Users/paul/Documents/CU_mock/Zenodo/Classifier`
-* **06.03.2019** - **prepare for improved final data set**
+
+### **06.03.2019** - **prepare for improved final data set**
+
   * **goals**
     * **use adequate merging procedure, and check merging**
     * **use improved classification `blast+` with settings obtained from `CU_mock`**
@@ -491,31 +590,43 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * saved compressed copy of `/Users/paul/Archive/Cornell_superseeded_analyses/180501-190306_CU_combined.zip` prior to modifying repository
     * created and executed file to commit all data handling scripts at once: `/Users/paul/Documents/CU_commit_uncombined_transport_scripts.sh`
     * created and executed file to commit all transport scripts at once: `/Users/paul/Documents/CU_commit_uncombined_transport_scripts.sh`
-* **07.03.2019** - starting re-merging of individual data sets
+
+### **07.03.2019** - starting re-merging of individual data sets
+
    * starting with repository `CU_Pearl_Harbour` as described therein
       * next time add adapter reference to Fastqc script call
       * **updated adapter cutadapt trimming code** - newly trimmed pre-denoised data saved locally
    * starting with repository `CU_RT_AN` as described therein
       * **updated adapter cutadapt trimming code** - newly trimmed pre-denoised data saved locally
-* **08.03.2019** - starting re-merging of individual data sets
+
+### **08.03.2019** - starting re-merging of individual data sets
+
    * denoising still running for `CU_Pearl_Harbour`
    * **denoising finished for `CU_RT_AN`**
       * retrieved files - merging statistics better - denoising was finished very quick though
    * **starting with repository `CU_SP_AD_CH` as described therein**
-* **09.03.2019** - setting up merge of next repositories
+
+### **09.03.2019** - setting up merge of next repositories
+
   * merging and denoising went ok according to graphic for `CU_Pearl_Harbour` and `CU_RT_AN`
   * denoising was very quick for `CU_RT_AN`
   * repository `CU_SP_AD_CH` is ready for denoise and merge, commit all repositories locally (then added gnuplot code)
-* **11.03.2019** - setting up merge of next repositories
+
+### **11.03.2019** - setting up merge of next repositories
+
   * repository `CU_SP_AD_CH` is still denoising - now finished
   * opening  `CU_US_ports_a` script files for edit
   * obtained `CU_SP_AD_CH` from cluster and checked merging - ok
   * `CU_US_ports_a` is last to be re-merged and denoied
   * committing all repositories, refreshing `CU_US_ports_a` on cluster before starting to work on it
   * `CU_US_ports_a` currently denoising on cluster
-* **20.03.2019** - preparing data merging, incl. manifests
+
+### **20.03.2019** - preparing data merging, incl. manifests
+
   * checking, adjusted, and running  `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh` - ok
-* **21.03.2019** - continuing data combination
+
+### **21.03.2019** - continuing data combination
+
   * revising mapping files to encode for run origin, creating mapping file for last run (from sample sheets)
     * encode for sequencing run - ok
     * check coordinates - check thoroughly for `CU_RT_AN` only so far
@@ -526,7 +637,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * re-created `/Users/paul/Documents/CU_Pearl_Harbour/Zenodo/Manifest/05_metadata.xlsx`, and
     * overwrote `/Users/paul/Documents/CU_Pearl_Harbour/Zenodo/Manifest/05_metadata.tsv` (use this one)
     * updated `PH`-`README.md`
-* **22.03.2019** - continuing data combination
+
+### **22.03.2019** - continuing data combination
+
   * created and saved mapping file for `CU_RT_AN` data
     * file path is `/Users/paul/Documents/CU_RT_AN/Zenodo/Manifest/10_18S_mapping_file_10410623.xlsx`, and 
     * file path is `/Users/paul/Documents/CU_RT_AN/Zenodo/Manifest/10_18S_mapping_file_10410623.tsv` (use this one)
@@ -544,7 +657,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
    * revising metadata for data set `CU_US_ports_a`
       * `/Users/paul/Documents/CU_US_ports_a/Zenodo/Manifest/05_18S_merged_metadata.xlsx` - as source file
       * `/Users/paul/Documents/CU_US_ports_a/Zenodo/Manifest/05_18S_merged_metadata.tsv` - for script
-* **25.03.2019** - continuing preliminary data combination and analysis
+
+### **25.03.2019** - continuing preliminary data combination and analysis
+
    * checking, adjusted, and running `/Users/paul/Documents/CU_combined/Github/070_merge_metdata.sh` - 
    * created `/Users/paul/Documents/CU_US_ports_a/Zenodo/Manifest/05_18S_merged_metadata.tsv`
    * created backup copy `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata.xlsx`
@@ -555,7 +670,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
    * using untrimmed files in script `~/Documents/CU_combined/Github/085_cluster_sequences.sh` that may contain COI?
    * **NO:** back to inherited data for better cleanup - please check `/Users/paul/Documents/CU_SP_AD_CH/Github/README.md`
    * commit
-* **27.03.2019** - preparing data combination after re-cleaning of inherited data
+
+### **27.03.2019** - preparing data combination after re-cleaning of inherited data
+
    * mock data available and can be used
      * copying reference data to project directory for inclusion of Sanger Sequences
        * `cp /Users/paul/Sequences/References/SILVA_128_QIIME_release/rep_set/rep_set_18S_only/99/99_otus_18S.fasta \
@@ -582,7 +699,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
       * revised `/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_29.xlsx` - not yet exported
       * revised `/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_34.xlsx` - not yet exported
       * revised `/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_35.xlsx` although currently unneeded - not yet exported
-* **28.03.2019** - preparing data combination after re-cleaning of inherited data
+
+### **28.03.2019** - preparing data combination after re-cleaning of inherited data
+
    * continuing revision of metadata files - introducing `Location` column, but accepting unused inconsistent salinity values
       * revised `/Users/paul/Documents/CU_US_ports_a/Zenodo/Manifest/05_18S_merged_metadata.xlsx`- not yet exported
       * exporting tsv of above files **check for consistency after merging!**
@@ -634,7 +753,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * check tree with all 18S sequences
     * decide if should be run only on metazoans - probably yes - then:
        * sync home adjust script for cluster - classify reads - tree builing etc - reapeat 
-* **29.03.2019** - working with metazoan data to get results for Washington DC
+
+### **29.03.2019** - working with metazoan data to get results for Washington DC
+
   * tree calculation ongoing on cluster `cbsumm05`: **update only, don't commit until finished, do not tocuh scripts `095_align_repseqs.sh`, `100_mask_alignment.sh`, `105_build_tree.sh` **
   * aborted as per Jose - todays plan
     * sync to local - ok 
@@ -651,13 +772,17 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * while classification is running, revised: `100_filter_samples.sh`
   * while classification is running, revised: `105_smr_features_and_table.sh`
   * classification crashed due to mis-formated reference data - inserting tabs in reference data files - restart
-* **02.04.2019** - restarting classification with properly formatted reference data
+
+### **02.04.2019** - restarting classification with properly formatted reference data
+
   * on local, commit and check, upload to cluster and restart classification
   * using script `/Users/paul/Documents/CU_combined/Github/095_classify_reads.sh`
   * downloaded results to local and cancelled reservationm
   * adjusted and attempting to run `100_filter_samples.sh` after commit - ok
   * ran `100_filter_samples.sh` - ok 
-* **03.04.2019** - inspect files - export for R import
+
+### **03.04.2019** - inspect files - export for R import
+
   * adjust and run `/Users/paul/Documents/CU_combined/Github/105_sumr_filtered_data_sets.sh` - ok
     * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/105_18S_097_cl_cntrl_barplot.qzv` - ok (huge)
     * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/105_18S_097_cl_cntrl_barplot.qzv`
@@ -685,7 +810,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * saved video as `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/190403_120_18S_metazoan_core_metrics_Unweihted_unifrac.mov`
  * adjusted and running `/Users/paul/Documents/CU_combined/Github/125_isolate_unifrac_results.sh` - ok, after some fighting, needed to add more explicit commands
  * later - ready to run R scripts
-* **04.04.2019** - starting to work on R scripts
+
+### **04.04.2019** - starting to work on R scripts
+
   * adjust and run  `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
     * data files at `/Users/paul/Documents/CU_combined/Zenodo/R_Objects` are kept for now but most are outdated and will be overwritten - check file dates
     * overwriting `/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_05_UNIFRAC_behaviour_10k_results_list.Rdata`
@@ -697,7 +824,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * commit - check date, should be `4.4.2019` - some corrections after `.pdf` rendering - see `/Users/paul/Documents/CU_combined/Zenodo/Documentation/500_05_UNIFRAC_behaviour.pdf`
     * check and commit repository `/Users/paul/Documents/CU_cmbd_rf_test` - ok 
     * tick off todo list if possible - ok
-* **05.04.2019** - starting to work on R scripts
+
+### **05.04.2019** - starting to work on R scripts
+
   * in  `500_05_UNIFRAC_behaviour.R`:
      * matrix "lumping" of different sample pair Unifrac distances now done using `median` and not `mean` 
      * check 1st commit 05.05.2019 - in `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R` done in function `get_distance_matrix_means_current_port_matrix_at_sample_count`
@@ -708,7 +837,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
        * old image shows more smoothing due to averages - `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/190404_500_05_UNIFRAC_behaviour_via_means_mad_(old).pdf`
        * new image is more realistic - keeping it this way - `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/190405_500_05_UNIFRAC_behaviour_via_medians_mad.pdf`
      * commit
-* **08.04.2019** - , included rarefaction analysis, continued to work on R scripts
+
+### **08.04.2019** - , included rarefaction analysis, continued to work on R scripts
+
   * adjusted and ran `/Users/paul/Documents/CU_combined/Github/122_alpha_rarefaction_curves.sh` - test ok 
   * committed
   * starting full analysis using default values for now - pending
@@ -758,7 +889,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
          * `MD5 (/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output_mat_trips_full.Rdata) = 2e63d866dc4f7a1011a399ed2f40e1d0`
          * `MD5 (/Users/paul/Documents/CU_combined/Zenodo/R_Objects/500_30_shape_matrices__output_predictor_data.Rdata) = 3c07b79451199a2cdd3840c9fe24e72a`
   * continue manuscript and `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R`
-* **09.04.2019** - continue to work on R scripts
+
+### **09.04.2019** - continue to work on R scripts
+
   * restarted `/Users/paul/Documents/CU_combined/Github/122_alpha_rarefaction_curves.sh` requesting less parameters (after crash)
   * starting to revise `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R`
     * error - Rotterdam not included in `/Users/paul/Documents/CU_combined/Github/500_30_shape_matrices.R`
@@ -785,7 +918,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * improve tree calculation
     * re-run Mixed effect Model on Voyage counts (although I do not think this will improve much) 
     * include HON adjacency values from Mandana instead of trips.
-* **10.04.2019** get hashes of DB files - for test in `CU_mock` today
+
+### **10.04.2019** get hashes of DB files - for test in `CU_mock` today
+
  * consistent with `CU_mock`: `/Users/paul/Documents/CU_combined/Zenodo/References/Silva128_extract_extended/99_otus_18S.fasta` `05c54da004175a5f6220f5f4439f8a8d`
  * consistent with `CU_mock`: `/Users/paul/Documents/CU_combined/Zenodo/References/Silva128_extract_extended/majority_taxonomy_7_levels.txt` `7c765f8a740c07def24922c1ef8cee20`
  * check classification
@@ -803,7 +938,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
        * `/Users/paul/Documents/CU_combined/Zenodo/Results/190410_metazoans_clustered_level-5-bars.svg`
        * `/Users/paul/Documents/CU_combined/Zenodo/Results/190410_metazoans_clustered_level-5-legend.svg`
    * committing to save README
-* **11.04.2019**  manual inspection
+
+### **11.04.2019**  manual inspection
+
   * exporting (and viewing) data for manual inspection - files are likely edited manually
     * `qiime tools export --input-path /Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_097_cl_seq_taxonomic_assigmnets.qza --output-path /Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_097_cl_seq_taxonomic_assigmnets`
     * `qiime tools export --input-path /Users/paul/Documents/CU_combined/Zenodo/Qiime/100_18S_097_cl_metzn_seq.qza --output-path /Users/paul/Documents/CU_combined/Zenodo/Qiime/100_18S_097_cl_metzn_seq`
@@ -813,9 +950,13 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * `qiime tools view ../Zenodo/Qiime/105_18S_097_cl_metzn_seq.qzv`
   * from now on use Vsearch parameters as established today in `CU_mock` with `qiime 2019.1`.
   * if possible include  include new data denoised with Qiime 2018-11 for consistency
-* **12.04.2019** - break
+
+### **12.04.2019** - break
+
   * returning to analysis re-iteration once all data from `/Users/paul/Documents/CU_WL_GH_ZEE` is included - committed
-* **17.04.2019** - data from `/Users/paul/Documents/CU_WL_GH_ZEE` ready to be included - see commit history and README there
+
+### **17.04.2019** - data from `/Users/paul/Documents/CU_WL_GH_ZEE` ready to be included - see commit history and README there
+
   * adjusted and running `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh` - committed afterwards
   * adjusted and running `/Users/paul/Documents/CU_combined/Github/070_merge_metadata.sh` - ok.
     * raw file `/Users/paul/Documents/CU_combined/Zenodo/Manifest/05_18S_merged_metadata_preliminary.tsv` 
@@ -840,7 +981,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * started tax assignment on cluster - committed on cluster - results pending
   * evening - remotely
     * tax assignment was completed after 3 hours on 64 cores - pull to macmini via remote - continue with filtering, alignmnet etc.
-* **18.04.2019** - sample filtering, alignment, tree - see pictures of todays meeting
+
+### **18.04.2019** - sample filtering, alignment, tree - see pictures of todays meeting
+
   * creating `/Users/paul/Documents/CU_combined/Github/085_filter_project.sh`
     * isolate project features and sequences
     * isolate Arctic features and sequences (for spin-offs)
@@ -896,7 +1039,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * many output files (n = 3 x 6 x 3 = 54 for sequence, table, and barplot visualisation)- can be identified by `*105*vis.qzv`
     * commit `8e25e3a3498cf964608d51af64e201e1e722fde`
   * corrected file call in script `100`, re-ran scripts `100` and `105`, commit `de1b3276efa59a4d415ef759514584b76ae649d`
-* **20.04.2019** - alignment, tree - see pictures of Thursday's meeting
+
+### **20.04.2019** - alignment, tree - see pictures of Thursday's meeting
+
   * drafted `/Users/paul/Documents/CU_combined/Github/110_seq_align.sh`
   * drafted `/Users/paul/Documents/CU_combined/Github/115_seq_align_mask.sh`
   * drafted `/Users/paul/Documents/CU_combined/Github/120_seq_align_tree.sh`
@@ -907,7 +1052,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * calling `./110_seq_align.sh && ./115_seq_align_mask.sh && ./120_seq_align_tree.sh`
     * **do overwrite local home afterwards** (and then reorder script names a local home)
     * **check logfiles** - Unassigned sequences could not be put in in masked alignments 
-* **21.04.2019** - tree calculation ongoing
+
+### **21.04.2019** - tree calculation ongoing
+
   * on cluster - tree calculation takes very long -
   * after aligning and masking restricted scope of files entering tree calculation to only consider eDNA samples at various taxonomic levesls - otherwise takes too long - also tree of controls isn't necessary
   * ***Update, and not overwrite local home**
@@ -934,7 +1081,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * generate Unifrac graphs
     * prepare rarefaction curves
   * commit
-* **22.04.2019**
+
+### **22.04.2019**
+
   * after meeting, next steps:
      * get better taxonomy assignment treshhold via unclustered sequences 
        * doing this in different repository now
@@ -946,10 +1095,14 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
          * prepare rarefaction curves
          * get modelling framework
   * committed repository
-* **23.04.2019**
+
+### **23.04.2019**
+
   * in addition to what is noted yesterday, perhaps revise naming conventions to maintain consecutive script numbers
     * see also `Users/paul/Documents/CU_tx_test/Github/095_isolate_taxa.sh` (commit `05513af98dea68b4556ef072f8217acdee89ca46`)
-* **06.05.2019**
+
+### **06.05.2019**
+
   * latest backup before the following changes is `/Volumes/Time Machine Backups/Backups.backupdb/macmini/2019-05-06-144701`
   * in `075_classify_reads.sh` setting `--p-perc-identity` from `0.97` to `0.86` as per `~/Documents/CU_tx_test/Github/README.md`
   * redoing taxonomic classification with new settings
@@ -961,7 +1114,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
        * on cluster running updated `075_classify_reads.sh`
        * needed to restart after adjusted parameter from `0.86` to `0.875` so as to match `CU_tx_test`
        * commit once on local
-* **07.05.2019** - continuing to re-run pipeline on cluster
+
+### **07.05.2019** - continuing to re-run pipeline on cluster
+
   * running `080_smr_features_and_table.sh` - ok 
   * running `085_split_projects.sh` - ok
   * running `090_split_controls.sh` - ok
@@ -985,7 +1140,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * daisy chaining all scripts on local (starting 22:57 overnight):
      * `./100_isolate_taxa.sh && ./105_smr_filtered_data_sets.sh` abort due to power outage 
      *  continue at `./110_seq_align.sh && ./115_seq_align_mask.sh && ./120_alignment_export.sh` 
-* **08.05.2019** - continuing to re-run pipeline on cluster
+
+### **08.05.2019** - continuing to re-run pipeline on cluster
+
   * removed update flags in Transport overwrite scripts
   * pushing data to cluster, on cluster running `./110_seq_align.sh && ./115_seq_align_mask.sh && ./120_alignment_export.sh` - pending
   * on local adjusted **update on pull** - ok 
@@ -1000,7 +1157,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * todo afterwards
     * susbet tables to features in trees  
     * rarefaction
-* **09.05.2019** - continuing to re-develop pipeline
+
+### **09.05.2019** - continuing to re-develop pipeline
+
   * **Note**: Naming conventions change - prepending script number again, instead of appending.  
   * touched `/Users/paul/Documents/CU_combined/Github/127_filter_data_to_match_trees.sh`
   * touched `/Users/paul/Documents/CU_combined/Github/128_smr_matched_data_sets.sh`
@@ -1013,7 +1172,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * ran successfully `/Users/paul/Documents/CU_combined/Github/127_filter_data_to_match_trees.sh`
   * starting to draft `/Users/paul/Documents/CU_combined/Github/127_filter_data_to_match_trees.sh`
   * adjusted and running `/Users/paul/Documents/CU_combined/Github/128_smr_matched_data_sets.sh`
-* **10.05.2019** - continuing to re-develop pipeline
+
+### **10.05.2019** - continuing to re-develop pipeline
+
   * adjusted `/Users/paul/Documents/CU_combined/Github/130_alpha_rarefaction_curves.sh`
     * depth is manually set to `10000` as per `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/128_18S_eDNA_samples_100_Metazoans_features.qzv`
     * for later scripts adjusted as required using rarefaction plots.
@@ -1028,19 +1189,29 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
      * `/Users/paul/Documents/CU_combined/Github/135_get_core_metrics.sh` (check log files for warnings) and
      *  `/Users/paul/Documents/CU_combined/Github/130_alpha_rarefaction_curves.sh` - finish pending
    * commit `0c21fd1bf061036971198e52519e65ddaef82e4c`
-* **13.05.2019** - continuing to re-develop pipeline
+
+### **13.05.2019** - continuing to re-develop pipeline
+
   * wrote, corrected, and ran successfully `/Users/paul/Documents/CU_combined/Github/140_export_distance_artefacts.sh`
   * wrote, and ran successfully `/Users/paul/Documents/CU_combined/Github/145_convert_qiime_artifacts.sh` - committed
-* **14.05.2019** - continuing to re-develop pipeline
+
+### **14.05.2019** - continuing to re-develop pipeline
+
   * adjusted, and ran successfully `/Users/paul/Documents/CU_combined/Github/145_convert_qiime_artifacts.sh` - committed
   * wrote, and run successfully `/Users/paul/Documents/CU_combined/Github/150_parse_otu_tables.R`\
-* **15.05.2019** - continuing to re-develop pipeline
+
+### **15.05.2019** - continuing to re-develop pipeline
+
   * wrote and ran successfully `/Users/paul/Documents/CU_combined/Github/147_check_qiime_artifacts.sh`
   * wrote and ran successfully `/Users/paul/Documents/CU_combined/Github/133_beta_rarefaction_pcoa.sh`
-* **15.05.2019** - preparing talk(s) for next weeks project meeting
+
+### **15.05.2019** - preparing talk(s) for next weeks project meeting
+
   * adjusted slightly and ran `/Users/paul/Documents/CU_combined/Github/500_40_get_maps.R`
   * started working on file `/Users/paul/Box Sync/CU_NIS-WRAPS/170724_internal_meetings/190516_meeting_Ithaca/190516_slides_draft.md`
-* **16.05.2019** - preparing talk(s) for next weeks project meeting
+
+### **16.05.2019** - preparing talk(s) for next weeks project meeting
+
   * re-running `/Users/paul/Documents/CU_combined/Github/145_convert_qiime_artifacts.sh` - wasn't exporting trees
   * re-running `/Users/paul/Documents/CU_combined/Github/147_check_qiime_artifacts.sh` - wasn't exporting trees
   * to check unfiltered files creating and running `/Users/paul/Documents/CU_combined/Github/091_check_qiime_artifacts.sh` - ok
@@ -1054,7 +1225,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
            --i-table /Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_eDNA_samples_tab.qza \
            --o-visualization /Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_eDNA_samples_tab_vis.qzv```
   * started `/Users/paul/Documents/CU_combined/Github/160_parse_otu_tables_phyloseq.R` - unfinished - commit `5353db8fc326a9670eeb1c37627b2ca88597612b`
-* **20.05.2019** - preparing talk(s) for this weeks project meeting
+
+### **20.05.2019** - preparing talk(s) for this weeks project meeting
+
   * modified `/Users/paul/Documents/CU_combined/Github/160_parse_otu_tables_phyloseq.R` - simple bar plot
   * continued to work on `/Users/paul/Box Sync/CU_NIS-WRAPS/170724_internal_meetings/190516_meeting_Ithaca/190516_slides_draft.md`
   * worked on FON
@@ -1076,7 +1249,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * adding `function fill_collapsed_responses_matrix_full` to `/Users/paul/Documents/CU_combined/Github/500_00_functions.R` which doesn't half matrices
     * code in `/Users/paul/Documents/CU_combined/Github/510_85_hon_model.R` is draft stage and needs thorough re-coding
     * commit
-* **21.05.2019** - meeting - working on Macbook Pro
+
+### **21.05.2019** - meeting - working on Macbook Pro
+
   * created copies of modeling script - check names
   * starting to adjust FON modeling script for eukaryotes
     * file is `/Users/paulczechowski/Documents/CU_combined/Github/505_80_mixed_effect_model.R`
@@ -1093,7 +1268,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * have simple random effect model based on Eukaryotes
     * modelling script both have eukaryotes included, but / and check for filnames and read in sections
     * commit
-* **28.05.2019** - starting final pipeline revision
+
+### **28.05.2019** - starting final pipeline revision
+
   * compressing backup copy for later deletion `/Users/paul/Documents/CU_combined/Zenodo/190528_qiime_bup.zip`
   * erasing older files in `/Users/paul/Documents/CU_combined/Zenodo/Qiime`
   * loading `qiime2-2019.4`
@@ -1110,13 +1287,17 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/095_18S_preliminary_eDNA_samples_tab.qzv`
     * `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/105_18S_eDNA_samples_tab.qzv`
   * commit for today
-* **29.05.2019** - continuing final pipeline revision
+
+### **29.05.2019** - continuing final pipeline revision
+
   * adjusted script numbers
   * adjusted, committing, and running `/Users/paul/Documents/CU_combined/Github/110_cluster_sequences.sh` - ok 
   * adjusted, committing, and running `/Users/paul/Documents/CU_combined/Github/115_isolate_taxa.sh` - ok 
   * adjusted, committing, and running `/Users/paul/Documents/CU_combined/Github/120_seq_align.sh` - ok 
   * opening for adjustments `/Users/paul/Documents/CU_combined/Github/125_seq_align_mask.sh` - ok
-* **30.05.2019** - continuing final pipeline revision
+
+### **30.05.2019** - continuing final pipeline revision
+
   * adjusted, and running `/Users/paul/Documents/CU_combined/Github/125_seq_align_mask.sh` - pending
   * updated file script order and committed
   * adjusted and ran `/Users/paul/Documents/CU_combined/Github/130_alignment_export.sh` - ok
@@ -1126,7 +1307,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * adjusting for cluster usage `/Users/paul/Documents/CU_combined/Github/150_alpha_rarefaction_curves.sh` - ok
   * commit and upload to cluster
   * on cluster running `/Users/paul/Documents/CU_combined/Github/150_alpha_rarefaction_curves.sh` - aborted
-* **31.05.2019** - continuing final pipeline revision
+
+### **31.05.2019** - continuing final pipeline revision
+
   * need to rearrange pipeline to account for sequence removal after tree building
   * adjusting script order and erasing superflous files, and commit - ok.
   * update todo
@@ -1141,7 +1324,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
       * Eukaryote-non-metazoans - 50000 - Retained 6,100,000 (29.00%) features in 122 (48.22%) samples at the specifed sampling depth.
   * adjusted and run `/Users/paul/Documents/CU_combined/Github/135_seq_align.sh` - ok
   * adjusted and run `/Users/paul/Documents/CU_combined/Github/140_seq_align_mask.sh` - ok
-* **01.06.2019** - continuing final pipeline revision
+
+### **01.06.2019** - continuing final pipeline revision
+
   * adjusted and run `/Users/paul/Documents/CU_combined/Github/145_alignment_export.sh` - ok
   * adjusted and run `/Users/paul/Documents/CU_combined/Github/150_calculate_fasttree.sh` - ok
   * adjusted and run `/Users/paul/Documents/CU_combined/Github/155_filter_data_to_match_trees.sh` - ok
@@ -1149,7 +1334,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * next: check results, run core metrics and next rarefaction script - commit
   * adjusted for cluster run `~/Documents/CU_combined/Github/160_alpha_rarefaction_curves_phylogenetic.sh`
     * commit, upload to cluster, and running - return pending
-* **03.06.2019** - continuing final pipeline revision
+
+### **03.06.2019** - continuing final pipeline revision
+
   * pulled results from cluster of `~/Documents/CU_combined/Github/160_alpha_rarefaction_curves_phylogenetic.sh`
   * adjusted and ran `/Users/paul/Documents/CU_combined/Github/165_summarize_data_phylogenetic.sh`
   * adjusting rarefaction depths
@@ -1180,7 +1367,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * adjusted and ran `/Users/paul/Documents/CU_combined/Github/190_export_JAQUARD_distance_artefacts.sh` - ok
     * **exports both tree-filtered and tree-unfiltered Jacquard results**
   * commit `c18c35ba6aedcca6e4531b2b944a8a2ffaac297d`
-* **05.06.2019** - checking distance matrices and starting modelling
+
+### **05.06.2019** - checking distance matrices and starting modelling
+
   * PCOA of distance matrices 
     * non-phylogenetic, clustered: `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/130_18S_eDNA_samples_clustered90_Eukaryotes_core_metrics_non_phylogenetic/jaccard_emperor.qzv`
     * phylogenetic, unclustered: `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/170_eDNA_samples_Eukaryotes_core_metrics/unweighted_unifrac_emperor.qzv`
@@ -1188,7 +1377,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * non-phylogenetic, clustered: `/Users/paul/Documents/CU_combined/Zenodo/Qiime/190_18S_eDNA_samples_clustered90_Eukaryotes_core_metrics_non_phylogenetic_JAQUARD_distance_artefacts/190_jaccard_distance_matrix.tsv`
     * phylogenetic, unclustered: `/Users/paul/Documents/CU_combined/Zenodo/Qiime/185_eDNA_samples_Eukaryotes_unweighted_UNIFRAC_distance_artefacts/185_unweighted_unifrac_distance_matrix.tsv`
   * sorting scripts and commit
-* **06.06.2019** - working on FON of unweighted UNIFRAC and Jacquard indices
+
+### **06.06.2019** - working on FON of unweighted UNIFRAC and Jacquard indices
+
   * running and rendering `/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R` - no manual handling necessary
   * running and rendering `/Users/paul/Documents/CU_combined/Github/500_20_get_predictor_euklidian_distances.R` - no manual handling necessary
   * running and rendering `/Users/paul/Documents/CU_combined/Github/500_30_shape_matrices.R` - no manual handling necessary
@@ -1197,7 +1388,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * **currently commented in**  with JAQUARD matrix of 90% clustered data ran and rendered `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R` - JAQUARD dist not significant - model not significant 
     * 23 Ports in Jacquard Matrix are `PH SW SY AD BT HN HT LB MI AW CB HS NA NO OK PL PM RC RT VN GH WL ZB`
   * commit
-* **07.06.2019** - adding data sets with more inclusive clustering threshold (possibly still marked in purple in finder view)
+
+### **07.06.2019** - adding data sets with more inclusive clustering threshold (possibly still marked in purple in finder view)
+
   * saving compresses copy of project folder to `/Users/paul/Documents/CU_combined.zip` - erased already.
   * adjusting files to skip readily available analyses:
     * adjusting and running `/Users/paul/Documents/CU_combined/Github/110_cluster_sequences.sh` - ok 
@@ -1241,7 +1434,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * **To brainstorm overlap analysis:**: 
     * Checking actual overlap of tree-filtered `asv` data by reviving script `/Users/paul/Documents/CU_combined/Github/550_85_euler.R`
     * code doesn't scale well with large sample numbers
-* **10.06.2019** - scripting taxon overlap in R
+
+### **10.06.2019** - scripting taxon overlap in R
+
   * created copy of Euler script from scratch: `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa.R`
   * worked on copy: `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa.R`
   * started function to write fasta files, as well, not yet finished - commit for today.
@@ -1254,7 +1449,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * call on cluster `/Users/paul/Documents/CU_combined/Transport/350_sync_ncbi_nt_to_scratch.sh` - pending 
     * call on cluster `~/Documents/CU_combined/Github/200_fasta_blast.sh` - pending 
     * commit (`5185e628172e16dff1a4abfea08b8b1d49bb66f`)
-* **10.06.2019** - formalizing Mantel test and Procrustes analyses
+
+### **10.06.2019** - formalizing Mantel test and Procrustes analyses
+
   * retrieved yesterdays blast results
     * subsetting selected fasta files and feature tables in `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa.R`
     * blasting done using `/Users/paul/Documents/CU_combined/Github/200_fasta_blast.sh`
@@ -1266,13 +1463,17 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
       * running unclustered Unifrac vs Jaccquard - ok
       * running 99clustered Unifrac vs Jaccquard - ok
     commit - `1e19901da4e6811142671bb8a7ecfc4e6ad00c1a`
-* **12.06.2019** - parsing and saving copy of Blast results
+
+### **12.06.2019** - parsing and saving copy of Blast results
+
   * creating MEGAN 6 file `/Users/paul/Documents/CU_combined/Zenodo/Results/190612_18S_eDNA_samples_Eukaryotes_2-16_ports_overlap.rma6`
     * blasting done using `/Users/paul/Documents/CU_combined/Github/200_fasta_blast.sh`
     * was be read in using Megan from `/Users/paul/Documents/CU_combined/Zenodo/Blast`
     * read in OTU's found between 2 to 16 port
     * use in conjunction with `/Users/paul/Documents/CU_combined/Zenodo/Blast/500_85_18S_eDNA_samples_Eukaryotes_qiime_artefacts_non_phylogenetic_features_overlap.xlsx`
-* **13.06.2019** - as done yesterday - formalizing model calls
+
+### **13.06.2019** - as done yesterday - formalizing model calls
+
   * `Rscript --vanilla` has been added to scripts:
     * `/Users/paul/Documents/CU_combined/Github/175_export_all_qiime_artifacts_phylogenetic.sh` and
     * `/Users/paul/Documents/CU_combined/Github/180_export_all_qiime_artifacts_non_phylogenetic.sh`
@@ -1303,7 +1504,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * time stamp to avoid overwriting in case of identical file names ``/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
     * needs matching with order of input files in `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh` - first files executed first
   * commit `f85d137c8a112f022fd5b5c41e2881708b685219`
-* **13.06.2019** - preparing slides for results meeting
+
+### **13.06.2019** - preparing slides for results meeting
+
   * also updated todo with new ideas
   * `.pdf` and Qiime exports for slide generation are copied to `/Users/paul/Box Sync/CU_NIS-WRAPS/170724_internal_meetings/190618_cu_lab_meeting/images/` from:
     * `/Users/paul/Documents/CU_combined/Zenodo/Results/`
@@ -1317,9 +1520,13 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * `/Users/paul/Documents/CU_combined/Zenodo/Documentation/190618_slides.pdf`
     * `/Users/paul/Documents/CU_combined/Zenodo/Documentation/190618_slides_compressed.pdf`
   * commit (`41d1b4e8d2ce84e73ec9358658e8cac43df1d0a`)
-* **17.06.2019** - started Mantel test extension but aborted
+
+### **17.06.2019** - started Mantel test extension but aborted
+
   * commit `4ae98cb15e414f9c0517971c16e0b78701826db1`
-* **17.07.2019** - **work pick-up at Otago University**
+
+### **17.07.2019** - **work pick-up at Otago University**
+
   * **updated todo as far as comprehensible**
     * re-run Blast so that Erin is happy (and environmental samples are excluded)
     * modify Mantel test to run on port collapsed samples
@@ -1332,7 +1539,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
       * `blast 2.9.0` running on local
       * `blast 2.9.0` called in script used for cornell biohpc
       * database version needs to be five or higher on local  (unchecked) and / or remote (unchecked) - assuming version are - downloaded after release notes
-* **18.07.2019**
+
+### **18.07.2019**
+
   * attempting to install NCBI's Edirect utilities as per `https://www.ncbi.nlm.nih.gov/books/NBK179288/`
   * failed multiple times - requested help from NCBI, Erin & Jose
   * exploring solution as per `https://github.com/bioconda/bioconda-recipes/issues/13415`
@@ -1354,7 +1563,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * adjusting code that generates file names
     * waiting for Gi list to finish downloading
     * commit repository - ok (`15e27bf9a22b28aada0b0327754ac8479d61b768`).
-* **19.07.2019** - re-run Blast so that environmental samples are excluded
+
+### **19.07.2019** - re-run Blast so that environmental samples are excluded
+
   * created `/Users/paul/Documents/CU_combined/Zenodo/Blast/README.md` to document Blast data sets
   * calling `/200_overwrite_remote_push.sh` first time from New Zealand - finished ok. 
   * testing `/Users/paul/Documents/CU_combined/Github/200_fasta_blast.sh` - on local machine - seems to be working
@@ -1362,7 +1573,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * loaded blast db on `cbsumm22` (ok)
   * removing command from blast call as incompatibe: `-taxidlist "$trpth"/Zenodo/Blast/190718_gi_list_2759.txt \ `
   * run on cluster (ok) - retrieve (ok)
-* **23.07.2019** - obtaining Blast results - port-collapsing for Mantel test repetition
+
+### **23.07.2019** - obtaining Blast results - port-collapsing for Mantel test repetition
+
   * started writing-up methods
   * dowloaded new non-environmental Blast results
   * updated `/Users/paul/Documents/CU_combined/Zenodo/Blast/README.md`
@@ -1381,7 +1594,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
       * `/Users/paul/Documents/CU_combined/Github/171_get_core_metrics_phylogenetic_collapsed.sh`
       * `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices.sh`
       * commit `da7d3db01172a614229fae764004f9a8b7f18faf`
-* **24.07.2019** - continuing port-collapsing for Mantel and Procrustes test extensions
+
+### **24.07.2019** - continuing port-collapsing for Mantel and Procrustes test extensions
+
   * keeping subsampling depth the same as in parent script to allow comparisons with parent script results
   * collapsed mapping file needs to be created manually - created collapsed mapping file `/Users/paul/Documents/CU_combined/Zenodo/Manifest/07_18S_merged_metadata grouped.tsv`
   * adjusted `/Users/paul/Documents/CU_combined/Github/131_get_core_metrics_non_phylogenetic_collpased.sh` - likely run ok (output not checked yet) 
@@ -1394,7 +1609,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * before running (`334f8aaf7e27cad593a0aa775bdb7328fbf1d75a`)
     * and after running and adding comments to this section (`77fa0274c536d5d64359fde7b0f023524efe7f12`)
   * started adjusting `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices.sh`
-* **25.07.2019** - encoding Mantel and Procrustes test extensions
+
+### **25.07.2019** - encoding Mantel and Procrustes test extensions
+
   * hostname has been set to `macmini.staff.uod.otago.ac.nz`
   * further adjusting script `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices.sh`
   * testing script `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices.sh`
@@ -1405,23 +1622,33 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
       * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/206_18S_eDNA_samples_Eukaryotes_procrustes_port-collapsed.qzv`
       * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/206_18S_eDNA_samples_clustered99_Eukaryotes_procrustes_port-collapsed.qzv`
     * commit for today `f944a914bf0005ebba591c79fe7b7041d2fa04a`
-* **30.07.2019** - encoding Mantel and Procrustes test extensions
+
+### **30.07.2019** - encoding Mantel and Procrustes test extensions
+
   * started to work on map DI for manuscript, in QGIS, 
   * later QGIS versions also downloaded
   * map retrieved as listed at `http://planet.qgis.org/planet/tag/world%20imagery/`
     * in Python Console pasted `qgis.utils.iface.addRasterLayer("http://server.arcgisonline.com/arcgis/rest/services/ESRI_Imagery_World_2D/MapServer?f=json&pretty=true","raster")`
     * continue at `/Users/paul/Documents/CU_combined/Zenodo/Qgis/190730_sample_map.qgz`
-* **31.07.2019** - pick-up afer conference call
+
+### **31.07.2019** - pick-up afer conference call
+
   * downloaded SILVA 132 reference data
-* **06.08.2019**
+
+### **06.08.2019**
+
   * received all Chinese sample data and metadata, saving to `/Users/paul/Sequences/Raw/190726_CU_Aibin_lab_external_run/`
   * updating Cornell cluster, as well. Via `/Users/paul/Sequences/Raw/190726_CU_Aibin_lab_external_run/000_upload_update.sh`
   * for Argentinean collaborators collated `/Users/paul/Documents/CU_combined/Zenodo/Blast/190806_NIS-WRAPS_Megan_input_eukaryotes_all_ports.zip`
     * also see `/Users/paul/Documents/CU_argentina/Github/README.md`
-* **09.08.2019**
+
+### **09.08.2019**
+
   * aborted inclusion of Chinese data, see `/Users/paul/Documents/CU_China/Github/README.md`
   * started to work more seriously on Display Items, see `/Users/paul/Documents/CU_combined/Zenodo/Display_Items/README.md` 
-* **13.08.2019** - checking overlap between references and queries 
+
+### **13.08.2019** - checking overlap between references and queries 
+
   * importing to Geneious folder `Silva128_extended_overlap_check`
     * `/Users/paul/Documents/CU_combined/Zenodo/References/Silva128_extract_extended/99_otus_18S.fasta`
     * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/180_18S_eDNA_samples_tab_Eukaryotes_qiime_artefacts_non_phylogenetic/dna-sequences.fasta`
@@ -1430,13 +1657,19 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * generating majority consensus sequence and editing this - does work with mapping - little mapping success
   * aligning both 5000-sequence-sets using MAFFT with default parameters - running
   * committed
-* **15.08.2019** - checking overlap between references and queries 
+
+### **15.08.2019** - checking overlap between references and queries 
+
   * **alignment didn't tell much, erase and align primers instead**
-* **21.08.2019** - splitting and summarizing controls for results section
+
+### **21.08.2019** - splitting and summarizing controls for results section
+
   * creating and modifying `/Users/paul/Documents/CU_combined/Github/091_split_controls_further.sh` - ran ok
   * modifying array fill in `/Users/paul/Documents/CU_combined/Github/095_summarize_data.sh` - ran ok
   * commit `d16eeb4f80daa89d4eeb316be66f7ed1b32cce77`
-* **26.08.2019** - **implementing different rarefaction depths analysis**
+
+### **26.08.2019** - **implementing different rarefaction depths analysis**
+
   * possible scripts to **modify** are:
     * `/Users/paul/Documents/CU_combined/Github/115_isolate_taxa.sh` - **ok**
     * `/Users/paul/Documents/CU_combined/Github/130_get_core_metrics_non_phylogenetic.sh` - **ok**
@@ -1466,7 +1699,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * possible scripts to **modify** and  **re-run** are:
     * `/Users/paul/Documents/CU_combined/Github/140_seq_align_mask.sh` - ok - commit `def5d15bcc2262402a29f22e99b4cf1c2190f63b`
     * `/Users/paul/Documents/CU_combined/Github/145_alignment_export.sh` - ok - commit `d9ab92f75d57878b9351f8980628b6ba28489f0d`
-* **29.08.2019** - continuing **implementing different rarefaction depths analysis**
+
+### **29.08.2019** - continuing **implementing different rarefaction depths analysis**
+
   * adjusted script `/Users/paul/Documents/CU_combined/Github/150_calculate_fasttree.sh`
     * added check for readily available data - ran ok
   * adjusted script `/Users/paul/Documents/CU_combined/Github/155_filter_data_to_match_trees.sh`
@@ -1477,7 +1712,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * also did not run `~/Documents/CU_combined/Github/125_alpha_rarefaction_curves_non_phylogenetic.sh` - results available via old plot
     * commit with further comments in commit message `8e78a34e04125f6d3dc9e3becc86f97a9649e6ce`
   * adjusted exit conditions in `~/Documents/CU_combined/Github/120_summarize_data_non_phylogenetic.sh` - ran ok
-* **30.08.2019** - continuing **implementing different rarefaction depths analysis**
+
+### **30.08.2019** - continuing **implementing different rarefaction depths analysis**
+
   * adjusted exit conditions in `/Users/paul/Documents/CU_combined/Github/165_summarize_data_phylogenetic.sh` - ran ok
   * adjusting and running `/Users/paul/Documents/CU_combined/Github/170_get_core_metrics_phylogenetic.sh` - ran ok
   * adjusting and running `/Users/paul/Documents/CU_combined/Github/171_get_core_metrics_phylogenetic_collapsed.sh` - ran ok
@@ -1492,14 +1729,18 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
   * adjusting and running `/Users/paul/Documents/CU_combined/Github/190_export_JAQUARD_distance_artefacts.sh
     * as previous script - was already done? - re-running
   * commit ` 63bf24eeea504cff259408e0f1341512f887d911`
-* **03.09.2019** - continuing **implementing different rarefaction depths analysis**
+
+### **03.09.2019** - continuing **implementing different rarefaction depths analysis**
+
   * re-running `/Users/paul/Documents/CU_combined/Github/131_get_core_metrics_non_phylogenetic_collpased.sh`
   * creating and adjusting
     * `/Users/paul/Documents/CU_combined/Github/205_compare_matrices_shallow.sh` - ran ok 
     * `/Users/paul/Documents/CU_combined/Github/206_compare_collpased_matrices_shallow.sh` - ran ok
   * adjusted hostname check in some other scripts
   * commit `c993b3aa2a6dea43ec67b19f2b88747f1e5929c9`
-* **05.09.2019** - continuing **implementing different rarefaction depths analysis** - now adjusting modelling
+
+### **05.09.2019** - continuing **implementing different rarefaction depths analysis** - now adjusting modelling
+
   * all data synced to Cornell cluster
   * adjusted `~/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh`
     * added distance matrices four to eight of shallow rarefaction depth fo UNIFRAC and JAQUARDD values and unclustered and clustered data
@@ -1509,7 +1750,9 @@ Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
     * needs adjustment
        * use large if loop around line 232 - commit running version before these large-scale changes - **ok**
        * write logfile in `~/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh` - **ok**
-* **06.09.2019** - continuing **implementing different rarefaction depths analysis** - now adjusting modelling
+
+### **06.09.2019** - continuing **implementing different rarefaction depths analysis** - now adjusting modelling
+
   * modify `~/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh` script to use more descriptive file names - **ok**
   * commit `dde144cda117d87efa95adc518d2a8e97cfab9de`
   * in `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R` also consider that Pearl Harbour does not have commercial routes - **ok**
@@ -1547,30 +1790,43 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
  /Users/paul/Documents/CU_combined/Zenodo/Results/08_results_euk_otu99_shal__JAQU_model_data_2019-Sep-06-15-21-04.csv
 ```
 
-* **16.09.2019** - building display items, waiting for tables of HON modelling 
+### **16.09.2019** - building display items, waiting for tables of HON modelling 
+
  * email HON data request to Mandana **ok**
  * working on building display items
    * keeping scaffold `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190821_main_results_calculations_blank_checks.R`
    * working in `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190821_main_results_calculations.R`
-* **17.09.2019** - building display items, waiting for tables of HON modelling 
+
+### **17.09.2019** - building display items, waiting for tables of HON modelling 
+
   * working on `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_DI_map_curves.R` - aborted
   * working on `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_DI_map_straight_lines.R` - still works, but aborted
-* **18.09.2019** - building display items, waiting for tables of HON modelling 
+
+### **18.09.2019** - building display items, waiting for tables of HON modelling 
+
   * finished `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_DI_map_curves.R`
     * writing and written to `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190812_display_items_main/190917_1_map.pdf` and
     * writing and written to `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190812_display_items_supplement/190816_sample_map_simple.pdf`
     * continued to work on `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_main_results_calculations.R`
       * exported Keller DI's - but more to do
-* **26.09.2019** - building display items, waiting for tables of HON modelling
+
+### **26.09.2019** - building display items, waiting for tables of HON modelling
+
   * extending `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_main_results_calculations.R`
     * continue into section `Calculations for Results section 3: Chord diagram of model data`
-* **27.09.2019** - building display items, waiting for tables of HON modelling
+
+### **27.09.2019** - building display items, waiting for tables of HON modelling
+
   * extending `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_main_results_calculations.R`
     * continued into section `Calculations for Results section 3: Chord diagram of model data`
-* **30.09.2019** - building display items, waiting for tables of HON modelling
+
+### **30.09.2019** - building display items, waiting for tables of HON modelling
+
   * extending `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_main_results_calculations.R`
     * stared into section `Calculations for Results section 4: Taxonomy plots`
-* **04.10.2019** - building display items, waiting for more tables of HON modelling
+
+### **04.10.2019** - building display items, waiting for more tables of HON modelling
+
   * extending `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_main_results_calculations.R`
     * continued into section `Calculations for Results section 4: Taxonomy plots`
     * finished first of three parts
@@ -1589,7 +1845,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * all R objects now written to `/Users/paul/Documents/CU_combined/Zenodo/R_Objects`
   * in ~/Documents/CU_combined/Github/190917_main_results_calculations.R
   * continue at line 300 (`<- execute next`)
-* **04.10.2019** - building display items, waiting for more tables of HON modelling
+
+### **04.10.2019** - building display items, waiting for more tables of HON modelling
+
   * extending `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/190917_main_results_calculations.R`
   * _" I have parsed the Blast result xml I created and attach this as an R object
      for you consideration - I hope that you may find this useful to streamline your
@@ -1606,9 +1864,13 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
      plots."_
   * count results are weird - check again - grouping command may have gone wrong somewhere
   * updated code and comments to avoid mistake in the future - slicing keeps first occurence of hash, even if it is in the data multiple times (?)
-* **09.10.2019** - building display items, waiting for more tables of HON modelling
+
+### **09.10.2019** - building display items, waiting for more tables of HON modelling
+
   * running again parts of file `/Users/paul/Documents/CU_combined/Github/190917_main_results_calculations.R`, after import
-* **10.10.2019** - building display items, waiting for more tables of HON modelling
+
+### **10.10.2019** - building display items, waiting for more tables of HON modelling
+
   * corrected naming of list elements
   * saved new output files and mailed off
   * erased older output files in `/Users/paul/Documents/CU_combined/Zenodo/R_Objects`
@@ -1616,7 +1878,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * next 
     * improve plot code in Part II
     * code plot in part III
-* **11.10.2019** - building display items, waiting for more tables of HON modelling
+
+### **11.10.2019** - building display items, waiting for more tables of HON modelling
+
   * corrected naming of list elements
   * saved new output files and mailed off
   * erased older output files in `/Users/paul/Documents/CU_combined/Zenodo/R_Objects`
@@ -1624,7 +1888,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * next 
     * improve plot code in Part II
     * code plot in part III
-* **25.10.2019** - starting to resolve Singpore dichotomy
+
+### **25.10.2019** - starting to resolve Singpore dichotomy
+
   * have HON modelling data from Mandana
     * `/Users/paul/Documents/CU_NIS-WRAPS/190208_hon_data/19102019_all_links_emails.pdf`
     * `/Users/paul/Documents/CU_NIS-WRAPS/190208_hon_data/19102019_all_links.csv`
@@ -1632,7 +1898,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * keeping copy of `/Users/paul/Documents/CU_SP_AD_CH` at `/Users/paul/Documents/CU_SP_AD_CH.zip`
   * starting to work on re-import of `/Users/paul/Documents/CU_SP_AD_CH`
   * as further described in `/Users/paul/Documents/CU_SP_AD_CH/Github/README.md`
-* **29.10.2019** - continuing to resolve Singpore dichotomy
+
+### **29.10.2019** - continuing to resolve Singpore dichotomy
+
   * erasing all files in Qiime folder
   * running `/Users/paul/Documents/CU_combined/Github/065_merge_data.sh`
   * running `/Users/paul/Documents/CU_combined/Github/070_merge_metadata.sh`
@@ -1643,7 +1911,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * update for cluster operation `/Users/paul/Documents/CU_combined/Github/075_classify_reads.sh`
   * commit - move to cluster - start taxonomy assignment
   * taxonomy assignemnt started on cluster successfully
-* **30.10.2019** - continuing to resolve Singpore dichotomy
+
+### **30.10.2019** - continuing to resolve Singpore dichotomy
+
   * downloaded Silva 132 classification from Cornell cluster: `Matching query sequences: 22064 of 28394 (77.71%)`
     * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/075_18S_denoised_seq_taxonomy_assignment.txt`
   * revising `/Users/paul/Documents/CU_combined/Zenodo/Manifest/06_18S_merged_metadata.tsv` md5 is `7874420a1a886b7823bc7335`
@@ -1665,9 +1935,13 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * running adjusted `/Users/paul/Documents/CU_combined/Github/115_isolate_taxa.sh`
   * running `/Users/paul/Documents/CU_combined/Github/120_summarize_data_non_phylogenetic.sh` - ok
   * running `/Users/paul/Documents/CU_combined/Github/125_alpha_rarefaction_curves_non_phylogenetic.sh` on cluster after commit
-* **31.10.2019** - continuing to resolve Singpore dichotomy
+
+### **31.10.2019** - continuing to resolve Singpore dichotomy
+
   * retrieved results of  `/Users/paul/Documents/CU_combined/Github/125_alpha_rarefaction_curves_non_phylogenetic.sh` from cluster - ok .
-* **01.11.2019** - continuing to resolve Singpore dichotomy
+
+### **01.11.2019** - continuing to resolve Singpore dichotomy
+
   * designing R script to create metadata files suitable for subsetting available Eukaryote data
     * name `/Users/paul/Documents/CU_combined/Github/127_select_random_samples.R`
     * function and purpose documented therein
@@ -1686,7 +1960,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * calling R script - ok - output files added at `/Users/paul/Documents/CU_combined/Zenodo/Manifest`
   * added `prelim` suffix to grouped files
   * commit (`cc8e58a9f7eea9f3456dc5955fe1266a12e8c5e7`) - next - filter input data based on new tables - or think about next step
-* **04.11.2019** - continuing to resolve Singpore dichotomy
+
+### **04.11.2019** - continuing to resolve Singpore dichotomy
+
   * working on `/Users/paul/Documents/CU_combined/Github/128_adjust_sample_counts.sh` - draft done
     * backup (next after 15:31, 4.11.2019)
     * commit (`b25bc1ba9d13fc7341747a9ce07af3d54b919de0`)
@@ -1694,7 +1970,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * and correcting file paths
     * script seems to be running ok
     * next: revise summary script
-* **05.11.2019** - continuing to resolve Singpore dichotomy
+
+### **05.11.2019** - continuing to resolve Singpore dichotomy
+
   * received new HON data:
     * `/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/191105_shipping_estimates.csv`
     * `/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/191105_shipping_estimates_data_doc.pdf`
@@ -1713,7 +1991,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
    * adjusted and ran `/Users/paul/Documents/CU_combined/Github/135_seq_align.sh` - finished ok
    * adjusting and running `/Users/paul/Documents/CU_combined/Github/140_seq_align_mask.sh` - running
    * commit for today `8f5799f021f2020ac1101ec34ea33026f377fa20`
-* **06.11.2019** - continuing to resolve Singpore dichotomy
+
+### **06.11.2019** - continuing to resolve Singpore dichotomy
+
   * adjusting and running `/Users/paul/Documents/CU_combined/Github/145_alignment_export.sh` - *ok*
   * importing masked Eukaryote alignment to Geneious (check date of imported file `/Users/paul/Documents/CU_combined/Zenodo/Qiime/145_18S_eDNA_samples_seq_Eukaryotes_alignment_masked.fasta.gz`)  - *ok*
   * adjusting and running `/Users/paul/Documents/CU_combined/Github/150_calculate_fasttree.sh` - *ok*
@@ -1722,7 +2002,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * adjusting and running `/Users/paul/Documents/CU_combined/Github/165_summarize_data_phylogenetic.sh` - *ok*
   * commit (`53ae7a784937374a59b6bef8cdfa1751971ca2ec`)
   * adjusting and running `/Users/paul/Documents/CU_combined/Github/170_get_core_metrics_phylogenetic.sh` - *ok*
-* **07.11.2019** - continuing to resolve Singpore dichotomy and finalizing analysis for five random samples per port
+
+### **07.11.2019** - continuing to resolve Singpore dichotomy and finalizing analysis for five random samples per port
+
   * adjusting and running `/Users/paul/Documents/CU_combined/Github/171_get_core_metrics_phylogenetic_collapsed.sh` - *ok*
   * adjusting and running `/Users/paul/Documents/CU_combined/Github/175_export_all_qiime_artifacts_phylogenetic.sh` - *ok*
   * adjusting and running `/Users/paul/Documents/CU_combined/Github/180_export_all_qiime_artifacts_non_phylogenetic.sh` - *ok*
@@ -1753,11 +2035,15 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190812_display_items_main/191107_2a_deep_envdist_per_ecoregion.pdf`
       * `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190812_display_items_main/191107_2b_deep_trips_per_ecoregion.pdf`
       * `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190812_display_items_main/191107_2c_deep_unifrac_per_ecoregion.pdf`
-* **07.11.2019** - rework pipeline, stratified random sample selection of five sample per port
+
+### **07.11.2019** - rework pipeline, stratified random sample selection of five sample per port
+
   * rework all results from **01.11.2019** onwards
   * committing (`1f883a42fb8f20cd0e20e13157a5476e364c0586`)
   * working on `~/Documents/CU_combined/Github/127_select_random_samples.R`
-* **11.11.2019** - rework pipeline, stratified random sample selection of five sample per port
+
+### **11.11.2019** - rework pipeline, stratified random sample selection of five sample per port
+
   * continue work on `~/Documents/CU_combined/Github/127_select_random_samples.R` in line `50`
     * keep Singapore Yacht Club 
     * keep Adelaide Container Dock 1
@@ -1794,7 +2080,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * emptying `/Users/paul/Documents/CU_combined/Zenodo/Results`
   * running modelling script `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R`
   * via `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_results.sh`
-* **12.11.2019** - adjusting modeling script to accomodate HON data
+
+### **12.11.2019** - adjusting modeling script to accomodate HON data
+
   * work plan
     * save backup copy of script `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R` - *ok*
       * `cp /Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_results.R /Users/paul/Documents/CU_combined/Scratch/R`  - *ok*
@@ -1816,7 +2104,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * request subsetting parameters and model formulas
     * start on modelling script
   * for now commit (` 09131d85e61e6cdc19d460237e3bfc25a3713594`)
-* **13.11.2019** - adjusting modeling functionality to accomodate HON data
+
+### **13.11.2019** - adjusting modeling functionality to accomodate HON data
+
   * finished script `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R`
     * during read-in  with subsequent script from location
     * use files with suffix `_with_hon_info.csv`
@@ -1838,14 +2128,20 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * script `/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R`
       * use file ending in `_with_hon_info.csv` from `/Users/paul/Documents/CU_combined/Zenodo/Results`
   * commit (`31695804431ed96461aa26a235e8fb0da823f57a`)
-* **15.01.2020** - starting script `/Users/paul/Documents/CU_combined/Github/200115_unifrac_vs_jaccard.R` for reasons outlined therein
+
+### **15.01.2020** - starting script `/Users/paul/Documents/CU_combined/Github/200115_unifrac_vs_jaccard.R` for reasons outlined therein
+
   * only plotting (and rendering) is needed to do  - committing.
   * plotting is now working - saved file to `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/200115_port_pairs_UNIFRAC_vs_JACCARD.pdf`
-* **28.01.2020** - received data from Mandana and saved it 
+
+### **28.01.2020** - received data from Mandana and saved it 
+
   * `/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/280120_all_links_1997_2018_info.pdf`
   * `/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/280120_all_links_1997_2018.csv`
   * check Things and below to get new todo list
-* **31.01.2020** - swapping in Mandana's new data
+
+### **31.01.2020** - swapping in Mandana's new data
+
   * following notes 12.11.2010
   * adjusting and running `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_tables.sh` - ok
   * which calls, on all tables: `~/Documents/CU_combined/Github/500_80_get_mixed_effect_model_tables.R` - ok
@@ -1860,7 +2156,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * **pending**: adjust code for several model formulas
     * **pending**: verify model formulas
     * do better plotting, using functions
-* **03.02.2020** - swapping in Mandana's new data
+
+### **03.02.2020** - swapping in Mandana's new data
+
   * adjusting and running  `/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R`
     * **ok**: read in results tables from `/Users/paul/Documents/CU_combined/Zenodo/Results`
     * **ok**: subset model table to exclude NA - finish function - commit hash is `d74bcf73f8f0044445091d226bb5c7b0bf4cb061`
@@ -1870,20 +2168,28 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * **pending**: get useful summary render, take notes (and mail off)
     * **pending**: improve looping
     * commit `730112fb8ab984d254d80db9a399eb869a4ce0f3`
-* **04.02.2020** - swapping in Mandana's new data 
+
+### **04.02.2020** - swapping in Mandana's new data 
+
   * commit before implementing the following models `79180c34dc340a08e0a87a63540015038b11dfe6`
     * `Unifrac ~ VOY_FREQ + env similarity + ecoregion + random port effects`
     * `Unifrac ~ B_FON_NOECO + env similarity + ecoregion + random port effects`
     * `Unifrac ~ B_HON_NOECO + env similarity + ecoregion + random port effects`
     * emailed off draft - commit: `5695e9a69e4c59c240812718b7b396a5fcf2876f`
-* **06.02.2020** - running models as discussed at phone call today
+
+### **06.02.2020** - running models as discussed at phone call today
+
   * see `/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R`
-* **13.02.2020** - running models as discussed at phone call today
+
+### **13.02.2020** - running models as discussed at phone call today
+
   * see `/Users/paul/Documents/CU_combined/Github/500_83_get_mixed_effect_model_results.R`
   * rendered html and sent off for AAAS meeting
   * commit `f0550950a0f3070cefda6efe872aa373fd1d2fb1`
   * for comments on results check `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/190220_working_notes/200214_modelling_results_nterpretation_EG.pdf`
-* **13.02.2020** - new models and data received
+
+### **13.02.2020** - new models and data received
+
   * models to run and data to use are documented: 
     * in `/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/200227_models_to_run.pdf`
     * in `/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/200227_data_info_mandana.pdf`
@@ -1899,7 +2205,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * as per `/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/200227_models_to_run.pdf`
     * **pending** / **deferred** - get new data for shallow rarefaction depth
     * **pending** / **deferred** - check out old commit - re-render, and compare results
-* **11.03.2020**
+
+### **11.03.2020**
+
   * implement changes from Post-It note for phone call tomorrow.
     * test if files used are the ones that Erin has sent and declared the latest.
       * `[[ "$(tail -n +2 /Users/paul/Documents/CU_combined/Zenodo/HON_predictors/200227_All_links_1997_2018_updated.csv)" == "$(tail -n +2 /Users/paul/Desktop/All_links_1997_2018_updated.csv)" ]] && echo "same" || echo "not same"`
@@ -1937,7 +2245,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
        * Adelaide	Antwerp	Buenos-Aires	Baltimore	Coos-Bay	Chicago	Cornell	Ghent	Honolulu	Haines	Houston	Long_Beach	Miami	Milne_Inlet	New-Orleans	Nanaimo	Oakland	Portland	Puerto-Madryn	Richmond	Rotterdam	Singapore	Vancouver	Wilmington	Zeebrugge
        * AD	      AW	    BA	          BT	      CB	      CH	    CU	    GH	   HN     	HS	    HT	    LB	        MI	  ML	        NO	        NX	    OK	    PL	      PM	          RC	      RT	       SI     	VN	      WL        	ZB
   * commit  ` dc5a3e522d44e9958b316c9c9632a94d6a6a4852`
-* **13.03.2020** - starting to work on new branch (`full_unifrac`)
+
+### **13.03.2020** - starting to work on new branch (`full_unifrac`)
+
   * creating branch
     * `git checkout -b full_unifrac`
     * for more info check `https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging`
@@ -1971,7 +2281,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * scale env dit value from 0 to 1  - **pending**
     * test results again with NA setting - **pending**
     * test results again without NA setting - **pending**
-* **25.03.2020** - continuing work on new branch (`full_unifrac`)
+
+### **25.03.2020** - continuing work on new branch (`full_unifrac`)
+
   * implementing new modelling technique and new data
   * using new data, verified by Erin
     * file (work on copy): `/Users/paul/Documents/CU_NIS-WRAPS/170720_code_collaborators/200325_EG_code.R` 
@@ -1980,7 +2292,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * file: `/Users/paul/Documents/CU_NIS-WRAPS/200325_ja_glm_approach/ZeroInflated_GLM_guide_PaulC_24March20.pdf`
     *  check and incorporate - **pending**
     * postponed
-* **27.03.2020** - continuing work on new branch (`full_unifrac`)
+
+### **27.03.2020** - continuing work on new branch (`full_unifrac`)
+
   * continuing with last work days items
   * from where is file `Paul_2020_03_12.csv` in Erins R script?
   * saved back from email `/Users/paul/Documents/CU_combined/Zenodo/Results/20201103_Rscrpt-500-83_mme_results.zip`
@@ -2012,7 +2326,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * **script results so far can't be replicated - options:** 
         * use alternative adding approach
         * check again script `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables_eg_partial.R`
-* **31.03.2020** - continuing work on new branch (`full_unifrac`)
+
+### **31.03.2020** - continuing work on new branch (`full_unifrac`)
+
   * adjust `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R` 
      * encode alternative adding approach - **ok**
      * scale variables - **ok**
@@ -2032,7 +2348,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * implement new modelling as per Jose - **pending**
       * graph variables - **pending**
       * check residuals of model as per Erin - **pending**
-* **01.04.2020** - continuing work on new branch (`full_unifrac`)
+
+### **01.04.2020** - continuing work on new branch (`full_unifrac`)
+
   * created `/Users/paul/Documents/CU_combined/Github/500_83_test_zero-inflated_glms.R`
   * for appropriate file naming - rerunning:
     * `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_tables.sh`
@@ -2046,7 +2364,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * working with files `/Users/paul/Documents/CU_combined/Zenodo/Results/200401_500_81_extend_model_tables__temp__input_output.zip`
       * emailing off files and script `/Users/paul/Documents/CU_combined/Github/500_83_test_zero-inflated_glms.R`
       * commit `8d2f09f7cbd198e05b233b0d1fec202d6b92ff5d`
-* **09.04.2020** - continuing work on new branch (`full_unifrac`)
+
+### **09.04.2020** - continuing work on new branch (`full_unifrac`)
+
   * running `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_tables.sh`
   * thus running `/Users/paul/Documents/CU_combined/Github/500_80_get_mixed_effect_model_tables.R`
   * continue working on `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables_new.R`
@@ -2060,13 +2380,17 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * email: (1) request modeling from Jose, (2) send off data sets - **ok**
     * mailed off `/Users/paul/Documents/CU_combined/Zenodo/Results/200409_model_input.zip`   
   * commit `c76eecf0e2b9cb1b4756789ad6f2d9df1578268`
-* **13.04.2020** - continuing work on new branch (`full_unifrac`)
+
+### **13.04.2020** - continuing work on new branch (`full_unifrac`)
+
   * working on `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R`
   * including new data file `/Users/paul/Documents/CU_combined/Zenodo/HON_predictors/200413_All_links_JaccardScores_1997_2018.csv`
   * update results - **ok**
   * send-off - **ok** - files is `/Users/paul/Documents/CU_combined/Zenodo/Results/200412_model_input.zip`
   * commit `4b6ea97ad468b1aa5739672261e8e61a9947a796`
-* **17.04.2020** - after meeting - removing summing of MS's Jaccard values
+
+### **17.04.2020** - after meeting - removing summing of MS's Jaccard values
+
   * erased old results
   * running `/Users/paul/Documents/CU_combined/Github/210_get_mixed_effect_model_tables.sh`
   * adjusting and running `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R`
@@ -2074,10 +2398,14 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * changing variable selection
     * check for last commit if old code needs to come back
     * commit `07983628d2b3c6cda85f8f248cb33780e37d3f69`
-* **18.04.2019** - reworking `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R`
+
+### **18.04.2019** - reworking `/Users/paul/Documents/CU_combined/Github/500_81_extend_model_tables.R`
+
   * Mandana's duplicated Jaccard values are now set to 0 (one per pair) before summing the whole table.
   * commit `ba548bd31613d2fdfd1a2c511fd10bd13ae602e4`
-* **23.04.2020** - preparations for re-work
+
+### **23.04.2020** - preparations for re-work
+
   * re-work to get two more ports as per `/Users/paul/Documents/CU_NIS-WRAPS/170724_internal_meetings/200423_cu_conference_call/200421_on rarefaction.pdf`
   * duplicating project directory and keep one version compressed with current date
   * commit - **ok**
@@ -2107,7 +2435,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * `/Users/paul/Documents/CU_combined/Zenodo/Manifest/127_18S_5-sample-euk-metadata_shll_all.tsv`
     * **next** continue revision of `/Users/paul/Documents/CU_combined/Github/128_adjust_sample_counts.sh`
     * commit `a9f82be7c92f4cf7fa4b8aeca3279b00ac89f3ae`
-* **24.04.2020** - continuing getting more ports
+
+### **24.04.2020** - continuing getting more ports
+
   * adjusted and ran `/Users/paul/Documents/CU_combined/Github/128_adjust_sample_counts.sh`
     * this script is important
     * all output file were re-written
@@ -2125,7 +2455,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * re-running `/Users/paul/Documents/CU_combined/Github/155_filter_data_to_match_trees.sh`
   * adjusted and re-running `/Users/paul/Documents/CU_combined/Github/160_alpha_rarefaction_curves_phylogenetic.sh`
   * commit `d06c2537a3157a32563b5b10e3abf27a524e984a`
-* **27.04.2020** - continuing getting more ports
+
+### **27.04.2020** - continuing getting more ports
+
   * re-running `/Users/paul/Documents/CU_combined/Github/165_summarize_data_phylogenetic.sh`
   * re-running `/Users/paul/Documents/CU_combined/Github/170_get_core_metrics_phylogenetic.sh`
   * moving `/Users/paul/Documents/CU_combined/Scratch/Shell/171_get_core_metrics_phylogenetic_collapsed.sh`
@@ -2153,7 +2485,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * next
     * check, adjust and run `500_05_test_sampling_effort.R`
     * check all other script in directory.
-* **01.05.2020** - continuing with supplemental scripts
+
+### **01.05.2020** - continuing with supplemental scripts
+
   * not touching - should be fine:
     * `/Users/paul/Documents/CU_combined/Github/500_10_gather_predictor_tables.R`
     * `/Users/paul/Documents/CU_combined/Github/500_20_get_predictor_euklidian_distances.R`
@@ -2165,18 +2499,24 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * re-running file creation in `/Users/paul/Documents/CU_combined/Zenodo/Blast` via
     * script `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa-deep.R`
     * script `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa-shallow.R`
-* **02.05.2020** - blast and blast prep
+
+### **02.05.2020** - blast and blast prep
+
   * updated Transport scripts and Blast script
   * moving to cluster for blasting
   * commit ` 94491f45a547dbbb00738c6ea974e09315641951`
   * **ok** prepare cluster, database, and blast - Blast completed
   * hash key is `d6e754ec1fa1b695e5b02eb08062c468eb268fd8`
-* **12.05.2020** - working on Methods, Results, and Display itmes
+
+### **12.05.2020** - working on Methods, Results, and Display itmes
+
   * updated `/Users/paul/Documents/CU_combined/Github/200512_DI_map_curves.R`
   * updated `/Users/paul/Documents/CU_combined/Github/200512_DI_unifrac_vs_jaccard.R`
   * saved plots to `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development`
   * commit `206569edbc77aeea3d6ef9097df4bd0f4a4232ac`
-* **20.05.2020** - working on new Blast results for Kara and ERin - deep and shallow
+
+### **20.05.2020** - working on new Blast results for Kara and ERin - deep and shallow
+
   * Blast results in `/Users/paul/Documents/CU_combined/Zenodo/Blast`
     * **done** - `unpigz /Users/paul/Documents/CU_combined/Zenodo/Blast/*no_env.txt.gz`
   * copying code from script `/Users/paul/Documents/CU_combined/Github/190917_DI_main_results_calculations.R`
@@ -2184,7 +2524,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * **created** - `/Users/paul/Documents/CU_combined/Github/560_process-blast_results_deep.R`
       * started xml-read-in
       * commit `12556b01271c55bfe57701cfbdf65ae0fd24a65e`
-* **20.05.2020** - working on new Blast results for Kara and ERin - deep and shallow
+
+### **20.05.2020** - working on new Blast results for Kara and ERin - deep and shallow
+
       * continuing from yesterday: started taxonomy lookup using Taxonomizr
       * finished and mailed off - see script for saved locations
     * **done** - `/Users/paul/Documents/CU_combined/Github/560_process-blast_results_shallow.R`
@@ -2192,7 +2534,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * **done** - `pigz /Users/paul/Documents/CU_combined/Zenodo/Blast/*no_env.txt`
   * **done** - mail off results
   * commit `12556b01271c55bfe57701cfbdf65ae0fd24a65`
-* **20.05.2020** - debugging sampling effort testing script 
+
+### **20.05.2020** - debugging sampling effort testing script 
+
   * working on script `/Users/paul/Documents/CU_combined/Github/500_05_test_sampling_effort.R`
     * in line ~154 now using `by()` instead of `apply()`:
       * `# commented out 24.05.2010`
@@ -2202,7 +2546,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * seems to be working
     * still **pending** run script with full bootstrapping, both files, and save intermediate files and display items!
   * commit `3de6ba8a4872c2164680f6e042605156a09dd3e6`
-* **25.05.2020** - debugging sampling effort testing script
+
+### **25.05.2020** - debugging sampling effort testing script
+
   * adjusting and running in parallel from command lines:
     * `/Users/paul/Documents/CU_combined/Github/500_05_test_sampling_effort_deep.R`
     * `/Users/paul/Documents/CU_combined/Github/500_05_test_sampling_effort_shallow.R`
@@ -2211,17 +2557,23 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * checked and save display items in `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development`
     * commented out boot-strapping and saving in scripts above results are pulled from previous calculations
   * commit `da1de50fae6821fdaadfd3d83f02c05e2e3cfa3a`
-* **28.05.2020** - preparing files for Kara
+
+### **28.05.2020** - preparing files for Kara
+
   * modifying scripts 
     * `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa-deep.R`
     * `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa-shallow.R`
   * to generate files for Kara:
     * `/Users/paul/Documents/CU_combined/Zenodo/Results/200528_550_85_get_shared_taxa-deep.xlsx`
     * `/Users/paul/Documents/CU_combined/Zenodo/Results/200528_550_85_get_shared_taxa-shallow.xlsx`
-* **06.06.2020** - worked on manuscript
+
+### **06.06.2020** - worked on manuscript
+
   * created and ran `/Users/paul/Documents/CU_mock/Github/140_plot_composition.R`
   * commit `58889bb50b8225d5c7f1ea38abc653c6f6dd5cad`
-* **08.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
+
+### **08.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
+
   * akin to `/Users/paul/Documents/CU_combined/Zenodo/Qiime/120_18S_eDNA_samples_tab_Eukaryotes.qzv`
     * **deep** depth (for Eukaryotes) was `49974`, **now:** `49900`
       * retains 10,279,400 (36.64%) features in 206 (81.42%) samples at the specifed sampling depth
@@ -2239,7 +2591,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * (after subsetting): 
       * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/160_eDNA_samples_Eukaryote-shallow_curves_tree-matched.qzv`
       * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/160_eDNA_samples_Eukaryotes_curves_tree-matched.qzv`
-* **09.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
+
+### **09.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
+
   * finished `/Users/paul/Documents/CU_combined/Github/200608_DI_asv_accumulations_per_ports.R`
   * commit `* **08.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
   * akin to `/Users/paul/Documents/CU_combined/Zenodo/Qiime/120_18S_eDNA_samples_tab_Eukaryotes.qzv`
@@ -2259,7 +2613,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * (after subsetting): 
       * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/160_eDNA_samples_Eukaryote-shallow_curves_tree-matched.qzv`
       * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/160_eDNA_samples_Eukaryotes_curves_tree-matched.qzv`
-* **09.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
+
+### **09.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
+
   * finished `/Users/paul/Documents/CU_combined/Github/200608_DI_asv_accumulations_per_ports.R`
   * commit `**08.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"`
   * akin to `/Users/paul/Documents/CU_combined/Zenodo/Qiime/120_18S_eDNA_samples_tab_Eukaryotes.qzv`
@@ -2279,10 +2635,14 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * (after subsetting): 
       * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/160_eDNA_samples_Eukaryote-shallow_curves_tree-matched.qzv`
       * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/160_eDNA_samples_Eukaryotes_curves_tree-matched.qzv`
-* **09.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
+
+### **09.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
+
   * finished `/Users/paul/Documents/CU_combined/Github/200608_DI_asv_accumulations_per_ports.R`
   * commit 
-* **08.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
+
+### **08.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
+
   * akin to `/Users/paul/Documents/CU_combined/Zenodo/Qiime/120_18S_eDNA_samples_tab_Eukaryotes.qzv`
     * **deep** depth (for Eukaryotes) was `49974`, **now:** `49900`
       * retains 10,279,400 (36.64%) features in 206 (81.42%) samples at the specifed sampling depth
@@ -2300,13 +2660,17 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * (after subsetting): 
       * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/160_eDNA_samples_Eukaryote-shallow_curves_tree-matched.qzv`
       * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/160_eDNA_samples_Eukaryotes_curves_tree-matched.qzv`
-* **09.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
+
+### **09.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
+
   * finished `/Users/paul/Documents/CU_combined/Github/200608_DI_asv_accumulations_per_ports.R`
   * commit `5c8154e392dfe89dce1997ea37123280f2de1ee2`
   * updated `/Users/paul/Documents/CU_combined/Github/200512_DI_unifrac_vs_jaccard.R`
   * commit `71bbc86e4044ddfec1fcfb0dc2242bce59ccc776`
   * updated Jaccard vs. Unifrac plot.
-* **10.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
+
+### **10.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
+
   * updating bootstrapping scripts
     * `/Users/paul/Documents/CU_combined/Github/500_05_test_sampling_effort_deep.R`
       * changed both script here, but upper one more, check revision history for changes
@@ -2316,16 +2680,22 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * partial script code has been altered to produce full plots
       * check revision history to revert back changes if needed (or check other plot code chunks)
       *  commit `dba62bb2c93b89da5ffbeaefb6a241ff97005528`
-* **12.06.2020** - work on supplemental methods
-* **15.06.2020** - work on supplemental methods an mailed off
-* **16.06.2020** - going through main text 
+
+### **12.06.2020** - work on supplemental methods
+
+### **15.06.2020** - work on supplemental methods an mailed off
+
+### **16.06.2020** - going through main text 
+
   * values to look up in new version of results script
     * total read count
     * total ASV count
     * number of unique port pairs
     * high, low, mean, median, sd of Unifrac values
   * commit `4128c0249aa8da3a6fa72378246882286c33c0c2`
-* **19.06.2020** - going through main text 
+
+### **19.06.2020** - going through main text 
+
   * for sequence counts inspecting summary files generated by `/Users/paul/Documents/CU_combined/Github/129_summarize_data_non_phylogenetic.sh`
     * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/129_18S_eDNA_samples_tab_Eukaryote-shallow.qzv`
     * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/129_18S_eDNA_samples_tab_Eukaryotes.qzv`
@@ -2357,47 +2727,65 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   
   * to summarize Unifrac values in manuscript updating
     * `200512_DI_unifrac_vs_jaccard.R`
-* **09.07.2020** - addressing revision remarks of todays meeting
+
+### **09.07.2020** - addressing revision remarks of todays meeting
+
   * want a a Reingold-Tilford graph from BLAST results
     * started in `/Users/paul/Documents/CU_combined/Github/550_85_get_shared_taxa-deep.R`
     * not finished yet
       * import to `Cytoscape` to `iGraph`: `/Users/paul/Documents/CU_combined/Zenodo/Results/200528_550_85_get_shared_taxa-deep.xlsx`
       * look at Erin's graph and iGraph manual
       * commit `c4ed3aa3887c23a74fa5ec62ee3eca3b6933f34a`
-* **10.07.2020** - addressing revision remarks - creating a visualisation
+
+### **10.07.2020** - addressing revision remarks - creating a visualisation
+
  * working on `/Users/paul/Documents/CU_combined/Github/200709_DI_blast_taxa_overview.R`
    * getting feature (ASV) counts to merge with Blast results
      * running `qiime tools view /Users/paul/Documents/CU_combined/Zenodo/Qiime/165_eDNA_samples_Eukaryotes_features_tree-matched.qzv`
      * saving to `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/200706_165_eDNA_samples_Eukaryotes_features_tree-matched__feature-frequency-detail.csv`
      * draft version with commit `ed9fc9e76a9dd2094e86b6cda88875d13948cda8`
      * probable should be rebuilt from data frame
-* **13.07.2020** - addressing revision remarks - creating a visualisation and further info
+
+### **13.07.2020** - addressing revision remarks - creating a visualisation and further info
+
   * keeping copy at `/Users/paul/Documents/CU_combined/Scratch/R/200709_DI_blast_taxa_overview.R`
   * working on `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
   * commit `370328a28cfed072190422bab4b80af69594e21`
-* **14.07.2020** - addressing revision remarks - creating a visualisation and further info
+
+### **14.07.2020** - addressing revision remarks - creating a visualisation and further info
+
   * adjusted code `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
   * saved to pertinent folders: `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/200714_12_most_common_sp.pdf`
   * commit `4490cecb2cfcc24a53760fec59e4184d08b5d7cc`
   * also created larger plot `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/200714_alll_phyla_at_all_ports.pdf`
   * `07ccb08b1966840a7641d3470a64a06e33ea35ab`
-* **15.07.2020** - addressing revision remarks - creating a visualisation and further info
+
+### **15.07.2020** - addressing revision remarks - creating a visualisation and further info
+
   * in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R` summarize plotted columns to get rid of artefacts
-* **16.07.2020** - addressing revision remarks - revising visualisations
+
+### **16.07.2020** - addressing revision remarks - revising visualisations
+
   * need to remove PH samples from plots and counts
   * started `c7e39228112390629257724a1d8691f3b4dc6cac`
   * successfully removed `PH` from display items and port counts in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
   * `bc0829d12997a21080355078941693836f2f122c`
-* **28.07.2020** - working on plotting script 
+
+### **28.07.2020** - working on plotting script 
+
   * working on `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
-* **29.07.2020** - working on plotting script 
+
+### **29.07.2020** - working on plotting script 
+
   * finished `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
   * updated manuscript and files
   * check todo for ongoing and more work
     * commit `bf342271e47458be54f8b0df9bd0603792db6b69`
   * changing plotting script - reverse to non-taxon agglomeration in last plot
     * commit ` 64dc8ba8781971e48dfd07000e53c1b9bf6c9892`
-* **30.07.2020** - working on re-Blasting controls
+
+### **30.07.2020** - working on re-Blasting controls
+
   * need to be working with - **pending**
       * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_features.csv`
       * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090_18S_controls_features.tsv`
@@ -2410,31 +2798,45 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * re-Blasting control data
     * adjusting and running `/Users/paul/Documents/CU_combined/Github/090-3_control_blast.sh`
     * `753e1611cdbffed4bf6695be83743979afa8a71c`
-* **31.07.2020** - working on re-Blasting controls
+
+### **31.07.2020** - working on re-Blasting controls
+
   * adjusting `/Users/paul/Documents/CU_combined/Github/090-3_control_blast.sh`
   * for blast script creating `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090-218S_controls_tab_qiime_artefacts_control/dna-sequences.fasta.gz`
   * using unpacked negative GI list `/Users/paul/Documents/CU_combined/Zenodo/Blast/190718_gi_list_environmental.txt`
-* **03.08.2020** - re-Blasting controls - now done on cluster
+
+### **03.08.2020** - re-Blasting controls - now done on cluster
+
   * commit before upload `81810a590c8cbff356aceacf45dbbc3f3827be0`
   * files hae arrived on cluster
   * starting Blast on `.gz` file
   * done - zippimg didn't work (path needed adjustment - done now)
   * pushing to cluter home
-* **04.08.2020** - re-Blasting controls - now done on cluster
+
+### **04.08.2020** - re-Blasting controls - now done on cluster
+
   * control Blast results are stored at `/Users/paul/Documents/CU_combined/Zenodo/Qiime/090-218S_controls_tab_qiime_artefacts_control/090-3_-sequences_blast_result_no_env.txt`
   * reading in control Blast results in script `/Users/paul/Documents/CU_combined/Github/090-4_process-blast_results_controls.R`
     * continue in line `43` -  **ok**
-* **06.08.2020** - annotating Blast results
+
+### **06.08.2020** - annotating Blast results
+
   * finished script `/Users/paul/Documents/CU_combined/Github/090-4_process-blast_results_controls.R` - **ok**
   * starting script `/Users/paul/Documents/CU_combined/Github/090-5_DI_blast_control_overview.R`
-* **07.08.2020** - annotating Blast results
+
+### **07.08.2020** - annotating Blast results
+
   * after re-running part II from line `100` - continue working with `phsq_ob_cp` - **ok**
-* **10.08.2020** - annotating Blast results
+
+### **10.08.2020** - annotating Blast results
+
   * in `/Users/paul/Documents/CU_combined/Github/090-5_DI_blast_control_overview.R`
     * plotted out phyla across controls - **ok**
     * next: check PCR controls and mock content - **pending**
   * commit `31cbedddccd7e8d809b8873c2d95d77dc475c54`
-* **14.09.2020** - creating a figure showing all taxa and inavsive taxa by port
+
+### **14.09.2020** - creating a figure showing all taxa and inavsive taxa by port
+
   * opening `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
     * add NIS-data plots
       * commit before further edits: `30631fb22eeb652552a4fa90239faca68abf150`
@@ -2444,14 +2846,20 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
       * `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/200914_all_taxa_across_ports.pdf`
       * `/Users/paul/Documents/CU_combined/Zenodo/Display_Item_Development/200914_nis_taxa_across_ports.pdf`
   * commit `e1e1e23cbf1e20b276fa04483d842fece3953647`
-* **07.10.2020** - in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+
+### **07.10.2020** - in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+
     * added seqection: `get species list for collaborators - Honolulu, Pearl Harbour (7. Oct. 2020)`
     * plot metazoans vs others - **partially done**
     * plot ASV per port  - **pending**
     * commit `23ce5b20dd2151186077b93bb06a21b67241cfc5`
-* **09.10.2020** - in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+
+### **09.10.2020** - in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+
   * continued analysis at very end and wrote `201009_distinct_phyla_member_counts_all_ports.pdf`
-* **11.10.2020** - in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+
+### **11.10.2020** - in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+
   * working with un-agglomerated Phylsoseq object now in lin 343 onwards
   * commit `1eb6cc7b1686e26d3ceb090e626444184b61c400`
   * revised code and overwrote old image - **ok**
@@ -2459,17 +2867,23 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * use not-tree agglomerated object next - **ok**
   * plot ASV per port - **ok**
   * commit `6e897dcf9a12f5f8a4e82c3210cdf6de17c51ba`
-* **13.10.2020** - in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+
+### **13.10.2020** - in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+
   * psychodelic barplots for David and analysis of diferences in phylum compostions - **ok**
   * agglomerate counts for phyla - **ok**
   * add ecoregion information as factor - **ok**
   * to test compositions possibly use the  function anosimof the library vegan - **ok**
     * no significant difference on phylum level per ecoregion
   * commit `a4a375ca03fb955487f1dab678a134fa408c66e8`
-* **14.10.2020** - in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+
+### **14.10.2020** - in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+
   * revise code to seperate out plots for metazoans
   * commit `d1d60cbb05a9fd24e4114d984e67bbec35f68f5a`
-* **15.10.2020** - in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+
+### **15.10.2020** - in `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
+
   * added numerous analyses to look at invasives and to complet results section
   * script messy now - if in doubt check commit history - **needs revision at some point**
   * commit `4030c9180e31cd993d5fe147a00d416b35f63b0`
@@ -2477,10 +2891,14 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * re-ran unmonitored to refresh plot dates
   * commit `0333655f77dc0f872d207cd9b0af53248b4bbe7`
   * updated file names of exports
-* **16.10.2020** - for new analyses (Jaccard of Invasive taxa against traffic variables)
+
+### **16.10.2020** - for new analyses (Jaccard of Invasive taxa against traffic variables)
+
   * from `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R`
     * sending off file for new NIS annotation to Kara
-* **19.10.2020** - received results from Kara for new analysis
+
+### **19.10.2020** - received results from Kara for new analysis
+
   * moving to scratch `mv /Users/paul/Documents/CU_combined/Github/200717_DI_main_results_calculations.R /Users/paul/Documents/CU_combined/Scratch/R`
   * creating new file `touch /Users/paul/Documents/CU_combined/Github/201019_DI_main_results_calculations.R_DI_main_results_calculations.R`
     * therein revising code of `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R` 
@@ -2495,7 +2913,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
     * in script `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R` - **started**
     * do analogous to `/Users/paul/Documents/CU_combined/Github/200713_DI_blast_taxa_overview.R` - **pending**
   * commit `06712937fb301cddb84194b6d5b5901d4ddbeb92`
-* **20.10.2020** - updated `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
+
+### **20.10.2020** - updated `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
+
    * I created a Jaccard distance matrix from putative NIS presences (henceforth: pNIS) across ports (as shown in plots below) and after “melting" the matrix to three columns, merged those Jaccard distances to one of our old modelling tables. The first couple of rows of the resulting table are shown in the R code below. 
    * The correlation test, done subsequently, is also shown below.
    * *pNIS Jaccard *distances* are negatively correlated with voyage counts (which is what we are testing mainly and hypothesized to see) and positive correlated with all other *distances*, also as expected. My interpretation of this is that we have a positive results as hypothesized.
@@ -2504,28 +2924,42 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
      * add traffic data - **ok**
      * new analysis - **ok**
    * commit `7502fac8d69443765d13c496736a1a2223a1c8c`
-* **21.10.2020** - updated `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
+
+### **21.10.2020** - updated `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
+
   * added partial correlation and semi-partial correlations
   * move to scratch: `/Users/paul/Documents/CU_combined/Scratch/R/200713_DI_blast_taxa_overview.R`
   * commit `c121c8d7980b0a4b70ce416bdd4cb02b933fe3a1`
-* **22.10.2020** - updated `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
+
+### **22.10.2020** - updated `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
+
   * added JA's way of plotting semi-partial correlations - with and without outliers removed
   * commit `b4743d68d3faacb3db809c5cf76510022e38401f`
-* **23.10.2020** - updated `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
+
+### **23.10.2020** - updated `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
+
   * using unscaled data
   * converting all variables to distances
   * using `J_B_HON_NOECO_NOENV` as traffic variable until further notice
   * with email requested help on correct variable to use - **resolved**
   * no commit yet
-* **27.10.2020** - updated `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
+
+### **27.10.2020** - updated `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
+
   * using `J_VOY_FREQ` as traffic variable until further notice
-* **30.10.2020** - updated `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
+
+### **30.10.2020** - updated `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
+
   * just checking row-sums of presence absence data
   * no commit yet
-* **21.11.2020** - updated `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
+
+### **21.11.2020** - updated `~/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
+
   * verifying numbers in `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/NSFPorts_eDNA_draft_21Nov20_PC.docx`
   * commit `2eb9909296b8594e303e4d0d9c552434d7c3fb9`
-* **24.11.2020** - updating manuscript file
+
+### **24.11.2020** - updating manuscript file
+
   * `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/NSFPorts_eDNA_draft_21Nov20_PC _with_crossrefs_chnages_accepted.docx`
   * `/Users/paul/Documents/CU_NIS-WRAPS/181113_mn_cu_portbio/NSFPorts_eDNA_supplement_draft_23Nov20_PC.docx`
     * in latter file checking read counts again in section `Obtaining biological response data` as done on **8-6-2020** above
@@ -2535,15 +2969,32 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * updating `/Users/paul/Documents/CU_combined/Github/200512_DI_unifrac_vs_jaccard.R`
   * sending file of to collaborators 
   * commit `adc2b9130b80f9edb8a706e9d7b7a69c18db211`
-* **03.02.2021** - pulling sequence data for Erin
+
+### **03.02.2021** - pulling sequence data for Erin
+
   * see `/Users/paul/Documents/CU_NIS-WRAPS/170728_external_presentations/210203_shallow_eukaryotes_data_extract.tar.gz`
-* **16.06.2022**
+
+### **16.06.2022**
+
   * including Joses script `/Users/paul/Documents/CU_combined/Github/220322_unifrac_glmer.R`
   * from `/Users/paul/Documents/CU_NIS-WRAPS_manuscript/220616_Mol_Ecol_revision/220416_scripts`
-* **16.06.2022**
-  * work on revision for Molecular Ecology:
+
+### **19.06.2022**
+
+ * work on revision for Molecular Ecology:
   * `/Users/paul/Documents/CU_NIS-WRAPS_manuscript/220616_Mol_Ecol_revision/220619_revisions_help_files`
   * `/Users/paul/Documents/CU_NIS-WRAPS_manuscript/220616_Mol_Ecol_revision/220619_revision_help.docx`
   * in script `/Users/paul/Documents/CU_combined/Github/201019_DI_main_results_calculations.R`
   * only minor adjustments, if in doubt consult git
   * commit `8db8042aece509ff87d3a8576b8a9581169accf9`
+
+### **24.11.2022** - starting to work on revision for Molecular Ecology
+
+ * updated README formatting for better Markdown compatibility
+ * for getting per sample accumulation curve
+   * inspecting `/Users/paul/Documents/CU_combined/Github/200608_DI_asv_accumulations_per_ports.R`
+   * script is still running and can be adjusted
+   * added sample wise plot - very slow
+   * workspace file saved at `/Users/paul/Documents/CU_combined/Github/nis_wraps_workspace.Rdata`
+  
+
