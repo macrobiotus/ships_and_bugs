@@ -2994,7 +2994,17 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
  * for getting per sample accumulation curve
    * inspecting `/Users/paul/Documents/CU_combined/Github/200608_DI_asv_accumulations_per_ports.R`
    * script is still running and can be adjusted
+   * exporting plots to `/Users/paul/Documents/CU_NIS-WRAPS_manuscript/221111_Mol_Ecol_revision/2_new_display_items`
+   * exported per port plot
    * added sample wise plot - very slow
    * workspace file saved at `/Users/paul/Documents/CU_combined/Github/nis_wraps_workspace.Rdata`
+ * commit `e36b06874760962f4e206117368ad5523e8008aa`
   
-
+### **24.11.2022** - starting to work on revision for Molecular Ecology
+ 
+ * in `/Users/paul/Documents/CU_combined/Github/200608_DI_asv_accumulations_per_ports.R`
+   * finished per sample / port accumulation curve depiction
+   * plots saved to `/Users/paul/Documents/CU_NIS-WRAPS_manuscript/221111_Mol_Ecol_revision/2_new_display_items/201124_DI_accummulation_curves_per_port_per_sample.pdf`
+ * workspace file saved at `/Users/paul/Documents/CU_combined/Github/nis_wraps_workspace.Rdata`
+ * commit ``
+ 
