@@ -3006,5 +3006,15 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
    * finished per sample / port accumulation curve depiction
    * plots saved to `/Users/paul/Documents/CU_NIS-WRAPS_manuscript/221111_Mol_Ecol_revision/2_new_display_items/201124_DI_accummulation_curves_per_port_per_sample.pdf`
  * workspace file saved at `/Users/paul/Documents/CU_combined/Github/nis_wraps_workspace.Rdata`
- * commit ``
+ * commit `e29a85e7ffcd4e0416de78f65d6512c101d25e91`
+ 
+ 
+### **28.11.2022** - continuing to work on revision for Molecular Ecology
+
+ * in `/Users/paul/Documents/CU_combined/Github/200608_DI_asv_accumulations_per_ports.R`
+   * re-added accidentally-erased group split
+ * created `/Users/paul/Documents/CU_combined/Github/221128_DI_asv_per_sample_accumulation.R`
+   * to plot species accumulation curves, per sample
+   * output saved at `/Users/paul/Documents/CU_NIS-WRAPS_manuscript/221111_Mol_Ecol_revision/2_new_display_items/201124_DI_asv_per_sample_per_port.pdf`
+ *   
  

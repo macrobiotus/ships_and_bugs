@@ -4,6 +4,8 @@
 # started 8-Jun-2020
 # appended 24-Nov-2022
 
+rm(list = ls())
+
 library("tidyverse") # for ggplot()
 library("reshape2")  # for melting data frames
 library("ggrepel")   # labels, if needed - not used
@@ -67,6 +69,7 @@ ggsave("201124_DI_accummulation_curves_per_port.pdf", plot = last_plot(),
 # plotting accumulation curves per port and sample
 # - needs separation of long table otherwise too slow to be useful (hours per plot)
 tbl_long
+port_list_tbl_long <- split(tbl_long, f = tbl_long[["port"]])
 
 # - plotting function
 get_ggplot_of_port_list = function(tbl_in_lst){
