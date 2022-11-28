@@ -8,6 +8,8 @@ rm(list = ls())
 
 # Load packages ----
 
+library("tidyr")     # data formatting
+library("dplyr")     # data formatting
 library("readr")     # data read-in
 library("magrittr")  # more pipes
 library("vegan")     # accumulation curves

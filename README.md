@@ -3016,5 +3016,5 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
  * created `/Users/paul/Documents/CU_combined/Github/221128_DI_asv_per_sample_accumulation.R`
    * to plot species accumulation curves, per sample
    * output saved at `/Users/paul/Documents/CU_NIS-WRAPS_manuscript/221111_Mol_Ecol_revision/2_new_display_items/201124_DI_asv_per_sample_per_port.pdf`
- * commit `451f8a912742332392fd93930c6d002877100355`
+ * commit `6ff1e105d558bc20327e7ef2e607c9e5a2c59d11`
  
