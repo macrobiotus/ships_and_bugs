@@ -2,7 +2,9 @@
 #
 # Paul Czechowski, 28-Nov-2022, paul.czechowski@gmail.com
 
-# Clean environment
+# Clean environment ----
+
+rm(list = ls())
 
 # Load packages ----
 
@@ -13,43 +15,54 @@ library("gglot2")    # for ggplot()
 library("reshape2")  # for melting data frames
 library("ggpubr")    # plot arrangements
 
-# Functions ---- 
+# Functions ----
 
-get_vegan_format = function (asv_tibl){
-  
+get_vegan_format = function (asv_tibl) {
   require("tidyr")
   require("magrittr")
   
   asv_tibl %<>% pivot_wider(names_from = asv_hash, values_from = asv_count)
-  asv_tibl %<>% select(-port) 
+  asv_tibl %<>% select(-port)
   
   # oddly needed by vegan - sample id's appear to be needed as numeric
   asv_tibl %<>% group_by(sample) %>% mutate(sample = cur_group_id())
   
-  
   return(asv_tibl)
-
+  
 }
 
-get_vegan_sac = function (asv_tibl_wide){
-  
+get_vegan_sac = function (asv_tibl_wide) {
   require("magrittr")
   require("vegan")
   
-  sac <- specaccum(asv_tibl_wide, 
+  sac <- specaccum(
+    asv_tibl_wide,
     method = "coleman",
     permutations = 500,
-          conditioned = TRUE, gamma = "Species",  w = NULL, ci.type = "polygon")
-  
+    conditioned = TRUE,
+    gamma = "Species",
+    w = NULL,
+    ci.type = "polygon"
+  )
   return(sac)
-
+  
 }
 
 # Load data ----
 
-asv_table_path <- c("/Users/paul/Documents/CU_combined/Zenodo/Qiime/175_eDNA_samples_Eukaryotes_features_tree-matched_qiime_artefacts/features-tax-meta.tsv")
+asv_table_path <-
+  c(
+    "/Users/paul/Documents/CU_combined/Zenodo/Qiime/175_eDNA_samples_Eukaryotes_features_tree-matched_qiime_artefacts/features-tax-meta.tsv"
+  )
 
-asv_table <- read_delim(asv_table_path, skip = 1, col_names = TRUE, trim_ws = TRUE, name_repair = "universal")
+asv_table <-
+  read_delim(
+    asv_table_path,
+    skip = 1,
+    col_names = TRUE,
+    trim_ws = TRUE,
+    name_repair = "universal"
+  )
 
 # Format data ----
 
@@ -62,16 +75,22 @@ asv_tibble %<>% select(!contains(c("BA", "PH", "CH")))
 colnames(asv_tibble)
 
 # for vegan, data needs to be split first, so long format is required
-asv_tibble_long <- pivot_longer(asv_tibble, !OTU.ID, names_to = "sample", values_to = "asv_count")
+asv_tibble_long <-
+  pivot_longer(asv_tibble,
+               !OTU.ID,
+               names_to = "sample",
+               values_to = "asv_count")
 
 # better name for asv identifier column
 asv_tibble_long %<>% rename(asv_hash = OTU.ID)
 
 # enable splitting data by port
-asv_tibble_long %<>% mutate(port = as.factor(substr(sample, start = 1, stop = 2)))
+asv_tibble_long %<>% mutate(port = as.factor(substr(
+  sample, start = 1, stop = 2
+)))
 
 # reorder to keep sanity
-asv_tibble_long %<>% relocate(asv_hash, port, sample, asv_count )
+asv_tibble_long %<>% relocate(asv_hash, port, sample, asv_count)
 
 # check ports in data
 # - "SI" "AD" "BT" "HN" "HT" "LB" "MI" "AW" "CB" "HS" "NO" "OK" "PL" "PM"
@@ -79,10 +98,12 @@ asv_tibble_long %<>% relocate(asv_hash, port, sample, asv_count )
 asv_tibble_long[["port"]] %>% unique
 
 # get a list of Tibbles for portwise plotting
-asv_tibble_long_split <- split(asv_tibble_long, f = asv_tibble_long[["port"]])
+asv_tibble_long_split <-
+  split(asv_tibble_long, f = asv_tibble_long[["port"]])
 
 # Pivot wider and transpose for vegan
-asv_tibble_wide_split <- lapply (asv_tibble_long_split, get_vegan_format)
+asv_tibble_wide_split <-
+  lapply (asv_tibble_long_split, get_vegan_format)
 
 # Generate Species Accumulation Curves ----
 sac_list <- lapply (asv_tibble_wide_split, get_vegan_sac)
@@ -94,36 +115,16 @@ length(sac_list)
 
 par(mfrow = c (7, 3), mar = c(2.0, 2.0, 2.0, 2.0))
 
-for (i in seq(length(sac_list))){
-  
-  plot(sac_list[[i]], main =  names(sac_list[i]), ylab = "ASVs", xlab = "Samples")
-  }
+for (i in seq(length(sac_list))) {
+  plot(
+    sac_list[[i]],
+    main =  names(sac_list[i]),
+    ylab = "ASVs",
+    xlab = "Samples"
+  )
+}
 
-dev.print(pdf, "/Users/paul/Documents/CU_NIS-WRAPS_manuscript/221111_Mol_Ecol_revision/2_new_display_items/201124_DI_asv_per_sample_per_port.pdf")
-
-
-
-
-# Plot data --- 
-
-# _1) Check example data
-
-data(package = "vegan")
-
-data(dune, package = "vegan")
-data(dune) # Vegetation and Environment in Dutch Dune Meadows
-str(dune) 
-
-dune.taxon
-
-
-# Build a vegan species accumulation curve
-
-foo <- 
-
-
-plot(foo)
-
-fara <- specpool(dune, smallsample = TRUE)
-
-plot(fara)
+dev.print(
+  pdf,
+  "/Users/paul/Documents/CU_NIS-WRAPS_manuscript/221111_Mol_Ecol_revision/2_new_display_items/201124_DI_asv_per_sample_per_port.pdf"
+)
