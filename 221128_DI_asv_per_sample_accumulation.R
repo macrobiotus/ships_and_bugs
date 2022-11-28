@@ -37,10 +37,10 @@ get_vegan_sac = function (asv_tibl_wide) {
   
   sac <- specaccum(
     asv_tibl_wide,
-    method = "coleman",
+    method = "exact",
     permutations = 500,
     conditioned = TRUE,
-    gamma = "Species",
+    gamma = "species",
     w = NULL,
     ci.type = "polygon"
   )
@@ -107,7 +107,6 @@ asv_tibble_wide_split <-
 
 # Generate Species Accumulation Curves ----
 sac_list <- lapply (asv_tibble_wide_split, get_vegan_sac)
-
 
 # Plot Species Accumulation Curves ----
 
