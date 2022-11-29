@@ -51,15 +51,30 @@ get_vegan_sac = function (asv_tibl_wide) {
 }
 
 # Load data ----
+# 
+# Rarefied Data 
+# * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/175_eDNA_samples_Eukaryotes_features_tree-matched_qiime_artefacts/features-tax-meta.tsv`
+# The following folder pairs should hold identical information: 
+# * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/181_18S_controls_tab_Eukaryote-shallow_qiime_artefacts_custom`
+# * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/181_18S_controls_tab_Eukaryotes_qiime_artefacts_custom`
+# and: 
+# * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/181_18S_eDNA_samples_tab_Eukaryote-shallow_qiime_artefacts_custom`
+# * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/181_18S_eDNA_samples_tab_Eukaryotes_qiime_artefacts_custom`
 
 asv_table_path <-
   c(
-    "/Users/paul/Documents/CU_combined/Zenodo/Qiime/175_eDNA_samples_Eukaryotes_features_tree-matched_qiime_artefacts/features-tax-meta.tsv"
+    "/Users/paul/Documents/CU_combined/Zenodo/Qiime/175_eDNA_samples_Eukaryotes_features_tree-matched_qiime_artefacts/features-tax-meta.tsv",
+    
+    "/Users/paul/Documents/CU_combined/Zenodo/Qiime/181_18S_controls_tab_Eukaryote-shallow_qiime_artefacts_custom/features-tax-meta.tsv",
+    "/Users/paul/Documents/CU_combined/Zenodo/Qiime/181_18S_controls_tab_Eukaryotes_qiime_artefacts_custom/features-tax-meta.tsv",
+    
+    "/Users/paul/Documents/CU_combined/Zenodo/Qiime/181_18S_eDNA_samples_tab_Eukaryote-shallow_qiime_artefacts_custom/features-tax-meta.tsv",
+    "/Users/paul/Documents/CU_combined/Zenodo/Qiime/181_18S_eDNA_samples_tab_Eukaryotes_qiime_artefacts_custom/features-tax-meta.tsv"
   )
 
 asv_table <-
   read_delim(
-    asv_table_path,
+    asv_table_path[4],
     skip = 1,
     col_names = TRUE,
     trim_ws = TRUE,
@@ -73,7 +88,7 @@ asv_tibble <- as_tibble(asv_table)
 colnames(asv_table)
 
 # some port ought to be removed
-asv_tibble %<>% select(!contains(c("BA", "PH", "CH")))
+# asv_tibble %<>% select(!contains(c("BA", "PH", "CH")))
 colnames(asv_tibble)
 
 # for vegan, data needs to be split first, so long format is required
@@ -115,7 +130,7 @@ sac_list <- lapply (asv_tibble_wide_split, get_vegan_sac)
 
 length(sac_list)
 
-par(mfrow = c (7, 3), mar = c(2.0, 2.0, 2.0, 2.0))
+par(mfrow = c (7, 4), mar = c(2.0, 2.0, 2.0, 2.0))
 
 for (i in seq(length(sac_list))) {
   plot(
@@ -128,5 +143,5 @@ for (i in seq(length(sac_list))) {
 
 dev.print(
   pdf,
-  "/Users/paul/Documents/CU_NIS-WRAPS_manuscript/221111_Mol_Ecol_revision/2_new_display_items/201124_DI_asv_per_sample_per_port.pdf"
+  "/Users/paul/Documents/CU_NIS-WRAPS_manuscript/221111_Mol_Ecol_revision/2_new_display_items/201124_DI_asv_per_sample_per_port_unfiltered.pdf"
 )

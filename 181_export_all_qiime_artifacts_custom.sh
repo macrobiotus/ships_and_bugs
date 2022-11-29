@@ -10,6 +10,13 @@
 #   which reads files starting with `115_*{_tab_|_seq_}_*.qza` 
 #   from script `/CU_combined/Github/115_isolate_taxa.sh`
 #   those are the raw data, which are exported here for Erin
+# the following folder pairs should hold identical information: 
+#   `/Users/paul/Documents/CU_combined/Zenodo/Qiime/181_18S_controls_tab_Eukaryote-shallow_qiime_artefacts_custom`
+#   `/Users/paul/Documents/CU_combined/Zenodo/Qiime/181_18S_controls_tab_Eukaryotes_qiime_artefacts_custom`
+# and: 
+#   `/Users/paul/Documents/CU_combined/Zenodo/Qiime/181_18S_eDNA_samples_tab_Eukaryote-shallow_qiime_artefacts_custom`
+#   `/Users/paul/Documents/CU_combined/Zenodo/Qiime/181_18S_eDNA_samples_tab_Eukaryotes_qiime_artefacts_custom`
+
 
 # For debugging only
 # ------------------ 
@@ -100,7 +107,7 @@ for i in "${!inpth_features[@]}"; do
 #     echo "---------"
 #     echo "$results_dir"
 #     echo "---------"
-    # exit
+#     exit
     
     if [ ! -d "$results_dir" ]; then
     

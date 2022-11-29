@@ -3020,7 +3020,6 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
  * created `/Users/paul/Documents/CU_combined/Github/221128_export_qiime_tables.sh`
    * to export OTU tables `/Users/paul/Documents/CU_combined/Zenodo/Qiime/115*tab*`
    * as per `https://forum.qiime2.org/t/exporting-and-modifying-biom-tables-e-g-adding-taxonomy-annotations/3630`
- * commit `foo`
 
 ### **29.11.2022** - continuing to work on revision for Molecular Ecology
 
@@ -3029,4 +3028,13 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
  * creating script `/Users/paul/Documents/CU_combined/Github/181_export_all_qiime_artifacts_custom.sh`
  * from script `/Users/paul/Documents/CU_combined/Github/180_export_all_qiime_artifacts_non_phylogenetic.sh`
  * ran `/Users/paul/Documents/CU_combined/Github/181_export_all_qiime_artifacts_custom.sh`
-  * commit `foo` 
+ * commit `a24eb0fd76d8012e250394c7ff5d6a490f37ef48`
+ * the following folder pairs should hold identical information: 
+   * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/181_18S_controls_tab_Eukaryote-shallow_qiime_artefacts_custom`
+   * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/181_18S_controls_tab_Eukaryotes_qiime_artefacts_custom`
+ * and: 
+   * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/181_18S_eDNA_samples_tab_Eukaryote-shallow_qiime_artefacts_custom`
+   * `/Users/paul/Documents/CU_combined/Zenodo/Qiime/181_18S_eDNA_samples_tab_Eukaryotes_qiime_artefacts_custom`
+ * testing data in `/Users/paul/Documents/CU_combined/Github/221128_DI_asv_per_sample_accumulation.R`
+ * syncing files to Nextcloud for Erin 
+ * `rsync  -azvi --progress --relative /Users/paul/Documents/./CU_combined/Zenodo/Qiime/181_* /Users/paul/Nextcloud/`
