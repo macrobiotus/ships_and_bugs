@@ -3016,5 +3016,17 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
  * created `/Users/paul/Documents/CU_combined/Github/221128_DI_asv_per_sample_accumulation.R`
    * to plot species accumulation curves, per sample
    * output saved at `/Users/paul/Documents/CU_NIS-WRAPS_manuscript/221111_Mol_Ecol_revision/2_new_display_items/201124_DI_asv_per_sample_per_port.pdf`
- * commit `6ff1e105d558bc20327e7ef2e607c9e5a2c59d11`
- 
+ * commit `79830000f0c741b87556ed0f2396c84dac29ac87`
+ * created `/Users/paul/Documents/CU_combined/Github/221128_export_qiime_tables.sh`
+   * to export OTU tables `/Users/paul/Documents/CU_combined/Zenodo/Qiime/115*tab*`
+   * as per `https://forum.qiime2.org/t/exporting-and-modifying-biom-tables-e-g-adding-taxonomy-annotations/3630`
+ * commit `foo`
+
+### **29.11.2022** - continuing to work on revision for Molecular Ecology
+
+ * exporting abundance values for Erin
+ * erased `/Users/paul/Documents/CU_combined/Github/221128_DI_asv_per_sample_accumulation.R`
+ * creating script `/Users/paul/Documents/CU_combined/Github/181_export_all_qiime_artifacts_custom.sh`
+ * from script `/Users/paul/Documents/CU_combined/Github/180_export_all_qiime_artifacts_non_phylogenetic.sh`
+ * ran `/Users/paul/Documents/CU_combined/Github/181_export_all_qiime_artifacts_custom.sh`
+  * commit `foo` 
