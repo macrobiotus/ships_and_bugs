@@ -3038,3 +3038,40 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
  * testing data in `/Users/paul/Documents/CU_combined/Github/221128_DI_asv_per_sample_accumulation.R`
  * syncing files to Nextcloud for Erin 
  * `rsync  -azvi --progress --relative /Users/paul/Documents/./CU_combined/Zenodo/Qiime/181_* /Users/paul/Nextcloud/`
+ * commit `2d080e4200a846d0d34874ff9d379f3950539120`
+
+### **28.12.2022** - continuing to work on revision for Molecular Ecology
+ 
+ * as per Jose attempting to get comparable plots for Jaccard and Unifrac distances
+ * reading Erin's Jaccard accumulation script script `/Users/paul/Documents/CU_NIS-WRAPS_manuscript/221111_Mol_Ecol_revision/3_analyses/221228_PC_jaccard_accumulation_script.R`
+   * re-calculates Jaccard distances from scratch using `vegdist()`
+   * and using exported metadata table `/Users/paul/Documents/CU_NIS-WRAPS_manuscript/221111_Mol_Ecol_revision/3_analyses/features-tax-meta.tsv`
+   * `vegdist()`does not implement UNIFRAC distance
+ * possible solution: re-run old UNIFRAC plotting code with Jaccard distances
+ * UNIFRAC testing code is stored at
+   * `/Users/paul/Documents/CU_combined/Github/500_05_test_sampling_effort_deep.R`
+   * `/Users/paul/Documents/CU_combined/Github/500_05_test_sampling_effort_shallow.R`
+   * code doesn't run anymore
+ * getting archived code:
+   * expanding `/Users/paul/Archive/Cornell/CU_cmbd_rf_test.zip` and deleting expansion afterwards
+   * copying archived analysis code `cp /Users/paul/Archive/Cornell/CU_cmbd_rf_test/Github/500_10_UNIFRAC_behaviour.R /Users/paul/Documents/CU_NIS-WRAPS_manuscript/221111_Mol_Ecol_revision/3_analyses`
+   * renaming `mv /Users/paul/Documents/CU_NIS-WRAPS_manuscript/221111_Mol_Ecol_revision/3_analyses/500_10_UNIFRAC_behaviour.R /Users/paul/Documents/CU_NIS-WRAPS_manuscript/221111_Mol_Ecol_revision/3_analyses/180924_distance_test_UNIFRAC.R`
+   * created git repository
+   * found bug, fixed,`apply()` call must not be simplified in function as per git tracking
+   * to be continued
+
+### **30.12.2022** - continuing to work on revision for Molecular Ecology
+
+ * did several plots - see commit history in `/Users/paul/Documents/CU_NIS-WRAPS_manuscript/221111_Mol_Ecol_revision/3_analyses`
+
+### **31.12.2022** - continuing to work on revision for Molecular Ecology
+
+ * implemented mean centring
+
+### **02.12.2023** - continuing to work on revision for Molecular Ecology
+
+ * started implementing processin of data in parallel 
+
+### Next up
+ 
+ * wait for next request
