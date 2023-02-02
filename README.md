@@ -1,39 +1,26 @@
-# Analysing combined 18S data from all ports with available sequence data
+# Environment and shipping drive eDNA beta-diversity among commercial ports
+
+Part of **MEC-22-0945.R1**. Pre-print with linked final manuscript version available at BioRxiv with doi: [10.1101/2021.10.07.463538](https://doi.org/10.1101/2021.10.07.463538 ). Please refer to the published manuscript for a full list of available digital resources associated with this manuscript. This file was created by Paul Czechowski on 2-Feb-2023. For questions email [paul.czechowski@helmholtz-muenchen.de](mailto:paul.czechowski@helmholtz-muenchen.de) or the authors listed on the published manuscript.
 
 ## Abstract
+Spread of non-indigenous species by shipping is a large and growing global problem that harms coastal ecosystems and economies and may blur coastal biogeographic patterns. This study coupled eukaryotic environmental DNA (eDNA) metabarcoding with dissimilarity regression to test the hypothesis that ship-borne species spread homogenizes port communities and to evaluate alternative ship-born species transport risk metrics to aid policy and management. We first collected and metabarcoded water samples from ports in Europe, Asia, Australia, and the Americas. We then calculated community dissimilarities between port pairs and tested for effects of environmental dissimilarity, biogeographic region, and four alternative measures of ship-borne species transport risk. We predicted that higher shipping between ports would decrease community dissimilarity, that shipping’s effect would be small compared to that of environment dissimilarity and shared biogeography, and that more complex shipping risk metrics (which account for ballast water and stepping-stone spread) would perform better. Consistent with our hypotheses, community similarities significantly increased with environmental dissimilarity and, to a lesser extent, decreased with ship-borne species transport risks, particularly if the ports had similar environments and stepping-stone risks were considered. Unexpectedly, we found no clear effect of shared biogeography and that ballast risk metrics did not offer more explanatory power than simpler traffic-based risks. Overall, we found that shipping homogenizes eukaryotic communities between ports in predictable ways, demonstrating the usefulness of eDNA metabarcoding and dissimilarity regression for disentangling the drivers of large-scale biodiversity patterns. We conclude by outlining logistical considerations and recommendations for future studies using this approach.
 
-We tested if the null hypothesis "Increasing shipping traffic does not
-homogenize overall eukaryotic biodiversity between shipping ports" can be
-rejected. To do so, we used used a linear random effect model. Considered
-parameters where 5-year-summed first order voyage counts between 24 ports, a
-compound variable calculated from salinity and temperature values, and the
-crossing of different ecoregions, while each unique route was assumed to have
-specific, random factors influencing survival of taxa potentially contained in
-ballast water pr on the hull. We find that changes in Unifrac distances indeed
-are positively and significantly correlated with increasing counts of Voyages.
-Consequently, high shipping traffic between the considered ecologically distant
-ports appear to be correlated with high similarity of their respective
-eukaryotic communities. It remains to be determined if the observed effect is
-caused by transport of organisms between ports, or the presence of depauperate
-communities in polluted port waters, or both.
+**Key Words:** metabarcoding, eDNA, shipping, ports, dissimilarity analysis, 18S
 
 ## Notes
 
-This folder was created 24.01.2018 by copying folder
-`/Users/paul/Documents/CU_Pearl_Harbour`. Folder was and last updated
-23.03.2018. The `GitHub` and `Transport` folders are version tracked, and they
+* This folder contained scripts for the Qiime-based conversion of eDNA sequence data into tables suitable for analysis.
+
+* This folder was created 24.01.2018 by copying folder
+/Users/paul/Documents/CU_Pearl_Harbour. Folder was and last updated
+23.03.2018. The GitHub and Transport folders are version tracked, and they
 are copies from earlier repositories.
 
-This folder will be used to combine all project data from individual runs.
+* This folder was used to combine all project data from individual runs.
 Sequence runs are processed individually until the denoising step and then
 merged here.
 
-Data will be included via manifest files and metadate files linked in at
-`065_merge_data.sh`. Current samples include: * data of Singapore, Adelaide,
-Chicago, sourced from `/Users/paul/Documents/CU_SP_AD_CH` 7   * data of Pearl
-Harbor, sourced from `/Users/paul/Documents/CU_SP_AD_CH`
-
-## History and Progress Notes
+## Analysis Progress Notes
 
 ### **24.01.2018** - creating and adjusted folder structure and contents
 
@@ -3072,6 +3059,20 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
 
  * started implementing processin of data in parallel 
 
-### Next up
- 
- * wait for next request
+### **02.02.2023** - starting data upload to NCBI SRA
+
+  * looking at `~/Documents/CU_combined/Github/181_export_all_qiime_artifacts_custom.sh`
+  * looking at `~/Documents/CU_combined/Github/127_select_random_samples.R`
+     * finding manifest `~/Documents/CU_combined/Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_all.tsv")`
+     * finding manifest `~/Documents/CU_combined/Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_grp.tsv")`
+     * collapsed sample per port mentioned therein, as well
+  * from SRA
+    * downloading template `/Users/paul/Documents/CU_NIS-WRAPS_manuscript/230201_data_submission/230201_sra/MIMARKS.survey.water.6.0.xlsx`
+    * filling `/Users/paul/Documents/CU_NIS-WRAPS_manuscript/230201_data_submission/230201_sra/MIMARKS.survey.water.6.0_filled.xlsx`
+    * using `/Users/paul/Documents/CU_NIS-WRAPS/170726_sample_info/180314_cs_samples.xlsx`
+    * using `/Documents/CU_combined/Zenodo/Manifest/127_18S_5-sample-euk-metadata_deep_all.tsv")`
+    * using `/Users/paul/Documents/CU_NIS-WRAPS/170726_sample_info/170830_cs_field_notes.pdf`
+  * used R script `/Users/paul/Documents/CU_combined/Github/230223_get_sra_filenames.R`
+    * to collate sequence files from network storage
+    * to fill file names into templates provided by SRA
+
