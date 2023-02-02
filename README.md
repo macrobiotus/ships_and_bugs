@@ -3075,4 +3075,5 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * used R script `/Users/paul/Documents/CU_combined/Github/230223_get_sra_filenames.R`
     * to collate sequence files from network storage
     * to fill file names into templates provided by SRA
+  * commit `e60a077323e0f43d2f6278f187e29023025f5627`
 
