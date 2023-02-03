@@ -681,7 +681,7 @@ merged here.
       * re-combine data and files
    * starting revision of metadata files - introducing `Location` column, but accepting unused inconsistent salinity values
       * revised `/Users/paul/Documents/CU_Pearl_Harbour/Zenodo/Manifest/05_metadata.xlsx` - not yet exported
-      * revised `/Users/paul/Documents/CU_RT_AN/Zenodo/Manifest/10_18S_mapping_file_10410623.xlsx` - not yest exported`
+      * revised `/Users/paul/Documents/CU_RT_AN/Zenodo/Manifest/10_18S_mapping_file_10410623.xlsx` - not yest exported
       * revised `/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_26.xlsx` - not yet exported
       * revised `/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_29.xlsx` - not yet exported
       * revised `/Users/paul/Documents/CU_SP_AD_CH/Zenodo/Manifest/005_metadata_34.xlsx` - not yet exported
@@ -830,7 +830,7 @@ merged here.
   * adjusted and ran `/Users/paul/Documents/CU_combined/Github/122_alpha_rarefaction_curves.sh` - test ok 
   * committed
   * starting full analysis using default values for now - pending
-  * can't call `
+  * can't call
   * Qiime forum post posted - corrected in script - redoing with mant more metrics
   * continue with R scripts:
     * check `/Users/paul/Documents/CU_combined/Github/500_05_UNIFRAC_behaviour.R`
@@ -892,7 +892,7 @@ merged here.
     * finished - inconclusive - render R scripts
     * saving main model output to `/Users/paul/Documents/CU_combined/Zenodo/Results/505_80_mixed_effect_model__model_output.pdf`
   * moving R renders to Results folder via `/Users/paul/Documents/CU_combined/Github/move_preliminary_documentation.sh`
-  * script `/Users/paul/Documents/CU_combined/Github/122_alpha_rarefaction_curves.sh* still throws errors` - use new metadata?`
+  * script `/Users/paul/Documents/CU_combined/Github/122_alpha_rarefaction_curves.sh* still throws errors` - use new metadata?
   * commit
   * in `/Users/paul/Documents/CU_combined/Github/500_00_functions.R` changing matrix lumping back to `mean` - commit
   * re-running `/Users/paul/Documents/CU_combined/Github/505_80_mixed_effect_model.R`
@@ -936,7 +936,7 @@ merged here.
     * `qiime tools view ../Zenodo/Qiime/105_18S_097_cl_metzn_tab.qzv`
     * `qiime tools view ../Zenodo/Qiime/105_18S_097_cl_metzn_seq.qzv`
   * from now on use Vsearch parameters as established today in `CU_mock` with `qiime 2019.1`.
-  * if possible include  include new data denoised with Qiime 2018-11 for consistency
+  * if possible include include new data denoised with Qiime 2018-11 for consistency
 
 ### **12.04.2019** - break
 
@@ -1713,7 +1713,7 @@ merged here.
     * not truncating filename anymore
     * re-run for all data - ok
     * abort condition test - will not re-run on available data
-  * adjusting and running `/Users/paul/Documents/CU_combined/Github/190_export_JAQUARD_distance_artefacts.sh
+  * adjusting and running `/Users/paul/Documents/CU_combined/Github/190_export_JAQUARD_distance_artefacts.sh`
     * as previous script - was already done? - re-running
   * commit ` 63bf24eeea504cff259408e0f1341512f887d911`
 
@@ -2514,8 +2514,8 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
 
 ### **20.05.2020** - working on new Blast results for Kara and ERin - deep and shallow
 
-      * continuing from yesterday: started taxonomy lookup using Taxonomizr
-      * finished and mailed off - see script for saved locations
+ * continuing from yesterday: started taxonomy lookup using Taxonomizr
+   * finished and mailed off - see script for saved locations
     * **done** - `/Users/paul/Documents/CU_combined/Github/560_process-blast_results_shallow.R`
       * commit `9b769eedde672a370bad90f8d9d68a44c2c60cd`
   * **done** - `pigz /Users/paul/Documents/CU_combined/Zenodo/Blast/*no_env.txt`
@@ -2527,9 +2527,9 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
   * working on script `/Users/paul/Documents/CU_combined/Github/500_05_test_sampling_effort.R`
     * in line ~154 now using `by()` instead of `apply()`:
       * `# commented out 24.05.2010`
-      * `# unifrac_matrices <- apply(port_combinations, 1, function (prt_elmt) get_matrix_from_port_pair(prt_elmt[1], prt_elmt[2], unifrac_matrix))``
-      * ` # replacement code 24.05.2010
-      * ` unifrac_matrices <- by(port_combinations, 1:nrow(port_combinations), function (prt_elmt) get_matrix_from_port_pair(prt_elmt[1], prt_elmt[2], unifrac_matrix))
+      * `# unifrac_matrices <- apply(port_combinations, 1, function (prt_elmt) get_matrix_from_port_pair(prt_elmt[1], prt_elmt[2], unifrac_matrix))`
+      * `# replacement code 24.05.2010`
+      * `unifrac_matrices <- by(port_combinations, 1:nrow(port_combinations), function (prt_elmt) get_matrix_from_port_pair(prt_elmt[1], prt_elmt[2], unifrac_matrix))`
     * seems to be working
     * still **pending** run script with full bootstrapping, both files, and save intermediate files and display items!
   * commit `3de6ba8a4872c2164680f6e042605156a09dd3e6`
@@ -2582,7 +2582,7 @@ gawk -F "," 'NR==FNR{a[FNR]=$2;next}$2!=a[FNR]{print "They are dfifferent"; exit
 ### **09.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
 
   * finished `/Users/paul/Documents/CU_combined/Github/200608_DI_asv_accumulations_per_ports.R`
-  * commit `* **08.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"
+  * commit `* **08.06.2020** - work on supplemental methods, section "Confirming sufficient sequencing depth, appropriate distance metric and sampling effort"`
   * akin to `/Users/paul/Documents/CU_combined/Zenodo/Qiime/120_18S_eDNA_samples_tab_Eukaryotes.qzv`
     * **deep** depth (for Eukaryotes) was `49974`, **now:** `49900`
       * retains 10,279,400 (36.64%) features in 206 (81.42%) samples at the specifed sampling depth
